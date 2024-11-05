@@ -16,10 +16,11 @@
 
 #Cách xem thư mục đang làm việc (pwd)
 
-#Cách xem lịch sử của các lệnh đã gõ, đã thực hiện
+#Cách xem lịch sử của các lệnh đã gõ, đã thực hiện (history)
 
-
-
+- Tìm kiếm lệnh cụ thể trong lịch sử: history | grep <từ khóa> <br>
+  VD: history | grep ls
+- 
 #Kiến thức hệ thống
 #Cài đặt và quản lý gói
 #Lệnh GNU và Unix
