@@ -12,3 +12,12 @@ Linux coi tất cả các thiết bị phần cứng là dưới dạng như là
 
 #Distro Linux
 
+Distro (distribution) các bản phân phối hệ điêu hành Linux
+- Ubuntu: người dùng cá nhân và doanh nghiệp, cloud do cộng đồng hỗ trợ lớn, có nhiều tài liệu hướng dẫn.
+- Debian: cá nhân và doanh nghiệp cần một hệ thống ổn định do ít cập nhật nền tảng cho nhiều bản ubuntu.
+- Fedora: Cho ai muốn trải nghiệm công nghệ mới, được Red Hat hỗ trợ.
+- CentOS / AlmaLinux / Rocky Linux: hệ thống máy chủ và doanh nghiệp do ổn định và bảo mật cao.
+- Arch Linux: Cho ai muốn tự cấu hình hệ thống.
+- Linux Mint: Người dùng mới làm quen với Linux.
+- Kali Linux: bảo mật, chuyên gia an ninh mạng, hắc cơ.
+- Red Hat Enterprise Linux (RHEL): Doanh nghiệp và tổ chức lớn cần một hệ thống hỗ trợ chuyên nghiệp.
