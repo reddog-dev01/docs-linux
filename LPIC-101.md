@@ -1,6 +1,6 @@
-#Các loại shell trong Linux
+#Cách thay đổi thư mục làm việc (cd)
 
-- Bash, zsh, fish, ksh, csh
+- dsadasd
 
 #Kiến thức hệ thống
 #Cài đặt và quản lý gói
