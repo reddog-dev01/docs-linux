@@ -7,8 +7,8 @@
 - Di chuyển đến thư mục cha: cd .. hoặc 2 cấp: cd ../..
 - Di chuyển đến thư mục root(/): cd /
   
-  ~ đại diện thư mục gốc của người dùng hiện tại
-  . đại diện đại diện cho thư mục hiện tại
+  ~ đại diện thư mục gốc của người dùng hiện tại \n
+  . đại diện đại diện cho thư mục hiện tại \n
   .. đại diện cho thư mục cha của thư mục hiện tại
   
 - LƯU Ý: để đến thư mục gốc của mình dùng cd~ nhưng đến như mục gốc người khác dùng cd~user
