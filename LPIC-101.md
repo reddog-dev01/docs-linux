@@ -1,4 +1,4 @@
-#Cách thay đổi thư mục làm việc (cd)
+#Cách thay đổi thư mục làm việc (cd)  
 
 - Có thể sử dụng đường dẫn tuyệt đối, đường dẫn tương đối hoặc giá trị trong biến làm phần của đường dẫn.
 - VD: cd /home/user/Documents (đường dẫn tuyệt đối là bắt đầu từ thư mục gốc) hoặc cd Documents (đường dẫn tương đối là bắt đầu từ thư mục hiện tại)
