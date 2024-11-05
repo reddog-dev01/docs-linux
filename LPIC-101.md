@@ -1,6 +1,6 @@
 #Cách thay đổi thư mục làm việc (cd)
 
-- dsadasd
+- dsadasdxzc
 
 #Kiến thức hệ thống
 #Cài đặt và quản lý gói
