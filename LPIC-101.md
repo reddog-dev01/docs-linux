@@ -174,7 +174,46 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 
 -----------------------------------------------------------------------------------------------------
 #Editor File
-# Cách sử dụng vim
+#Cách sử dụng vim
+#normal mode: mặc định
+- h, j, k, l Di chuyển sang trái, xuống, lên, phải (tương đương với các phím mũi tên).
+- w Nhảy đến đầu từ tiếp theo.
+- b Nhảy đến đầu từ trước đó.
+- 0 Nhảy đến đầu dòng hiện tại.
+- $ Nhảy đến cuối dòng.
+- yy Sao chép một dòng.
+- dd Xóa một dòng.
+- p Dán văn bản.
+
+#insert mode: nhập chỉnh sửa văn bản
+- Nhấn i Chèn từ vị trí con trỏ hiện tại.
+- Nhấn I Chèn ở đầu dòng hiện tại.
+- Nhấn a Chèn sau vị trí con trỏ hiện tại.
+- Nhấn A Chèn ở cuối dòng hiện tại.
+- Nhấn o Tạo dòng mới phía dưới dòng hiện tại và chuyển vào chế độ Insert.
+- Nhấn O Tạo dòng mới phía trên dòng hiện tại và chuyển vào chế độ Insert.
+#visual mode: cho phép bôi đen để copy, xóa, thay thế
+- Nhấn v Bắt đầu chọn ký tự.
+- Nhấn V Chọn toàn bộ dòng.
+- Nhấn Ctrl + v Chế độ Visual Block (chọn theo khối hình chữ nhật).
+#command-line mode 
+- Nhấn : Mở dòng lệnh để nhập lệnh.
+- Nhấn / Tìm kiếm theo từ khóa.
+- Nhấn ? Tìm kiếm ngược theo từ khóa.
+#replace mode
+- Nhấn R trong chế độ Normal để vào chế độ Replace
+#select mode
+- Nhấn gh để chuyển vào chế độ Select từ chế độ Normal (có thể không được hỗ trợ trên một số bản Vim).
+#Ex mode
+- Nhấn Q từ chế độ Normal để vào Ex Mode.
+--------------------------------------------------------------------------------------------------------
+
+#Text-based window manager and terminal multiplexer
+#byobu
+![image](https://github.com/user-attachments/assets/e485451f-4503-417c-9491-931dd7fa67ed)
+#cài tự dộng bật cùng terminal
+byobu-enable
+https://superuser.com/questions/712413/how-to-load-byobu-automatically-when-terminal-started
 
 #Kiến thức hệ thống
 #Cài đặt và quản lý gói
