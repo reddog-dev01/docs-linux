@@ -90,6 +90,52 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 
 --------------------------------------------------------------------------------------------------------------------------------
 
+#Processing Text (Các lệnh liên quan xem tập tin văn bản)
+#cat
+- hiển thị nội dung của 1 tập tin
+- có thể nối nội dung của nhiều tập VD: cat file1.txt file2.txt
+- Tạo 1 file nhập nội dung từ bàn phím VD: cat > file.txt
+- Thêm nội dung vào file có sẵn VD: cat >> file.txt sử dụng Ctrl +D để kết thúc. Các lệnh này có thể kết hợp.
+- Đánh số dòng: cat -n file.txt
+- Đánh số dòng trống: cat -b file.txt
+#tac
+- cùng chức năng như cat nhưng hiển thị từ cuối lên đầu
+#sort
+- sắp xếp các dòng trong file
+- sắp xếp giảm: sort -r
+- sắp xếp theo cột: sort -k
+- sắp xếp bỏ qua chữ hoa, chữ thường: sort -f
+- sắp xếp bỏ qua dòng trùng lặp: sort -u
+- sắp xếp theo thứ tự số: sort -n
+#split
+- chia 1 file thành nhiều file lẻ
+- -a [#] khi tạo các file chia, đặt tên chúng là 'x#' VD: -a 5 tạo ra file 'xaaaaa'
+- -b [#][b/k/m] file mới chứa số lượng byte/kilobyte/megabyte được chỉ định
+- - [#] files mới chứa số lượng byte hoặc dòng được chỉ định
+- -l [#] files mới chứa số lượng dòng được chỉ định
+#uniq
+- cho phép trích xuất chỉ các dòng dữ liệu 'duy nhất' từ file
+- Áp dụng sắp xếp vào file trước khi chạy lệnh này (đặc biệt là các file lớn)
+- -u [filename] chỉ in ra các dòng duy nhất trong file
+- -d [filename] in ra ví dụ của mỗi dòng bị lặp lại trong file
+- -D [filename] in ra TẤT CẢ các trường hợp của các dòng bị lặp lại trong file
+#head
+- Tương tự như lệnh cat vì nó sẽ hiển thị nội dung của một file, nhưng chỉ hiển thị một số dòng nhất định từ đầu (mặc định là 10)
+- -n [#] [filename] hiển thị số dòng, bắt đầu từ đầu, của tệp được chỉ định
+#tail
+- hiển thị một số dòng nhất định từ cuối file (mặc định 10)
+- -n [#] [filename] - hiển thị số dòng, bắt đầu từ cuối, của file được chỉ định
+- -f [filename] - hiển thị bất kỳ dòng mới nào được thêm vào file sau khi bạn đã chạy lệnh VD: tail -n 10 -f /var/log/syslog
+#less
+- Cho phép xem file nhưng hữu ích hơn cat
+- space di chuyển đến màn hình tiếp theo
+- q thoát
+#cut
+- trích xuất dữ liệu trường hoặc cột từ một vị trí cụ thể trong file được chỉ định
+- -c [#][-#] [filename] sẽ chỉ hiển thị cột (hoặc phạm vi cột) từ tệp được chỉ định
+- -d[delimiter] thiết lập ký tự phân cách để sử dụng khi xử lý các trường (mặc định - TAB)
+- -f [field1[,field2[,field3]]] [filename] xác định số trường (được xác định bằng ký tự phân cách) để hiển thị từ file được chỉ định
+#wc
 
 #Kiến thức hệ thống
 #Cài đặt và quản lý gói
