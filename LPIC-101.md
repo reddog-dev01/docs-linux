@@ -136,6 +136,45 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - -d[delimiter] thiết lập ký tự phân cách để sử dụng khi xử lý các trường (mặc định - TAB)
 - -f [field1[,field2[,field3]]] [filename] xác định số trường (được xác định bằng ký tự phân cách) để hiển thị từ file được chỉ định
 #wc
+- -l là đếm số dòng
+- -w là đếm số từ
+- -c số ký tự (byte)
+- sử dụng như 1 lệnh bổ sung của lệnh khác VD cat /etc/passwd | wc -l
+#grep
+- Dùng để tìm kiếm chuỗi trong file, luồng, thư mục.
+- -i tìm kiếm không phân biệt chữ hoa, chữ thường
+- -v hiển thị các dòng không chứa từ khóa
+- -n hiển thị số dòng chứa từ khóa
+- -c đếm số dòng chứa từ khóa
+- -w tìm kiếm chính xác từ khóa tức là chỉ khớp các dòng chứa toàn bộ chuỗi hoặc cụm từ
+- -A hiển thị thêm 1 số dòng sau dòng khớp VD: grep -i -A 3 "fail" text.txt
+- -B hiển thị thêm 1 số dòng trước dòng khớp
+- -C hiển thị thêm 1 số dòng cả trước và sau dòng khớp
+- -l Chỉ hiển thị tên file chứa từ khóa VD: grep -l "word" *.txt
+- -L chỉ hiển thị tên file không chứa từ khóa
+- -E sử dụng biển thức chính quy mở rộng VD: grep -E "^word|^fail" text.txt
+#sed
+- dùng để xử lý và thao tác văn bản. Đặc biệt là trong các tệp văn bản hoặc dòng đầu ra từ các lệnh khác. Cho phép các thao tác như tìm kiếm, thay thế, chèn, xóa dữ liệu trong văn bản.
+- thay thế văn bản: sed 's/tim_kiem/thay_the/' filename
+- thay thế toàn bộ xuất hiện trên mỗi dòng: sed 's/tim_kiem/thay_the/g' file.txt
+- thay thế trực tiếp trong file: sed -i 's/tim_kiem/thay_the/g' file.txt
+- sed '/chuoi_xoa/d' file.txt
+- xóa 1 dòng cụ thể hoặc nhiều dòng sed '2,3d' file.txt
+- p in ra dòng khớp với biểu thức tìm kiếm
+- i\text chèn dòng text trước dòng được chỉ định
+- a\text chèn dòng text sau dòng được chỉ định
+#awk
+- dùng phân tích văn bản, thường được sử dụng để trích xuất, định dạng và xử lý dữ liệu từ các file văn bản hoặc đầu ra của các lệnh khác.
+- {print $0} in toàn bộ dòng
+- {print $1, $3} in cột 1 và cột 3
+- $2 == "hello" điều kiện khớp nếu cột 2 là "hello"
+- -F ":" đặt dấu phân cách trường là dấu hai chấm
+- BEGIN{...} thực thi lệnh trước khi đọc file
+- END{...} thực thi lệnh sau khi đọc file
+
+-----------------------------------------------------------------------------------------------------
+#Editor File
+# Cách sử dụng vim
 
 #Kiến thức hệ thống
 #Cài đặt và quản lý gói
