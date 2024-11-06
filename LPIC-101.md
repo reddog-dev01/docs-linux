@@ -212,9 +212,30 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #byobu
 ![image](https://github.com/user-attachments/assets/e485451f-4503-417c-9491-931dd7fa67ed)
 #cài tự dộng bật cùng terminal
-byobu-enable
-https://superuser.com/questions/712413/how-to-load-byobu-automatically-when-terminal-started
+- byobu-enable
+- https://superuser.com/questions/712413/how-to-load-byobu-automatically-when-terminal-started
+#lý do dùng byobu
+- hữu ích cho việc quản lý các terminal
+- quản lý nhiều tiến trình cùng lúc
+- phím tắt tiện lợi
 
+-----------------------------------------------------------------------------------------------------------
+#Quản lý tiến trình (Processes)
+#Command 'ps', 'top', 'htop'
+#top
+- uptime: Hiển thị thời gian hệ thống đã chạy kể từ khi khởi động.
+- users: Số lượng người dùng đang đăng nhập vào hệ thống.
+- load average: Hiển thị mức tải của hệ thống trong khoảng 1, 5 và 15 phút gần nhất. Con số này càng thấp càng tốt; giá trị tải cao cho thấy hệ thống đang bị quá tải.
+- Tasks: Tổng số tiến trình đang chạy, bao gồm các tiến trình đang hoạt động (running), tạm dừng (sleeping), bị dừng (stopped), và bị zombie (zombie).
+- %Cpu(s): Hiển thị phần trăm CPU đang được sử dụng bởi các thành phần sau:  
+    us: Phần trăm CPU dành cho các tiến trình người dùng (user).  
+    sy: Phần trăm CPU dành cho các tiến trình hệ thống (system).  
+    ni: Phần trăm CPU dành cho các tiến trình ưu tiên thấp hơn (nice).  
+    id: Phần trăm CPU nhàn rỗi (idle).  
+    wa: Phần trăm CPU đang chờ hoạt động I/O.  
+    hi: Phần trăm CPU dành cho xử lý ngắt phần cứng (hardware interrupts).  
+    si: Phần trăm CPU dành cho xử lý ngắt phần mềm (software interrupts).    
+    st: Phần trăm CPU bị đánh cắp bởi máy ảo (nếu có).    
 #Kiến thức hệ thống
 #Cài đặt và quản lý gói
 #Lệnh GNU và Unix
