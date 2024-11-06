@@ -111,7 +111,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - chia 1 file thành nhiều file lẻ
 - -a [#] khi tạo các file chia, đặt tên chúng là 'x#' VD: -a 5 tạo ra file 'xaaaaa'
 - -b [#][b/k/m] file mới chứa số lượng byte/kilobyte/megabyte được chỉ định
-- - [#] files mới chứa số lượng byte hoặc dòng được chỉ định
+- '- [#]' files mới chứa số lượng byte hoặc dòng được chỉ định
 - -l [#] files mới chứa số lượng dòng được chỉ định
 #uniq
 - cho phép trích xuất chỉ các dòng dữ liệu 'duy nhất' từ file
