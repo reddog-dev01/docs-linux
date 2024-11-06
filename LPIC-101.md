@@ -235,8 +235,75 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
     wa: Phần trăm CPU đang chờ hoạt động I/O.  
     hi: Phần trăm CPU dành cho xử lý ngắt phần cứng (hardware interrupts).  
     si: Phần trăm CPU dành cho xử lý ngắt phần mềm (software interrupts).    
-    st: Phần trăm CPU bị đánh cắp bởi máy ảo (nếu có).    
-#Kiến thức hệ thống
-#Cài đặt và quản lý gói
-#Lệnh GNU và Unix
-#Thiết bị, hệ thống tập tin và tiêu chuẩn hệ thống tập tin (Devices, Linux Filesystems)
+    st: Phần trăm CPU bị đánh cắp bởi máy ảo (nếu có).
+- Mem: Hiển thị thông tin về bộ nhớ RAM, bao gồm tổng dung lượng (total), dung lượng đang sử dụng (used), dung lượng trống (free), và dung lượng đang được cache (buff/cache).
+- Swap: Hiển thị thông tin về bộ nhớ swap với các cột tương tự như bộ nhớ RAM.
+- Chi tiết của từng tiến trình:
+  PID: ID của tiến trình (Process ID).  
+  USER: Tên người dùng sở hữu tiến trình.  
+  PR: Độ ưu tiên của tiến trình (Priority). Số nhỏ hơn có độ ưu tiên cao hơn.  
+  NI: Giá trị "nice" của tiến trình (mức độ ưu tiên thấp hơn).  
+  VIRT: Dung lượng bộ nhớ ảo mà tiến trình sử dụng.  
+  RES: Dung lượng bộ nhớ thực (RAM) mà tiến trình sử dụng.  
+  SHR: Dung lượng bộ nhớ được chia sẻ với các tiến trình khác.  
+  S: Trạng thái của tiến trình (R=running, S=sleeping, T=stopped, Z=zombie).  
+  %CPU: Phần trăm CPU mà tiến trình đang sử dụng.  
+  %MEM: Phần trăm RAM mà tiến trình đang sử dụng.  
+  TIME+: Thời gian CPU đã dành cho tiến trình (bao gồm giây và phần giây).  
+  COMMAND: Tên lệnh hoặc chương trình chạy tiến trình.
+
+  ![image](https://github.com/user-attachments/assets/83f3f496-220b-4e73-854b-1a3a80ce7799)
+  - -d <tgian làm mới> VD: top -d 1
+  - -u <username> hiển thị tiến trình của user
+  - -p <pid> hiển thị thông tin của PID cụ thể VD: top -p 123 -p 345
+
+#ps
+- Liệt kê trạng thái tiến trình của từng tiến trình đang chạy trên hệ thống
+
+![image](https://github.com/user-attachments/assets/53ee6fe3-b50c-4063-93b4-e5a8150d0ba1)
+- -a hiển thị tất cả các quá trình đang chạy trên hệ thống, cho bất kỳ người dùng nào 
+- -u hiển thị thông tin người dùng cho các tiến trình được hiển thị  
+- -x hiển thị quá trình không có tty (terminal) kết nối  
+- LƯU Ý: các tùy chọn này thường được sử dụng cùng nhau và có thể được sử dụng có hoặc không có ký tự - ở trước
+#htop
+- Danh sách tiến trình: 
+  PID: ID của tiến trình.  
+  USER: Người dùng sở hữu tiến trình.  
+  PRI: Độ ưu tiên của tiến trình.  
+  NI: Giá trị "nice" của tiến trình, liên quan đến độ ưu tiên.  
+  VIRT: Bộ nhớ ảo tiến trình đang sử dụng.  
+  RES: Bộ nhớ thực (RAM) mà tiến trình đang sử dụng.  
+  SHR: Bộ nhớ được chia sẻ với các tiến trình khác.  
+  S: Trạng thái của tiến trình (R=running, S=sleeping, T=stopped, Z=zombie).  
+  CPU%: Phần trăm CPU tiến trình đang sử dụng.  
+  MEM%: Phần trăm RAM tiến trình đang sử dụng.  
+  TIME+: Thời gian CPU đã dành cho tiến trình.  
+  COMMAND: Lệnh hoặc tên của tiến trình.
+- Phím tắt:
+![image](https://github.com/user-attachments/assets/fc97ead6-34fb-426c-a517-3142691eb4c2)
+- Các tùy chọn tương tự top
+#mức độ thân thiện
+ps<top<htop
+
+------------------------------------------------------------------------------------------------------------------
+
+#Killing Processes
+#signals
+- những gì được gửi đến tiến trình và tiến trình sau đó phản ứng tương ứng  
+  SIGHUP tín hiệu(signal) 1 tắt và khởi động lại tiến trình (hang up)    
+  SIGINT tín hiệu 2 gián đoạn một tiến trình (CTL-C)   
+  SIGKILL tín hiệu 9 kill tiến trình (không thể bị bỏ qua hoặc bắt được)    
+  SIGTERM tín hiệu 15 kết thúc tiến trình (tiến trình có thể bỏ qua hoặc bắt được tín hiệu)    
+  SIGSTOP tín hiệu 19 dừng tiến trình (không thể bị bỏ qua hoặc bắt được)    
+  SIGTSTP tín hiệu 20 dừng terminal (CTL-Z)   
+#kill
+- kill <PID>  
+  -1 (-HUP) tham chiếu đặc biệt để yêu cầu tiến trình khởi động lại
+  -9 (-KILL) kill/stop/end/dump ngay lập tức (thường dùng để kill ngay cả một tiến trình zombie hoặc đang treo)  
+#killall kill tất cả các phiên bản của tiến trình được đặt tên
+#pkill kill các tiến trình dựa trên tên, ID, người dùng, phiên hoặc thiết bị đầu cuối (tty)
+- LƯU Ý: nếu có nhiều tiêu chí được sử dụng, TẤT CẢ các tùy chọn phải khớp để áp dụng cho một tiến trình  
+        -signal (hoặc --signal) [#] gửi số tín hiệu đến tiến trình khớp  
+        -t [terminal] khớp với thiết bị đầu cuối/tty được chỉ định  
+        -U (hoặc --uid) [user] khớp với ID người dùng    
+--------------------------------------------------------------------------------------------------------------
