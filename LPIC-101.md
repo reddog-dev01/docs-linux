@@ -217,7 +217,8 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #lý do dùng byobu
 - hữu ích cho việc quản lý các terminal
 - quản lý nhiều tiến trình cùng lúc
-- phím tắt tiện lợi
+- phím tắt
+- hiện timeout
 
 -----------------------------------------------------------------------------------------------------------
 #Quản lý tiến trình (Processes)
