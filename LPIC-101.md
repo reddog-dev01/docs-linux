@@ -97,7 +97,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - Tạo 1 file nhập nội dung từ bàn phím VD: cat > file.txt
 - Thêm nội dung vào file có sẵn VD: cat >> file.txt sử dụng Ctrl +D để kết thúc. Các lệnh này có thể kết hợp.
 - Đánh số dòng: cat -n file.txt
-- Đánh số dòng trống: cat -b file.txt  
+- Đánh số dòng có nội dung: cat -b file.txt  
 #tac  
 - cùng chức năng như cat nhưng hiển thị từ cuối lên đầu  
 #sort  
