@@ -217,10 +217,9 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - byobu-enable
 - https://superuser.com/questions/712413/how-to-load-byobu-automatically-when-terminal-started  
 #lý do dùng byobu  
-- hữu ích cho việc quản lý các terminal
-- quản lý nhiều tiến trình cùng lúc
-- phím tắt
-- hiện timeout
+- quản lý nhiều phiên làm việc trên cùng 1 terminal
+- duy trì phiên làm việc ngay cả khi bị mất kết nối SSH
+- cung cấp thông tin hệ thống theo thời gian thực
 
 -----------------------------------------------------------------------------------------------------------
 #Quản lý tiến trình (Processes)  
@@ -286,8 +285,17 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 ![image](https://github.com/user-attachments/assets/fc97ead6-34fb-426c-a517-3142691eb4c2)
 - Các tùy chọn tương tự top
 #mức độ thân thiện
-ps<top<htop
-
+ps<top<htop    
+- CPU Usage: Hiển thị mức sử dụng CPU dưới dạng phần trăm cho mỗi lõi (core) của CPU, thường được hiển thị với các màu sắc khác nhau:  
+  Xanh lá: Tải hệ thống của các tiến trình người dùng không ưu tiên.  
+  Xanh dương: Tải hệ thống của các tiến trình nhân hệ điều hành (kernel).  
+  Vàng/Đỏ: Tải của các tiến trình ưu tiên thời gian thực (real-time) hoặc tải nặng hơn.  
+  Xám: CPU nhàn rỗi (không sử dụng).
+  ![image](https://github.com/user-attachments/assets/5ea82988-ab8e-4227-a733-cdbb25fa20d2)
+Tasks: tổng số tác vụ (tiến trình) hiện đang tồn tại trên hệ thống
+thr: Tổng số luồng (threads) của tất cả các tiến trình. Mỗi tiến trình có thể bao gồm một hoặc nhiều luồng.
+kthr: Số luồng nhân hệ điều hành (kernel threads). Các luồng do kernel quản lý và hoạt động trong không gian nhân hệ điều hành, thường phục vụ cho các tác vụ hệ thống.
+running: Tiến trình đang thực sự chạy (sử dụng CPU) tại thời điểm đó.
 ------------------------------------------------------------------------------------------------------------------
 
 #Killing Processes
