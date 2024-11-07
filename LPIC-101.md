@@ -19,7 +19,7 @@
 
 -------------------------------------------------------------------------------------------
 
-#Cách xem lịch sử của các lệnh đã gõ, đã thực hiện (history hoặc cat ~./bash_history)
+#Cách xem lịch sử của các lệnh đã gõ, đã thực hiện (history hoặc cat ~/.bash_history)
 
 - Tìm kiếm lệnh cụ thể trong lịch sử: history | grep <từ khóa> <br>
   VD: history | grep ls
