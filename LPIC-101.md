@@ -115,7 +115,8 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - sắp xếp theo cột: sort -k[#]
 - sắp xếp bỏ qua chữ hoa, chữ thường: sort -f
 - sắp xếp bỏ qua dòng trùng lặp: sort -u
-- sắp xếp theo thứ tự số: sort -n  
+- sắp xếp theo thứ tự số: sort -n
+- chỉ định kí tự phân tách: sort -t VD: sort -t ',' -k 1 file.csv
 #nl
 - nl -ba đánh số dòng kể cả dòng trống
 #split  
@@ -138,14 +139,27 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - -n [#] [filename] - hiển thị số dòng, bắt đầu từ cuối, của file được chỉ định
 - -f [filename] - hiển thị bất kỳ dòng mới nào được thêm vào file sau khi bạn đã chạy lệnh VD: tail -n 10 -f /var/log/syslog  
 #less  
-- Cho phép xem file nhưng hữu ích hơn cat
-- space di chuyển đến màn hình tiếp theo
-- q thoát  
+- -N: Hiển thị số dòng bên cạnh nội dung. VD: less -N filename.txt
+- -S: Cắt các dòng dài thay vì xuống dòng, giúp bạn dễ dàng xem mà không bị phân tâm bởi việc xuống dòng. VD: less -S filename.txt
+- -F: Tự động thoát nếu file đủ nhỏ để hiển thị trên một trang. VD: less -F filename.txt
+- -X: Không xóa màn hình khi thoát, giữ lại nội dung trên màn hình. VD: less -X filename.txt
+- SPACE: Di chuyển xuống một trang.
+- b: Di chuyển lên một trang.
+- ↑ hoặc ↓: Di chuyển lên hoặc xuống một dòng.
+- g: Đi đến đầu file.
+- G: Đi đến cuối file.
+- <N>: Đi đến dòng số N (thay thế N bằng số dòng thực tế).
+- /: Tìm kiếm xuống. Nhập từ khóa và nhấn Enter để tìm.
+- ?: Tìm kiếm ngược. Nhập từ khóa và nhấn Enter.
+- n: Chuyển đến kết quả tìm kiếm tiếp theo.
+- N: Chuyển đến kết quả tìm kiếm trước đó.
+- q: Thoát khỏi less. 
 #cut  
 - trích xuất dữ liệu trường hoặc cột từ một vị trí cụ thể trong file được chỉ định
-- -c [#][-#] [filename] sẽ chỉ hiển thị cột (hoặc phạm vi cột) từ tệp được chỉ định
-- -d[delimiter] thiết lập ký tự phân cách để sử dụng khi xử lý các trường (mặc định - TAB)
-- -f [field1[,field2[,field3]]] [filename] xác định số trường (được xác định bằng ký tự phân cách) để hiển thị từ file được chỉ định  
+- -c [#][-#] [filename] sẽ chỉ hiển thị cột (hoặc phạm vi cột) từ tệp được chỉ định VD: cut -c 1-3 text.txt là cắt 3 kí tự đầu của mỗi dòng
+- -d[delimiter] thiết lập ký tự phân cách để sử dụng khi xử lý các trường (mặc định - TAB) VD: cut -d ':' -f 1 /etc/passwd GT: Lệnh này sử dụng dấu : làm dấu phân cách và chọn cột đầu tiên từ file /etc/passwd.
+- -f [field1[,field2[,field3]]] [filename] xác định số trường (được xác định bằng ký tự phân cách) để hiển thị từ file được chỉ định
+
 #wc  
 - -l là đếm số dòng
 - -w là đếm số từ
@@ -187,15 +201,18 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #Editor File  
 #Cách sử dụng vim  
 #normal mode: mặc định  
-- h, j, k, l Di chuyển sang trái, xuống, lên, phải (tương đương với các phím mũi tên).
-- w Nhảy đến đầu từ tiếp theo.
-- b Nhảy đến đầu từ trước đó.
-- 0 Nhảy đến đầu dòng hiện tại.
-- $ Nhảy đến cuối dòng.
-- yy Sao chép một dòng.
-- dd Xóa một dòng.
-- p Dán văn bản.  
-
+- h: Di chuyển sang trái một ký tự.
+- j: Di chuyển xuống một dòng.
+- k: Di chuyển lên một dòng.
+- l: Di chuyển sang phải một ký tự.
+- gg: Đi đến đầu file.
+- G: Đi đến cuối file.
+- 0: Đi đến đầu dòng.
+- $: Đi đến cuối dòng..  
+- Xóa một ký tự: Trong Normal Mode, nhấn x.
+- Xóa một dòng: Trong Normal Mode, gõ dd.
+- Sao chép một dòng: Trong Normal Mode, gõ yy.
+- Dán: Trong Normal Mode, gõ p.
 #insert mode: nhập chỉnh sửa văn bản  
 - Nhấn i Chèn từ vị trí con trỏ hiện tại.
 - Nhấn I Chèn ở đầu dòng hiện tại.
@@ -217,6 +234,15 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - Nhấn gh để chuyển vào chế độ Select từ chế độ Normal (có thể không được hỗ trợ trên một số bản Vim).  
 #Ex mode  
 - Nhấn Q từ chế độ Normal để vào Ex Mode.
+#tìm kiếm và thay thế
+- :%s/old_word/new_word/g
+#copy dòng bất kì
+- 3yy hoặc 5yy số dòng + yy
+#paste số lần tùy ý
+- :let i=0 | while i < 1000 | put | let i=i+1 | endwhile
+- :normal! 1000p
+#den dòng bất bì
+- :x (thay bằng số)
 --------------------------------------------------------------------------------------------------------
 
 #Text-based window manager and terminal multiplexer  
