@@ -25,7 +25,10 @@
   VD: history | grep ls
 - Xem số lượng nhất định: history 10
 - Thực thi lệnh gần nhất bắt đầu bằng 1 từ khóa: !<từ khóa> VD: !sudo
-- Ctrl + R tìm kiếm lệnh gần nhất với từ khóa nhập sử dụng mũi tên lên xuống để chuyển đổi qua lại <br>
+- để chạy 1 lệnh bất kì sử dụng: !<số> VD: !234
+- chuỗi: !<chuỗi> VD: !ls
+- lệnh cuối cùng: !!
+- Ctrl + R tìm kiếm lệnh gần nhất với từ khóa nhập sử dụng mũi tên lên xuống để chuyển đổi qua lại <br>  
   VD: Ctrl + R nhập 'sudo' hệ thống chạy lệnh gần nhất có chưa 'sudo'. Có thể sử dụng mũi tên sang phải để chỉnh sửa lệnh đó.
 - Ctrl + G để thoát chế độ tìm kiếm "reverse-i-search" (Ctrl + R)
 - Ctrl + U xóa từ đầu dòng đến con trỏ
@@ -56,7 +59,8 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #Cách sử dụng luồng, ống, chuyển hướng  
 #Streams  
 #Standard input (luồng đầu vào tiêu chuẩn)  
-- cung cấp đầu vào cho các thiết bị đầu cuối, ứng dụng, tiện ích.
+- cung cấp đầu vào cho các thiết bị đầu cuối, ứng dụng, tiện ích. Thường kết nối với bàn phím.
+- luồng đầu vào mà chương trình có thể đọc dữ liệu từ đó.
 - Kí hiệu: "stdin" thường đại diện bởi số 0
 - /dev/stdin
 - chỉ số file 0. file /proc/self/fd/0
@@ -67,13 +71,22 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #Standard error (luồng lỗi tiêu chuẩn)  
 - Thông báo lỗi đến các thiết bị đầu cuối, ứng dụng, tiện ích  coi như tập coi của tập ra.
 - /dev/stderr
-- chỉ số file 2. file /proc/self/fd/2  
+- chỉ số file 2. file /proc/self/fd/2
+#Pipes (đường ống)
+- | đường ống để gửi đầu ra đến lệnh mà không cần phải ghi vào 1 file trung gian khác VD: cat /var/log/messages | more <br>
 #Redirection (chuyển hướng)  
 - Quá trình lấy 1 luồng và gửi nó đến nơi khác (không phải mặc định) <br>
-  | đường ống để gửi đầu ra đến lệnh khác VD: cat /var/log/messages | more <br>
  '>' chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Tạo hoặc ghi đè đích nếu là một file VD: find /user -name "*.sh" > output.txt <br>
  '>>' chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Nối thêm vào đích (cuối file) nếu là một file VD: find /user -name "*.sh" > output.txt <br>
  '<' chuyển hướng đầu vào tiêu chuẩn đến một chương trình VD: sort < /home/user/file.txt LƯU Ý: hành vi tương tự như khi sử dụng cat /home/user/file.txt | sort <br>
+2>: Chuyển hướng lỗi đến một file.
+bash
+Copy code
+command 2> error.log
+2>&1: Chuyển hướng stderr đến cùng một nơi như stdout.
+bash
+Copy code
+command > output.log 2>&1
 #Redirecting standard error (chuyển hướng luồng lỗi)  
 - stderr thường được chuyển đến log hoặc /dev/null
 - Cho phép xóa lỗi từ đầu ra tiêu chuẩn bình thường VD: find / -iname "*.sh" 2> /dev/null hiển thị mà không thông báo lỗi liên quan quyền hạn.
