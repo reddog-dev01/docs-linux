@@ -106,7 +106,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - sắp xếp theo cột: sort -k[#]
 - sắp xếp bỏ qua chữ hoa, chữ thường: sort -f
 - sắp xếp bỏ qua dòng trùng lặp: sort -u
-- sắp xếp theo thứ tự số: sort -n
+- sắp xếp theo thứ tự số: sort -n  
 #nl
 - nl -ba đánh số dòng kể cả dòng trống
 #split  
@@ -127,7 +127,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #tail  
 - hiển thị một số dòng nhất định từ cuối file (mặc định 10)  
 - -n [#] [filename] - hiển thị số dòng, bắt đầu từ cuối, của file được chỉ định
-- -f [filename] - hiển thị bất kỳ dòng mới nào được thêm vào file sau khi bạn đã chạy lệnh VD: tail -n 10 -f /var/log/syslog
+- -f [filename] - hiển thị bất kỳ dòng mới nào được thêm vào file sau khi bạn đã chạy lệnh VD: tail -n 10 -f /var/log/syslog  
 #less  
 - Cho phép xem file nhưng hữu ích hơn cat
 - space di chuyển đến màn hình tiếp theo
