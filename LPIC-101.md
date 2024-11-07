@@ -292,10 +292,10 @@ ps<top<htop
   Vàng/Đỏ: Tải của các tiến trình ưu tiên thời gian thực (real-time) hoặc tải nặng hơn.  
   Xám: CPU nhàn rỗi (không sử dụng).  
   ![image](https://github.com/user-attachments/assets/5ea82988-ab8e-4227-a733-cdbb25fa20d2)  
-Tasks: tổng số tác vụ (tiến trình) hiện đang tồn tại trên hệ thống
-thr: Tổng số luồng (threads) của tất cả các tiến trình. Mỗi tiến trình có thể bao gồm một hoặc nhiều luồng.
-kthr: Số luồng nhân hệ điều hành (kernel threads). Các luồng do kernel quản lý và hoạt động trong không gian nhân hệ điều hành, thường phục vụ cho các tác vụ hệ thống.
-running: Tiến trình đang thực sự chạy (sử dụng CPU) tại thời điểm đó.
+Tasks: tổng số tác vụ (tiến trình) hiện đang tồn tại trên hệ thống  
+thr: Tổng số luồng (threads) của tất cả các tiến trình. Mỗi tiến trình có thể bao gồm một hoặc nhiều luồng.  
+kthr: Số luồng nhân hệ điều hành (kernel threads). Các luồng do kernel quản lý và hoạt động trong không gian nhân hệ điều hành, thường phục vụ cho các tác vụ hệ thống.  
+running: Tiến trình đang thực sự chạy (sử dụng CPU) tại thời điểm đó.  
 ------------------------------------------------------------------------------------------------------------------
 
 #Killing Processes
