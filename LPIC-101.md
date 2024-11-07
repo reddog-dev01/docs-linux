@@ -52,19 +52,19 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 
 --------------------------------------------------------------------------------------------------
 
-#Using streams, Redirection, Pipes
-#Cách sử dụng luồng, ống, chuyển hướng
-#Streams
-#Standard input (luồng đầu vào tiêu chuẩn)
+#Using streams, Redirection, Pipes  
+#Cách sử dụng luồng, ống, chuyển hướng  
+#Streams  
+#Standard input (luồng đầu vào tiêu chuẩn)  
 - cung cấp đầu vào cho các thiết bị đầu cuối, ứng dụng, tiện ích.
 - Kí hiệu: "stdin" thường đại diện bởi số 0
 - /dev/stdin
 - chỉ số file 0. file /proc/self/fd/0
-#Standard output (luồng đầu ra tiêu chuẩn)
+#Standard output (luồng đầu ra tiêu chuẩn)  
 -  cung cấp đầu ra cho các thiết bị đầu cuối, ứng dụng, tiện ích.
 -  /dev/stdout
--  chỉ số file 1. file /proc/self/fd/1
-#Standard error (luồng lỗi tiêu chuẩn)
+-  chỉ số file 1. file /proc/self/fd/1  
+#Standard error (luồng lỗi tiêu chuẩn)  
 - Thông báo lỗi đến các thiết bị đầu cuối, ứng dụng, tiện ích  coi như tập coi của tập ra.
 - /dev/stderr
 - chỉ số file 2. file /proc/self/fd/2
