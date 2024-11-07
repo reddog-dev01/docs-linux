@@ -67,24 +67,24 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #Standard error (luồng lỗi tiêu chuẩn)  
 - Thông báo lỗi đến các thiết bị đầu cuối, ứng dụng, tiện ích  coi như tập coi của tập ra.
 - /dev/stderr
-- chỉ số file 2. file /proc/self/fd/2
-#Redirection (chuyển hướng)
+- chỉ số file 2. file /proc/self/fd/2  
+#Redirection (chuyển hướng)  
 - Quá trình lấy 1 luồng và gửi nó đến nơi khác (không phải mặc định) <br>
   | đường ống để gửi đầu ra đến lệnh khác VD: cat /var/log/messages | more <br>
  '>' chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Tạo hoặc ghi đè đích nếu là một file VD: find /user -name "*.sh" > output.txt <br>
  '>>' chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Nối thêm vào đích (cuối file) nếu là một file VD: find /user -name "*.sh" > output.txt <br>
  '<' chuyển hướng đầu vào tiêu chuẩn đến một chương trình VD: sort < /home/user/file.txt LƯU Ý: hành vi tương tự như khi sử dụng cat /home/user/file.txt | sort <br>
-#Redirecting standard error (chuyển hướng luồng lỗi)
+#Redirecting standard error (chuyển hướng luồng lỗi)  
 - stderr thường được chuyển đến log hoặc /dev/null
 - Cho phép xóa lỗi từ đầu ra tiêu chuẩn bình thường VD: find / -iname "*.sh" 2> /dev/null hiển thị mà không thông báo lỗi liên quan quyền hạn.
-#Kết hợp chuyển hướng
+#Kết hợp chuyển hướng  
 - VD: find / -iname "*.sh" 2> /dev/null > output.txt => dữ liệu đưa vào file txt thay vì in ra màn hình
-- VD: sort < listfile | nl
-#tee
+- VD: sort < listfile | nl  
+#tee   
 - Nhận luồng đầu vào tiêu chuẩn và gửi một luồng đầu ra (giống nhau) đến một file được chỉ định
-- sử dụng khi muốn thu thập đầu ra của một ứng dụng nhưng cũng cần nhìn thấy kết quả trên màn hình
+- sử dụng khi muốn thu thập đầu ra của một ứng dụng nhưng cũng cần nhìn thấy kết quả trên màn hình  
 - VD: find / -name "*.sh" | tee name.txt
-#xargs
+#xargs  
 - nhận 1 luồng đầu vào (kqua của lệnh khác thường là find) sau đó đẩy vào 1 file khác theo yêu cầu.
 - VD: find / -name "*.sh" | xargs ls -al > myresults.txt
 
