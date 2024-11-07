@@ -90,7 +90,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-#Processing Text (Các lệnh liên quan xem tập tin văn bản)
+#Processing Text (Các lệnh liên quan xem tập tin văn bản)  
 #cat
 - hiển thị nội dung của 1 tập tin
 - có thể nối nội dung của nhiều tập VD: cat file1.txt file2.txt
