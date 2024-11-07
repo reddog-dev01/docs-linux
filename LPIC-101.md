@@ -106,7 +106,9 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - sắp xếp theo cột: sort -k[#]
 - sắp xếp bỏ qua chữ hoa, chữ thường: sort -f
 - sắp xếp bỏ qua dòng trùng lặp: sort -u
-- sắp xếp theo thứ tự số: sort -n  
+- sắp xếp theo thứ tự số: sort -n
+#nl
+- nl -ba đánh số dòng kể cả dòng trống
 #split  
 - chia 1 file thành nhiều file lẻ
 - -a [#] khi tạo các file chia, đặt tên chúng là 'x#' VD: -a 5 tạo ra file 'xaaaaa'
