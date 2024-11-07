@@ -103,7 +103,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #sort  
 - sắp xếp các dòng trong file
 - sắp xếp giảm: sort -r
-- sắp xếp theo cột: sort -k
+- sắp xếp theo cột: sort -k[#]
 - sắp xếp bỏ qua chữ hoa, chữ thường: sort -f
 - sắp xếp bỏ qua dòng trùng lặp: sort -u
 - sắp xếp theo thứ tự số: sort -n  
