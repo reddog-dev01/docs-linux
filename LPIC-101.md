@@ -287,8 +287,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #mức độ thân thiện
 ps<top<htop  
 ![image](https://github.com/user-attachments/assets/3ba82938-aa08-4538-9647-223701adfaa3)  
-
-- CPU Usage: Hiển thị mức sử dụng CPU dưới dạng phần trăm cho mỗi lõi (core) của CPU, thường được hiển thị với các màu sắc khác nhau:  
+  CPU Usage: Hiển thị mức sử dụng CPU dưới dạng phần trăm cho mỗi lõi (core) của CPU, thường được hiển thị với các màu sắc khác nhau:  
   Xanh lá: Tải hệ thống của các tiến trình người dùng không ưu tiên.  
   Xanh dương: Tải hệ thống của các tiến trình nhân hệ điều hành (kernel).  
   Vàng/Đỏ: Tải của các tiến trình ưu tiên thời gian thực (real-time) hoặc tải nặng hơn.  
