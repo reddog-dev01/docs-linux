@@ -78,16 +78,12 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - Quá trình lấy 1 luồng và gửi nó đến nơi khác (không phải mặc định) <br>
  '>' chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Tạo hoặc ghi đè đích nếu là một file VD: find /user -name "*.sh" > output.txt <br>
  '>>' chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Nối thêm vào đích (cuối file) nếu là một file VD: find /user -name "*.sh" > output.txt <br>
- '<' chuyển hướng đầu vào tiêu chuẩn đến một chương trình VD: sort < /home/user/file.txt LƯU Ý: hành vi tương tự như khi sử dụng cat /home/user/file.txt | sort <br>
-2>: Chuyển hướng lỗi đến một file.
-bash
-Copy code
-command 2> error.log
-2>&1: Chuyển hướng stderr đến cùng một nơi như stdout.
-bash
-Copy code
-command > output.log 2>&1
-#Redirecting standard error (chuyển hướng luồng lỗi)  
+ '<' chuyển hướng đầu vào tiêu chuẩn đến một chương trình VD: sort < /home/user/file.txt LƯU Ý: hành vi tương tự như khi sử dụng cat /home/user/file.txt | sort <br>  
+2>: Chuyển hướng lỗi đến một file.  
+ VD: command 2> error.log  
+2>&1: Chuyển hướng stderr đến cùng một nơi như stdout.  
+ VD: command > output.log 2>&1  
+#Redirecting standard error (chuyển hướng luồng lỗi)    
 - stderr thường được chuyển đến log hoặc /dev/null
 - Cho phép xóa lỗi từ đầu ra tiêu chuẩn bình thường VD: find / -iname "*.sh" 2> /dev/null hiển thị mà không thông báo lỗi liên quan quyền hạn.
 #Kết hợp chuyển hướng  
