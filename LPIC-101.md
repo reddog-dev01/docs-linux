@@ -269,23 +269,23 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - uptime: Hiển thị thời gian hệ thống đã chạy kể từ khi khởi động.
 - users: Số lượng người dùng đang đăng nhập vào hệ thống.
 - load average: Hiển thị mức tải của hệ thống trong thời gian khác nhau thường là 1, 5 và 15 phút gần nhất. Do số lượng tiến trình đang chờ CPU (gồm cả các tiến trình chờ truy cập vào tài nguyên I/O như ổ đĩa hoặc mạng). Tính theo số lõi CPU. VD: 4 lõi CPU => <4.0 là nhàn rỗi, không phải xử lý nhiều. =4.0 là mức tải tối ưu. Mỗi lõi có thể xử lý 1.0 đơn vị tải. >4.0 là quá tải, nhiều tiến trình chờ xử lý.  
-- Tasks: Tổng số tiến trình đang chạy, bao gồm các tiến trình đang hoạt động (running), tạm dừng (sleeping), bị dừng (stopped), và bị zombie (zombie).
-  total: tổng số tiến trình hiện tại của hệ thống
-  running: tiến trình đang hoạt động và sử dụng CPU (số lượng tiến trình chạy cùng lúc thường bị giới hạn bởi số lượng lõi CPU)
-  sleeping: các tiến trình đang "ngủ" hoặc "chờ". không hoạt động trực tiếp trên CPU, chờ 1 đkiện nào đó để đánh thức. Hiện diện trong bộ nhớ
-  stopped: số lượng tiến trình đã dừng
-  zombie: tiến trình đã kết thúc nhưng chưa được dọn dẹp (không tiêu tốn tài nguyên CPU nhưng vẫn chiếm dụng 1 ID tiến trình PID)
+- Tasks: Tổng số tiến trình đang chạy, bao gồm các tiến trình đang hoạt động (running), tạm dừng (sleeping), bị dừng (stopped), và bị zombie (zombie).  
+  total: tổng số tiến trình hiện tại của hệ thống  
+  running: tiến trình đang hoạt động và sử dụng CPU (số lượng tiến trình chạy cùng lúc thường bị giới hạn bởi số lượng lõi CPU)  
+  sleeping: các tiến trình đang "ngủ" hoặc "chờ". không hoạt động trực tiếp trên CPU, chờ 1 đkiện nào đó để đánh thức. Hiện diện trong bộ nhớ  
+  stopped: số lượng tiến trình đã dừng  
+  zombie: tiến trình đã kết thúc nhưng chưa được dọn dẹp (không tiêu tốn tài nguyên CPU nhưng vẫn chiếm dụng 1 ID tiến trình PID)  
 - %Cpu(s): Hiển thị phần trăm CPU đang được sử dụng bởi các thành phần sau:  
     us: Phần trăm CPU dành cho các tiến trình người dùng (user).  
     sy: Phần trăm CPU dành cho các tiến trình hệ thống (system).  
-    ni: Phần trăm CPU dành cho các tiến trình ưu tiên (nice). Tức là các tiến trình mà người dùng đã thay đổi mức độ ưu tiên.
+    ni: Phần trăm CPU dành cho các tiến trình ưu tiên (nice). Tức là các tiến trình mà người dùng đã thay đổi mức độ ưu tiên.  
     id: Phần trăm CPU nhàn rỗi (idle).  
     wa: Phần trăm CPU đang chờ hoạt động I/O (iowait).  
     hi: Phần trăm CPU dành cho xử lý các ngắt từ phần cứng (hardware interrupts).  
     si: Phần trăm CPU dành cho xử lý các ngắt từ phần mềm (software interrupts).    
-    st: Phần trăm CPU bị đánh cắp bởi máy ảo (chỉ xuất hiện trong hệ thống ảo hóa). Thời lượng CPU bị chiếm bởi máy ảo khác và không có sẵn trong HĐH này. 
-- Mem: Hiển thị thông tin về bộ nhớ RAM, bao gồm tổng dung lượng (total), dung lượng đang sử dụng (used), dung lượng trống (free), và dung lượng đang được cache (buff/cache).
-- Swap: Hiển thị thông tin về bộ nhớ swap với các cột tương tự như bộ nhớ RAM.
+    st: Phần trăm CPU bị đánh cắp bởi máy ảo (chỉ xuất hiện trong hệ thống ảo hóa). Thời lượng CPU bị chiếm bởi máy ảo khác và không có sẵn trong HĐH này.  
+- Mem: Hiển thị thông tin về bộ nhớ RAM, bao gồm tổng dung lượng (total), dung lượng đang sử dụng (used), dung lượng trống (free), và dung lượng đang được cache (buff/cache).  
+- Swap: Hiển thị thông tin về bộ nhớ swap với các cột tương tự như bộ nhớ RAM.  
 - Chi tiết của từng tiến trình:
   PID: ID của tiến trình (Process ID).  
   USER: Tên người dùng sở hữu tiến trình.  
