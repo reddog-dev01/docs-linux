@@ -71,7 +71,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 #Standard error (luồng lỗi tiêu chuẩn)  
 - Thông báo lỗi đến các thiết bị đầu cuối, ứng dụng, tiện ích  coi như tập coi của tập ra.
 - /dev/stderr
-- chỉ số file 2. file /proc/self/fd/2
+- chỉ số file 2. file /proc/self/fd/2  
 #Pipes (đường ống)
 - | đường ống để gửi đầu ra đến lệnh mà không cần phải ghi vào 1 file trung gian khác VD: cat /var/log/messages | more <br>
 #Redirection (chuyển hướng)  
@@ -148,7 +148,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - ↑ hoặc ↓: Di chuyển lên hoặc xuống một dòng.
 - g: Đi đến đầu file.
 - G: Đi đến cuối file.
-- <N>: Đi đến dòng số N (thay thế N bằng số dòng thực tế).
+- nhấn g để quay lại đầu trang rồi <N>: Đi đến dòng số N (thay thế N bằng số dòng thực tế). VD g 300 enter
 - /: Tìm kiếm xuống. Nhập từ khóa và nhấn Enter để tìm.
 - ?: Tìm kiếm ngược. Nhập từ khóa và nhấn Enter.
 - n: Chuyển đến kết quả tìm kiếm tiếp theo.
@@ -177,11 +177,16 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - -C hiển thị thêm 1 số dòng cả trước và sau dòng khớp
 - -l Chỉ hiển thị tên file chứa từ khóa VD: grep -l "word" *.txt
 - -L chỉ hiển thị tên file không chứa từ khóa
-- -E sử dụng biển thức chính quy mở rộng VD: grep -E "^word|^fail" text.txt  
+- -E sử dụng biển thức chính quy mở rộng VD: grep -E "^word|^fail" text.txt
+- ^: bắt đầu dòng VD: grep "^Helo" text.txt
+- $: kết thúc dòng VD: grep "helo$" text.txt
+- .: đại diện cho bất kì kí tự nào VD: grep "h...l" text.txt
+- *: số lượng kí tự trước * xuất hiện (có thể 0 hoặc nhiều kí tự) VD: grep "hel*o" text.txt (kết quả là heo, helo, hello)
+- 
 #sed  
 - dùng để xử lý và thao tác văn bản. Đặc biệt là trong các tệp văn bản hoặc dòng đầu ra từ các lệnh khác. Cho phép các thao tác như tìm kiếm, thay thế, chèn, xóa dữ liệu trong văn bản.
 - thay thế văn bản: sed 's/tim_kiem/thay_the/' filename
-- thay thế toàn bộ xuất hiện trên mỗi dòng: sed 's/tim_kiem/thay_the/g' file.txt
+- thay thế toàn bộ xuất hiện trên mỗi dòng xuất hiện trên màn hình (không thay thế vào file): sed 's/tim_kiem/thay_the/g' file.txt
 - thay thế trực tiếp trong file: sed -i 's/tim_kiem/thay_the/g' file.txt
 - sed '/chuoi_xoa/d' file.txt
 - xóa 1 dòng cụ thể hoặc nhiều dòng sed '2,3d' file.txt
