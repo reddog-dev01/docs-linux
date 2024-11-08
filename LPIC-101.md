@@ -47,7 +47,7 @@ history 10
   
 ----------------------------------------------------------------------------------------------------
 
-**4. Getting help**
+**4. Getting help**  
 **a. Cách sử dụng lệnh man (manual)**
 - Sử dụng để hiển thị tài liệu hướng dẫn chi tiết lệnh, file cầu hình, chương trình khác.
 - Cú pháp:``` man [ten_lenh]``` VD:``` man cat ```
