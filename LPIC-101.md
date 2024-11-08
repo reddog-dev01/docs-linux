@@ -53,7 +53,8 @@ LƯU Ý: xóa toàn bộ lịch sử:``` history -c ```
 - Cú pháp:``` man [ten_lenh]``` VD:``` man cat ```
 - Xem 1 phần cụ thể: man [so_phan] [ten_phan] VD:``` man 5 passwd ```
 - Tìm kiếm 1 từ khóa trong các trang man:``` man -k [tu_khoa] ```hoặc apropos [tu_khoa]
-- Hiển thị đường dẫn đầy đủ của trang man:``` man -w [ten_len] ```VD:
+- Hiển thị đường dẫn đầy đủ của trang man:``` man -w [ten_len] ```  
+VD:
 ```
 man -w cat
 ```
