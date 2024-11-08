@@ -66,22 +66,24 @@ man -w cat
 - cung cấp đầu vào cho các thiết bị đầu cuối, ứng dụng, tiện ích. Thường kết nối với bàn phím.
 - luồng đầu vào mà chương trình có thể đọc dữ liệu từ đó.
 - Kí hiệu: "stdin" thường đại diện bởi số 0
-- /dev/stdin
-- chỉ số file 0. file /proc/self/fd/0
+- ```/dev/stdin```
+- chỉ số file 0. file ```/proc/self/fd/0```
 #Standard output (luồng đầu ra tiêu chuẩn)  
 -  cung cấp đầu ra cho các thiết bị đầu cuối, ứng dụng, tiện ích.
--  /dev/stdout
--  chỉ số file 1. file /proc/self/fd/1  
+-  ```/dev/stdout```
+-  chỉ số file 1. ```file /proc/self/fd/1```  
 #Standard error (luồng lỗi tiêu chuẩn)  
 - Thông báo lỗi đến các thiết bị đầu cuối, ứng dụng, tiện ích  coi như tập coi của tập ra.
-- /dev/stderr
-- chỉ số file 2. file /proc/self/fd/2  
+-``` /dev/stderr```
+- chỉ số file 2. file ```/proc/self/fd/2```  
 #Pipes (đường ống)
-- | đường ống để gửi đầu ra đến lệnh mà không cần phải ghi vào 1 file trung gian khác VD: cat /var/log/messages | more <br>
+- ``| ``đường ống để gửi đầu ra đến lệnh mà không cần phải ghi vào 1 file trung gian khác VD: cat /var/log/messages | more <br>
 #Redirection (chuyển hướng)  
 - Quá trình lấy 1 luồng và gửi nó đến nơi khác (không phải mặc định) <br>
- '>' chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Tạo hoặc ghi đè đích nếu là một file VD: find /user -name "*.sh" > output.txt <br>
- '>>' chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Nối thêm vào đích (cuối file) nếu là một file VD: find /user -name "*.sh" > output.txt <br>
+  ```>``` chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Tạo hoặc ghi đè đích nếu là một file
+  VD:
+  ```find /user -name "*.sh" > output.txt <br>```
+  ```>>``` chuyển hướng đầu ra tiêu chuẩn đến một file hoặc thiết bị. Nối thêm vào đích (cuối file) nếu là một file VD: find /user -name "*.sh" > output.txt <br>
  '<' chuyển hướng đầu vào tiêu chuẩn đến một chương trình VD: sort < /home/user/file.txt LƯU Ý: hành vi tương tự như khi sử dụng cat /home/user/file.txt | sort <br>  
 2>: Chuyển hướng lỗi đến một file.  
  VD: command 2> error.log  
