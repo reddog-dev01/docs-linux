@@ -149,7 +149,7 @@ find / -name "*.sh" | xargs ls -al > myresults.txt
 - sắp xếp theo thứ tự số: ```sort -n```
 - chỉ định kí tự phân tách: ```sort -t``` VD: ```sort -t ',' -k 1 file.csv```  
 **6.4 nl**
-- ```nl -ba``` đánh số dòng kể cả dòng trống
+- ```nl -ba``` đánh số dòng kể cả dòng trống  
 **6.5 split**  
 - chia 1 file thành nhiều file lẻ
 - ```-a [#]``` khi tạo các file chia, đặt tên chúng là ```x#``` VD: ```-a 5```tạo ra file 'xaaaaa'
