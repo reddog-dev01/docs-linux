@@ -48,4 +48,12 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
 ```bash
   sudo apt update
   sudo apt install package_name
+```
+- Gỡ cài đặt phần mềm:
+  ``` bash
+  sudo apt remove package_name      #gỡ bỏ phần mềm
+  sudo apt auto remove              #xóa các package không cần thiết
+  ```
+#Cài đặt phần mềm từ tệp .deb (Debian Package)
+
 
