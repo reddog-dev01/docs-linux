@@ -197,7 +197,7 @@ find / -name "*.sh" | xargs ls -al > myresults.txt
 - ```-l``` là đếm số dòng
 - ```-w``` là đếm số từ
 - ```-c``` số ký tự (byte)
-- sử dụng như 1 lệnh bổ sung của lệnh khác VD ```cat /etc/passwd | wc -l``` 
+- sử dụng như 1 lệnh bổ sung của lệnh khác VD ```cat /etc/passwd | wc -l```  
 **6.9 grep**  
 - Dùng để tìm kiếm chuỗi trong file, luồng, thư mục.
 - ```-i``` tìm kiếm không phân biệt chữ hoa, chữ thường
@@ -236,89 +236,91 @@ find / -name "*.sh" | xargs ls -al > myresults.txt
 - `END{...}` thực thi lệnh sau khi đọc file
 
 -----------------------------------------------------------------------------------------------------
-#Editor File  
-#Cách sử dụng vim  
-#normal mode: mặc định  
-- h: Di chuyển sang trái một ký tự.
-- j: Di chuyển xuống một dòng.
-- k: Di chuyển lên một dòng.
-- l: Di chuyển sang phải một ký tự.
-- gg: Đi đến đầu file.
-- G: Đi đến cuối file.
-- 0: Đi đến đầu dòng.
-- $: Đi đến cuối dòng..  
-- Xóa một ký tự: Trong Normal Mode, nhấn x.
-- Xóa một dòng: Trong Normal Mode, gõ dd.
-- Sao chép một dòng: Trong Normal Mode, gõ yy.
-- Dán: Trong Normal Mode, gõ p.
-#insert mode: nhập chỉnh sửa văn bản  
-- Nhấn i Chèn từ vị trí con trỏ hiện tại.
-- Nhấn I Chèn ở đầu dòng hiện tại.
-- Nhấn a Chèn sau vị trí con trỏ hiện tại.
-- Nhấn A Chèn ở cuối dòng hiện tại.
-- Nhấn o Tạo dòng mới phía dưới dòng hiện tại và chuyển vào chế độ Insert.
-- Nhấn O Tạo dòng mới phía trên dòng hiện tại và chuyển vào chế độ Insert.  
-#visual mode: cho phép bôi đen để copy, xóa, thay thế  
-- Nhấn v Bắt đầu chọn ký tự.
-- Nhấn V Chọn toàn bộ dòng.
-- Nhấn Ctrl + v Chế độ Visual Block (chọn theo khối hình chữ nhật).  
-#command-line mode   
-- Nhấn : Mở dòng lệnh để nhập lệnh.
-- Nhấn / Tìm kiếm theo từ khóa.
-- Nhấn ? Tìm kiếm ngược theo từ khóa.  
-#replace mode  
-- Nhấn R trong chế độ Normal để vào chế độ Replace  
-#select mode  
-- Nhấn gh để chuyển vào chế độ Select từ chế độ Normal (có thể không được hỗ trợ trên một số bản Vim).  
-#Ex mode  
-- Nhấn Q từ chế độ Normal để vào Ex Mode.
-#tìm kiếm và thay thế
-- :%s/old_word/new_word/g
-#copy dòng bất kì
-- 3yy hoặc 5yy số dòng + yy
-#paste số lần tùy ý
-- :let i=0 | while i < 1000 | put | let i=i+1 | endwhile
-- :normal! 1000p
-#den dòng bất bì
-- :x (thay bằng số)
+**7. Editor File**  
+**7.1 Cách sử dụng vim**  
+**7.1.1 normal mode: mặc định**  
+- `h`: Di chuyển sang trái một ký tự.
+- `j`: Di chuyển xuống một dòng.
+- `k`: Di chuyển lên một dòng.
+- `l`: Di chuyển sang phải một ký tự.
+- `gg`: Đi đến đầu file.
+- `G`: Đi đến cuối file.
+- `0`: Đi đến đầu dòng.
+- `$`: Đi đến cuối dòng..  
+- Xóa một ký tự: Trong Normal Mode, nhấn `x`.
+- Xóa một dòng: Trong Normal Mode, gõ `dd`.
+- Sao chép một dòng: Trong Normal Mode, gõ `yy`.
+- Dán: Trong Normal Mode, gõ `p`.
+**7.1.2 insert mode: nhập chỉnh sửa văn bản**  
+- Nhấn `i` Chèn từ vị trí con trỏ hiện tại.
+- Nhấn `I` Chèn ở đầu dòng hiện tại.
+- Nhấn `a` Chèn sau vị trí con trỏ hiện tại.
+- Nhấn `A` Chèn ở cuối dòng hiện tại.
+- Nhấn `o` Tạo dòng mới phía dưới dòng hiện tại và chuyển vào chế độ Insert.
+- Nhấn `O` Tạo dòng mới phía trên dòng hiện tại và chuyển vào chế độ Insert.  
+**7.1.3 visual mode: cho phép bôi đen để copy, xóa, thay thế**  
+- Nhấn `v` Bắt đầu chọn ký tự.
+- Nhấn `V` Chọn toàn bộ dòng.
+- Nhấn `Ctrl + v` Chế độ Visual Block (chọn theo khối hình chữ nhật).  
+**7.1.4 command-line mode**   
+- Nhấn `:` Mở dòng lệnh để nhập lệnh.
+- Nhấn `/` Tìm kiếm theo từ khóa.
+- Nhấn `?` Tìm kiếm ngược theo từ khóa.  
+**7.1.5 replace mode**  
+- Nhấn `R` trong chế độ Normal để vào chế độ Replace  
+**7.1.6 select mode**  
+- Nhấn `gh` để chuyển vào chế độ Select từ chế độ Normal (có thể không được hỗ trợ trên một số bản Vim).  
+**7.1.7 Ex mode**  
+- Nhấn `Q` từ chế độ Normal để vào Ex Mode.
+**#tìm kiếm và thay thế**
+- `:%s/old_word/new_word/g`
+**#copy dòng bất kì**
+- `3yy` hoặc `5yy` `số dòng + yy`
+**#paste số lần tùy ý**
+- `:let i=0 | while i < 1000 | put | let i=i+1 | endwhile`
+- `:normal! 1000p`
+**#den dòng bất kì**
+- `:x #thay bằng số`
 --------------------------------------------------------------------------------------------------------
 
-#Text-based window manager and terminal multiplexer  
-#byobu  
+**8. Text-based window manager and terminal multiplexer**  
+**a. byobu**  
 ![image](https://github.com/user-attachments/assets/e485451f-4503-417c-9491-931dd7fa67ed)  
-#cài tự dộng bật cùng terminal  
-- byobu-enable
-- https://superuser.com/questions/712413/how-to-load-byobu-automatically-when-terminal-started  
-#lý do dùng byobu  
+**b. cài tự dộng bật cùng terminal**  
+```
+ byobu-enable
+ https://superuser.com/questions/712413/how-to-load-byobu-automatically-when-terminal-started  
+```
+**c. lý do dùng byobu**  
 - quản lý nhiều phiên làm việc trên cùng 1 terminal
 - duy trì phiên làm việc ngay cả khi bị mất kết nối SSH
 - cung cấp thông tin hệ thống theo thời gian thực
 
 -----------------------------------------------------------------------------------------------------------
-#Quản lý tiến trình (Processes)  
-#Command 'ps', 'top', 'htop'  
-#top  
-- time: thời gian thực.
-- uptime: Hiển thị thời gian hệ thống đã chạy kể từ khi khởi động.
-- users: Số lượng người dùng đang đăng nhập vào hệ thống.
-- load average: Hiển thị mức tải của hệ thống trong thời gian khác nhau thường là 1, 5 và 15 phút gần nhất. Do số lượng tiến trình đang chờ CPU (gồm cả các tiến trình chờ truy cập vào tài nguyên I/O như ổ đĩa hoặc mạng). Tính theo số lõi CPU. VD: 4 lõi CPU => <4.0 là nhàn rỗi, không phải xử lý nhiều. =4.0 là mức tải tối ưu. Mỗi lõi có thể xử lý 1.0 đơn vị tải. >4.0 là quá tải, nhiều tiến trình chờ xử lý.  
-- Tasks: Tổng số tiến trình đang chạy, bao gồm các tiến trình đang hoạt động (running), tạm dừng (sleeping), bị dừng (stopped), và bị zombie (zombie).  
-  total: tổng số tiến trình hiện tại của hệ thống  
-  running: tiến trình đang hoạt động và sử dụng CPU (số lượng tiến trình chạy cùng lúc thường bị giới hạn bởi số lượng lõi CPU)  
-  sleeping: các tiến trình đang "ngủ" hoặc "chờ". không hoạt động trực tiếp trên CPU, chờ 1 đkiện nào đó để đánh thức. Hiện diện trong bộ nhớ  
-  stopped: số lượng tiến trình đã dừng  
-  zombie: tiến trình đã kết thúc nhưng chưa được dọn dẹp (không tiêu tốn tài nguyên CPU nhưng vẫn chiếm dụng 1 ID tiến trình PID)  
-- %Cpu(s): Hiển thị phần trăm CPU đang được sử dụng bởi các thành phần sau:  
-    us: Phần trăm CPU dành cho các tiến trình người dùng (user). VD: trình duyệt, tele  
-    sy: Phần trăm CPU dành cho các tiến trình hệ thống (system). VD: quản lý bộ nhớ, các yêu cầu nhập/xuất(I/O)  
-    ni: Phần trăm CPU dành cho các tiến trình ưu tiên (nice). VD: các tác vụ nền.  
-    id: Phần trăm CPU nhàn rỗi (idle). Tức là CPU đang ở trạng thái chờ.  
-    wa: Phần trăm CPU đang chờ hoạt động I/O (iowait). VD: đọc, ghi dữ liệu từ ổ cứng, mạng.  
-    hi: Phần trăm CPU dành cho xử lý các ngắt từ phần cứng (hardware interrupts). VD: tín hiệu từ các thiết bị mạng  
-    si: Phần trăm CPU dành cho xử lý các ngắt từ phần mềm (software interrupts). VD: xử lý các dịch vụ hệ thống.  
-    st: Phần trăm CPU bị đánh cắp bởi máy ảo (chỉ xuất hiện trong hệ thống ảo hóa). Thời lượng CPU bị chiếm bởi máy ảo khác và không có sẵn trong HĐH này.  
-- Mem: Hiển thị thông tin về bộ nhớ RAM, bao gồm tổng dung lượng (total), dung lượng đang sử dụng (used), dung lượng trống (free), và dung lượng đang được cache (buff/cache).  
-- Swap: Hiển thị thông tin về bộ nhớ swap với các cột tương tự như bộ nhớ RAM.  
+**9. Quản lý tiến trình (Processes)**  
+**#Command 'ps', 'top', 'htop'**  
+**9.1 top**  
+- `time`: thời gian thực.
+- `uptime`: Hiển thị thời gian hệ thống đã chạy kể từ khi khởi động.
+- `users`: Số lượng người dùng đang đăng nhập vào hệ thống.
+- `load average`: Hiển thị mức tải của hệ thống trong thời gian khác nhau thường là 1, 5 và 15 phút gần nhất. Do số lượng tiến trình đang chờ CPU (gồm cả các tiến trình chờ truy cập vào tài nguyên I/O như ổ đĩa hoặc mạng). Tính theo số lõi CPU. VD: 4 lõi CPU => <4.0 là nhàn rỗi, không phải xử lý nhiều. =4.0 là mức tải tối ưu. Mỗi lõi có thể xử lý 1.0 đơn vị tải. >4.0 là quá tải, nhiều tiến trình chờ xử lý.  
+- `Tasks`: Tổng số tiến trình đang chạy, bao gồm các tiến trình đang hoạt động (running), tạm dừng (sleeping), bị dừng (stopped), và bị zombie (zombie).  
+  `total`: tổng số tiến trình hiện tại của hệ thống  
+  `running`: tiến trình đang hoạt động và sử dụng CPU (số lượng tiến trình chạy cùng lúc thường bị giới hạn bởi số lượng lõi CPU)  
+  `sleeping`: các tiến trình đang "ngủ" hoặc "chờ". không hoạt động trực tiếp trên CPU, chờ 1 đkiện nào đó để đánh thức. Hiện diện trong bộ nhớ  
+  `stopped`: số lượng tiến trình đã dừng  
+  `zombie`: tiến trình đã kết thúc nhưng chưa được dọn dẹp (không tiêu tốn tài nguyên CPU nhưng vẫn chiếm dụng 1 ID tiến trình PID)  
+- `%Cpu(s)`: Hiển thị phần trăm CPU đang được sử dụng bởi các thành phần sau:  
+    `us`: Phần trăm CPU dành cho các tiến trình người dùng (user). VD: trình duyệt, tele  
+    `sy`: Phần trăm CPU dành cho các tiến trình hệ thống (system). VD: quản lý bộ nhớ, các yêu cầu nhập/xuất(I/O)  
+    `ni`: Phần trăm CPU dành cho các tiến trình ưu tiên (nice). VD: các tác vụ nền.  
+    `id`: Phần trăm CPU nhàn rỗi (idle). Tức là CPU đang ở trạng thái chờ.  
+    `wa`: Phần trăm CPU đang chờ hoạt động I/O (iowait). VD: đọc, ghi dữ liệu từ ổ cứng, mạng.  
+    `hi`: Phần trăm CPU dành cho xử lý các ngắt từ phần cứng (hardware interrupts). VD: tín hiệu từ các thiết bị mạng  
+    `si`: Phần trăm CPU dành cho xử lý các ngắt từ phần mềm (software interrupts). VD: xử lý các dịch vụ hệ thống.  
+    `st`: Phần trăm CPU bị đánh cắp bởi máy ảo (chỉ xuất hiện trong hệ thống ảo hóa). Thời lượng CPU bị chiếm bởi máy ảo khác và không có sẵn trong HĐH này.  
+- `Mem`: Hiển thị thông tin về bộ nhớ RAM, bao gồm tổng dung lượng (total), dung lượng đang sử dụng (used), dung lượng trống (free), và dung lượng đang được cache (buff/cache).  
+- `Swap`: Hiển thị thông tin về bộ nhớ swap với các cột tương tự như bộ nhớ RAM.  
 - Chi tiết của từng tiến trình:  
   PID: ID của tiến trình (Process ID).  
   USER: Tên người dùng sở hữu tiến trình.  
@@ -338,15 +340,15 @@ find / -name "*.sh" | xargs ls -al > myresults.txt
   - -u <username> hiển thị tiến trình của user
   - -p <pid> hiển thị thông tin của PID cụ thể VD: top -p 123 -p 345
 
-#ps
+**9.2 ps**
 - Liệt kê trạng thái tiến trình của từng tiến trình đang chạy trên hệ thống
 
 ![image](https://github.com/user-attachments/assets/53ee6fe3-b50c-4063-93b4-e5a8150d0ba1)
-- -a hiển thị tất cả các quá trình đang chạy trên hệ thống, cho bất kỳ người dùng nào 
-- -u hiển thị thông tin người dùng cho các tiến trình được hiển thị  
-- -x hiển thị quá trình không có tty (terminal) kết nối  
-- LƯU Ý: các tùy chọn này thường được sử dụng cùng nhau và có thể được sử dụng có hoặc không có ký tự - ở trước  
-#htop  
+- `-a` hiển thị tất cả các quá trình đang chạy trên hệ thống, cho bất kỳ người dùng nào 
+- `-u` hiển thị thông tin người dùng cho các tiến trình được hiển thị  
+- `-x` hiển thị quá trình không có tty (terminal) kết nối  
+- **LƯU Ý**: các tùy chọn này thường được sử dụng cùng nhau và có thể được sử dụng có hoặc không có ký tự - ở trước  
+**9.3 htop**  
 - Danh sách tiến trình: 
   PID: ID của tiến trình.  
   USER: Người dùng sở hữu tiến trình.  
@@ -378,8 +380,8 @@ kthr: Số luồng nhân hệ điều hành (kernel threads). Các luồng do ke
 running: Tiến trình đang thực sự chạy (sử dụng CPU) tại thời điểm đó.  
 ------------------------------------------------------------------------------------------------------------------
 
-#Killing Processes
-#signals
+**10. Killing Processes**
+**10.1 signals**
 - những gì được gửi đến tiến trình và tiến trình sau đó phản ứng tương ứng  
   SIGHUP tín hiệu(signal) 1 tắt và khởi động lại tiến trình (hang up)    
   SIGINT tín hiệu 2 gián đoạn một tiến trình (CTL-C)   
@@ -387,7 +389,7 @@ running: Tiến trình đang thực sự chạy (sử dụng CPU) tại thời �
   SIGTERM tín hiệu 15 kết thúc tiến trình (tiến trình có thể bỏ qua hoặc bắt được tín hiệu)    
   SIGSTOP tín hiệu 19 dừng tiến trình (không thể bị bỏ qua hoặc bắt được)    
   SIGTSTP tín hiệu 20 dừng terminal (CTL-Z)   
-#kill
+**10.2 kill**
 - kill <PID>  
   -1 (-HUP) tham chiếu đặc biệt để yêu cầu tiến trình khởi động lại
   -9 (-KILL) kill/stop/end/dump ngay lập tức (thường dùng để kill ngay cả một tiến trình zombie hoặc đang treo)  
