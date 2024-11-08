@@ -139,9 +139,9 @@ make
 sudo make install
 ```
 ---------------------------------------------------------------------------------------------------
-#Cách dùng các trình quản lý package
-#dpkg
-**a. Cài đặt Package từ File .deb**
+#Cách dùng các trình quản lý package  
+#dpkg  
+**a. Cài đặt Package từ File .deb**  
 ```
 sudo dpkg -i package_name.deb
 ```
