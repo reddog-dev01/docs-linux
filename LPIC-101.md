@@ -139,6 +139,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - -n [#] [filename] - hiển thị số dòng, bắt đầu từ cuối, của file được chỉ định
 - -f [filename] - hiển thị bất kỳ dòng mới nào được thêm vào file sau khi bạn đã chạy lệnh VD: tail -n 10 -f /var/log/syslog  
 #less  
+- Hỗ trợ xem văn bản theo trang, có điều hướng, không tải toàn bộ file vào bộ nhớ (chỉ tải phần nội dung cần hiển thị) => tiết kiệm tài nguyên CPU khi làm việc với file lớn.
 - -N: Hiển thị số dòng bên cạnh nội dung. VD: less -N filename.txt
 - -S: Cắt các dòng dài thay vì xuống dòng, giúp bạn dễ dàng xem mà không bị phân tâm bởi việc xuống dòng. VD: less -S filename.txt
 - -F: Tự động thoát nếu file đủ nhỏ để hiển thị trên một trang. VD: less -F filename.txt
