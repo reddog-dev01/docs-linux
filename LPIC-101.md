@@ -44,29 +44,24 @@ history 10
 - ```Ctrl + K``` xóa từ con trỏ đến cuối dòng <br>
 LƯU Ý: xóa toàn bộ lịch sử:``` history -c ``` 
        xóa 1 dòng cụ thể``` history -d 25  ```
------------------------------------------------------------------------------------------
-
-#Các phím tắt trong terminal
-
-- Ctrl + S tạm dừng đầu ra terminal
-- Ctrl + Q tiếp tục đầu ra terminal
-- còn nữa
-
+  
 ----------------------------------------------------------------------------------------------------
 
-#Getting help
-#Cách sử dụng lệnh man (manual)
+**4. Getting help**
+**a. Cách sử dụng lệnh man (manual)**
 - Sử dụng để hiển thị tài liệu hướng dẫn chi tiết lệnh, file cầu hình, chương trình khác.
-- Cú pháp: man [ten_lenh] VD: man cat 
-- Xem 1 phần cụ thể: man [so_phan] [ten_phan] VD: man 5 passwd
-- Tìm kiếm 1 từ khóa trong các trang man: man -k [tu_khoa] hoặc apropos [tu_khoa]
-- Hiển thị đường dẫn đầy đủ của trang man: man -w [ten_len] VD: man -w cat
-
+- Cú pháp:``` man [ten_lenh]``` VD:``` man cat ```
+- Xem 1 phần cụ thể: man [so_phan] [ten_phan] VD:``` man 5 passwd ```
+- Tìm kiếm 1 từ khóa trong các trang man:``` man -k [tu_khoa] ```hoặc apropos [tu_khoa]
+- Hiển thị đường dẫn đầy đủ của trang man:``` man -w [ten_len] ```VD:
+```
+man -w cat
+```
 --------------------------------------------------------------------------------------------------
 
-#Using streams, Redirection, Pipes  
-#Cách sử dụng luồng, ống, chuyển hướng  
-#Streams  
+**5. Using streams, Redirection, Pipes**  
+**5.1 Cách sử dụng luồng, ống, chuyển hướng**  
+**a. Streams**  
 #Standard input (luồng đầu vào tiêu chuẩn)  
 - cung cấp đầu vào cho các thiết bị đầu cuối, ứng dụng, tiện ích. Thường kết nối với bàn phím.
 - luồng đầu vào mà chương trình có thể đọc dữ liệu từ đó.
