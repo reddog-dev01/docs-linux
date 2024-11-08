@@ -250,14 +250,14 @@ find / -name "*.sh" | xargs ls -al > myresults.txt
 - Xóa một ký tự: Trong Normal Mode, nhấn `x`.
 - Xóa một dòng: Trong Normal Mode, gõ `dd`.
 - Sao chép một dòng: Trong Normal Mode, gõ `yy`.
-- Dán: Trong Normal Mode, gõ `p`.
+- Dán: Trong Normal Mode, gõ `p`.  
 **7.1.2 insert mode: nhập chỉnh sửa văn bản**  
 - Nhấn `i` Chèn từ vị trí con trỏ hiện tại.
 - Nhấn `I` Chèn ở đầu dòng hiện tại.
 - Nhấn `a` Chèn sau vị trí con trỏ hiện tại.
 - Nhấn `A` Chèn ở cuối dòng hiện tại.
 - Nhấn `o` Tạo dòng mới phía dưới dòng hiện tại và chuyển vào chế độ Insert.
-- Nhấn `O` Tạo dòng mới phía trên dòng hiện tại và chuyển vào chế độ Insert.  
+- Nhấn `O` Tạo dòng mới phía trên dòng hiện tại và chuyển vào chế độ Insert.    
 **7.1.3 visual mode: cho phép bôi đen để copy, xóa, thay thế**  
 - Nhấn `v` Bắt đầu chọn ký tự.
 - Nhấn `V` Chọn toàn bộ dòng.
@@ -271,14 +271,14 @@ find / -name "*.sh" | xargs ls -al > myresults.txt
 **7.1.6 select mode**  
 - Nhấn `gh` để chuyển vào chế độ Select từ chế độ Normal (có thể không được hỗ trợ trên một số bản Vim).  
 **7.1.7 Ex mode**  
-- Nhấn `Q` từ chế độ Normal để vào Ex Mode.
+- Nhấn `Q` từ chế độ Normal để vào Ex Mode.  
 **#tìm kiếm và thay thế**
-- `:%s/old_word/new_word/g`
+- `:%s/old_word/new_word/g`  
 **#copy dòng bất kì**
-- `3yy` hoặc `5yy` `số dòng + yy`
+- `3yy` hoặc `5yy` `số dòng + yy`  
 **#paste số lần tùy ý**
 - `:let i=0 | while i < 1000 | put | let i=i+1 | endwhile`
-- `:normal! 1000p`
+- `:normal! 1000p`  
 **#den dòng bất kì**
 - `:x #thay bằng số`
 --------------------------------------------------------------------------------------------------------
