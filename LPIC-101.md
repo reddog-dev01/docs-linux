@@ -1,4 +1,4 @@
-#Cách thay đổi thư mục làm việc (cd)  
+**1. Cách thay đổi thư mục làm việc (cd)**    
 
 - Có thể sử dụng đường dẫn tuyệt đối, đường dẫn tương đối hoặc giá trị trong biến làm phần của đường dẫn.
 - VD: cd /home/user/Documents (đường dẫn tuyệt đối là bắt đầu từ thư mục gốc) hoặc cd Documents (đường dẫn tương đối là bắt đầu từ thư mục hiện tại)
@@ -11,30 +11,39 @@
   . đại diện đại diện cho thư mục hiện tại  
   .. đại diện cho thư mục cha của thư mục hiện tại
   
-- LƯU Ý: để đến thư mục gốc của mình dùng cd~ nhưng đến như mục gốc người khác dùng cd~user
+- **LƯU Ý**: để đến thư mục gốc của mình dùng cd~ nhưng đến như mục gốc người khác dùng cd~user
 
 --------------------------------------------------------------------------------------
 
-#Cách xem thư mục đang làm việc (pwd)
+**2. Cách xem thư mục đang làm việc (pwd)**  
 
 -------------------------------------------------------------------------------------------
 
-#Cách xem lịch sử của các lệnh đã gõ, đã thực hiện (history hoặc cat ~/.bash_history)
+**3. Cách xem lịch sử của các lệnh đã gõ, đã thực hiện (history)**  
 
-- Tìm kiếm lệnh cụ thể trong lịch sử: history | grep <từ khóa> <br>
-  VD: history | grep ls
-- Xem số lượng nhất định: history 10
+- Tìm kiếm lệnh cụ thể trong lịch sử:
+```
+history | grep <từ khóa>
+```
+  VD:
+```
+history | grep ls
+```
+- Xem số lượng nhất định:
+```
+history 10
+```
 - Thực thi lệnh gần nhất bắt đầu bằng 1 từ khóa: !<từ khóa> VD: !sudo
 - để chạy 1 lệnh bất kì sử dụng: !<số> VD: !234
 - chuỗi: !<chuỗi> VD: !ls
 - lệnh cuối cùng: !!
-- Ctrl + R tìm kiếm lệnh gần nhất với từ khóa nhập sử dụng mũi tên lên xuống để chuyển đổi qua lại <br>  
-  VD: Ctrl + R nhập 'sudo' hệ thống chạy lệnh gần nhất có chưa 'sudo'. Có thể sử dụng mũi tên sang phải để chỉnh sửa lệnh đó.
-- Ctrl + G để thoát chế độ tìm kiếm "reverse-i-search" (Ctrl + R)
-- Ctrl + U xóa từ đầu dòng đến con trỏ
-- Ctrl + K xóa từ con trỏ đến cuối dòng <br>
-LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
-       xóa 1 dòng cụ thể history -d 25
+- ```Ctrl + R``` tìm kiếm lệnh gần nhất với từ khóa nhập sử dụng mũi tên lên xuống để chuyển đổi qua lại <br>  
+  VD: ```Ctrl + R``` nhập 'sudo' hệ thống chạy lệnh gần nhất có chưa 'sudo'. Có thể sử dụng mũi tên sang phải để chỉnh sửa lệnh đó.
+- ``` Ctrl + G``` để thoát chế độ tìm kiếm "reverse-i-search" (Ctrl + R)
+- ```Ctrl + U``` xóa từ đầu dòng đến con trỏ
+- ```Ctrl + K``` xóa từ con trỏ đến cuối dòng <br>
+LƯU Ý: xóa toàn bộ lịch sử:``` history -c ``` 
+       xóa 1 dòng cụ thể``` history -d 25  ```
 -----------------------------------------------------------------------------------------
 
 #Các phím tắt trong terminal
