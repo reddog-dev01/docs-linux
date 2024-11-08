@@ -126,11 +126,13 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - '- [#]' files mới chứa số lượng byte hoặc dòng được chỉ định
 - -l [#] files mới chứa số lượng dòng được chỉ định  
 #uniq  
-- cho phép trích xuất chỉ các dòng dữ liệu 'duy nhất' từ file
-- Áp dụng sắp xếp vào file trước khi chạy lệnh này (đặc biệt là các file lớn)
-- -u [filename] chỉ in ra các dòng duy nhất trong file
-- -d [filename] in ra ví dụ của mỗi dòng bị lặp lại trong file
-- -D [filename] in ra TẤT CẢ các trường hợp của các dòng bị lặp lại trong file  
+- -c	Đếm số lần xuất hiện của mỗi dòng.
+- -d	Chỉ hiển thị các dòng trùng lặp.
+- -u	Chỉ hiển thị các dòng duy nhất.
+- -i	Bỏ qua phân biệt hoa thường khi so sánh.
+- -f N	Bỏ qua N cột đầu tiên khi so sánh.
+- -s N	Bỏ qua N ký tự đầu tiên khi so sánh.
+- -w N	So sánh N ký tự đầu tiên của mỗi dòng. 
 #head  
 - Tương tự như lệnh cat vì nó sẽ hiển thị nội dung của một file, nhưng chỉ hiển thị một số dòng nhất định từ đầu (mặc định là 10)
 - -n [#] [filename] hiển thị số dòng, bắt đầu từ đầu, của tệp được chỉ định  
