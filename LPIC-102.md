@@ -23,11 +23,12 @@ VD: kiểm tra dependencies: apt-cache depends apache2
 - Gồm các tệp thực thi, thư viện, các tệp cấu hình cần thiết cho phần mềm hoạt động.
 - Đặc điểm: Không cần biên dịch lại, phân phối dễ dàng, phụ thuộc vào kiến trúc hệ thống.
 - Các định dạng Binary Package: .deb, .rpm, snap và flatpak.  
-VD: cài đặt chrome  
+VD: cài đặt chrome
+```
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt install -f   # Cài đặt các dependencies còn thiếu nếu có  
-
+```
 #Repository (kho lưu trữ phần mềm)
 - Tập hợp các package phần mềm được lưu trữ trên các máy chủ trực tuyến, được quản lý bởi các nhà phát triển của hệ điều hành hoặc bên thứ ba.
 - Nguồn chính để tải về và cài đặt các phần mềm, cập nhật, vá.
@@ -140,3 +141,15 @@ sudo make install
 ---------------------------------------------------------------------------------------------------
 #Cách dùng các trình quản lý package
 #dpkg
+**a. Cài đặt Package từ File .deb**
+```
+sudo dpkg -i package_name.deb
+```
+VD: cài chrome
+```
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+```
+- Nếu trong quá trình cài đặt có lỗi phụ thuộc, bạn có thể sử dụng lệnh apt để tự động cài đặt các phụ thuộc còn thiếu:
+```
+sudo apt install -f
+```
