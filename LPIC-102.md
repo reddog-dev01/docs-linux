@@ -54,6 +54,87 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
   sudo apt remove package_name      #gỡ bỏ phần mềm
   sudo apt auto remove              #xóa các package không cần thiết
   ```
+  VD:
+  ```bash
+  sudo apt update
+  sudo apt install vlc
+  ```
 #Cài đặt phần mềm từ tệp .deb (Debian Package)
-
+- Cài đặt từ tệp .deb:
+```bash
+Copy code
+sudo dpkg -i package_name.deb
+sudo apt install -f  # Sửa lỗi và cài đặt các dependencies còn thiếu (nếu có)
+```
+VD: cài chrome
+```bash
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt install -f
+```
+#Cài đặt phần mềm với Snap
+- Cài snap:
+```bash
+sudo apt update
+sudo apt install snapd
+```
+- Cài phần mềm:
+```bash
+sudo snap install package_name
+```
+- VD: cài tele
+```bash
+sudo snap install telegram
+```
+#Cài đặt phần mềm với Flatpak
+- Cài đặt Flatpak
+```bash
+sudo apt install flatpak
+```
+- Thêm Flathub Repo (Kho ứng dụng flatpak chính)
+```bash
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+- Cài đặt phần mềm:
+```bash
+flatpak install flathub package_name
+```
+VD:
+```bash
+flatpak install flathub org.gimp.GIMP
+```
+#Cài đặt phần mềm
+- Thêm PPA
+```bash
+sudo add-apt-repository ppa:user/ppa-name
+sudo apt update
+```
+- Cài đặt phần mềm:
+```bash
+sudo apt install package_name
+```
+- VD: cài driver NVIDIA
+```bash
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+sudo apt install nvidia-driver-460
+```
+#Cài đặt phần mềm từ mã nguồn (Source Code)
+- Các bước cài đặt từ mã nguồn:
+```
+tar -xzf source_code.tar.gz   # Giải nén mã nguồn
+cd source_code_directory      # Truy cập vào thư mục mã nguồn
+./configure                   # Cấu hình trước khi biên dịch
+make                          # Biên dịch mã nguồn
+sudo make install             # Cài đặt phần mềm
+```
+- VD: cài mã nguồn từ htop
+```
+wget https://hisham.hm/htop/releases/2.2.0/htop-2.2.0.tar.gz
+tar -xzf htop-2.2.0.tar.gz
+cd htop-2.2.0
+./configure
+make
+sudo make install
+```
 
