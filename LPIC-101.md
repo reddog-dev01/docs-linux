@@ -41,6 +41,8 @@ history 10
   VD: ```Ctrl + R``` nhập 'sudo' hệ thống chạy lệnh gần nhất có chưa 'sudo'. Có thể sử dụng mũi tên sang phải để chỉnh sửa lệnh đó.
 - ``` Ctrl + G``` để thoát chế độ tìm kiếm "reverse-i-search" (Ctrl + R)
 - ```Ctrl + U``` xóa từ đầu dòng đến con trỏ
+- `Ctrl + S` Tạm dừng (đóng băng) đầu ra của Terminal.
+- `Ctrl + Q` Tiếp tục đầu ra của Terminal.
 - ```Ctrl + K``` xóa từ con trỏ đến cuối dòng <br>
 **LƯU Ý**: xóa toàn bộ lịch sử:``` history -c ``` 
        xóa 1 dòng cụ thể``` history -d 25  ```
