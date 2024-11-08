@@ -125,7 +125,8 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - -b [#][b/k/m] file mới chứa số lượng byte/kilobyte/megabyte được chỉ định
 - '- [#]' files mới chứa số lượng byte hoặc dòng được chỉ định
 - -l [#] files mới chứa số lượng dòng được chỉ định  
-#uniq  
+#uniq
+-  dùng như lệnh phụ
 - -c	Đếm số lần xuất hiện của mỗi dòng.
 - -d	Chỉ hiển thị các dòng trùng lặp.
 - -u	Chỉ hiển thị các dòng duy nhất.
