@@ -147,7 +147,7 @@ find / -name "*.sh" | xargs ls -al > myresults.txt
 - sắp xếp bỏ qua chữ hoa, chữ thường: ```sort -f```
 - sắp xếp bỏ qua dòng trùng lặp: ```sort -u```
 - sắp xếp theo thứ tự số: ```sort -n```
-- chỉ định kí tự phân tách: ```sort -t``` VD: ```sort -t ',' -k 1 file.csv```
+- chỉ định kí tự phân tách: ```sort -t``` VD: ```sort -t ',' -k 1 file.csv```  
 **6.4 nl**
 - ```nl -ba``` đánh số dòng kể cả dòng trống
 **6.5 split**  
@@ -164,7 +164,7 @@ find / -name "*.sh" | xargs ls -al > myresults.txt
 - ```-i```	Bỏ qua phân biệt hoa thường khi so sánh.
 - ```-f N```	Bỏ qua N cột đầu tiên khi so sánh.
 - ```-s N```	Bỏ qua N ký tự đầu tiên khi so sánh.
-- ```-w N```	So sánh N ký tự đầu tiên của mỗi dòng. 
+- ```-w N```	So sánh N ký tự đầu tiên của mỗi dòng.   
 **6.6 head**  
 - Tương tự như lệnh cat vì nó sẽ hiển thị nội dung của một file, nhưng chỉ hiển thị một số dòng nhất định từ đầu (mặc định là 10)
 - ```-n [#] [filename]``` hiển thị số dòng, bắt đầu từ đầu, của tệp được chỉ định  
