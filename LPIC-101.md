@@ -181,7 +181,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - ^: bắt đầu dòng VD: grep "^Helo" text.txt
 - $: kết thúc dòng VD: grep "helo$" text.txt
 - .: đại diện cho bất kì kí tự nào VD: grep "h...l" text.txt
-- *: số lượng kí tự trước * xuất hiện (có thể 0 hoặc nhiều kí tự) VD: grep "hel*o" text.txt (kết quả là heo, helo, hello)
+- "*": số lượng kí tự trước '*' xuất hiện (có thể 0 hoặc nhiều kí tự) VD: grep "hel*o" text.txt (kết quả là heo, helo, hello)
 - 
 #sed  
 - dùng để xử lý và thao tác văn bản. Đặc biệt là trong các tệp văn bản hoặc dòng đầu ra từ các lệnh khác. Cho phép các thao tác như tìm kiếm, thay thế, chèn, xóa dữ liệu trong văn bản.
