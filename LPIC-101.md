@@ -316,8 +316,8 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - -a hiển thị tất cả các quá trình đang chạy trên hệ thống, cho bất kỳ người dùng nào 
 - -u hiển thị thông tin người dùng cho các tiến trình được hiển thị  
 - -x hiển thị quá trình không có tty (terminal) kết nối  
-- LƯU Ý: các tùy chọn này thường được sử dụng cùng nhau và có thể được sử dụng có hoặc không có ký tự - ở trước
-#htop
+- LƯU Ý: các tùy chọn này thường được sử dụng cùng nhau và có thể được sử dụng có hoặc không có ký tự - ở trước  
+#htop  
 - Danh sách tiến trình: 
   PID: ID của tiến trình.  
   USER: Người dùng sở hữu tiến trình.  
