@@ -281,16 +281,16 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
   zombie: tiến trình đã kết thúc nhưng chưa được dọn dẹp (không tiêu tốn tài nguyên CPU nhưng vẫn chiếm dụng 1 ID tiến trình PID)  
 - %Cpu(s): Hiển thị phần trăm CPU đang được sử dụng bởi các thành phần sau:  
     us: Phần trăm CPU dành cho các tiến trình người dùng (user). VD: trình duyệt, tele  
-    sy: Phần trăm CPU dành cho các tiến trình hệ thống (system). VD: quản lý bộ nhớ, các yêu cầu nhập/xuất(I/O)
+    sy: Phần trăm CPU dành cho các tiến trình hệ thống (system). VD: quản lý bộ nhớ, các yêu cầu nhập/xuất(I/O)  
     ni: Phần trăm CPU dành cho các tiến trình ưu tiên (nice). VD: các tác vụ nền.  
-    id: Phần trăm CPU nhàn rỗi (idle). Tức là CPU đang ở trạng thái chờ. 
-    wa: Phần trăm CPU đang chờ hoạt động I/O (iowait). VD: đọc, ghi dữ liệu từ ổ cứng, mạng.
-    hi: Phần trăm CPU dành cho xử lý các ngắt từ phần cứng (hardware interrupts). VD: tín hiệu từ các thiết bị mạng
-    si: Phần trăm CPU dành cho xử lý các ngắt từ phần mềm (software interrupts). VD: xử lý các dịch vụ hệ thống.
+    id: Phần trăm CPU nhàn rỗi (idle). Tức là CPU đang ở trạng thái chờ.  
+    wa: Phần trăm CPU đang chờ hoạt động I/O (iowait). VD: đọc, ghi dữ liệu từ ổ cứng, mạng.  
+    hi: Phần trăm CPU dành cho xử lý các ngắt từ phần cứng (hardware interrupts). VD: tín hiệu từ các thiết bị mạng  
+    si: Phần trăm CPU dành cho xử lý các ngắt từ phần mềm (software interrupts). VD: xử lý các dịch vụ hệ thống.  
     st: Phần trăm CPU bị đánh cắp bởi máy ảo (chỉ xuất hiện trong hệ thống ảo hóa). Thời lượng CPU bị chiếm bởi máy ảo khác và không có sẵn trong HĐH này.  
 - Mem: Hiển thị thông tin về bộ nhớ RAM, bao gồm tổng dung lượng (total), dung lượng đang sử dụng (used), dung lượng trống (free), và dung lượng đang được cache (buff/cache).  
 - Swap: Hiển thị thông tin về bộ nhớ swap với các cột tương tự như bộ nhớ RAM.  
-- Chi tiết của từng tiến trình:
+- Chi tiết của từng tiến trình:  
   PID: ID của tiến trình (Process ID).  
   USER: Tên người dùng sở hữu tiến trình.  
   PR: Độ ưu tiên của tiến trình (Priority). Số nhỏ hơn có độ ưu tiên cao hơn.  
