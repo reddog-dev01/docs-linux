@@ -21,3 +21,7 @@ VD: kiểm tra dependencies: apt-cache depends apache2
 - Đặc điểm: Không cần biên dịch lại, phân phối dễ dàng, phụ thuộc vào kiến trúc hệ thống.
 - Các định dạng Binary Package: .deb, .rpm, snap và flatpak.  
 VD: cài đặt chrome  
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt install -f   # Cài đặt các dependencies còn thiếu nếu có
+
