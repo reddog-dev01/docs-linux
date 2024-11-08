@@ -153,7 +153,7 @@ LƯU Ý: xóa toàn bộ lịch sử: history -c hoặc rm ~/.bash_history <br>
 - ?: Tìm kiếm ngược. Nhập từ khóa và nhấn Enter.
 - n: Chuyển đến kết quả tìm kiếm tiếp theo.
 - N: Chuyển đến kết quả tìm kiếm trước đó.
-- q: Thoát khỏi less. 
+- q: Thoát khỏi less.  
 #cut  
 - trích xuất dữ liệu trường hoặc cột từ một vị trí cụ thể trong file được chỉ định
 - -c [#][-#] [filename] sẽ chỉ hiển thị cột (hoặc phạm vi cột) từ tệp được chỉ định VD: cut -c 1-3 text.txt là cắt 3 kí tự đầu của mỗi dòng
