@@ -298,7 +298,7 @@ sudo apt-get autoclean
 - Định kỳ để đảm bảo hệ thống luôn cập nhật: Chạy `apt upgrade` một cách thường xuyên (hàng tuần hoặc hàng tháng) giúp hệ thống cập nhật và bảo mật hơn, giảm thiểu các rủi ro tiềm ẩn.
 ----------------------------------------------------------------------------------------------------------------
 **3. StartUp Script**  
-- Các tập lệnh tự động chạy khi hệ thống khởi động hoặc khi người dùng đăng nhập vào hệ thống. Những script này thường được sử dụng để thiết lập môi trường, khởi động các dịch vụ quan trọng, hoặc thực hiện các công việc bảo trì cần thiết mà mình muốn thực hiện tự động khi hệ thống khởi động.
+- Các tập lệnh tự động chạy khi hệ thống khởi động hoặc khi người dùng đăng nhập vào hệ thống. Những script này thường được sử dụng để thiết lập môi trường, khởi động các dịch vụ quan trọng, hoặc thực hiện các công việc bảo trì cần thiết mà mình muốn thực hiện tự động khi hệ thống khởi động.  
 **#Cách để chạy 1 script mỗi khi server được bật**  
 **3.1 Sử dụng `rc.local` Script**  
 - File /etc/rc.local là một trong những phương pháp đơn giản nhất để chạy các lệnh khi hệ thống khởi động. File này sẽ được chạy với quyền root (quyền quản trị), cho phép thực thi các lệnh yêu cầu quyền cao.  
