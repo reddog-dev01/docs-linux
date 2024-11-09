@@ -1,11 +1,11 @@
-#Manage processes  
+**1. Manage processes**    
 
-#Package  
+**1.1 Package**  
 - Tập hợp các tệp cần thiết để cài đặt và chạy 1 ứng dụng. Bao gồm tệp thực thi, thư viện, cấu hình, tài liệu.
 - Các loại package chính: DEB, RPM, Tarball (TAR, TAR.GZ, TAR.BZ2)
 - Đơn giản hóa việc cài đặt, gỡ cài đặt, tăng cường bảo mật, giảm rác hệ thống, ổn định.  
 
-#Dependencies (phụ thuộc)  
+**1.2 Dependencies (phụ thuộc)**    
 - là các thư viện hoặc package mà 1 phần mềm cần để hoạt đông đúng. Khi tải 1 phần mềm => Package Manager sẽ tự động tải và cài đặt các depandencies cần thiết.
 - Các dependencies giúp phần mềm có thể tương tác với các thư viện hệ thống, mã hóa dữ liệu, nén file, hiển thị giao diện đồ họa.
 - Cách Package Manager xử lý depencies: Các Package manager sẽ tự động tải về các package phụ thuộc khi cài 1 phần mềm (package phụ thuộc có thể là thư viện, công cụ dòng lệnh,
@@ -18,7 +18,7 @@ VD: Apache2 có 1 số dependencies cần thiết:
 - apache2-bin: Các tệp thực thi chính của Apache2, cần thiết để khởi động và chạy dịch vụ.  
 VD: kiểm tra dependencies: apt-cache depends apache2    
 
-#Binary package (gói nhị phân)  
+**1.3 Binary package (gói nhị phân)**  
 - 1 loại package chứa các tệp đã được biên dịch sẵn (nghĩa là mã nguồn của phần mềm đã được chuyển thành tệp nhị phân mà HĐH có thể chạy trực tiếp)
 - Gồm các tệp thực thi, thư viện, các tệp cấu hình cần thiết cho phần mềm hoạt động.
 - Đặc điểm: Không cần biên dịch lại, phân phối dễ dàng, phụ thuộc vào kiến trúc hệ thống.
@@ -29,22 +29,22 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt install -f   # Cài đặt các dependencies còn thiếu nếu có  
 ```
-#Repository (kho lưu trữ phần mềm)
+**1.4 Repository (kho lưu trữ phần mềm)**
 - Tập hợp các package phần mềm được lưu trữ trên các máy chủ trực tuyến, được quản lý bởi các nhà phát triển của hệ điều hành hoặc bên thứ ba.
 - Nguồn chính để tải về và cài đặt các phần mềm, cập nhật, vá.
 - Các loại Repository: Offcial Repository (Kho chính thức), Community Repository (Kho cộng đồng), Third-Party Repository (Kho của bên thứ ba), Personal Package Archives (PPA-chỉ có trên ubuntu và bản phối Debian)
 - Các thành phần của một Repository: Matadata (thông tin về các package gồm package, phiên bản, mô tả, phụ thuộc, thông tin cần thiết khác), Package files (Các tệp nhị phân (.deb, .rpm ...) của từng phần mềm,
 Release files (chứa thông tin về phiên bản, phân phối, trạng thái của kho)
 - Cách hoạt động của Repository: Kết nối tới Repository => Tải Matadata => Cài đặt và quản lý phụ thuộc => Lưu trữ package đã cài.
-#Cách kiểm tra các Repository đang dùng  
-#Ubuntu/Debian  
+**1.5 Cách kiểm tra các Repository đang dùng**  
+**a. Ubuntu/Debian**  
 - Liệt kê các repo hiện có: apt policy
-#CentOS/Fedora
+**b. CentOS/Fedora**
 - yum repolist
-#DNF
+**c. DNF**
 - dnf repolist
-#Các cách cài phần mềm
-#Sử dụng APT (Advanced Package Tool)
+**1.6 Các cách cài phần mềm**
+**a. Sử dụng APT (Advanced Package Tool)**
 - Cài đặt phần mềm:  
 ```bash
   sudo apt update
@@ -60,7 +60,7 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
   sudo apt update
   sudo apt install vlc
   ```
-#Cài đặt phần mềm từ tệp .deb (Debian Package)
+**b. Cài đặt phần mềm từ tệp .deb (Debian Package)**
 - Cài đặt từ tệp .deb:
 ```bash
 Copy code
@@ -73,7 +73,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt install -f
 ```
-#Cài đặt phần mềm với Snap
+**c. Cài đặt phần mềm với Snap**
 - Cài snap:
 ```bash
 sudo apt update
@@ -87,7 +87,7 @@ sudo snap install package_name
 ```bash
 sudo snap install telegram
 ```
-#Cài đặt phần mềm với Flatpak
+**d. Cài đặt phần mềm với Flatpak**
 - Cài đặt Flatpak
 ```bash
 sudo apt install flatpak
@@ -104,7 +104,7 @@ VD:
 ```bash
 flatpak install flathub org.gimp.GIMP
 ```
-#Cài đặt phần mềm
+**e. Cài đặt phần mềm**
 - Thêm PPA
 ```bash
 sudo add-apt-repository ppa:user/ppa-name
@@ -120,7 +120,7 @@ sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt update
 sudo apt install nvidia-driver-460
 ```
-#Cài đặt phần mềm từ mã nguồn (Source Code)
+**f. Cài đặt phần mềm từ mã nguồn (Source Code)**
 - Các bước cài đặt từ mã nguồn:
 ```
 tar -xzf source_code.tar.gz   # Giải nén mã nguồn
@@ -139,8 +139,8 @@ make
 sudo make install
 ```
 ---------------------------------------------------------------------------------------------------
-#Cách dùng các trình quản lý package  
-#dpkg  
+**2. Cách dùng các trình quản lý package**  
+**2.1 dpkg**  
 **a. Cài đặt Package từ File .deb**  
 ```
 sudo dpkg -i package_name.deb
@@ -149,7 +149,57 @@ VD: cài chrome
 ```
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 ```
-- Nếu trong quá trình cài đặt có lỗi phụ thuộc, bạn có thể sử dụng lệnh apt để tự động cài đặt các phụ thuộc còn thiếu:
+
+- Nếu trong quá trình cài đặt có lỗi phụ thuộc, có thể sử dụng lệnh apt để tự động cài đặt các phụ thuộc còn thiếu:
 ```
 sudo apt install -f
 ```
+**b. Gỡ cài đặt Package**  
+`
+sudo dpkg -r package_name
+`
+VD:  
+`
+sudo dpkg -r google-chrome-stable
+`
+**c. Gỡ cài đặt Oackage và xóa cấu hình (Purge)**
+`
+sudo dpkg --purge package_name
+`
+VD: Gỡ hoàn toàn chrome
+`
+sudo dpkg --purge google-chrome-stable
+`
+**c. Liệt kê các package đã cài đặt**
+`
+dpkg -l
+`
+- Tìm kiếm cụ thể
+```
+dpkg -l | grep package_name
+```
+**d. Kiểm tra trạng thái của một package**
+`
+dpkg -s pack_name
+`
+VD:  
+`
+dpkg -s curl
+`
+**e. Hiển thị danh sách các file của 1 package đã cài đặt**
+`
+dpkg -L package_name
+`
+VD:  
+`
+dpkg -L curl
+`
+**f. Tìm kiếm package đang sở hữu một file cụ thể**
+`
+dpkg -S /path/to/file
+`
+VD:
+`
+dpkg -S /usr/bin/curl
+`
+**g. Trích xuất File từ package .deb mà không cài đặt**
