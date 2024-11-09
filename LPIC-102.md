@@ -273,3 +273,12 @@ VD: Tìm kiếm các package liên quan đến nginx
 ```
 apt-cache search nginx
 ```
+**i. Dọn dẹp Cache của package**
+- Xóa các tệp .deb đã tải xuống trong thư mục /var/cache/apt/archives, giúp giải phóng không gian đĩa.
+```
+sudo apt-get clean
+```
+**j. Xóa Cache của Package Đã Cài Đặt**
+```
+sudo apt-get autoclean
+```
