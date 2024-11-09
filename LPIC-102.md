@@ -155,51 +155,51 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt install -f
 ```
 **b. Gỡ cài đặt Package**  
-`
+```
 sudo dpkg -r package_name
-`
+```
 VD:  
-`
+```
 sudo dpkg -r google-chrome-stable
-`
+```
 **c. Gỡ cài đặt Oackage và xóa cấu hình (Purge)**  
-`
+```
 sudo dpkg --purge package_name
-`
+```
 VD: Gỡ hoàn toàn chrome
-`
+```
 sudo dpkg --purge google-chrome-stable
-`
+```
 **c. Liệt kê các package đã cài đặt**  
-`
+```
 dpkg -l
-`
+```
 - Tìm kiếm cụ thể
 ```
 dpkg -l | grep package_name
 ```
 **d. Kiểm tra trạng thái của một package**  
-`
+```
 dpkg -s pack_name
-`  
+```
 VD:  
-`
+```
 dpkg -s curl
-`  
+```
 **e. Hiển thị danh sách các file của 1 package đã cài đặt**  
-`
+```
 dpkg -L package_name
-`  
+```
 VD:  
-`
+```
 dpkg -L curl
-`  
+```
 **f. Tìm kiếm package đang sở hữu một file cụ thể**  
-`
+```
 dpkg -S /path/to/file
-`
+```
 VD:  
-``
+```
 dpkg -S /usr/bin/curl
-``
+```
 **g. Trích xuất File từ package .deb mà không cài đặt**  
