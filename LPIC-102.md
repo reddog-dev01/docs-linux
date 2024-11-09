@@ -296,4 +296,5 @@ sudo apt-get autoclean
 - Sau khi chạy `apt update`: `apt upgrade` sẽ kiểm tra và nâng cấp các package lên phiên bản mới nhất, giúp hệ thống luôn cập nhật và bảo mật hơn.
 - Khi muốn cập nhật các bản vá bảo mật và sửa lỗi: Nhiều bản cập nhật bao gồm các bản vá bảo mật và sửa lỗi cho các package đã cài đặt. Việc nâng cấp các package giúp bảo vệ hệ thống khỏi các lỗ hổng bảo mật.
 - Định kỳ để đảm bảo hệ thống luôn cập nhật: Chạy `apt upgrade` một cách thường xuyên (hàng tuần hoặc hàng tháng) giúp hệ thống cập nhật và bảo mật hơn, giảm thiểu các rủi ro tiềm ẩn.
+----------------------------------------------------------------------------------------------------------------
 **3. StartUp Script**
