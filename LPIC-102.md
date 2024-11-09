@@ -61,13 +61,13 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
   sudo apt install vlc
   ```
 **b. Cài đặt phần mềm từ tệp .deb (Debian Package)**
-- Cài đặt từ tệp .deb:
-```bash
+- Cài đặt từ tệp .deb:  
+```
 Copy code
 sudo dpkg -i package_name.deb
 sudo apt install -f  # Sửa lỗi và cài đặt các dependencies còn thiếu (nếu có)
 ```
-VD: cài chrome
+VD: cài chrome  
 ```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
@@ -96,11 +96,11 @@ sudo apt install flatpak
 ```bash
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 ```
-- Cài đặt phần mềm:
+- Cài đặt phần mềm:  
 ```bash
 flatpak install flathub package_name
 ```
-VD:
+VD:  
 ```bash
 flatpak install flathub org.gimp.GIMP
 ```
@@ -162,7 +162,7 @@ VD:
 `
 sudo dpkg -r google-chrome-stable
 `
-**c. Gỡ cài đặt Oackage và xóa cấu hình (Purge)**
+**c. Gỡ cài đặt Oackage và xóa cấu hình (Purge)**  
 `
 sudo dpkg --purge package_name
 `
@@ -170,7 +170,7 @@ VD: Gỡ hoàn toàn chrome
 `
 sudo dpkg --purge google-chrome-stable
 `
-**c. Liệt kê các package đã cài đặt**
+**c. Liệt kê các package đã cài đặt**  
 `
 dpkg -l
 `
@@ -178,7 +178,7 @@ dpkg -l
 ```
 dpkg -l | grep package_name
 ```
-**d. Kiểm tra trạng thái của một package**
+**d. Kiểm tra trạng thái của một package**  
 `
 dpkg -s pack_name
 `
@@ -186,7 +186,7 @@ VD:
 `
 dpkg -s curl
 `
-**e. Hiển thị danh sách các file của 1 package đã cài đặt**
+**e. Hiển thị danh sách các file của 1 package đã cài đặt**  
 `
 dpkg -L package_name
 `
@@ -194,12 +194,12 @@ VD:
 `
 dpkg -L curl
 `
-**f. Tìm kiếm package đang sở hữu một file cụ thể**
+**f. Tìm kiếm package đang sở hữu một file cụ thể**  
 `
 dpkg -S /path/to/file
 `
-VD:
+VD:  
 `
 dpkg -S /usr/bin/curl
 `
-**g. Trích xuất File từ package .deb mà không cài đặt**
+**g. Trích xuất File từ package .deb mà không cài đặt**  
