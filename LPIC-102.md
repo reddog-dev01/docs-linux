@@ -190,7 +190,7 @@ dpkg -s curl
 ```
 dpkg -L package_name
 ```
-VD:  
+VD: 
 ```
 dpkg -L curl
 ```
@@ -202,4 +202,20 @@ VD:
 ```
 dpkg -S /usr/bin/curl
 ```
-**g. Trích xuất File từ package .deb mà không cài đặt**  
+**g. Trích xuất File từ package .deb mà không cài đặt**
+```
+dpkg-deb -x package_name.deb /path/to/extract
+```
+VD: Trích xuất Google Chrome vào thư mục /tmp/chrome
+```
+dpkg-deb -x google-chrome-stable_current_amd64.deb /tmp/chrome
+```
+**h. Kiểm tra nội dung của Package .deb**
+```
+dpkg-deb -c package_name.deb
+```
+**k. Cấu hình lại tất cả package chưa cấu hình hoàn chỉnh**
+```
+sudo dpkg --configure -a
+```
+
