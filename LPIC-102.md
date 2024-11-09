@@ -351,3 +351,14 @@ sudo systemctl enable my_startup_script.service
 ```
 sudo systemctl status my_startup_script.service
 ```
+**3.3 Sử dụng `crontab` với Tùy chọn `@reboot`**
+**Cách thực hiện**
+1. Mở `crontab` của người dùng hiện tại:
+```
+crontab -e
+```
+2. Thêm dòng sau vào cuối file `crontab`:
+```
+@reboot /path/to/your_script.sh
+```
+3. Lưu và thoát khỏi file crontab. Từ lần khởi động tiếp theo, script sẽ được chạy tự động.
