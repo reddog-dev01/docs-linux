@@ -218,4 +218,58 @@ dpkg-deb -c package_name.deb
 ```
 sudo dpkg --configure -a
 ```
-
+**2.2 apt-get**
+**a. Cập nhật danh sách package ```apt-get update```**
+- Tải về danh sách các package và phiên bản mới nhất từ các repository đã cấu hình trong hệ thống. Chạy lệnh này trước khi cài đặt hoặc cập nhật package để đảm bảo bạn có danh sách mới nhất
+```
+sudo apt-get update
+```
+**b. Nâng cấp các package ```apt-get upgrade```**
+-  Nâng cấp tất cả các package đã cài đặt trên hệ thống lên phiên bản mới nhất, giữ nguyên các package hiện tại mà không cài thêm package mới
+```
+sudo apt-get upgrade
+```
+**c. Nâng cấp hệ thống toàn diện**
+- Nâng cấp tất cả các package và sẽ cài đặt hoặc xóa các package cần thiết để hoàn tất việc nâng cấp hệ thống một cách toàn diện.
+```
+sudo apt-get dist-upgrade
+```
+**d. Cài đặt 1 package mới**
+- tải về và cài đặt một package mới cùng với tất cả các phụ thuộc cần thiết từ repository.
+```
+sudo apt-get install package_name
+```
+VD: Cài đặt nginx
+```
+sudo apt-get install nginx
+```
+**e. Gỡ cài đặt package**
+```
+sudo apt-get remove package_name
+```
+VD: gỡ cài đặt nginx
+```
+sudo apt-get remove nginx
+```
+**f. Gỡ cài đặt hoàn toàn package (purge)**
+- gỡ cài đặt package và đồng thời xóa luôn các tệp cấu hình liên quan
+```
+sudo apt-get purge package_name
+```
+VD: Gỡ hoàn toàn nginx
+```
+sudo apt-get purge nginx
+```
+**g. Tự động xóa các package không cần thiết**
+- Gỡ bỏ các package không còn được sử dụng bởi bất kỳ package nào khác
+```
+sudo apt-get autoremove
+```
+**h. Tìm kiếm package**
+```
+apt-cache search package_name
+``` 
+VD: Tìm kiếm các package liên quan đến nginx
+```
+apt-cache search nginx
+```
