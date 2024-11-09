@@ -123,11 +123,11 @@ sudo apt install nvidia-driver-460
 **f. Cài đặt phần mềm từ mã nguồn (Source Code)**
 - Các bước cài đặt từ mã nguồn:
 ```
-tar -xzf source_code.tar.gz   # Giải nén mã nguồn
-cd source_code_directory      # Truy cập vào thư mục mã nguồn
-./configure                   # Cấu hình trước khi biên dịch
-make                          # Biên dịch mã nguồn
-sudo make install             # Cài đặt phần mềm
+tar -xzf source_code.tar.gz   #Giải nén mã nguồn
+cd source_code_directory      #Truy cập vào thư mục mã nguồn
+./configure                   #Cấu hình trước khi biên dịch
+make                          #Biên dịch mã nguồn
+sudo make install             #Cài đặt phần mềm
 ```
 - VD: cài mã nguồn từ htop
 ```
