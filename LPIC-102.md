@@ -274,7 +274,7 @@ VD: Tìm kiếm các package liên quan đến nginx
 apt-cache search nginx
 ```
 **i. Dọn dẹp Cache của package**
-- Xóa các tệp .deb đã tải xuống trong thư mục /var/cache/apt/archives, giúp giải phóng không gian đĩa.
+- Xóa các tệp `.deb` đã tải xuống trong thư mục `/var/cache/apt/archives`, giúp giải phóng không gian đĩa.
 ```
 sudo apt-get clean
 ```
@@ -282,3 +282,17 @@ sudo apt-get clean
 ```
 sudo apt-get autoclean
 ```
+**2.3 apt update và apt upgrade**
+**a. apt update**
+- có nhiệm vụ cập nhật danh sách các package và phiên bản mới nhất từ các kho lưu trữ (repository). Nó không cài đặt hay nâng cấp bất kỳ package nào, mà chỉ tải về thông tin mới nhất về các package để hệ thống biết đâu là phiên bản mới nhất có thể cài đặt.
+**#Khi nào cần dùng**
+- Trước khi cài đặt bất kỳ package nào: Để đảm bảo rằng đang cài đặt phiên bản mới nhất của package, giúp tránh các sự cố hoặc xung đột do cài đặt các package lỗi thời.
+- Trước khi chạy `apt upgrade` hoặc `apt full-upgrade`: Cập nhật danh sách package trước khi nâng cấp đảm bảo bạn đang cài đặt các phiên bản mới nhất.
+- Sau khi thêm mới hoặc thay đổi repository: chạy apt update sẽ làm mới danh sách package, bao gồm các package từ repository mới.
+- Định kỳ để cập nhật danh sách package:  để đảm bảo rằng hệ thống luôn có danh sách package mới nhất, đặc biệt là các bản vá bảo mật.
+**b. apt upgrate**
+- Dùng để nâng cấp tất cả các package đã cài đặt trên hệ thống lên phiên bản mới nhất có sẵn trong danh sách package hiện tại. Khi bạn chạy apt upgrade, nó sẽ cài đặt phiên bản mới cho tất cả các package đã cài đặt nhưng không cài đặt các **package phụ thuộc mới** hoặc **xóa các package hiện có**.
+**#Khi nào cần dùng**
+- Sau khi chạy `apt update`: `apt upgrade` sẽ kiểm tra và nâng cấp các package lên phiên bản mới nhất, giúp hệ thống luôn cập nhật và bảo mật hơn.
+- Khi muốn cập nhật các bản vá bảo mật và sửa lỗi: Nhiều bản cập nhật bao gồm các bản vá bảo mật và sửa lỗi cho các package đã cài đặt. Việc nâng cấp các package giúp bảo vệ hệ thống khỏi các lỗ hổng bảo mật.
+- Định kỳ để đảm bảo hệ thống luôn cập nhật: Chạy `apt upgrade` một cách thường xuyên (hàng tuần hoặc hàng tháng) giúp hệ thống cập nhật và bảo mật hơn, giảm thiểu các rủi ro tiềm ẩn.
