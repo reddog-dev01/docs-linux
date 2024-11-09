@@ -297,4 +297,57 @@ sudo apt-get autoclean
 - Khi muốn cập nhật các bản vá bảo mật và sửa lỗi: Nhiều bản cập nhật bao gồm các bản vá bảo mật và sửa lỗi cho các package đã cài đặt. Việc nâng cấp các package giúp bảo vệ hệ thống khỏi các lỗ hổng bảo mật.
 - Định kỳ để đảm bảo hệ thống luôn cập nhật: Chạy `apt upgrade` một cách thường xuyên (hàng tuần hoặc hàng tháng) giúp hệ thống cập nhật và bảo mật hơn, giảm thiểu các rủi ro tiềm ẩn.
 ----------------------------------------------------------------------------------------------------------------
-**3. StartUp Script**
+**3. StartUp Script**  
+- Các tập lệnh tự động chạy khi hệ thống khởi động hoặc khi người dùng đăng nhập vào hệ thống. Những script này thường được sử dụng để thiết lập môi trường, khởi động các dịch vụ quan trọng, hoặc thực hiện các công việc bảo trì cần thiết mà mình muốn thực hiện tự động khi hệ thống khởi động.
+**#Cách để chạy 1 script mỗi khi server được bật**  
+**3.1 Sử dụng `rc.local` Script**  
+  - File /etc/rc.local là một trong những phương pháp đơn giản nhất để chạy các lệnh khi hệ thống khởi động. File này sẽ được chạy với quyền root (quyền quản trị), cho phép thực thi các lệnh yêu cầu quyền cao.  
+**#Cách thực hiện**  
+1. Mở file `rc.local`
+```
+sudo nano /etc/rc.local
+```
+2. Thêm lệnh để chạy script của bạn trước dòng `exit 0`:
+```
+/path/to/your_script.sh
+exit 0
+```
+3. Đảm bảo file có quyền thực thi:
+```
+sudo chmod +x /etc/rc.local
+```
+4. Khởi động lại hệ thống để kiểm tra xem script có chạy khi khởi động không.
+**3.2 Sử dụng Systemd Service**
+- Systemd là hệ thống quản lý dịch vụ trên hầu hết các bản phân phối Linux hiện đại (như Ubuntu, Debian, CentOS).  
+**#Cách thực hiện**
+1. Tạo một file dịch vụ trong `/etc/systemd/system/`:
+```
+sudo nano /etc/systemd/system/my_startup_script.service
+```
+2. Thêm nội dung cấu hình cho dịch vụ:
+Dán nội dung sau vào file để định nghĩa dịch vụ:  
+```
+[Unit]
+Description=My Startup Script
+After=network.target
+
+[Service]
+ExecStart=/path/to/your_script.sh
+Restart=on-failure
+User=root  # Hoặc thay bằng tên người dùng nếu cần chạy với quyền của người dùng khác
+
+[Install]
+WantedBy=multi-user.target
+```
+- ExecStart: Đường dẫn tới script.
+- After=network.target: Đảm bảo dịch vụ chạy sau khi mạng đã sẵn sàng (nếu script yêu cầu mạng).
+- User: Đặt quyền người dùng để chạy script. Nếu bạn muốn script chạy dưới quyền root, giữ nguyên là root.
+3. Kích hoạt dịch vụ để nó tự động chạy khi khởi động hệ thống:
+```
+sudo systemctl enable my_startup_script.service
+```
+4. Khởi động lại máy chủ để kiểm tra nếu dịch vụ tự động chạy.
+5. Kiểm tra trạng thái dịch vụ để xác nhận rằng script đã được chạy thành công:
+```
+sudo systemctl status my_startup_script.service
+```
