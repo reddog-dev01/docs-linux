@@ -17,19 +17,19 @@
 **1.3 Standard Error**
 - Sử dụng để hiển thị các thông báo lỗi của chương trình hoặc lệnh. Mặc định sẽ hiển thị ra terminal, nhưng cũng có thể chuyển hướng stderr độc lập với stdout để xử lý lỗi riêng biệt mà không ảnh hưởng đến dữ liệu hoặc kết quả. Tức là stderr 1 file riêng, stdout 1 file riêng.  
   
-**2. Pipe, Redirection**
-**2.1 Pipe `(|)`**
+**2. Pipe, Redirection**  
+**2.1 Pipe `(|)`**  
 - chuyển stdout của 1 lệnh thành stdin của lệnh khác. Giúp xử lý dữ liệu 1 cách liên tục không cần lưu vào file trung gian.
   
-**2.2 Redirection**
-**a. `>`**
+**2.2 Redirection**  
+**a. `>`**  
 - Ghi đầu ra của 1 lệnh vào file
 - Tạo mới file nếu chưa tồn tại
-- Ghi đè nội dung file nếu đã tồn tại
-**b. `>>`**
+- Ghi đè nội dung file nếu đã tồn tại  
+**b. `>>`**  
 - Ghi nội dung vào cuối file (không mất nội dung cũ)
-- Tạo mới file nếu chưa tồn tại
-**c. `<`**
+- Tạo mới file nếu chưa tồn tại  
+**c. `<`**  
 - Đưa nội dung của 1 tệp và stdin cho 1 lệnh
 - Thay thế việc nhập dữ liệu thủ công từ bàn phím  
 VD:
