@@ -61,50 +61,50 @@ byobu attach-session -t <session_name>
 **5.3 Loadavg**
 - Mỗi tiến trình đang chạy hoặc chờ đợi cpu xử lý sẽ add giá trị 1 vào load.
 - Loadavg thể hiện tải trung bình của hệ thống qua mỗi đoạn thời gian: cho thấy trung bình có bao nhiều process mà server phải thực hiện.
-- Loadavg cho ta thấy được trung bình khối lượng công việc hệ thống phải xử lý trong mỗi khoảng thời gian: 1 phút, 5 phút và 15 phút.
+- Loadavg cho ta thấy được trung bình khối lượng công việc hệ thống phải xử lý trong mỗi khoảng thời gian: 1 phút, 5 phút và 15 phút.  
 **5.4 %Cpu(s)**
-**a. `us` (User Space)**
-Thời gian CPU dành cho các tiến trình người dùng, như ứng dụng, phần mềm đang chạy.
-Giá trị cao ở đây cho thấy CPU đang được sử dụng bởi các ứng dụng hoặc dịch vụ.
-**b. `sy` (System)**
+**a. `us` (User Space)**  
+Thời gian CPU dành cho các tiến trình người dùng, như ứng dụng, phần mềm đang chạy.  
+Giá trị cao ở đây cho thấy CPU đang được sử dụng bởi các ứng dụng hoặc dịch vụ.  
+**b. `sy` (System)**  
 - Thời gian CPU dành cho các tiến trình hệ thống, hoạt động trong không gian kernel.
-- Giá trị cao ở đây có thể chỉ ra rằng hệ thống đang xử lý nhiều tác vụ hệ thống, chẳng hạn như quản lý tài nguyên hoặc điều khiển thiết bị phần cứng.
-**c. `wa` (I/O Wait)**
+- Giá trị cao ở đây có thể chỉ ra rằng hệ thống đang xử lý nhiều tác vụ hệ thống, chẳng hạn như quản lý tài nguyên hoặc điều khiển thiết bị phần cứng.  
+**c. `wa` (I/O Wait)**  
 - Thời gian CPU chờ hoàn thành các tác vụ I/O, chẳng hạn như đọc hoặc ghi dữ liệu vào đĩa.
 - Giá trị cao ở đây thường báo hiệu vấn đề về hiệu suất I/O (thiết bị ngoại vi, lưu trữ dữ liệu)  
-**d. `hi` (Hardware Interrupts)**
-- Thời gian CPU dành để xử lý các ngắt phần cứng (ví dụ: xử lý tín hiệu từ card mạng, ổ đĩa, v.v.).
-**e. `si` (Software Interrupts)**
-- Thời gian CPU dành để xử lý các ngắt phần mềm, chẳng hạn như các dịch vụ hệ thống hoặc thông điệp giữa các tiến trình.
-**f. `st` (Steal Time)**
+**d. `hi` (Hardware Interrupts)**  
+- Thời gian CPU dành để xử lý các ngắt phần cứng (ví dụ: xử lý tín hiệu từ card mạng, ổ đĩa, v.v.).  
+**e. `si` (Software Interrupts)**  
+- Thời gian CPU dành để xử lý các ngắt phần mềm, chẳng hạn như các dịch vụ hệ thống hoặc thông điệp giữa các tiến trình.  
+**f. `st` (Steal Time)**  
 - Chỉ xuất hiện khi chạy trong môi trường ảo hóa.
 - Đây là thời gian CPU bị hypervisor sử dụng để chạy các tác vụ khác ngoài hệ điều hành hiện tại.
-- Giá trị cao ở đây có thể chỉ ra rằng tài nguyên CPU bị hạn chế trong môi trường ảo hóa.
-**5.5 Mem** 
+- Giá trị cao ở đây có thể chỉ ra rằng tài nguyên CPU bị hạn chế trong môi trường ảo hóa.  
+**5.5 Mem**  
 - *total:* bộ nhớ vật lý được cài đặt trên hệ thống.
 - *used:* RAM được sử dụng bởi các tiến trình, làm buffer và cache.
 - *free:* Bộ nhớ thực sự nhàn rỗi, không bị tiến trình hoặc hệ thống chiếm dụng.
 - *buff/cache:* Buffer: Bộ nhớ tạm trước khi dữ liệu được ghi vào đĩa.  
-                Cache: Lưu trữ dữ liệu đã đọc từ đĩa để tăng tốc độ truy xuất.  
+                Cache: Lưu trữ dữ liệu đã đọc từ đĩa để tăng tốc độ truy xuất.    
 **5.6 Swap**
-- Một không gian trên ổ đĩa (hoặc thiết bị lưu trữ) được hệ điều hành sử dụng như bộ nhớ RAM bổ sung khi hệ thống hết RAM vật lý. Swap cho phép hệ thống tiếp tục hoạt động ngay cả khi RAM đã đầy, tuy nhiên nó chậm hơn rất nhiều so với RAM.
+- Một không gian trên ổ đĩa (hoặc thiết bị lưu trữ) được hệ điều hành sử dụng như bộ nhớ RAM bổ sung khi hệ thống hết RAM vật lý. Swap cho phép hệ thống tiếp tục hoạt động ngay cả khi RAM đã đầy, tuy nhiên nó chậm hơn rất nhiều so với RAM.  
 *Cách hoạt động:*
 - Khi hệ thống không còn đủ RAM để lưu trữ tiến trình và dữ liệu, nó bắt đầu sử dụng Swap.
-- Các trang bộ nhớ ít được sử dụng sẽ được chuyển từ RAM sang Swap để giải phóng RAM cho các tiến trình quan trọng.
-**5.7 PID**
-- Được cấp bởi kernel. PID được lấy từ một danh sách các số PID chưa được sử dụng. Khi cấp sẽ cấp từ giá trị nhỏ nhất.
+- Các trang bộ nhớ ít được sử dụng sẽ được chuyển từ RAM sang Swap để giải phóng RAM cho các tiến trình quan trọng.  
+**5.7 PID**  
+- Được cấp bởi kernel. PID được lấy từ một danh sách các số PID chưa được sử dụng. Khi cấp sẽ cấp từ giá trị nhỏ nhất.  
 
-**6. Kill**
-**6.1 kill**
+**6. Kill**  
+**6.1 kill**  
 - Mặc định, lệnh kill gửi tín hiệu SIGTERM (15) đến một tiến trình.
-- Tiến trình có thể xử lý tín hiệu này trước khi thoát:
-    Giải phóng tài nguyên.
-    Lưu trạng thái.
-    Thực hiện các thao tác dọn dẹp.
+- Tiến trình có thể xử lý tín hiệu này trước khi thoát:  
+    Giải phóng tài nguyên.  
+    Lưu trạng thái.  
+    Thực hiện các thao tác dọn dẹp.  
 - Tiến trình sẽ tự quyết định cách xử lý tín hiệu này.
-- Nếu tiến trình không phản hồi hoặc không lập trình để xử lý tín hiệu, nó sẽ không dừng.
+- Nếu tiến trình không phản hồi hoặc không lập trình để xử lý tín hiệu, nó sẽ không dừng.  
 
-**6.2 kill -9**
+**6.2 kill -9**  
 - Lệnh kill -9 gửi tín hiệu SIGKILL (9) đến tiến trình.
 - Tín hiệu SIGKILL là tín hiệu không thể bị chặn, bắt, hoặc bỏ qua.
 - Kernel sẽ ngay lập tức dừng tiến trình, bất kể trạng thái của nó.
