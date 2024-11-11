@@ -16,13 +16,22 @@
 - Hệ thống tệp mặc định trong hầu hết các bản phối linux. Hiệu suất tốt, khả năng mở rộng cao
 - Hỗ trợ tính năng journaling, giúp bảo vệ dữ liệu khỏi bị hỏng nếu hệ thống bị tắt đột ngột
 - Thường sử dụng cho các phân vùng gốc `/` và các phân vùng dữ liệu trên các hệ thống Linux.
+- 16TB, sử dụng trong máy tính cá nhân, máy chủ và các hệ thống lưu trữ thông thường.
 **b. Ext3**
 - Tiền thân của Ext4 hỗ trợ tính năng journaling nhưng không có khả năng cải tiến hiệu suất và mở rộng.
+- Kích thước tối đa 2TB
+- Sử dụng: máy chủ cũ hoặc thiết bị lưu trữ không yêu cầu hiệu suất cao.
 **c. Ext2**
 - Đời thứ 2 của Extended, không có tính năng journaling.
+- Thích thước tối đa 2GB (trên kernel cũ 2.x, 3.x), 4TB (trên kernel mới)
+- Sử dụng phổ biến: thẻ nhớ, USB, phân vùng không yêu cầu journaling
 **d. Btrfs (B-tree file system)
-- Hệ thống tệp hiện đại với nhiều tính năng mạnh mẽ như snapshotting (giúp quay lại trạng thái hệ thống trước đó), compression (tiết kiệm không gian đĩa), RAID.
+- Hệ thống tệp hiện đại với nhiều tính năng mạnh mẽ như snapshotting (giúp quay lại trạng thái hệ thống trước đó), compression (tiết kiệm không gian đĩa), RAID (quản lý nhiều ổ đĩa trong file system).
 - Sử dụng trong các máy chủ hoặc hệ thống cần khả năng phục hồi cao.
+- 16EB
 **d. XFS**
 - Chủ yếu sử dụng trong các hệ thống lưu trữ có dung lượng lớn.
-- Hiệu suất cao, hỗ trợ journaling ứng dụng trong môi trường máy chủ, hệ hống lưu trữ lớn với y/c đọc/ghi cao
+- Hiệu suất cao, hỗ trợ journaling.
+- Tối ưu hóa cho lưu trữ lớn, đặc biệt là dữ liệu song song.
+- Khả năng mở rộng tốt phù hợp cho các hệ thống có phân vùng rất lớn (500TB).
+- Hệ thống lưu trữ lớn, cơ sở dữ liệu.
