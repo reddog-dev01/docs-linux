@@ -38,3 +38,18 @@ cat < text.txt
 ```
   
 **3. Tác dụng less**
+ Hiển thị nội dung tệp từng phần.
+- Cuộn hoặc tìm kiếm trong nội dung tệp.
+- Tiết kiệm tài nguyên vì không tải toàn bộ tệp vào bộ nhớ.
+- Hỗ trợ đọc dữ liệu từ tệp, lệnh, hoặc stdin.
+  
+**4. Byobu
+- Tách phiên làm việc để chạy ngầm: `Ctrl A` rồi `D`
+- Kiểm tra danh sách phiên làm việc:
+```
+byobu list-sessions
+```
+- Kết nối lại
+```
+byobu attach-session -t <session_name>
+```
