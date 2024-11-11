@@ -1,11 +1,13 @@
 **1. Manage processes**    
 
 **1.1 Package**  
-- Tập hợp các tệp cần thiết để cài đặt và chạy 1 ứng dụng. Bao gồm tệp thực thi, thư viện, cấu hình, tài liệu.
+- Tập hợp các file được đóng gói để cài đặt 1 chương trình, thư viện, tiện ích.  
 **a. Các thành phần chính của 1 package:**
-- Tệp thực thi hoặc mã nguồn: Tệp chính của phần mềm.
-- Tệp phụ thuộc: Các thư viện hoặc thành phần cần thiết để phần mềm hoạt động.
-- Tệp cấu hình: Dùng để cài đặt và thiết lập phần mềm.
+- Các file chương trình (binary hoặc script) cần thiết để chạy ứng dụng hoặc công cụ.
+- File cấu hình: Các file cấu hình mặc định hoặc yêu cầu cấu hình cho ứng dụng.
+- Thư viện: Các thư viện cần thiết để chương trình hoạt động.
+- Thông tin phụ thuộc: Danh sách các gói khác cần thiết để gói này hoạt động đúng cách.
+- Tài liệu: Có thể bao gồm hướng dẫn sử dụng, tài liệu API, hoặc các file README.
 **b. Các loại Package**
   1. DEB
   - Các file có định dạng `.deb`
@@ -31,11 +33,11 @@ VD: Apache2 có 1 số dependencies cần thiết:
 - libpcre3: Thư viện xử lý biểu thức chính quy để xử lý các mô hình URL và tìm kiếm
 - libssl1.1: thư viện mã hóa SSL, cần thiết nếu chạy Apache với HTTPS.
 - apache2-bin: Các tệp thực thi chính của Apache2, cần thiết để khởi động và chạy dịch vụ.  
-VD: kiểm tra dependencies: apt-cache depends apache2    
+VD: kiểm tra dependencies: `apt-cache depends apache2`   
 
 **1.3 Binary package (gói nhị phân)**  
 - 1 loại package chứa các tệp đã được biên dịch sẵn (nghĩa là mã nguồn của phần mềm đã được chuyển thành tệp nhị phân mà HĐH có thể chạy trực tiếp).
-- Gồm các tệp thực thi, thư viện, các tệp cấu hình cần thiết cho phần mềm hoạt động.
+- Gồm các file thực thi, thư viện, các tệp cấu hình cần thiết cho phần mềm hoạt động.
 - Đặc điểm: Không cần biên dịch lại, phân phối dễ dàng, phụ thuộc vào kiến trúc hệ thống.
 - Các định dạng Binary Package: .deb, .rpm, snap và flatpak.  
 VD: cài đặt chrome
@@ -45,8 +47,8 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt install -f   # Cài đặt các dependencies còn thiếu nếu có  
 ```
 **1.4 Repository (kho lưu trữ phần mềm)**
-- Tập hợp các package phần mềm được lưu trữ trên các máy chủ trực tuyến, được quản lý bởi các nhà phát triển của hệ điều hành hoặc bên thứ ba.
-- Nguồn chính để tải về và cài đặt các phần mềm, cập nhật, vá.
+- Tập hợp (kho) các packages (gồm binary packages, source packages, và các tài nguyên liên quan) được lưu trữ trên các máy chủ trực tuyến, được quản lý bởi các nhà phát triển của hệ điều hành hoặc bên thứ ba.
+- Chức năng của Repository: lưu trữ packages và tài nguyên liên quan (cấu hình, tài liệu), cung cấp các phiên bản ( ổn định, thử nghiệm, mới nhất), quản lý các dependencies
 - Các loại Repository: Offcial Repository (Kho chính thức), Community Repository (Kho cộng đồng), Third-Party Repository (Kho của bên thứ ba), Personal Package Archives (PPA-chỉ có trên ubuntu và bản phối Debian)
 - Các thành phần của một Repository: Matadata (thông tin về các package gồm package, phiên bản, mô tả, phụ thuộc, thông tin cần thiết khác), Package files (Các tệp nhị phân (.deb, .rpm ...) của từng phần mềm,
 Release files (chứa thông tin về phiên bản, phân phối, trạng thái của kho)
