@@ -3,13 +3,13 @@
 **1.1 Standard Input (stdin)**
 - Sử dụng bởi các chương trình hoặc lệnh để nhập dữ liệu đầu vào từ người dùng hoặc từ nguồn khác (tệp).
 - Mặc đinh dữ liệu nhập qua stdin đến từ bàn phím.  
-**Nhập từ bàn phím:** Nếu 1 chương trình đọc từ stdin và không có dữ liệu nào được chuyển hướng, nó sẽ đợi người dùng nhập dữ liệu từ bàn phím.
-**Chuyển hướng stdin từ 1 tệp:** Đọc dữ liệu từ 1 tệp thay vì bàn phím
+*Nhập từ bàn phím:* Nếu 1 chương trình đọc từ stdin và không có dữ liệu nào được chuyển hướng, nó sẽ đợi người dùng nhập dữ liệu từ bàn phím.
+*Chuyển hướng stdin từ 1 tệp:* Đọc dữ liệu từ 1 tệp thay vì bàn phím
   VD:
   ```
   cat < file.txt
   ```
-**Sử dụng pipe để truyền stdin:** chuyển stdout của 1 lệnh làm đầu vào stdin của cho lệnh khác.
+*Sử dụng pipe để truyền stdin:* chuyển stdout của 1 lệnh làm đầu vào stdin của cho lệnh khác.
 
 **1.2 Standard Output (stdout)**
 - Hiển thị kết quả hoặc dữ liệu đầu ra của chương trình. Mặc định stdout sẽ hiển thị trên màn hình terminal, nhưng có thể chuyển hướng đầu ra này sang 1 tệp hoặc 1 lệnh khác.
