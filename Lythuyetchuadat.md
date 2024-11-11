@@ -62,7 +62,7 @@ byobu attach-session -t <session_name>
 - Mỗi tiến trình đang chạy hoặc chờ đợi cpu xử lý sẽ add giá trị 1 vào load.
 - Loadavg thể hiện tải trung bình của hệ thống qua mỗi đoạn thời gian: cho thấy trung bình có bao nhiều process mà server phải thực hiện.
 - Loadavg cho ta thấy được trung bình khối lượng công việc hệ thống phải xử lý trong mỗi khoảng thời gian: 1 phút, 5 phút và 15 phút.  
-**5.4 %Cpu(s)**
+**5.4 %Cpu(s)**  
 **a. `us` (User Space)**  
 Thời gian CPU dành cho các tiến trình người dùng, như ứng dụng, phần mềm đang chạy.  
 Giá trị cao ở đây cho thấy CPU đang được sử dụng bởi các ứng dụng hoặc dịch vụ.  
