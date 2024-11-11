@@ -1,6 +1,6 @@
 **1. Understand File System Type**  
 **1.1 File System là gì**  
-- Một cách thức để quản lý và tổ chức dữ liệu trên các thiết bị lưu trữ ( ổ cứng, thẻ nhớ, SSD...)
+- Một cách thức để quản lý và tổ chức dữ liệu trên các thiết bị lưu trữ ( ổ cứng, thẻ nhớ, SSD...)  
 **Các thành phần cơ bản của 1 file system**
   1. Tệp(file)
   2. Thư mục (directory) lưu trữ các tệp và các thư mục con.
