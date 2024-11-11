@@ -35,3 +35,13 @@
 - Tối ưu hóa cho lưu trữ lớn, đặc biệt là dữ liệu song song.
 - Khả năng mở rộng tốt phù hợp cho các hệ thống có phân vùng rất lớn (500TB).
 - Hệ thống lưu trữ lớn, cơ sở dữ liệu.
+**2. Check file system `fsck`**  
+**2.1 Cách sử dụng `fsck`**
+*a. Kiểm tra cơ bản*
+```
+sudo fsck /dev/...
+```
+*b. Kiểm tra mà không sửa lỗi*  
+```
+sudo fsck -n /dev/...
+```
