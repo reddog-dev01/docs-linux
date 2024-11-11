@@ -44,7 +44,7 @@ cat < text.txt
 - Hỗ trợ đọc dữ liệu từ tệp, lệnh, hoặc stdin.
   
 **4. Byobu**
-- Tách phiên làm việc để chạy ngầm: `Ctrl A` rồi `D`
+- Tách phiên làm việc để chạy ngầm: `Ctrl A` rồi `D` hoặc dùng F6
 - Kiểm tra danh sách phiên làm việc:
 ```
 byobu list-sessions
@@ -82,9 +82,9 @@ Giá trị cao ở đây cho thấy CPU đang được sử dụng bởi các �
 - Giá trị cao ở đây có thể chỉ ra rằng tài nguyên CPU bị hạn chế trong môi trường ảo hóa.  
 **5.5 Mem**  
 - *total:* bộ nhớ vật lý được cài đặt trên hệ thống.
-- *used:* RAM được sử dụng bởi các tiến trình, làm buffer và cache.
+- *used:* RAM được sử dụng bởi các tiến trình và ứng dụng.
 - *free:* Bộ nhớ thực sự nhàn rỗi, không bị tiến trình hoặc hệ thống chiếm dụng.
-- *buff/cache:* Buffer: Bộ nhớ tạm trước khi dữ liệu được ghi vào đĩa.  
+- *buff/cache:* Buffer: Bộ nhớ tạm trước khi dữ liệu được ghi vào đĩa.  S
                 Cache: Lưu trữ dữ liệu đã đọc từ đĩa để tăng tốc độ truy xuất.    
 **5.6 Swap**
 - Một không gian trên ổ đĩa (hoặc thiết bị lưu trữ) được hệ điều hành sử dụng như bộ nhớ RAM bổ sung khi hệ thống hết RAM vật lý. Swap cho phép hệ thống tiếp tục hoạt động ngay cả khi RAM đã đầy, tuy nhiên nó chậm hơn rất nhiều so với RAM.  
