@@ -2,14 +2,29 @@
 
 **1.1 Package**  
 - Tập hợp các tệp cần thiết để cài đặt và chạy 1 ứng dụng. Bao gồm tệp thực thi, thư viện, cấu hình, tài liệu.
-- Các loại package chính: DEB, RPM, Tarball (TAR, TAR.GZ, TAR.BZ2)
+**a. Các thành phần chính của 1 package:**
+- Tệp thực thi hoặc mã nguồn: Tệp chính của phần mềm.
+- Tệp phụ thuộc: Các thư viện hoặc thành phần cần thiết để phần mềm hoạt động.
+- Tệp cấu hình: Dùng để cài đặt và thiết lập phần mềm.
+**b. Các loại Package**
+  1. DEB
+  - Các file có định dạng `.deb`
+  - Quản lý bởi APT và dpkg.
+  2. Snap
+  - 1 loại packgae độc lập
+  - Các file có dạng `.snap`
+  3. Flatpak
+  - 1 loại package độc lập được phát triển bởi cộng đồng
+  - thường được phân phối qua flathub
+  4. Các loại khác
+  - PPA, Tarball, Source, AppImage, DockerImages.
 - Đơn giản hóa việc cài đặt, gỡ cài đặt, tăng cường bảo mật, giảm rác hệ thống, ổn định.  
 
 **1.2 Dependencies (phụ thuộc)**    
-- là các thư viện hoặc package mà 1 phần mềm cần để hoạt đông đúng. Khi tải 1 phần mềm => Package Manager sẽ tự động tải và cài đặt các depandencies cần thiết.
+- là các thư viện hoặc package mà 1 phần mềm cần để hoạt động đúng. Khi tải 1 phần mềm => Package Manager sẽ tự động tải và cài đặt các depandencies cần thiết.
 - Các dependencies giúp phần mềm có thể tương tác với các thư viện hệ thống, mã hóa dữ liệu, nén file, hiển thị giao diện đồ họa.
 - Cách Package Manager xử lý depencies: Các Package manager sẽ tự động tải về các package phụ thuộc khi cài 1 phần mềm (package phụ thuộc có thể là thư viện, công cụ dòng lệnh,
-tiện tích cần thiết mà phần mềm yêu cầu hoạt động 1 cách ổn định).  
+tiện ích cần thiết mà phần mềm yêu cầu hoạt động 1 cách ổn định).  
 VD: Apache2 có 1 số dependencies cần thiết:  
 - lipapr1: Thư viện APR giúp Apache2 thương thích trên các HĐH
 - libaprutil1: Thư viện hỗ trợ bổ sung cho APR với các tiện ích quản lý cấu hình và mã hóa
@@ -19,7 +34,7 @@ VD: Apache2 có 1 số dependencies cần thiết:
 VD: kiểm tra dependencies: apt-cache depends apache2    
 
 **1.3 Binary package (gói nhị phân)**  
-- 1 loại package chứa các tệp đã được biên dịch sẵn (nghĩa là mã nguồn của phần mềm đã được chuyển thành tệp nhị phân mà HĐH có thể chạy trực tiếp)
+- 1 loại package chứa các tệp đã được biên dịch sẵn (nghĩa là mã nguồn của phần mềm đã được chuyển thành tệp nhị phân mà HĐH có thể chạy trực tiếp).
 - Gồm các tệp thực thi, thư viện, các tệp cấu hình cần thiết cho phần mềm hoạt động.
 - Đặc điểm: Không cần biên dịch lại, phân phối dễ dàng, phụ thuộc vào kiến trúc hệ thống.
 - Các định dạng Binary Package: .deb, .rpm, snap và flatpak.  
