@@ -57,7 +57,7 @@ byobu attach-session -t <session_name>
 **5.1 Thời gian hiện tại**: Được lấy từ system oclock tính theo system timezone được cấu hình trên server.  
 **5.2 Uptime**  
 - Khoảng thời gian mà server đã hoạt động liên tục kể từ lần khởi động gần nhất => reboot uptime sẽ về 0
-- Đo lường độ ổn định của hệ thống và cho biết thời gian máy đã chạy mà không gặp sự cố hoặc cần phải khởi động lại.
+- Đo lường độ ổn định của hệ thống và cho biết thời gian máy đã chạy mà không gặp sự cố hoặc cần phải khởi động lại.  
 **5.3 Loadavg**
 - Mỗi tiến trình đang chạy hoặc chờ đợi cpu xử lý sẽ add giá trị 1 vào load.
 - Loadavg thể hiện tải trung bình của hệ thống qua mỗi đoạn thời gian: cho thấy trung bình có bao nhiều process mà server phải thực hiện.
