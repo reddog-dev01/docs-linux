@@ -51,7 +51,7 @@ byobu list-sessions
 ```
 - Kết nối lại
 ```
-byobu attach-session -t <session_name>
+byobu attach-session -t <session_name or ID>
 ```
 **5. Top**  
 **5.1 Thời gian hiện tại**: Được lấy từ system oclock tính theo system timezone được cấu hình trên server.  
