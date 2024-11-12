@@ -312,20 +312,18 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
 
 ### **6.1 `fdisk`**
 
-`fdisk` là công cụ phân vùng đĩa mạnh mẽ được sử dụng trong các hệ thống dựa trên Linux để quản lý các phân vùng ổ cứng. Nó rất hữu ích cho việc tạo, sửa đổi, và xóa bảng phân vùng, cũng như thiết lập các phân vùng để cài đặt Linux hoặc quản lý cấu hình khởi động kép. Dưới đây là cách sử dụng `fdisk` để quản lý các phân vùng đĩa:
-
 ### Các bước sử dụng `fdisk`
 
 1. **Liệt kê các đĩa và phân vùng hiện có**
-   - Mở terminal.
-   - Chạy `sudo fdisk -l` để liệt kê tất cả các đĩa và phân vùng trên hệ thống của bạn, giúp xác định đĩa bạn muốn làm việc.
+   - `sudo fdisk -l` để liệt kê tất cả các đĩa và phân vùng.
+   - Xem cụ thể VD: `sudo fdisk -l /dev/sda`.
 
 2. **Bắt đầu `fdisk`**
-   - Truy cập `fdisk` trên một đĩa cụ thể với `sudo fdisk /dev/sda`, thay thế `/dev/sda` bằng định danh đĩa của bạn.
+   - Truy cập `fdisk` trên một đĩa cụ thể với `sudo fdisk /dev/sda`.
    - Lệnh này mở menu `fdisk` cho đĩa cụ thể đó.
 
 3. **Di chuyển trong menu `fdisk`**
-   - Trong `fdisk`, bạn có thể nhập `m` để xem tất cả các lệnh có sẵn.
+   - Trong `fdisk`, `m` để xem tất cả các lệnh có sẵn.
    - Các lệnh trong `fdisk` bao gồm tạo phân vùng mới (`n`), xóa phân vùng (`d`), và ghi thay đổi vào đĩa (`w`).
 
 4. **Tạo một phân vùng**
