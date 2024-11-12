@@ -365,3 +365,6 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
 - **Quyền quản trị:** `fdisk` yêu cầu quyền quản trị; sử dụng `sudo` để chạy nó.
 - **Hệ thống tập tin:** Sau khi tạo các phân vùng, cần tạo hệ thống tập tin trên chúng (sử dụng các lệnh `mkfs` như `mkfs.ext4 /dev/sda1`) trước khi có thể sử dụng chúng.
 - **Kiểm tra thay đổi:** Sau khi phân vùng, sử dụng `sudo fdisk -l` hoặc `lsblk` để kiểm tra cấu trúc phân vùng mới.
+
+### **6.2 Phân biệt file system vs patition**
+
