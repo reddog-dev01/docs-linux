@@ -47,17 +47,12 @@ VD: Apache2 có 1 số dependencies cần thiết:
 VD: kiểm tra dependencies: `apt-cache depends apache2`   
 
 **1.3 Binary package (gói nhị phân)**  
-
-- 1 loại package chứa các tệp đã được biên dịch sẵn (nghĩa là mã nguồn của phần mềm đã được chuyển thành tệp nhị phân mà HĐH có thể chạy trực tiếp).
-- Gồm các file thực thi, thư viện, các tệp cấu hình cần thiết cho phần mềm hoạt động.
-- Đặc điểm: Không cần biên dịch lại, phân phối dễ dàng, phụ thuộc vào kiến trúc hệ thống.
+-  Binary package là tập hợp các file nhị phân, thư viện, và tài nguyên khác đã được biên dịch sẵn từ source packages.Có thể được cài đặt ngay lập tức mà không cần quá trình biên dịch.
 - Các định dạng Binary Package: .deb, .rpm, snap và flatpak.
 
 VD: cài đặt chrome
 ```
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt install -f   # Cài đặt các dependencies còn thiếu nếu có  
+sudo apt install nginx 
 ```
 
 **1.4 Repository (kho lưu trữ phần mềm)**
@@ -94,7 +89,7 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
   VD:
   ```bash
   sudo apt update
-  sudo apt install vlc
+  sudo apt install nginx
   ```
   
 **b. Cài đặt phần mềm từ tệp .deb (Debian Package)**
@@ -113,21 +108,29 @@ sudo apt install -f
 
 **c. Cài đặt phần mềm với Snap**
 - Cài snap:
+  
 ```bash
 sudo apt update
 sudo apt install snapd
 ```
+
 - Cài phần mềm:
 ```bash
 sudo snap install package_name
 ```
-- VD: cài tele
+
+- VD: cài spotify
+  
 ```bash
-sudo snap install telegram
+sudo snap install spotify
 ```
 
+Kiểm tra danh sách cài: `snap list`
+
 **d. Cài đặt phần mềm với Flatpak**
+
 - Cài đặt Flatpak
+  
 ```bash
 sudo apt install flatpak
 ```
@@ -144,24 +147,8 @@ VD:
 flatpak install flathub org.gimp.GIMP
 ```
 
-**e. Cài đặt phần mềm**
-- Thêm PPA
-```bash
-sudo add-apt-repository ppa:user/ppa-name
-sudo apt update
-```
-- Cài đặt phần mềm:
-```bash
-sudo apt install package_name
-```
-- VD: cài driver NVIDIA
-```bash
-sudo add-apt-repository ppa:graphics-drivers/ppa
-sudo apt update
-sudo apt install nvidia-driver-460
-```
-
 **f. Cài đặt phần mềm từ mã nguồn (Source Code)**
+
 - Các bước cài đặt từ mã nguồn:
 ```
 tar -xzf source_code.tar.gz   #Giải nén mã nguồn
@@ -185,11 +172,15 @@ sudo make install
 **2. Cách dùng các trình quản lý package**  
 
 **2.1 dpkg**  
+
 **a. Cài đặt Package từ File .deb**  
+
 ```
 sudo dpkg -i package_name.deb
 ```
+
 VD: cài chrome
+
 ```
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 ```
