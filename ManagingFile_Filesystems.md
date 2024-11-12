@@ -200,8 +200,8 @@ df -P
 
 | **Thuộc tính**          | **`du`**                                            | **`df`**                                      |
 |-------------------------|-----------------------------------------------------|-----------------------------------------------|
-| **Mục đích**            | Kiểm tra dung lượng file/thư mục                    | Kiểm tra dung lượng phân vùng                 |
-| **Cách tính toán**      | Tính dung lượng từng file/thư mục                   | Lấy thông tin từ hệ thống file phân vùng      |
+| **Mục đích**            | Kiểm tra dung lượng file/thư mục đang chiếm               | Kiểm tra dung lượng phân vùng (gồm đã sử dụng và còn trống)                 |
+| **Cách tính toán**      | Tính dung lượng thực tế của các file/thư mục, bao gồm cả các file đã bị xóa nhưng vẫn đang mở bởi một tiến trình                  | Lấy thông tin từ hệ thống file phân vùng      |
 | **Kết quả hiển thị**    | Dung lượng thực tế của thư mục/file                 | Tổng dung lượng, đã dùng và còn trống         |
 | **Tình huống sử dụng**  | Khi muốn biết thư mục nào đang chiếm nhiều dung lượng | Khi muốn biết tình trạng dung lượng của phân vùng |
 
