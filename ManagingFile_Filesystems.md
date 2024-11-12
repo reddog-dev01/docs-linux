@@ -323,33 +323,40 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
    - Lệnh này mở menu `fdisk` cho đĩa cụ thể đó.
 
 3. **Di chuyển trong menu `fdisk`**
-    `m` - Hiển thị menu lệnh.
+
+   `m` - Hiển thị menu lệnh.
+   
     `p` - Liệt kê bảng phân vùng.
+   
     `n` - Tạo phân vùng mới.
+   
     `d` - Xóa phân vùng.
+   
     `t` - Thay đổi ID hệ thống của phân vùng.
+   
     `w` - Ghi các thay đổi và thoát.
+   
     `q`- Thoát mà không lưu các thay đổi.
 
-4. **Tạo một phân vùng**
+5. **Tạo một phân vùng**
    - Nhấn `n` để tạo phân vùng mới.
    - Chọn tạo phân vùng chính (`p`) hoặc mở rộng (`e`). Hầu hết người dùng sẽ chọn chính.
    - Xác định số phân vùng (1-4 cho phân vùng chính).
    - Nhập số sector đầu và cuối hoặc chỉ cần nhấn Enter để chấp nhận các giá trị mặc định, sử dụng không gian khả dụng tối đa.
 
-5. **Xóa một phân vùng**
+6. **Xóa một phân vùng**
    - Nhấn `d` để xóa một phân vùng.
    - Nhập số của phân vùng bạn muốn xóa.
 
-6. **Thay đổi loại phân vùng**
+7. **Thay đổi loại phân vùng**
    - Nếu cần, bạn có thể thay đổi loại phân vùng bằng cách nhấn `t`.
    - Sau đó nhập số phân vùng và mã cho loại hệ thống mong muốn (`L` liệt kê tất cả các mã).
 
-7. **Ghi thay đổi**
+8. **Ghi thay đổi**
    - Để lưu tất cả các thay đổi bạn đã thực hiện, nhấn `w`. Điều này sẽ ghi bảng phân vùng mới vào đĩa và thoát `fdisk`.
    - Hãy cẩn thận, vì bước này làm cho các thay đổi trở nên vĩnh viễn.
 
-8. **Thoát không lưu**
+9. **Thoát không lưu**
    - Nếu bạn cần thoát mà không thực hiện thay đổi, nhấn `q`. Điều này sẽ thoát `fdisk` mà không lưu bất kỳ thay đổi nào.
 
 ### Lưu ý khi sử dụng `fdisk`
