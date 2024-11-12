@@ -243,3 +243,67 @@ mkfs.ext4 /dev/sda1
 
  - Sử dụng để ngắn kết nối file system đã được mount. Mọi dữ liệu đang được truy cập hoàn tất và thiết bị sẽ không bị ảnh hưởng.
  - Ngăn ngừa mất mát hoặc hư hại dữ liệu khi gỡ bỏ thiết bị lưu trữ, đảm bảo mọi thao tác đọc ghi hoàn tất trc khi thiết bị tách khỏi hệ thống.
+Để sử dụng hiệu quả các lệnh `mount` và `umount` trong Linux, rất quan trọng là bạn phải hiểu cú pháp và các tùy chọn cơ bản của chúng. Dưới đây là hướng dẫn chi tiết cách sử dụng hai lệnh này.
+
+### Sử dụng `mount`
+
+Lệnh `mount` gắn kết hệ thống tập tin trên thiết bị lưu trữ (như ổ cứng hay USB) vào cây thư mục của hệ điều hành Linux, làm cho nó có thể truy cập được.
+
+**Cú pháp cơ bản:**
+```bash
+sudo mount [options] <device> <directory>
+```
+- `<device>`: là tập tin thiết bị của thiết bị lưu trữ (ví dụ, `/dev/sda1`).
+- `<directory>`: là thư mục nơi thiết bị sẽ được gắn kết, thường được gọi là điểm gắn kết (ví dụ, `/mnt` hoặc `/media`).
+
+**Ví dụ:**
+
+1. **Gắn kết ổ USB:**
+   ```bash
+   sudo mount /dev/sdb1 /mnt/usb
+   ```
+   Lệnh này gắn kết phân vùng `/dev/sdb1` vào điểm gắn kết `/mnt/usb`.
+
+2. **Gắn kết với loại hệ thống tập tin cụ thể:**
+   Nếu bạn biết loại hệ thống tập tin (ví dụ, ntfs, ext4), bạn có thể chỉ định nó với tùy chọn `-t`.
+   ```bash
+   sudo mount -t ext4 /dev/sda1 /mnt/data
+   ```
+
+3. **Gắn kết chỉ đọc:**
+   Để gắn kết hệ thống tập tin ở chế độ chỉ đọc, sử dụng tùy chọn `-o`.
+   ```bash
+   sudo mount -o ro /dev/sdb1 /mnt/usb
+   ```
+
+### Sử dụng `umount`
+
+Lệnh `umount` ngắt kết nối hệ thống tập tin đã gắn với thiết bị từ cây thư mục, đảm bảo không còn dữ liệu nào được đọc hoặc viết nữa.
+
+**Cú pháp cơ bản:**
+```bash
+sudo umount <directory or device>
+```
+- Bạn có thể chỉ định điểm gắn kết hoặc tập tin thiết bị.
+
+**Ví dụ:**
+
+1. **Ngắt kết nối bằng điểm gắn kết:**
+   ```bash
+   sudo umount /mnt/usb
+   ```
+   Lệnh này ngắt kết nối hệ thống tập tin từ `/mnt/usb`.
+
+2. **Ngắt kết nối bằng thiết bị:**
+   ```bash
+   sudo umount /dev/sdb1
+   ```
+   Tương tự, lệnh này ngắt kết nối thiết bị `/dev/sdb1` ở bất cứ đâu nó đang được gắn.
+
+### Mẹo quan trọng
+
+- **Kiểm tra hệ thống tập tin đã gắn:** Bạn có thể kiểm tra những gì đang được gắn bằng cách sử dụng lệnh `mount` mà không có đối số hoặc sử dụng `df -h`.
+- **Đảm bảo không có hoạt động:** Trước khi ngắt kết nối, hãy đảm bảo không có quá trình nào đang sử dụng điểm gắn kết. Bạn có thể kiểm tra điều này bằng `lsof /mnt/usb` hoặc `fuser /mnt/usb`.
+- **Xử lý thiết bị bận:** Nếu `umount` báo rằng thiết bị đang bận, hãy chắc chắn không có tập tin nào đang được truy cập hoặc không có terminal nào mở trong thư mục gắn kết.
+
+Cả `mount` và `umount` là những công cụ mạnh mẽ giúp quản lý hiệu quả hệ thống tập tin của bạn. Luôn cẩn thận và đảm bảo bạn đang gắn và ngắt kết nối một cách chính xác để tránh mất dữ liệu.
