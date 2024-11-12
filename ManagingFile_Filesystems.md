@@ -290,3 +290,25 @@ sudo umount <directory or device>
    ```
    Tương tự, lệnh này ngắt kết nối thiết bị `/dev/sdb1` ở bất cứ đâu nó đang được gắn.
    
+### **5. Disks Partioning**
+
+Disk partitioning là quá trình chia ổ đĩa cứng vật lý thành các phần riêng biệt, mỗi phần được gọi là một phân vùng (partition). Mỗi phân vùng hoạt động như một ổ đĩa độc lập, cho phép cài đặt nhiều hệ điều hành hoặc tổ chức dữ liệu một cách linh hoạt hơn. Các loại phân vùng phổ biến gồm:
+
+- **Primary Partition**: Có thể chứa hệ điều hành.
+- **Extended Partition**: Chứa các phân vùng logic và mở rộng không gian khi thiếu chỗ.
+- **Logical Partition**: Dùng để lưu trữ dữ liệu trong phân vùng mở rộng. 
+
+Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
+
+1. **Cài đặt nhiều hệ điều hành**: Mỗi phân vùng có thể chứa một hệ điều hành riêng, cho phép chuyển đổi giữa các hệ điều hành mà không ảnh hưởng lẫn nhau.
+   
+2. **Quản lý dữ liệu tốt hơn**: Phân chia dữ liệu như hệ thống, ứng dụng và file cá nhân giúp bảo vệ dữ liệu và quản lý dễ dàng hơn.
+
+3. **Tăng hiệu quả khôi phục**: Khi gặp sự cố, bạn có thể cài đặt lại hệ điều hành mà không mất dữ liệu cá nhân trên các phân vùng khác.
+  
+4. **Tăng hiệu suất**: Tổ chức các loại dữ liệu trên từng phân vùng riêng giúp hệ thống truy xuất nhanh hơn.
+
+### **6. `fdiks` và sự khác nhau giữa file system vs partition**
+
+### **6.1 `fdisk`**
+
