@@ -233,3 +233,13 @@ mkfs.ext4 /dev/sda1
 - **Quyền quản trị**: cần quyền `root` hoặc `sudo` để sử dụng `mkfs` vì lệnh này can thiệp trực tiếp vào thiết bị lưu trữ.
 - **Kiểm tra đúng phân vùng**: Đảm bảo bạn chọn đúng phân vùng hoặc thiết bị để tránh mất dữ liệu do tạo nhầm hệ thống file trên phân vùng chứa dữ liệu quan trọng.
 
+### **4. Mounting and Unmounting Filesystems**
+
+**Mount:** 
+
+- Sử dụng để kết nối file system của một thiết bị lưu trữ (ổ cứng, USB, thiết bị mạng) và cây thư mục của HĐH. Cho phép người dùng truy cập vào dữ liệu trên thiết bị đó như 1 phần của hệ thống tập tin chính.
+- Dùng để sao lưu, khôi phụ dữ liệu, mở rộng không gian lưu trữ.
+**Unmount:**
+
+ - Sử dụng để ngắn kết nối file system đã được mount. Mọi dữ liệu đang được truy cập hoàn tất và thiết bị sẽ không bị ảnh hưởng.
+ - Ngăn ngừa mất mát hoặc hư hại dữ liệu khi gỡ bỏ thiết bị lưu trữ, đảm bảo mọi thao tác đọc ghi hoàn tất trc khi thiết bị tách khỏi hệ thống.
