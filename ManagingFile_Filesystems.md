@@ -94,7 +94,9 @@ sudo fsck -V /dev/sdXN
 ```
 
 **3. Monitoring Disk: `df`, `du`**  
+
 **3.1 Cách kiểm tra dung lượng bằng `df`**  
+
 *1. `-h` (Human-readable): Hiển thị dung lượng ở dạng dễ đọc (KB, MB, GB).*
 ```
 df -h
