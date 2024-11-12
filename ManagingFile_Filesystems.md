@@ -248,19 +248,19 @@ sudo mount [options] <device> <directory>
 
 **Ví dụ:**
 
-1. **Gắn kết ổ USB:**
+1. *Gắn kết ổ USB:*
    ```bash
    sudo mount /dev/sdb1 /mnt/usb
    ```
    Lệnh này gắn kết phân vùng `/dev/sdb1` vào điểm gắn kết `/mnt/usb`.
 
-2. **Gắn kết với loại hệ thống tập tin cụ thể:**
+2. *Gắn kết với loại hệ thống tập tin cụ thể:*
    Nếu bạn biết loại hệ thống tập tin (ví dụ, ntfs, ext4), bạn có thể chỉ định nó với tùy chọn `-t`.
    ```bash
    sudo mount -t ext4 /dev/sda1 /mnt/data
    ```
 
-3. **Gắn kết chỉ đọc:**
+3. *Gắn kết chỉ đọc:*
    Để gắn kết hệ thống tập tin ở chế độ chỉ đọc, sử dụng tùy chọn `-o`.
    ```bash
    sudo mount -o ro /dev/sdb1 /mnt/usb
@@ -278,13 +278,13 @@ sudo umount <directory or device>
 
 **Ví dụ:**
 
-1. **Ngắt kết nối bằng điểm gắn kết:**
+1. *Ngắt kết nối bằng điểm gắn kết:*
    ```bash
    sudo umount /mnt/usb
    ```
    Lệnh này ngắt kết nối hệ thống tập tin từ `/mnt/usb`.
 
-2. **Ngắt kết nối bằng thiết bị:**
+2. *Ngắt kết nối bằng thiết bị:*
    ```bash
    sudo umount /dev/sdb1
    ```
