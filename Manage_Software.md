@@ -53,15 +53,15 @@ sudo apt install -f   # Cài đặt các dependencies còn thiếu nếu có
 - Các thành phần của một Repository: Matadata (thông tin về các package gồm package, phiên bản, mô tả, phụ thuộc, thông tin cần thiết khác), Package files (Các tệp nhị phân (.deb, .rpm ...) của từng phần mềm,
 Release files (chứa thông tin về phiên bản, phân phối, trạng thái của kho)
 - Cách hoạt động của Repository: Kết nối tới Repository => Tải Matadata => Cài đặt và quản lý phụ thuộc => Lưu trữ package đã cài.
-**1.5 Cách kiểm tra các Repository đang dùng**  
+**1.5 Cách kiểm tra các Repository đang dùng**   
 **a. Ubuntu/Debian**  
-- Liệt kê các repo hiện có: apt policy
+- Liệt kê các repo hiện có: apt policy  
 **b. CentOS/Fedora**
-- yum repolist
+- yum repolist  
 **c. DNF**
 - dnf repolist
-**1.6 Các cách cài phần mềm**
-**a. Sử dụng APT (Advanced Package Tool)**
+**1.6 Các cách cài phần mềm**  
+**a. Sử dụng APT (Advanced Package Tool)**  
 - Cài đặt phần mềm:  
 ```bash
   sudo apt update
