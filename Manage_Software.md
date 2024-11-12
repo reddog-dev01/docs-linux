@@ -6,10 +6,9 @@
 
 **a. Các thành phần chính của 1 package:**
 
-- Các file chương trình (binary hoặc script) cần thiết để chạy ứng dụng hoặc công cụ.
 - File cấu hình: Các file cấu hình mặc định hoặc yêu cầu cấu hình cho ứng dụng.
 - Thư viện: Các thư viện cần thiết để chương trình hoạt động.
-- TDependencies: Danh sách các gói khác cần thiết để gói này hoạt động đúng cách.
+- Dependencies: Danh sách các gói khác cần thiết để gói này hoạt động đúng cách.
 - Tài liệu: Có thể bao gồm hướng dẫn sử dụng, tài liệu API, hoặc các file README.
 - 
 **b. Các loại Package**
