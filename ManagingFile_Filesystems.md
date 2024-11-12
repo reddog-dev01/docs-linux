@@ -205,3 +205,31 @@ df -P
 | **Kết quả hiển thị**    | Dung lượng thực tế của thư mục/file đang chiếm                 | Tổng dung lượng, đã dùng và còn trống         |
 | **Tình huống sử dụng**  | Khi muốn biết thư mục nào đang chiếm nhiều dung lượng | Khi muốn biết tình trạng dung lượng của phân vùng |
 
+### **4. Creating Filesystems: `mkfs`**
+
+Lệnh này giúp định dạng một phân vùng hoặc thiết bị lưu trữ để chuẩn bị nó sẵn sàng cho việc lưu trữ dữ liệu bằng một loại hệ thống file cụ thể, chẳng hạn như `ext4`, `xfs`, `ntfs`, hoặc `vfat`.
+
+```bash
+mkfs -t <loại_hệ_thống_file> <thiết_bị>
+```
+
+Trong đó:
+- **`-t <loại_hệ_thống_file>`**: Chỉ định loại hệ thống file muốn tạo (ví dụ: `ext4`, `xfs`, `vfat`, v.v.).
+- **`<thiết_bị>`**: Là phân vùng hoặc thiết bị đích muốn tạo hệ thống file trên đó (ví dụ: `/dev/sda1`).
+
+**VD: Tạo hệ thống file ext4 trên phân vùng `/dev/sda1`:**
+
+   ```bash
+   mkfs -t ext4 /dev/sda1
+   ```
+hoặc
+```
+mkfs.ext4 /dev/sda1
+```
+
+### Lưu ý khi sử dụng `mkfs`
+
+- **Xóa dữ liệu**: Lệnh `mkfs` sẽ xóa tất cả dữ liệu hiện có trên phân vùng hoặc thiết bị, vì nó sẽ tạo lại hệ thống file từ đầu.
+- **Quyền quản trị**: cần quyền `root` hoặc `sudo` để sử dụng `mkfs` vì lệnh này can thiệp trực tiếp vào thiết bị lưu trữ.
+- **Kiểm tra đúng phân vùng**: Đảm bảo bạn chọn đúng phân vùng hoặc thiết bị để tránh mất dữ liệu do tạo nhầm hệ thống file trên phân vùng chứa dữ liệu quan trọng.
+
