@@ -196,3 +196,5 @@ df -P
    ```
    du -ahc /path/to/directory
    ```
+**3.3 Sự khác nhau giữa `du` và `df`**
+
