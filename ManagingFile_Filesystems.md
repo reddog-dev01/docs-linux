@@ -363,7 +363,5 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
 
 - **Sao lưu dữ liệu:** Luôn sao lưu dữ liệu quan trọng trước khi sửa đổi các phân vùng đĩa vì các thay đổi có thể dẫn đến mất dữ liệu nếu không được xử lý cẩn thận.
 - **Quyền quản trị:** `fdisk` yêu cầu quyền quản trị; sử dụng `sudo` để chạy nó.
-- **Hệ thống tập tin:** Sau khi tạo các phân vùng, bạn cần tạo hệ thống tập tin trên chúng (sử dụng các lệnh `mkfs` như `mkfs.ext4 /dev/sda1`) trước khi bạn có thể sử dụng chúng.
-- **Kiểm tra thay đổi:** Sau khi phân vùng, sử dụng `sudo fdisk -l` hoặc `lsblk` để kiểm tra cấu trúc
-
-phân vùng mới của bạn.
+- **Hệ thống tập tin:** Sau khi tạo các phân vùng, cần tạo hệ thống tập tin trên chúng (sử dụng các lệnh `mkfs` như `mkfs.ext4 /dev/sda1`) trước khi có thể sử dụng chúng.
+- **Kiểm tra thay đổi:** Sau khi phân vùng, sử dụng `sudo fdisk -l` hoặc `lsblk` để kiểm tra cấu trúc phân vùng mới.
