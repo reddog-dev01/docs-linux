@@ -29,6 +29,7 @@
 - Hệ thống tệp hiện đại với nhiều tính năng mạnh mẽ như snapshotting (giúp quay lại trạng thái hệ thống trước đó), compression (tiết kiệm không gian đĩa), RAID (quản lý nhiều ổ đĩa trong file system).
 - Sử dụng trong các máy chủ hoặc hệ thống cần khả năng phục hồi cao.
 - 16EB
+
 **d. XFS**
 - Chủ yếu sử dụng trong các hệ thống lưu trữ có dung lượng lớn.
 - Hiệu suất cao, hỗ trợ journaling.
