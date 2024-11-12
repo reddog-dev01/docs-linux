@@ -59,7 +59,7 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
 **b. CentOS/Fedora**
 - yum repolist  
 **c. DNF**
-- dnf repolist
+- dnf repolist  
 **1.6 Các cách cài phần mềm**  
 **a. Sử dụng APT (Advanced Package Tool)**  
 - Cài đặt phần mềm:  
