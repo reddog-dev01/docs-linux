@@ -119,7 +119,6 @@ df -P
 ```  
   
 **3.2 Cách kiểm tra dung lượng bằng `du`**  
-Lệnh `du` trong Ubuntu được dùng để kiểm tra dung lượng thư mục hoặc file. Dưới đây là các tùy chọn phổ biến của `du`:
 
 1. **`-h`** (Human-readable): Hiển thị dung lượng ở dạng dễ đọc (KB, MB, GB).
    ```bash
