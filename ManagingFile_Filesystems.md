@@ -334,20 +334,20 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
    
     `t` - Thay đổi ID hệ thống của phân vùng.
    
-     LƯU Ý: mỗi phân vùng sẽ tự động được cấp phát dưới dạng 'Linux' (loại 83) trừ khi
-     thay đổi
-     
-     Các loại phân vùng cần biết:
-   
-     82 - Linux swap
-   
-     83 - Linux
-   
-     85 - Linux extended
-   
-     8e - Linux LVM
-   
-     fd - Linux RAID
+        LƯU Ý: mỗi phân vùng sẽ tự động được cấp phát dưới dạng 'Linux' (loại 83) trừ khi
+        thay đổi
+        
+        Các loại phân vùng cần biết:
+      
+        82 - Linux swap
+      
+        83 - Linux
+      
+        85 - Linux extended
+      
+        8e - Linux LVM
+      
+        fd - Linux RAID
    
     `w` - Ghi các thay đổi và thoát.
    
