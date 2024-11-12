@@ -1,6 +1,6 @@
-**1. Understand File System Type** 
-
-**1.1 File System là gì**  
+### **1. Understand File System Type** 
+ 
+### **1.1 File System là gì**  
 
 - Một cách thức để quản lý và tổ chức dữ liệu trên các thiết bị lưu trữ ( ổ cứng, thẻ nhớ, SSD...)
 -  
@@ -18,7 +18,7 @@
 - Quản lý quyền truy cập: Quyền truy cập tệp được kiểm soát bởi hệ thống tệp, cho phép or từ chối quyền đọc, ghi, sửa của người dùng.
 - Quản lý không gian lưu trữ: Hệ thống tệp phân bổ và giải phóng không gian trên ổ đĩa khi tệp được tạo hoặc xóa.
 
-**1.2 Các loại File System**
+### **1.2 Các loại File System**
   
 **a. Ext4**
 - Hệ thống tệp mặc định trong hầu hết các bản phối linux. Hiệu suất tốt, khả năng mở rộng cao
@@ -48,9 +48,9 @@
 - Khả năng mở rộng tốt phù hợp cho các hệ thống có phân vùng rất lớn (500TB).
 - Hệ thống lưu trữ lớn, cơ sở dữ liệu.
 
-**2. Check file system `fsck`**  
+### **2. Check file system `fsck`**  
 
-**2.1 Cách sử dụng `fsck`**  
+### **2.1 Cách sử dụng `fsck`**  
 
 *1. Kiểm tra cơ bản*
 ```
@@ -93,9 +93,9 @@ sudo fsck -AM
 sudo fsck -V /dev/sdXN
 ```
 
-**3. Monitoring Disk: `df`, `du`**  
+### **3. Monitoring Disk: `df`, `du`**  
 
-**3.1 Cách kiểm tra dung lượng bằng `df`**  
+### **3.1 Cách kiểm tra dung lượng bằng `df`**  
 
 *1. `-h` (Human-readable): Hiển thị dung lượng ở dạng dễ đọc (KB, MB, GB).*
 ```
@@ -134,7 +134,7 @@ df --output=source,size,used,avail,pcent
 df -P
 ```  
   
-**3.2 Cách kiểm tra dung lượng bằng `du`**  
+### **3.2 Cách kiểm tra dung lượng bằng `du`**  
 
 1. **`-h`** (Human-readable): Hiển thị dung lượng ở dạng dễ đọc (KB, MB, GB).
    ```bash
@@ -196,5 +196,13 @@ df -P
    ```
    du -ahc /path/to/directory
    ```
-**3.3 Sự khác nhau giữa `du` và `df`**
+### **3.3 Sự khác nhau giữa `du` và `df`**
 
+| **Thuộc tính**          | **`du`**                                            | **`df`**                                      |
+|-------------------------|-----------------------------------------------------|-----------------------------------------------|
+| **Mục đích**            | Kiểm tra dung lượng file/thư mục                    | Kiểm tra dung lượng phân vùng                 |
+| **Cách tính toán**      | Tính dung lượng từng file/thư mục                   | Lấy thông tin từ hệ thống file phân vùng      |
+| **Kết quả hiển thị**    | Dung lượng thực tế của thư mục/file                 | Tổng dung lượng, đã dùng và còn trống         |
+| **Tình huống sử dụng**  | Khi muốn biết thư mục nào đang chiếm nhiều dung lượng | Khi muốn biết tình trạng dung lượng của phân vùng |
+
+Hy vọng giúp bạn rõ hơn về sự khác nhau giữa `du` và `df`.
