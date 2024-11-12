@@ -334,6 +334,21 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
    
     `t` - Thay đổi ID hệ thống của phân vùng.
    
+     LƯU Ý: mỗi phân vùng sẽ tự động được cấp phát dưới dạng 'Linux' (loại 83) trừ khi
+     thay đổi
+     
+     Các loại phân vùng cần biết:
+   
+     82 - Linux swap
+   
+     83 - Linux
+   
+     85 - Linux extended
+   
+     8e - Linux LVM
+   
+     fd - Linux RAID
+   
     `w` - Ghi các thay đổi và thoát.
    
     `q`- Thoát mà không lưu các thay đổi.
@@ -360,7 +375,7 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
    - Nếu bạn cần thoát mà không thực hiện thay đổi, nhấn `q`. Điều này sẽ thoát `fdisk` mà không lưu bất kỳ thay đổi nào.
 
 ### Lưu ý khi sử dụng `fdisk`
-
+- 
 - **Sao lưu dữ liệu:** Luôn sao lưu dữ liệu quan trọng trước khi sửa đổi các phân vùng đĩa vì các thay đổi có thể dẫn đến mất dữ liệu nếu không được xử lý cẩn thận.
 - **Quyền quản trị:** `fdisk` yêu cầu quyền quản trị; sử dụng `sudo` để chạy nó.
 - **Hệ thống tập tin:** Sau khi tạo các phân vùng, cần tạo hệ thống tập tin trên chúng (sử dụng các lệnh `mkfs` như `mkfs.ext4 /dev/sda1`) trước khi có thể sử dụng chúng.
