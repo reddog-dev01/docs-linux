@@ -61,3 +61,143 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 - **Chứa**: `/mnt` cho gắn kết tạm thời, `/media` cho gắn kết thiết bị như USB, CD-ROM.
 
 ### **2. Managing Files and Link: `ls`, `cp`, `mv`, `rm`, `touch`, `ln`**
+
+**2.1 `ls`**
+
+1. **`-a`**: Hiển thị tất cả các tệp, bao gồm cả các tệp ẩn (các tệp bắt đầu bằng dấu `.`).
+   ```bash
+   ls -a
+   ```
+
+2. **`-l`**: Hiển thị chi tiết theo dạng danh sách, bao gồm thông tin về quyền truy cập, số lượng liên kết, chủ sở hữu, nhóm, kích thước, và thời gian chỉnh sửa cuối.
+   ```bash
+   ls -l
+   ```
+
+3. **`-h`**: Hiển thị kích thước tệp theo dạng dễ đọc (KB, MB, GB), thường sử dụng cùng với `-l`.
+   ```bash
+   ls -lh
+   ```
+
+4. **`-R`**: Liệt kê tất cả các tệp trong thư mục hiện tại và các thư mục con (đệ quy).
+   ```bash
+   ls -R
+   ```
+
+5. **`-d`**: Chỉ hiển thị thư mục, không liệt kê nội dung bên trong.
+   ```bash
+   ls -d */
+   ```
+
+6. **`-t`**: Sắp xếp tệp theo thời gian chỉnh sửa cuối, từ mới nhất đến cũ nhất.
+   ```bash
+   ls -lt
+   ```
+
+7. **`-r`**: Sắp xếp theo thứ tự ngược lại, ví dụ: từ Z đến A hoặc từ mới nhất đến cũ nhất khi kết hợp với `-t`.
+   ```bash
+   ls -lr
+   ```
+
+8. **`-S`**: Sắp xếp tệp theo kích thước, từ lớn nhất đến nhỏ nhất.
+   ```bash
+   ls -lS
+   ```
+
+9. **`--color`**: Hiển thị màu sắc để phân biệt loại tệp và thư mục.
+   ```bash
+   ls --color=auto
+   ```
+
+10. **`-i`**: Hiển thị số inode của mỗi tệp.
+    ```bash
+    ls -i
+    ```
+
+11. **`-1`**: Hiển thị mỗi tệp trên một dòng.
+    ```bash
+    ls -1
+    ```
+
+12. **`-X`**: Sắp xếp theo phần mở rộng của tệp.
+    ```bash
+    ls -lX
+    ```
+
+13. **`-F`**: Thêm ký tự xác định loại tệp, ví dụ: `/` cho thư mục, `*` cho tệp thực thi.
+    ```bash
+    ls -F
+    ```    
+
+**2.2 cp**
+
+1. **`-r`**: Sao chép thư mục đệ quy (recursively), bao gồm cả các thư mục con. Bắt buộc dùng khi sao chép thư mục.
+   ```bash
+   cp -r source_directory destination_directory
+   ```
+
+2. **`-i`**: Chế độ tương tác (interactive), yêu cầu xác nhận nếu tệp đích đã tồn tại.
+   ```bash
+   cp -i source_file destination_file
+   ```
+
+3. **`-f`**: Ghi đè tệp đích mà không cần yêu cầu xác nhận (force).
+   ```bash
+   cp -f source_file destination_file
+   ```
+
+4. **`-u`**: Chỉ sao chép nếu tệp nguồn mới hơn tệp đích hoặc nếu tệp đích chưa tồn tại (update).
+   ```bash
+   cp -u source_file destination_file
+   ```
+
+5. **`-v`**: Hiển thị chi tiết quá trình sao chép (verbose).
+   ```bash
+   cp -v source_file destination_file
+   ```
+
+6. **`-p`**: Bảo toàn các thuộc tính của tệp, như quyền truy cập, thời gian chỉnh sửa, và chủ sở hữu (preserve attributes).
+   ```bash
+   cp -p source_file destination_file
+   ```
+
+7. **`-a`**: Chế độ lưu trữ (archive), sao chép tất cả các thuộc tính và thư mục con. Tương đương với `-dR --preserve=all`.
+   ```bash
+   cp -a source_directory destination_directory
+   ```
+
+8. **`-l`**: Tạo liên kết cứng (hard link) thay vì sao chép nội dung.
+   ```bash
+   cp -l source_file destination_file
+   ```
+
+9. **`-s`**: Tạo liên kết mềm (symbolic link) thay vì sao chép nội dung.
+   ```bash
+   cp -s source_file destination_file
+   ```
+
+10. **`--backup`**: Tạo bản sao lưu tệp đích nếu tệp đã tồn tại. Sử dụng cùng với `-b` để tạo bản sao lưu tự động.
+    ```bash
+    cp --backup source_file destination_file
+    ```
+
+11. **`--parents`**: Giữ lại cấu trúc thư mục của tệp nguồn khi sao chép vào thư mục đích.
+    ```bash
+    cp --parents source_directory/file destination_directory
+    ```
+
+12. **`--remove-destination`**: Xóa tệp đích trước khi sao chép (hữu ích khi tệp đích có quyền chỉ đọc).
+    ```bash
+    cp --remove-destination source_file destination_file
+    ```
+
+13. **`--sparse=WHEN`**: Kiểm soát cách sao chép tệp thưa (sparse file) để tiết kiệm dung lượng. `WHEN` có thể là `auto`, `always`, hoặc `never`.
+    ```bash
+    cp --sparse=always source_file destination_file
+    ```
+
+14. **`-n`**: Không sao chép nếu tệp đích đã tồn tại (no-clobber).
+    ```bash
+    cp -n source_file destination_file
+    ```
+
