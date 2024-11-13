@@ -383,3 +383,4 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
 
 ### **6.2 Phân biệt file system vs patition**
 
+**6.1 Patition**
