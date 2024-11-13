@@ -1,7 +1,9 @@
-### **1. Cấu trúc file thư mục**
+### **1.Understanding Filesystem Hierarchy Standard**
+
+**1.1 Cấu trúc file thư mục**
 Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ chức theo tiêu chuẩn Filesystem Hierarchy Standard (FHS), mỗi thư mục trong hệ thống có mục đích sử dụng và nội dung rõ ràng. Dưới đây là chi tiết về mục đích và nội dung của các thư mục chính trong cấu trúc file system của Linux:
 
-### **2. Mục đích**
+**1.2 Mục đích**
  1. `/` (Root)
 - **Mục đích**: Là thư mục gốc của toàn bộ hệ thống tập tin.
 - **Chứa**: Thư mục này chứa tất cả các thư mục và tập tin khác trong hệ thống, bao gồm cả thư mục của hệ điều hành và dữ liệu người dùng.
@@ -58,3 +60,4 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 - **Mục đích**: Điểm gắn kết cho các ổ đĩa và thiết bị lưu trữ tạm thời.
 - **Chứa**: `/mnt` cho gắn kết tạm thời, `/media` cho gắn kết thiết bị như USB, CD-ROM.
 
+### **2. Managing Files and Link: ‘ls’, ‘cp’, ‘mv’, ‘rm’, ‘touch’, ‘ln’**
