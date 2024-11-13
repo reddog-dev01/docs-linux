@@ -384,3 +384,22 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
 ### **6.2 Phân biệt file system vs patition**
 
 **6.1 Patition**
+
+Trong quản lý máy tính, thuật ngữ "file system" (hệ thống tập tin) và "partition" (phân vùng) thường được sử dụng và có mối liên hệ mật thiết với nhau, nhưng chúng đại diện cho hai khái niệm khác nhau. Dưới đây là sự phân biệt chi tiết giữa hai thuật ngữ này:
+
+### Partition (Phân vùng)
+- **Định nghĩa:** Một partition là một phần của ổ đĩa cứng được tách ra để có thể sử dụng riêng biệt. Mỗi phân vùng có thể được định dạng với một hệ thống tập tin riêng và hoạt động như một ổ đĩa độc lập trong hệ thống.
+- **Chức năng:** Phân vùng cho phép bạn chia nhỏ ổ đĩa cứng thành nhiều khu vực riêng biệt, mỗi khu vực có thể chứa hệ điều hành, dữ liệu hoặc một loại thông tin cụ thể. Điều này hữu ích cho việc quản lý dữ liệu, cài đặt nhiều hệ điều hành trên một máy, hoặc tách dữ liệu cá nhân ra khỏi hệ thống tập tin của hệ điều hành.
+- **Ví dụ:** Bạn có thể có một phân vùng cho Windows (thường là phân vùng C:), một phân vùng dữ liệu (D:), và một phân vùng khác cho Linux.
+
+### File System (Hệ thống tập tin)
+- **Định nghĩa:** Hệ thống tập tin là phương pháp tổ chức và quản lý dữ liệu trên phân vùng đĩa. Nó quy định cách dữ liệu được lưu trữ và truy cập trên phân vùng đó.
+- **Chức năng:** Hệ thống tập tin kiểm soát cách dữ liệu được lưu trữ trong một phân vùng, bao gồm cách tạo, lưu trữ và xóa các tệp. Nó cũng quản lý metadata, bao gồm tên tệp, quyền truy cập, ngày tạo, và kích thước tệp.
+- **Ví dụ:** Các hệ thống tập tin phổ biến bao gồm NTFS (thường được sử dụng trong Windows), EXT4 (thường được sử dụng trong Linux), và HFS+ (sử dụng trong máy Mac).
+
+### Mối quan hệ giữa File System và Partition
+- Một phân vùng cần có một hệ thống tập tin để dữ liệu bên trong nó có thể được sử dụng và quản lý một cách hiệu quả. Khi bạn định dạng một phân vùng, bạn chọn một hệ thống tập tin cho phân vùng đó. Ví dụ, khi bạn định dạng một phân vùng mới trên ổ cứng, bạn có thể chọn định dạng là NTFS, FAT32, EXT4, v.v.
+
+- **Lưu ý:** Một phân vùng không có hệ thống tập tin được gọi là phân vùng "raw" hoặc "chưa định dạng" và không thể được sử dụng để lưu trữ dữ liệu cho đến khi một hệ thống tập tin được thiết lập.
+
+Tóm lại, partition là về cách chia nhỏ không gian lưu trữ trên một thiết bị lưu trữ, trong khi file system là về cách quản lý và truy cập dữ liệu trong không gian đó. Cả hai khái niệm này là cần thiết để có thể sử dụng hiệu quả không gian lưu trữ trên các thiết bị điện tử.
