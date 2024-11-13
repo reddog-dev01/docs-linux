@@ -459,13 +459,13 @@ Dùng mẫu script sau:
 
 case "$1" in
   start)
-    /đường/dẫn/tới/script.sh
+    /path/to/your/script.sh
     ;;
   stop)
     # Có thể thêm mã để dừng script ở đây
     ;;
   *)
-    echo "Sử dụng: /etc/init.d/myscript {start|stop}"
+    echo "Usage: /etc/init.d/myscript {start|stop}"
     exit 1
     ;;
 esac
