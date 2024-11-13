@@ -445,6 +445,7 @@ crontab -e
 3. Lưu và thoát khỏi file crontab. Từ lần khởi động tiếp theo, script sẽ được chạy tự động.
 
 **3.4 Cách sử dụng Init.d**
+
 Dành cho các hệ thống không sử dụng systemd, sử dụng thư mục init.d là một cách phổ biến:
 
 Tạo script mới trong /etc/init.d/:
