@@ -339,10 +339,12 @@ sudo apt-get autoclean
 ```
 
 **2.3 apt update và apt upgrade**
+
 **a. apt update**
 - có nhiệm vụ cập nhật danh sách các package và phiên bản mới nhất từ các kho lưu trữ (repository). Nó không cài đặt hay nâng cấp bất kỳ package nào, mà chỉ tải về thông tin mới nhất về các package để hệ thống biết đâu là phiên bản mới nhất có thể cài đặt.
--  
+  
 **#Khi nào cần dùng**
+
 - Trước khi cài đặt bất kỳ package nào: Để đảm bảo rằng đang cài đặt phiên bản mới nhất của package, giúp tránh các sự cố hoặc xung đột do cài đặt các package lỗi thời.
 - Trước khi chạy `apt upgrade` hoặc `apt full-upgrade`: Cập nhật danh sách package trước khi nâng cấp đảm bảo bạn đang cài đặt các phiên bản mới nhất.
 - Sau khi thêm mới hoặc thay đổi repository: chạy apt update sẽ làm mới danh sách package, bao gồm các package từ repository mới.
@@ -352,6 +354,7 @@ sudo apt-get autoclean
 - Dùng để nâng cấp tất cả các package đã cài đặt trên hệ thống lên phiên bản mới nhất có sẵn trong danh sách package hiện tại. Khi bạn chạy apt upgrade, nó sẽ cài đặt phiên bản mới cho tất cả các package đã cài đặt nhưng không cài đặt các **package phụ thuộc mới** hoặc **xóa các package hiện có**.
 
 **#Khi nào cần dùng**
+
 - Sau khi chạy `apt update`: `apt upgrade` sẽ kiểm tra và nâng cấp các package lên phiên bản mới nhất, giúp hệ thống luôn cập nhật và bảo mật hơn.
 - Khi muốn cập nhật các bản vá bảo mật và sửa lỗi: Nhiều bản cập nhật bao gồm các bản vá bảo mật và sửa lỗi cho các package đã cài đặt. Việc nâng cấp các package giúp bảo vệ hệ thống khỏi các lỗ hổng bảo mật.
 - Định kỳ để đảm bảo hệ thống luôn cập nhật: Chạy `apt upgrade` một cách thường xuyên (hàng tuần hoặc hàng tháng) giúp hệ thống cập nhật và bảo mật hơn, giảm thiểu các rủi ro tiềm ẩn.
@@ -362,6 +365,7 @@ sudo apt-get autoclean
 - Các tập lệnh tự động chạy khi hệ thống khởi động hoặc khi người dùng đăng nhập vào hệ thống. Những script này thường được sử dụng để thiết lập môi trường, khởi động các dịch vụ quan trọng, hoặc thực hiện các công việc bảo trì cần thiết mà mình muốn thực hiện tự động khi hệ thống khởi động.
    
 **#Cách để chạy 1 script mỗi khi server được bật**  
+
 **3.1 Sử dụng `rc.local` Script**  
 - File /etc/rc.local là một trong những phương pháp đơn giản nhất để chạy các lệnh khi hệ thống khởi động. File này sẽ được chạy với quyền root (quyền quản trị), cho phép thực thi các lệnh yêu cầu quyền cao.
   
@@ -439,3 +443,39 @@ crontab -e
 ```
 
 3. Lưu và thoát khỏi file crontab. Từ lần khởi động tiếp theo, script sẽ được chạy tự động.
+
+**3.4 Cách sử dụng Init.d**
+Dành cho các hệ thống không sử dụng systemd, sử dụng thư mục init.d là một cách phổ biến:
+
+Tạo script mới trong /etc/init.d/:
+```
+sudo nano /etc/init.d/myscript
+```
+Dùng mẫu script sau:
+```
+#!/bin/sh
+# /etc/init.d/myscript
+
+case "$1" in
+  start)
+    /đường/dẫn/tới/script.sh
+    ;;
+  stop)
+    # Có thể thêm mã để dừng script ở đây
+    ;;
+  *)
+    echo "Sử dụng: /etc/init.d/myscript {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
+```
+Làm cho script có quyền thực thi:
+```
+sudo chmod +x /etc/init.d/myscript
+```
+Kích hoạt script:
+```
+sudo update-rc.d myscript defaults
+```
