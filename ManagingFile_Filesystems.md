@@ -442,3 +442,19 @@ sudo vim /etc/fstab #phải cấp quyền để sửa file
 ```
 thêm vào fstab và lưu lại
 ![image](https://github.com/user-attachments/assets/92f593c2-2ae3-4fde-a5d0-b88c8157b74a)
+
+### 7. Understanding RAID, ‘mdadm' command**
+
+**7.1 Khái niệm và cấu trúc RAID**
+
+RAID là một công nghệ lưu trữ được sử dụng để kết hợp nhiều ổ đĩa vật lý thành 1 đơn vị duy nhất với mục đích cải thiện hiệu suất, độ tin cậy.
+
+**Cấu trúc**
+
+1. Ổ đĩa vật lý (physical disks): Các ổ cứng, SSD được sử dụng trong mảng RAID (min 2)
+2. Bộ điều khiển RAID (RAID Controller): 1 phần cứng hoặc phần mềm điều khiển cách thức dữ liệu được ghi và đọc từ các ổ đĩa (1 card phần cứng riêng hoặc được tích hợp vào bo mạch chủ, hoặc 1 phần mềm được tích hợp vào HĐH)
+3. Mảng đĩa (Array): 1 nhóm các ổ đĩa được tổ chức và quản lý bởi RAID
+4. Phương thức lưu trữ:
+- Striping (Phân chia dải): Tách luồng dữ liệu thành các khối có kích thước nhất định (được gọi là kích thước khối) sau đó viết từng khối này qua từng RAID. Cách lưu trữ dữ liệu này ảnh hưởng đến hiệu suất.
+- Mirroring (mirroring): Là một kỹ thuật lưu trữ trong đó các bản sao dữ liệu giống hệt nhau được lưu trữ trên các thành viên RAID cùng một lúc. Loại vị trí dữ liệu này ảnh hưởng đến khả năng chịu lỗi cũng như hiệu suất.
+- Parity là một kỹ thuật lưu trữ được sử dụng các phương pháp phân loại và tổng kiểm tra. Trong kỹ thuật chẵn lẻ, một hàm chẵn lẻ nhất định được tính cho các khối dữ liệu. Nếu một ổ đĩa bị lỗi, khối bị thiếu được tính toán lại từ tổng kiểm tra, cung cấp khả năng chịu lỗi RAID.
