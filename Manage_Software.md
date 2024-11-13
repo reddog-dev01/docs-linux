@@ -264,6 +264,7 @@ sudo dpkg --configure -a
 ```
 
 **2.2 apt-get**
+
 **a. Cập nhật danh sách package ```apt-get update```**
 - Tải về danh sách các package và phiên bản mới nhất từ các repository đã cấu hình trong hệ thống. Chạy lệnh này trước khi cài đặt hoặc cập nhật package để đảm bảo bạn có danh sách mới nhất
 ```
@@ -277,7 +278,7 @@ sudo apt-get upgrade
 ```
 
 **c. Nâng cấp hệ thống toàn diện**
-- Nâng cấp tất cả các package và sẽ cài đặt hoặc xóa các package cần thiết để hoàn tất việc nâng cấp hệ thống một cách toàn diện.
+- Sử dụng khi muốn cập nhật các gói và đồng ý với việc hệ thống có thể thay đổi nhiều hơn, bao gồm cả những thay đổi lớn có thể cần để chuyển lên phiên bản mới của hệ điều hành hoặc khi cần các tính năng mới được bao gồm trong các bản cập nhật.
 ```
 sudo apt-get dist-upgrade
 ```
