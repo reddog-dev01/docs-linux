@@ -60,4 +60,4 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 - **Mục đích**: Điểm gắn kết cho các ổ đĩa và thiết bị lưu trữ tạm thời.
 - **Chứa**: `/mnt` cho gắn kết tạm thời, `/media` cho gắn kết thiết bị như USB, CD-ROM.
 
-### **2. Managing Files and Link: ‘ls’, ‘cp’, ‘mv’, ‘rm’, ‘touch’, ‘ln’**
+### **2. Managing Files and Link: `ls`, `cp`, `mv`, `rm`, `touch`, `ln`**
