@@ -383,23 +383,62 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
 
 ### **6.2 Phân biệt file system vs patition**
 
-**6.1 Patition**
+**Patition (Phân vùng)**
 
-Trong quản lý máy tính, thuật ngữ "file system" (hệ thống tập tin) và "partition" (phân vùng) thường được sử dụng và có mối liên hệ mật thiết với nhau, nhưng chúng đại diện cho hai khái niệm khác nhau. Dưới đây là sự phân biệt chi tiết giữa hai thuật ngữ này:
-
-### Partition (Phân vùng)
-- **Định nghĩa:** Một partition là một phần của ổ đĩa cứng được tách ra để có thể sử dụng riêng biệt. Mỗi phân vùng có thể được định dạng với một hệ thống tập tin riêng và hoạt động như một ổ đĩa độc lập trong hệ thống.
+- **Định nghĩa:** Một partition là một phần của ổ đĩa cứng được tách ra để có thể sử dụng riêng biệt. Mỗi phân vùng có thể được định dạng với một file system riêng và hoạt động như một ổ đĩa độc lập trong hệ thống.
 - **Chức năng:** Phân vùng cho phép bạn chia nhỏ ổ đĩa cứng thành nhiều khu vực riêng biệt, mỗi khu vực có thể chứa hệ điều hành, dữ liệu hoặc một loại thông tin cụ thể. Điều này hữu ích cho việc quản lý dữ liệu, cài đặt nhiều hệ điều hành trên một máy, hoặc tách dữ liệu cá nhân ra khỏi hệ thống tập tin của hệ điều hành.
-- **Ví dụ:** Bạn có thể có một phân vùng cho Windows (thường là phân vùng C:), một phân vùng dữ liệu (D:), và một phân vùng khác cho Linux.
 
-### File System (Hệ thống tập tin)
-- **Định nghĩa:** Hệ thống tập tin là phương pháp tổ chức và quản lý dữ liệu trên phân vùng đĩa. Nó quy định cách dữ liệu được lưu trữ và truy cập trên phân vùng đó.
-- **Chức năng:** Hệ thống tập tin kiểm soát cách dữ liệu được lưu trữ trong một phân vùng, bao gồm cách tạo, lưu trữ và xóa các tệp. Nó cũng quản lý metadata, bao gồm tên tệp, quyền truy cập, ngày tạo, và kích thước tệp.
-- **Ví dụ:** Các hệ thống tập tin phổ biến bao gồm NTFS (thường được sử dụng trong Windows), EXT4 (thường được sử dụng trong Linux), và HFS+ (sử dụng trong máy Mac).
+**File System (Hệ thống tập tin)**
 
-### Mối quan hệ giữa File System và Partition
-- Một phân vùng cần có một hệ thống tập tin để dữ liệu bên trong nó có thể được sử dụng và quản lý một cách hiệu quả. Khi bạn định dạng một phân vùng, bạn chọn một hệ thống tập tin cho phân vùng đó. Ví dụ, khi bạn định dạng một phân vùng mới trên ổ cứng, bạn có thể chọn định dạng là NTFS, FAT32, EXT4, v.v.
+- **Định nghĩa:** file system là phương pháp tổ chức và quản lý dữ liệu trên phân vùng đĩa. Nó quy định cách dữ liệu được lưu trữ và truy cập trên phân vùng đó.
+- **Chức năng:** file system kiểm soát cách dữ liệu được lưu trữ trong một phân vùng, bao gồm cách tạo, lưu trữ và xóa các tệp. Nó cũng quản lý metadata, bao gồm tên tệp, quyền truy cập, ngày tạo, và kích thước tệp.
 
-- **Lưu ý:** Một phân vùng không có hệ thống tập tin được gọi là phân vùng "raw" hoặc "chưa định dạng" và không thể được sử dụng để lưu trữ dữ liệu cho đến khi một hệ thống tập tin được thiết lập.
+**Mối quan hệ giữa File System và Partition**
+- Một partition cần có một file system để dữ liệu bên trong nó có thể được sử dụng và quản lý một cách hiệu quả. Ví dụ, khi định dạng một patition mới trên ổ cứng, bạn có thể chọn định dạng FAT32, EXT4, v.v.
 
-Tóm lại, partition là về cách chia nhỏ không gian lưu trữ trên một thiết bị lưu trữ, trong khi file system là về cách quản lý và truy cập dữ liệu trong không gian đó. Cả hai khái niệm này là cần thiết để có thể sử dụng hiệu quả không gian lưu trữ trên các thiết bị điện tử.
+- **Lưu ý:** Một patition không có file system được gọi là patition "raw" hoặc "chưa định dạng" và không thể được sử dụng để lưu trữ dữ liệu cho đến khi một file system được thiết lập.
+
+### **6.3 Lab 2**
+
+1. Sử dụng fdisk để chia thành 3 patition
+```
+sudo fdisk /dev/sdb
+```
+- Trong menu tìm kiếm ấn `n`
+- Pattion type: `p` phân vùng chính, phân vùng độc lập, sử dụng bảng phân vùng MBR => tạo tối đa 4. `e` phân vùng mở rộng chỉ có thể tạo 1/1ổ đĩa, không chứa trực tiếp dữ liệu mà chứa các phân vùng logic, phân vùng logic hoạt động như phân vùng chính trong phân vùng mở rộng.
+- Partitin number: số phân vùng (tối đa 4)
+- First sector: mặc định 2048
+- 
+2. Định dạng patition
+  ```
+  sudo mkfs.ext4 /dev/sdb1
+  #Tải công cụ quản lý xfs nếu chưa có
+  sudo apt update
+  sudo apt install xfsprogs
+  sudo mkfs.xfs /dev/sdb2
+  sudo mkfs.ext3 /dev/sdb3
+  ```
+  
+3. Mount
+ ```
+sudo mkdir /mnt/data1 /mnt/data2 /mnt/data3
+sudo mount /dev/sdb1 /mnt/data1 #2,3 tương tự
+```
+
+4. Reboot tự mount lại
+
+*a. Cấu trúc /etc/fstab*
+
+![image](https://github.com/user-attachments/assets/7eb85f8d-ad1e-4102-a934-f6a42bf776c8)
+- file system: đường dẫn /dev/sda1, UUID=xxx-xxx-xxx, LABEL(LABEL=root_disk)
+- mount point: điểm trong file system sẽ được gắn `/`, `/home`...
+- type: loại file system trên patition (ext4, xfs...)
+- options: `defaults` mặc định, `ro` chỉ đọc, `rw` đọc viết, `noexec` không cho phép thực thi các file
+- dump: `0` không sao lưu, `1` sao lưu
+- pass: `0` file system không được kiểm tra bởi `fsck`, `1` phân vùng gốc `/` được kiểm tra đầu tiên, `2` không phải phân vùng gốc được kiểm tra sau phân vùng gốc.
+
+```
+sudo vim /etc/fstab #phải cấp quyền để sửa file
+```
+thêm vào fstab và lưu lại
+![image](https://github.com/user-attachments/assets/92f593c2-2ae3-4fde-a5d0-b88c8157b74a)
