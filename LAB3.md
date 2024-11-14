@@ -62,7 +62,7 @@ sudo mdadm --create --verbose /dev/md3 --level=0 --raid-devices=2 /dev/sdc /dev/
 ```
 
 Trong đó:
-- `--create /dev/md3`: Tạo mảng RAID mới và gán nó tới thiết bị ảo `/dev/md0`.
+- `--create /dev/md3`: Tạo mảng RAID mới và gán nó tới thiết bị ảo `/dev/md3`.
 - `--verbose`: Hiển thị chi tiết quá trình thực hiện.
 - `--level=0`: Thiết lập RAID level 0.
 - `--raid-devices=2`: Số lượng ổ đĩa tham gia vào mảng RAID.
@@ -71,7 +71,7 @@ Trong đó:
 Bước 4: Tạo File System
 
 ```bash
-sudo mkfs.ext4 /dev/md0
+sudo mkfs.ext4 /dev/md3
 ```
 
 ### Bước 5: Gắn Kết Mảng RAID
@@ -103,7 +103,7 @@ Sau cùng, kiểm tra trạng thái của mảng RAID:
 
 ```bash
 cat /proc/mdstat
-sudo mdadm --detail /dev/md0
+sudo mdadm --detail /dev/md3
 ```
 
 **4. Tạo 2 disk cấu hình RAID1**
