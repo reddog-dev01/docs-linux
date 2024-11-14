@@ -398,54 +398,9 @@ Mục đích của việc phân vùng ổ đĩa (disk partitioning) là:
 
 - **Lưu ý:** Một patition không có file system được gọi là patition "raw" hoặc "chưa định dạng" và không thể được sử dụng để lưu trữ dữ liệu cho đến khi một file system được thiết lập.
 
-### **6.3 Lab 2**
+### 6. Understanding RAID, ‘mdadm' command**
 
-1. Sử dụng fdisk để chia thành 3 patition
-```
-sudo fdisk /dev/sdb
-```
-- Trong menu tìm kiếm ấn `n`
-- Pattion type: `p` phân vùng chính, phân vùng độc lập, sử dụng bảng phân vùng MBR => tạo tối đa 4. `e` phân vùng mở rộng chỉ có thể tạo 1/1ổ đĩa, không chứa trực tiếp dữ liệu mà chứa các phân vùng logic, phân vùng logic hoạt động như phân vùng chính trong phân vùng mở rộng.
-- Partitin number: số phân vùng (tối đa 4)
-- First sector: mặc định 2048
-- 
-2. Định dạng patition
-  ```
-  sudo mkfs.ext4 /dev/sdb1
-  #Tải công cụ quản lý xfs nếu chưa có
-  sudo apt update
-  sudo apt install xfsprogs
-  sudo mkfs.xfs /dev/sdb2
-  sudo mkfs.ext3 /dev/sdb3
-  ```
-  
-3. Mount
- ```
-sudo mkdir /mnt/data1 /mnt/data2 /mnt/data3
-sudo mount /dev/sdb1 /mnt/data1 #2,3 tương tự
-```
-
-4. Reboot tự mount lại
-
-*a. Cấu trúc /etc/fstab*
-
-![image](https://github.com/user-attachments/assets/7eb85f8d-ad1e-4102-a934-f6a42bf776c8)
-- file system: đường dẫn /dev/sda1, UUID=xxx-xxx-xxx, LABEL(LABEL=root_disk)
-- mount point: điểm trong file system sẽ được gắn `/`, `/home`...
-- type: loại file system trên patition (ext4, xfs...)
-- options: `defaults` mặc định, `ro` chỉ đọc, `rw` đọc viết, `noexec` không cho phép thực thi các file
-- dump: `0` không sao lưu, `1` sao lưu
-- pass: `0` file system không được kiểm tra bởi `fsck`, `1` phân vùng gốc `/` được kiểm tra đầu tiên, `2` không phải phân vùng gốc được kiểm tra sau phân vùng gốc.
-
-```
-sudo vim /etc/fstab #phải cấp quyền để sửa file
-```
-thêm vào fstab và lưu lại
-![image](https://github.com/user-attachments/assets/92f593c2-2ae3-4fde-a5d0-b88c8157b74a)
-
-### 7. Understanding RAID, ‘mdadm' command**
-
-**7.1 Khái niệm và cấu trúc RAID**
+**6.1 Khái niệm và cấu trúc RAID**
 
 RAID là một công nghệ lưu trữ được sử dụng để kết hợp nhiều ổ đĩa vật lý thành 1 đơn vị duy nhất với mục đích cải thiện hiệu suất, độ tin cậy.
 
@@ -459,6 +414,6 @@ RAID là một công nghệ lưu trữ được sử dụng để kết hợp nh
 - Mirroring (mirroring): Là một kỹ thuật lưu trữ trong đó các bản sao dữ liệu giống hệt nhau được lưu trữ trên các thành viên RAID cùng một lúc. Loại vị trí dữ liệu này ảnh hưởng đến khả năng chịu lỗi cũng như hiệu suất.
 - Parity là một kỹ thuật lưu trữ được sử dụng các phương pháp phân loại và tổng kiểm tra. Trong kỹ thuật chẵn lẻ, một hàm chẵn lẻ nhất định được tính cho các khối dữ liệu. Nếu một ổ đĩa bị lỗi, khối bị thiếu được tính toán lại từ tổng kiểm tra, cung cấp khả năng chịu lỗi RAID.
 
-**7.2 Nguyên lý hoạt động**
+**6.2 Nguyên lý hoạt động**
 **a. RAID 0**
 
