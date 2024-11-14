@@ -64,7 +64,7 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 
 **2.1 `ls`**
 
-1. **`-a`**: Hiển thị tất cả các tệp, bao gồm cả các tệp ẩn (các tệp bắt đầu bằng dấu `.`).
+1. **`-a`**: Hiển thị tất cả các file, bao gồm cả các file ẩn (các file bắt đầu bằng dấu `.`).
    ```bash
    ls -a
    ```
@@ -74,12 +74,12 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
    ls -l
    ```
 
-3. **`-h`**: Hiển thị kích thước tệp theo dạng dễ đọc (KB, MB, GB), thường sử dụng cùng với `-l`.
+3. **`-h`**: Hiển thị kích thước file theo dạng dễ đọc (KB, MB, GB), thường sử dụng cùng với `-l`.
    ```bash
    ls -lh
    ```
 
-4. **`-R`**: Liệt kê tất cả các tệp trong thư mục hiện tại và các thư mục con (đệ quy).
+4. **`-R`**: Liệt kê tất cả các file trong thư mục hiện tại và các thư mục con (đệ quy).
    ```bash
    ls -R
    ```
@@ -89,7 +89,7 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
    ls -d */
    ```
 
-6. **`-t`**: Sắp xếp tệp theo thời gian chỉnh sửa cuối, từ mới nhất đến cũ nhất.
+6. **`-t`**: Sắp xếp file theo thời gian chỉnh sửa cuối, từ mới nhất đến cũ nhất.
    ```bash
    ls -lt
    ```
@@ -99,54 +99,54 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
    ls -lr
    ```
 
-8. **`-S`**: Sắp xếp tệp theo kích thước, từ lớn nhất đến nhỏ nhất.
+8. **`-S`**: Sắp xếp file theo kích thước, từ lớn nhất đến nhỏ nhất.
    ```bash
    ls -lS
    ```
 
-9. **`--color`**: Hiển thị màu sắc để phân biệt loại tệp và thư mục.
+9. **`--color`**: Hiển thị màu sắc để phân biệt loại file và thư mục.
    ```bash
    ls --color=auto
    ```
 
-10. **`-i`**: Hiển thị số inode của mỗi tệp.
+10. **`-i`**: Hiển thị số inode của mỗi file.
     ```bash
     ls -i
     ```
 
-11. **`-1`**: Hiển thị mỗi tệp trên một dòng.
+11. **`-1`**: Hiển thị mỗi file trên một dòng.
     ```bash
     ls -1
     ```
 
-12. **`-X`**: Sắp xếp theo phần mở rộng của tệp.
+12. **`-X`**: Sắp xếp theo phần mở rộng của file.
     ```bash
     ls -lX
     ```
 
-13. **`-F`**: Thêm ký tự xác định loại tệp, ví dụ: `/` cho thư mục, `*` cho tệp thực thi.
+13. **`-F`**: Thêm ký tự xác định loại file, ví dụ: `/` cho thư mục, `*` cho file thực thi.
     ```bash
     ls -F
     ```    
 
-**2.2 cp**
+**2.2 `cp`**
 
 1. **`-r`**: Sao chép thư mục đệ quy (recursively), bao gồm cả các thư mục con. Bắt buộc dùng khi sao chép thư mục.
    ```bash
    cp -r source_directory destination_directory
    ```
 
-2. **`-i`**: Chế độ tương tác (interactive), yêu cầu xác nhận nếu tệp đích đã tồn tại.
+2. **`-i`**: Chế độ tương tác (interactive), yêu cầu xác nhận nếu file đích đã tồn tại.
    ```bash
    cp -i source_file destination_file
    ```
 
-3. **`-f`**: Ghi đè tệp đích mà không cần yêu cầu xác nhận (force).
+3. **`-f`**: Ghi đè file đích mà không cần yêu cầu xác nhận (force).
    ```bash
    cp -f source_file destination_file
    ```
 
-4. **`-u`**: Chỉ sao chép nếu tệp nguồn mới hơn tệp đích hoặc nếu tệp đích chưa tồn tại (update).
+4. **`-u`**: Chỉ sao chép nếu file nguồn mới hơn file đích hoặc nếu file đích chưa tồn tại (update).
    ```bash
    cp -u source_file destination_file
    ```
@@ -156,7 +156,7 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
    cp -v source_file destination_file
    ```
 
-6. **`-p`**: Bảo toàn các thuộc tính của tệp, như quyền truy cập, thời gian chỉnh sửa, và chủ sở hữu (preserve attributes).
+6. **`-p`**: Bảo toàn các thuộc tính của file, như quyền truy cập, thời gian chỉnh sửa, và chủ sở hữu (preserve attributes).
    ```bash
    cp -p source_file destination_file
    ```
@@ -176,28 +176,51 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
    cp -s source_file destination_file
    ```
 
-10. **`--backup`**: Tạo bản sao lưu tệp đích nếu tệp đã tồn tại. Sử dụng cùng với `-b` để tạo bản sao lưu tự động.
+10. **`--backup`**: Tạo bản sao lưu file đích nếu file đã tồn tại. Sử dụng cùng với `-b` để tạo bản sao lưu tự động.
     ```bash
     cp --backup source_file destination_file
     ```
 
-11. **`--parents`**: Giữ lại cấu trúc thư mục của tệp nguồn khi sao chép vào thư mục đích.
+11. **`--parents`**: Giữ lại cấu trúc thư mục của file nguồn khi sao chép vào thư mục đích.
     ```bash
     cp --parents source_directory/file destination_directory
     ```
 
-12. **`--remove-destination`**: Xóa tệp đích trước khi sao chép (hữu ích khi tệp đích có quyền chỉ đọc).
+12. **`--remove-destination`**: Xóa file đích trước khi sao chép (hữu ích khi file đích có quyền chỉ đọc).
     ```bash
     cp --remove-destination source_file destination_file
     ```
 
-13. **`--sparse=WHEN`**: Kiểm soát cách sao chép tệp thưa (sparse file) để tiết kiệm dung lượng. `WHEN` có thể là `auto`, `always`, hoặc `never`.
+13. **`--sparse=WHEN`**: Kiểm soát cách sao chép file thưa (sparse file) để tiết kiệm dung lượng. `WHEN` có thể là `auto`, `always`, hoặc `never`.
     ```bash
     cp --sparse=always source_file destination_file
     ```
 
-14. **`-n`**: Không sao chép nếu tệp đích đã tồn tại (no-clobber).
+14. **`-n`**: Không sao chép nếu file đích đã tồn tại (no-clobber).
     ```bash
     cp -n source_file destination_file
     ```
 
+**2.3 `mv`**
+
+1. `-i`: Hỏi trước khi ghi đè file đích
+2. `-f`: Ghi đè file đích mà không cần hỏi
+3. `-v`: Hiển thị thông tin chi tiết về file được di chuyển
+4. `-u`: CHỉ di chuyển khi file nguồn mới hơn hoặc file đích không tồn tại
+
+**2.4 `rm`**
+
+1. `-f`: xóa các file mà không cần xác nhận
+2. `-i`: Hỏi xác nhận trước khi xóa
+3. `-r`: Xóa thư mục và toàn bộ nội dung bên trong (gồm cả file con và thư mục con)
+4. `-v`: Hiện chi tiết quá trình xóa
+
+**2.5 `touch`**
+- Tạo 1 file nếu chưa tồn tại hoặc cập nhật ngày/giờ cho file nếu nó đã tồn tại
+
+1. `-a` Chỉ thay đổi thời gian truy cập của file `touch -a file_name`
+2. `-m` Chỉ thay đổi thời gian sửa đổi của file `touch -m file_name`
+3. `-c` Không tạo file mới nếu file không tồn tại. Chỉ đổi thời gian nếu file đã tồn tại `touch -c file_name`
+4. `-d` Sử dụng chuỗi thời gian cụ thể áp dụng cho file. VD: `touch -d "DATE_STRING" file_name #YYYY-MM-DD HH:MM:SS or DD/MM/YYYY HH:MM:SS`
+5. `-r` Sao chép thời gian truy cập, sửa đổi từ file chiếu sang file đích mà không thay đổi nội dung. `touch -r reference_file target_file`
+6. `-t` Cho phép chỉnh sửa thời gian truy cập và thời gian sửa đổi. `touch -t YYYYMMDDhhmm.ss file_name`
