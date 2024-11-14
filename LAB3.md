@@ -126,10 +126,10 @@ Bước 2: Chuẩn bị File cho Kiểm Tra
 
 ```bash
 cd /mnt/raid0
-sysbench fileio --file-total-size=10G prepare
+sudo sysbench fileio --file-total-size=10G prepare
 ```
 
-Trong đó, `--file-total-size=5G` là tổng kích thước file sẽ được tạo.
+Trong đó, `--file-total-size=10G` là tổng kích thước file sẽ được tạo.
 
 Bước 3: Thực Hiện Bài Kiểm Tra I/O
 
@@ -159,9 +159,14 @@ sysbench fileio --file-total-size=5G cleanup
 **KẾT QUẢ**
 
 raid0
+
 ![image](https://github.com/user-attachments/assets/d6115588-43de-43b5-9237-ce571e3f4303)
 
 raid1
+
 ![image](https://github.com/user-attachments/assets/1295eb03-be10-4503-91e1-1f5d3960150f)
 
+disk
+
+![image](https://github.com/user-attachments/assets/58972d6d-eb9c-4088-86ea-81ee5bba959d)
 
