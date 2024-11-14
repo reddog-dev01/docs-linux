@@ -3,7 +3,8 @@
 ### **Các bước thực hiện lab**
 
 **1. Tạo máy ảo ubuntu server**
-![image](https://github.com/user-attachments/assets/0077df1b-912a-456a-ba55-b2ba48e2baaf)
+![image](https://github.com/user-attachments/assets/6a18f2c3-aac7-4d6c-9a04-3f81c7264399)
+
 
 **2. Tạo 2 disk cấu hình raid1**
 
