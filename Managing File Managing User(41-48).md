@@ -224,3 +224,9 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 4. `-d` Sử dụng chuỗi thời gian cụ thể áp dụng cho file. VD: `touch -d "DATE_STRING" file_name #YYYY-MM-DD HH:MM:SS or DD/MM/YYYY HH:MM:SS`
 5. `-r` Sao chép thời gian truy cập, sửa đổi từ file chiếu sang file đích mà không thay đổi nội dung. `touch -r reference_file target_file`
 6. `-t` Cho phép chỉnh sửa thời gian truy cập và thời gian sửa đổi. `touch -t YYYYMMDDhhmm.ss file_name`
+
+**2.6 `ln`**
+- Sử dụng để tạo các liên kết cứng (hard link) và liên kết mềm (soft link or symbolic link)
+```
+ln [OPTION] TARGET [LINK_NAME]
+1. 
