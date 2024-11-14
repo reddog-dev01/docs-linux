@@ -41,8 +41,71 @@ chia làm 3 phân vùng làm việc `/` phân vùng chính chứa HĐH và các 
 
 1. Cài mdadm nếu chưa có
 
-```
+Bước 1: Cài Đặt `mdadm`
+
+```bash
 sudo apt update
 sudo apt install mdadm
 ```
+
+Bước 2: Kiểm Tra Ổ Đĩa
+
+```bash
+sudo fdisk -l /dev/sdc /dev/sdd
+```
+
+Bước 3: Tạo Mảng RAID 0
+
+```bash
+sudo mdadm --create --verbose /dev/md3 --level=0 --raid-devices=2 /dev/sdc /dev/sdd
+```
+
+Trong đó:
+- `--create /dev/md3`: Tạo mảng RAID mới và gán nó tới thiết bị ảo `/dev/md0`.
+- `--verbose`: Hiển thị chi tiết quá trình thực hiện.
+- `--level=0`: Thiết lập RAID level 0.
+- `--raid-devices=2`: Số lượng ổ đĩa tham gia vào mảng RAID.
+- `/dev/sdc /dev/sdd`: Đường dẫn đến các ổ đĩa được sử dụng.
+
+Bước 4: Tạo File System
+
+```bash
+sudo mkfs.ext4 /dev/md0
+```
+
+### Bước 5: Gắn Kết Mảng RAID
+
+```bash
+sudo mkdir -p /mnt/raid0
+sudo mount /dev/md3 /mnt/raid0
+```
+
+Bước 6: Cập Nhật `mdadm.conf`
+
+```bash
+sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
+```
+
+### Bước 7: Cập Nhật `fstab`
+
+Để tự động gắn kết mảng RAID khi khởi động, thêm dòng sau vào `/etc/fstab`:
+
+```
+sudo vim /etc/fstab
+```
+![image](https://github.com/user-attachments/assets/56550320-3c84-49e6-8666-1c5656983b7d)
+
+
+### Bước 8: Kiểm Tra Mảng RAID
+
+Sau cùng, kiểm tra trạng thái của mảng RAID:
+
+```bash
+cat /proc/mdstat
+sudo mdadm --detail /dev/md0
+```
+
+**4. Tạo 2 disk cấu hình RAID1**
+
+**Làm tương tự như RAID0**
 
