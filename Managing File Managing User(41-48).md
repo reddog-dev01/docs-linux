@@ -277,95 +277,91 @@ ln -sb -S .old /path/to/original /path/to/existing_link
 ### **2. Managing File Ownership: `chown`, `chgrp`**
 
 **2.1 `chown`**
-Lệnh `chown` trong Linux được sử dụng để thay đổi chủ sở hữu và/hoặc nhóm của một hoặc nhiều file hoặc thư mục. Dưới đây là hướng dẫn chi tiết về cách sử dụng lệnh `chown`, bao gồm cú pháp cơ bản và một số ví dụ.
 
-### Cú pháp Cơ Bản
-```bash
+Lệnh `chown` trong Linux được sử dụng để thay đổi chủ sở hữu và/hoặc nhóm của một hoặc nhiều file hoặc thư mục.
+
+Cú pháp Cơ Bản
+```
 chown [options] [user][:group] file...
 ```
 
 Trong đó:
-- **user**: Tên người dùng mới mà bạn muốn gán làm chủ sở hữu cho file.
-- **group**: Tên nhóm mới mà bạn muốn gán cho file. Việc chỉ định nhóm là tùy chọn và nếu bạn muốn chỉ định nhóm mà không thay đổi chủ sở hữu, bạn có thể bỏ qua phần user.
-- **file**: Đường dẫn đến file hoặc thư mục mà bạn muốn thay đổi. Bạn có thể liệt kê nhiều file hoặc thư mục cách nhau bằng khoảng trắng.
+- **user**: Tên người dùng mới muốn gán làm chủ sở hữu cho file.
+- **group**: Tên nhóm mới muốn gán cho file.
+- **file**: Đường dẫn đến file hoặc thư mục muốn thay đổi, có thể liệt kê nhiều file hoặc thư mục cách nhau bằng khoảng trắng.
 
-### Các Tùy Chọn Phổ Biến
+**Các Tùy Chọn Phổ Biến**
+
 - `-c`, `--changes`: Hiển thị thông tin về các thay đổi đã được thực hiện.
 - `-v`, `--verbose`: Hiển thị thông tin chi tiết về quá trình thực hiện lệnh.
 - `-f`, `--silent`, `--quiet`: Không hiển thị các thông báo lỗi.
 - `-R`, `--recursive`: Áp dụng lệnh cho tất cả file và thư mục con một cách đệ quy.
 
-### Ví dụ
+**Ví dụ**
 
 1. **Thay Đổi Chủ Sở Hữu của File**
    ```bash
    sudo chown newuser filename.txt
    ```
-   Lệnh này sẽ thay đổi chủ sở hữu của `filename.txt` thành `newuser`.
 
 2. **Thay Đổi Chủ Sở Hữu và Nhóm**
    ```bash
    sudo chown newuser:newgroup filename.txt
    ```
-   Lệnh này sẽ thay đổi chủ sở hữu của `filename.txt` thành `newuser` và nhóm thành `newgroup`.
 
-3. **Thay Đổi Chủ Sở Hữu của Thư Mục và Nội Dung Bên Trong**
+3. **Thay Đổi Chủ Sở Hữu của Thư Mục và Những gì Bên Trong**
+
+   Không chỉ thay đổi thư mục mà thay đổi cả file và thư mục con
+
    ```bash
    sudo chown -R newuser:newgroup /path/to/directory
    ```
-   Lệnh này sẽ thay đổi chủ sở hữu và nhóm của thư mục `/path/to/directory` và tất cả nội dung bên trong một cách đệ quy.
 
-4. **Chỉ Thay Đổi Nhóm**
+5. **Chỉ Thay Đổi Nhóm**
    ```bash
    sudo chown :newgroup filename.txt
    ```
    Lệnh này sẽ thay đổi nhóm của `filename.txt` thành `newgroup` mà không thay đổi chủ sở hữu hiện tại.
 
-5. **Sử Dụng Verbose để Kiểm Tra Thay Đổi**
+6. **Sử Dụng Verbose để Kiểm Tra Thay Đổi**
    ```bash
    sudo chown -v newuser:newgroup filename.txt
    ```
    Lệnh này sẽ thay đổi chủ sở hữu và nhóm của `filename.txt` và hiển thị thông tin chi tiết về thay đổi.
 
-### Lưu Ý
-- Bạn cần quyền quản trị để thay đổi chủ sở hữu của file hoặc thư mục. Vì vậy, lệnh `chown` thường được sử dụng với `sudo` để tăng quyền truy cập.
-- Hãy cẩn thận khi sử dụng tùy chọn `-R` vì nó có thể gây ra thay đổi sở hữu trên một lượng lớn file và thư mục, có thể ảnh hưởng đến hệ thống của bạn.
-
 **2.2 chgrp**
 
-Lệnh `chgrp` trong Linux dùng để thay đổi nhóm của một hoặc nhiều file hoặc thư mục. Đây là công cụ giúp bạn quản lý nhóm sở hữu các file, cho phép bạn thiết lập nhóm quản lý nội dung cụ thể trong hệ thống tệp của bạn.
+Lệnh `chgrp` trong Linux dùng để thay đổi nhóm của một hoặc nhiều file hoặc thư mục.
 
-### Cú pháp Cơ Bản của chgrp
+ Cú pháp Cơ Bản của chgrp
 
 ```bash
 chgrp [OPTIONS] GROUP FILE...
 ```
 
 Trong đó:
-- **GROUP**: Tên của nhóm mà bạn muốn gán cho file.
-- **FILE...**: Một hoặc nhiều file mà bạn muốn thay đổi nhóm. Bạn có thể liệt kê nhiều file cách nhau bởi khoảng trống.
+- **GROUP**: Tên của nhóm muốn gán cho file.
+- **FILE...**: Một hoặc nhiều file muốn thay đổi nhóm, có thể liệt kê nhiều file cách nhau bởi khoảng trống.
 
-### Các Tùy Chọn Phổ Biến
+**Các Tùy Chọn Phổ Biến**
 - `-c`, `--changes`: Chỉ hiển thị thông báo khi thực hiện thay đổi.
 - `-f`, `--silent`, `--quiet`: Không hiển thị lỗi cho các file không thể thay đổi.
 - `-v`, `--verbose`: Hiển thị thông báo chi tiết cho mỗi file xử lý.
 - `-R`, `--recursive`: Áp dụng thay đổi cho tất cả các file và thư mục con một cách đệ quy.
 
-### Ví dụ Sử Dụng chgrp
+**Ví dụ Sử Dụng chgrp**
 
 1. **Thay Đổi Nhóm của Một File**
    ```bash
    chgrp groupname filename.txt
    ```
-   Thay đổi nhóm của file `filename.txt` thành `groupname`.
 
 2. **Thay Đổi Nhóm Của Nhiều File**
    ```bash
    chgrp groupname file1.txt file2.txt file3.txt
    ```
-   Thay đổi nhóm của nhiều file cùng một lúc.
 
-3. **Thay Đổi Nhóm Của Thư Mục và Nội Dung Bên Trong**
+3. **Thay Đổi Nhóm Của Thư Mục và Những Gì Bên Trong**
    ```bash
    chgrp -R groupname /path/to/directory
    ```
@@ -375,11 +371,6 @@ Trong đó:
    ```bash
    chgrp -v groupname filename.txt
    ```
-   Hiển thị thông tin chi tiết khi thay đổi nhóm của `filename.txt`.
+   
+### **3. Controlling Access to Files: Understanding Permissions, `chmod`**
 
-### Lưu Ý Khi Sử Dụng chgrp
-- Bạn cần có quyền hạn đối với file để thay đổi nhóm của nó, hoặc bạn phải là người dùng root hoặc có quyền sudo.
-- Sử dụng tùy chọn `-R` cẩn thận, nhất là khi áp dụng trên các thư mục lớn hoặc thư mục gốc, vì điều này có thể ảnh hưởng đến hoạt động của hệ thống.
-- Nếu không chắc chắn về quyền của mình, bạn có thể dùng lệnh `ls -l` để kiểm tra nhóm hiện tại của các file trước khi sử dụng `chgrp`.
-
-Sử dụng `chgrp` cùng với các công cụ như `chmod` và `chown` giúp bạn kiểm soát hiệu quả quyền truy cập và quản lý các file và thư mục trong hệ thống Linux của mình.
