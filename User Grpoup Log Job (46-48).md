@@ -282,4 +282,6 @@ groupdel groupname
 
 ### **6. Using System Log Files: syslogd, rotating log files**
 
+
+
 ### **7. Running Job in the Future: `cron`, `at`**
