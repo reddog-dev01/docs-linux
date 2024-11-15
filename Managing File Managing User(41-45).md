@@ -273,6 +273,7 @@ Ví dụ:
 ```
 ln -sb -S .old /path/to/original /path/to/existing_link
 ```
+**Xoá liên kết**: `unlink`
 
 ### **2. Managing File Ownership: `chown`, `chgrp`**
 
