@@ -83,10 +83,12 @@ sudo mount /dev/md3 /mnt/raid0
 
 Bước 6: Cập Nhật `mdadm.conf`
 
+
 ```bash
 sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
+sudo update-initramfs -u
 ```
-
+### **Lưu ý phải sử dụng UUID của RAID để cập nhật**
 ### Bước 7: Cập Nhật `fstab`
 
 Để tự động gắn kết mảng RAID khi khởi động, thêm dòng sau vào `/etc/fstab`:
