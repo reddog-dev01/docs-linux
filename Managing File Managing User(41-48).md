@@ -374,3 +374,69 @@ Trong đó:
    
 ### **3. Controlling Access to Files: Understanding Permissions, `chmod`**
 
+Lệnh `chmod` trong Linux dùng để thay đổi quyền truy cập của file hoặc thư mục. Chmod viết tắt của "change mode", và lệnh này cho phép bạn cấu hình các quyền để kiểm soát việc người dùng có thể đọc, viết hoặc thực thi một file cụ thể hay không.
+
+### Cú pháp Cơ Bản của chmod
+
+```bash
+chmod [options] mode file...
+```
+
+Trong đó:
+- **options**: Các tùy chọn thêm để điều chỉnh cách thức thực thi lệnh.
+- **mode**: Cách thức bạn muốn thay đổi quyền truy cập, được chỉ định bằng số hoặc bằng chữ.
+- **file**: Đường dẫn đến file hoặc thư mục mà bạn muốn thay đổi.
+
+### Hiểu Quyền truy cập:
+- **r (read)**: Quyền đọc file.
+- **w (write)**: Quyền ghi hoặc sửa file.
+- **x (execute)**: Quyền thực thi file.
+
+Quyền này có thể được áp dụng cho ba nhóm:
+- **u (user)**: Chủ sở hữu file.
+- **g (group)**: Nhóm của file.
+- **o (others)**: Người dùng khác.
+
+### Đặt Quyền sử dụng Số:
+Bạn có thể sử dụng các số từ 0 đến 7 để thiết lập quyền truy cập.
+- **4** đại diện cho `r`
+- **2** đại diện cho `w`
+- **1** đại diện cho `x`
+- Các số được cộng lại để kết hợp quyền, ví dụ, `6` (4+2) đại diện cho đọc và viết (rw-).
+
+### Ví dụ:
+1. **Cho phép chủ sở hữu đọc và ghi file, nhóm đọc file, và người khác không có quyền gì:**
+   ```bash
+   chmod 640 filename
+   ```
+
+2. **Cho phép mọi người đọc, viết, và thực thi một file:**
+   ```bash
+   chmod 777 filename
+   ```
+
+3. **Sử dụng Ký tự để Thay Đổi Quyền:**
+   - Thêm quyền thực thi cho chủ sở hữu:
+     ```bash
+     chmod u+x filename
+     ```
+   - Xóa quyền ghi cho nhóm:
+     ```bash
+     chmod g-w filename
+     ```
+   - Đặt quyền đọc và ghi cho người dùng và nhóm, không cho người khác:
+     ```bash
+     chmod ug+rw,o-rwx filename
+     ```
+
+### Tùy chọn Phổ Biến:
+- **-R**: Áp dụng thay đổi một cách đệ quy cho tất cả file và thư mục con.
+- **-v**: Hiển thị mô tả chi tiết về những thay đổi đối với các file.
+- **-c**: Tương tự như `-v` nhưng chỉ báo cáo khi thực sự có thay đổi quyền.
+
+### Lưu Ý:
+- Chỉ chủ sở hữu file hoặc quản trị viên mới có quyền sử dụng `chmod` để thay đổi quyền truy cập của file.
+- Sử dụng lệnh `chmod` có thể ảnh hưởng đến bảo mật của hệ thống, đặc biệt là khi bạn cho phép quyền thực thi cho các file không đáng tin cậy.
+
+`chmod` là công cụ quan trọng để quản lý bảo mật trong hệ thống tệp Linux, giúp bạn kiểm soát ai có thể truy cập và thay đổi thông tin trong hệ thống của mình.
+
