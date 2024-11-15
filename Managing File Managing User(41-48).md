@@ -229,4 +229,51 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 - Sử dụng để tạo các liên kết cứng (hard link) và liên kết mềm (soft link or symbolic link)
 ```
 ln [OPTION] TARGET [LINK_NAME]
-1. 
+```
+Lệnh `ln` trong Linux được sử dụng để tạo liên kết (link) giữa các tệp hoặc thư mục. Mục địch liên kết để tiết kiệm dung lượng, tạo đường dẫn ngắn gọn, chia sẻ và quản lý phân quyền.
+
+Có hai loại liên kết chính:
+
+1. **Liên kết cứng (Hard Link)**: Đây là một liên kết trực tiếp đến nội dung của tệp gốc. Cả tệp gốc và liên kết cứng đều trỏ đến cùng một dữ liệu trong ổ đĩa, vì vậy nếu bạn xóa một trong hai, dữ liệu vẫn còn (cho đến khi tất cả các liên kết bị xóa).
+
+   ```bash
+   ln source_file link_name
+   ```
+
+2. **Liên kết mềm (Soft Link hoặc Symbolic Link)**: Đây là một liên kết gián tiếp, chỉ trỏ đến vị trí của tệp gốc. Nếu tệp gốc bị xóa, liên kết mềm sẽ không hoạt động (dẫn đến lỗi "file not found").
+
+   ```bash
+   ln -s source_file link_name
+   ```
+
+ Ví dụ:
+
+- Tạo một liên kết cứng cho `file.txt`:
+  ```bash
+  ln file.txt file_hardlink.txt
+  ```
+
+- Tạo một liên kết mềm cho `file.txt`:
+  ```bash
+  ln -s file.txt file_softlink.txt
+  ```
+
+**Các tùy chọn phổ biến**:
+
+- `-f`: Ghi đè liên kết nếu nó đã tồn tại.
+- `-i`: Hỏi xác nhận trước khi ghi đè.
+- `-v`: Hiển thị thông tin chi tiết về quá trình tạo liên kết.
+- `-b` và `-S` (Tạo bản sao lưu liên kết nếu tồn tại - backup và suffix):
+
+Khi dùng -b, ln sẽ tạo bản sao lưu liên kết đích nếu liên kết đó đã tồn tại. Kết hợp với -S để thêm hậu tố cho bản sao lưu.
+```
+ln -sb -S .backup source_file link_name
+```
+Ví dụ:
+```
+ln -sb -S .old /path/to/original /path/to/existing_link
+```
+
+### 2. Managing File Ownership: `chown`, `chgrp`**
+
+**1. `chown`**
