@@ -282,6 +282,90 @@ groupdel groupname
 
 ### **6. Using System Log Files: syslogd, rotating log files**
 
+**6.1 `syslogd`**
+
+`syslogd` là một daemon (dịch vụ nền) trong hệ điều hành Linux, chịu trách nhiệm thu thập, xử lý và lưu trữ các thông điệp nhật ký từ các phần mềm ứng dụng, hệ thống và thiết bị phần cứng. Nó là một phần của gói `syslog`, một tiện ích tiêu chuẩn trong hầu hết các hệ điều hành dựa trên UNIX và Linux, được thiết kế để giúp quản lý log trong một hệ thống phức tạp.
+
+**Chức năng chính của `syslogd` bao gồm:***
+
+1. **Thu Thập Thông điệp Nhật ký**: `syslogd` nhận thông điệp từ các ứng dụng, hệ thống và thiết bị. Các nguồn này gửi thông điệp đến `syslogd` thông qua giao thức `syslog`, một tiêu chuẩn công nghiệp cho giao tiếp giữa các tiến trình.
+
+2. **Phân loại và Lọc**: `syslogd` phân loại các thông điệp nhật ký dựa trên "facility" (thể loại nguồn gửi, như `auth`, `daemon`, `kernel`, v.v.) và "severity" (mức độ nghiêm trọng của thông điệp, như `info`, `error`, `crit`, v.v.). Nó cho phép lọc và xử lý thông điệp dựa trên các tiêu chí này.
+
+3. **Định tuyến và Lưu Trữ**: Sau khi thu thập và phân loại, `syslogd` định tuyến các thông điệp đến các đích xử lý thích hợp. Thông thường, các thông điệp này được ghi vào các tệp nhật ký trong thư mục `/var/log`. Ví dụ, thông điệp liên quan đến xác thực có thể được ghi vào `/var/log/auth.log`.
+
+4. **Chuyển tiếp Thông điệp**: Ngoài việc lưu trữ thông điệp nhật ký trên hệ thống địa phương, `syslogd` còn có thể cấu hình để chuyển tiếp các thông điệp đến một máy chủ `syslog` trung tâm hoặc các hệ thống quản lý và giám sát nhật ký, giúp tập trung hóa quản lý nhật ký cho nhiều hệ thống.
+
+5. **Hỗ trợ Đa nguồn**: `syslogd` có khả năng nhận và xử lý thông điệp từ nhiều nguồn khác nhau, làm cho nó trở thành một giải pháp mạnh mẽ cho việc quản lý nhật ký trong môi trường IT đa dạng và phức tạp.
+
+- Log files được lưu trữ trong thư mục `/var/log`.
+Trong hệ điều hành Ubuntu, các file log hệ thống được lưu trữ chủ yếu trong thư mục `/var/log`, giống như hầu hết các hệ thống dựa trên Linux. Dưới đây là danh sách các file log phổ biến và mục đích của chúng trong môi trường Ubuntu:
+
+### Các File Log Chính trong Ubuntu
+
+1. **/var/log/syslog**:
+   - Đây là file nhật ký chính trong Ubuntu, nơi ghi lại hầu hết các hoạt động của hệ thống không được ghi vào các file log chuyên biệt khác.
+
+2. **/var/log/auth.log**:
+   - Chứa thông tin liên quan đến xác thực người dùng và bảo mật, bao gồm cả các nỗ lực đăng nhập thành công và không thành công.
+
+3. **/var/log/kern.log**:
+   - Ghi lại các thông điệp từ nhân Linux (kernel), bao gồm thông tin về phần cứng và trình điều khiển.
+
+4. **/var/log/boot.log**:
+   - Chứa thông tin về quá trình khởi động của hệ thống, bao gồm các dịch vụ và tiến trình được khởi tạo trong quá trình khởi động.
+
+5. **/var/log/dmesg**:
+   - Lưu trữ các thông điệp hệ thống được nhân Linux sinh ra trong quá trình khởi động, có ích cho việc chẩn đoán các vấn đề liên quan đến phần cứng.
+
+6. **/var/log/apache2/access.log** và **/var/log/apache2/error.log**:
+   - Dành cho các máy chủ web Apache trên Ubuntu. `access.log` ghi lại tất cả các yêu cầu đến máy chủ, trong khi `error.log` ghi lại các lỗi.
+
+7. **/var/log/mysql/error.log**:
+   - Nhật ký hoạt động của máy chủ cơ sở dữ liệu MySQL hoặc MariaDB, bao gồm các truy vấn và lỗi.
+
+8. **/var/log/cron.log**:
+   - Ghi lại thông tin về các công việc cron được thực thi, bao gồm thời gian khởi chạy và kết quả của các tác vụ tự động.
+
+9. **/var/log/mail.log**:
+   - Ghi thông tin về hoạt động của máy chủ mail, bao gồm cả việc gửi và nhận thư.
+
+10. **/var/log/auth.log**:
+    - Ghi lại các sự kiện liên quan đến xác thực như đăng nhập và sử dụng sudo.
+
+### Quản Lý và Giám Sát File Nhật Ký
+
+- Ubuntu sử dụng `logrotate` để quản lý các file nhật ký, tự động xoay, nén và xóa các file nhật ký cũ. Cấu hình của `logrotate` cho các file nhật ký này thường được định nghĩa trong `/etc/logrotate.conf` và `/etc/logrotate.d/`.
+
+- Việc giám sát và phân tích nhật ký là một phần quan trọng trong việc quản lý hệ thống để đảm bảo an toàn, hiệu suất và phản ứng kịp thời đối với các sự kiện quan trọng.
+
+Các file nhật ký này là công cụ không thể thiếu cho quản trị viên hệ thống trong việc theo dõi và duy trì sự ổn định và an toàn của hệ thống. Việc hiểu biết về nơi lưu trữ và cách xử lý các file nhật ký này sẽ giúp quản lý hệ thống một cách hiệu quả.
+
+**6.2 `rotating log files`**
+
+- `Rotate log` là quá trình tự động lưu trữ, nén hoặc xóa các file nhật ký cũ để ngăn chặn chúng trở nên quá lớn và chiếm dụng quá nhiều không gian đĩa. Quá trình này giúp quản lý không gian lưu trữ hiệu quả, đồng thời đảm bảo rằng các file nhật ký mới có thể tiếp tục ghi thông tin mà không bị gián đoạn hay chậm chạp do kích thước file quá lớn.
+
+**Lý do phải rotate log**
+
+Việc xoay (rotate) file nhật ký là một phần thiết yếu trong việc quản lý hệ thống hiệu quả, đặc biệt là trong môi trường vận hành máy chủ. Dưới đây là các lý do chính đằng sau nhu cầu xoay file nhật ký:
+
+### 1. Quản lý không gian đĩa
+File nhật ký có thể phát triển rất nhanh, đặc biệt là trên các hệ thống có lượng truy cập cao hoặc những hệ thống mà log rất nhiều sự kiện. Nếu không được quản lý, file nhật ký có thể chiếm hết không gian đĩa, dẫn đến tình trạng hệ thống không thể ghi thêm dữ liệu mới hoặc thậm chí gây ra sự cố hệ thống. Xoay file nhật ký giúp hạn chế kích thước của chúng, đảm bảo không gian đĩa luôn được giải phóng một cách thường xuyên.
+
+### 2. Cải thiện hiệu suất hệ thống
+Việc xử lý và tìm kiếm trong một file nhật ký lớn có thể tốn kém về mặt hiệu suất. Các công cụ giám sát và phân tích log phải mất nhiều thời gian hơn để xử lý dữ liệu. Bằng cách xoay file nhật ký, bạn giảm kích thước của từng file, làm cho việc xử lý nhanh hơn và hiệu quả hơn.
+
+### 3. Đơn giản hóa việc bảo trì và quản lý
+File nhật ký nhỏ hơn dễ quản lý và phân tích hơn. Xoay file nhật ký cũng giúp tổ chức thông tin theo cách có cấu trúc, làm cho việc truy xuất và phục hồi dữ liệu từ các file nhật ký lịch sử trở nên dễ dàng hơn.
+
+### 4. Đảm bảo tuân thủ và bảo mật
+Trong nhiều ngành, việc lưu trữ nhật ký trong một khoảng thời gian xác định là yêu cầu pháp lý. Xoay file nhật ký giúp đảm bảo rằng dữ liệu nhật ký được lưu giữ và xóa đúng cách theo các tiêu chuẩn tuân thủ. Ngoài ra, việc lưu trữ các file nhật ký cũ ở dạng nén giúp bảo mật thông tin nhạy cảm khỏi bị truy cập trái phép.
+
+### 5. Phục hồi sau sự cố
+Trong trường hợp xảy ra sự cố, việc có các file nhật ký được quản lý tốt có thể hỗ trợ đáng kể trong việc phân tích nguyên nhân và khôi phục hệ thống. File nhật ký được xoay định kỳ cung cấp bản ghi lịch sử chi tiết mà không bị quá tải bởi thông tin quá cũ hoặc không liên quan.
+
+Tóm lại, xoay file nhật ký là một chiến lược quan trọng để duy trì hiệu quả hoạt động, bảo mật, và tuân thủ trong môi trường IT. Việc này không chỉ giúp quản lý tốt không gian đĩa mà còn cải thiện hiệu quả tổng thể trong việc quản lý và phân tích log.
+
 
 
 ### **7. Running Job in the Future: `cron`, `at`**
