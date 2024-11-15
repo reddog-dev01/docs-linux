@@ -6,7 +6,7 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 **1.2 Mục đích**
  1. `/` (Root)
 - **Mục đích**: Là thư mục gốc của toàn bộ file system.
-- **Chứa**: Thư mục này chứa tất cả các thư mục và tập tin khác trong hệ thống, bao gồm cả thư mục của hệ điều hành và dữ liệu người dùng.
+- **Chứa**: Thư mục này chứa tất cả các thư mục và file khác trong server, bao gồm cả thư mục của hệ điều hành và dữ liệu người dùng.
 
  2. `/bin` (User Binaries)
 - **Mục đích**: Chứa các chương trình thiết yếu cho người dùng.
