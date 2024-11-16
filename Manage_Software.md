@@ -95,7 +95,6 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
 **b. Cài đặt phần mềm từ tệp .deb (Debian Package)**
 - Cài đặt từ tệp .deb:  
 ```
-Copy code
 sudo dpkg -i package_name.deb
 sudo apt install -f  # Sửa lỗi và cài đặt các dependencies còn thiếu (nếu có)
 ```
