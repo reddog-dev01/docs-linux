@@ -387,13 +387,17 @@ sudo chmod +x /etc/rc.local
 
 4. Khởi động lại hệ thống để kiểm tra xem script có chạy khi khởi động không.
 
+**Ví dụ**
+
+
+
 **3.2 Sử dụng Systemd Service**
 - Systemd là hệ thống quản lý dịch vụ trên hầu hết các bản phân phối Linux hiện đại (như Ubuntu, Debian, CentOS).  
 **#Cách thực hiện**
   
 1. Tạo một file dịch vụ trong `/etc/systemd/system/`:
 ```
-sudo nano /etc/systemd/system/my_startup_script.service
+sudo vim /etc/systemd/system/my_startup_script.service
 ```
 
 2. Thêm nội dung cấu hình cho dịch vụ:
@@ -425,6 +429,93 @@ sudo systemctl enable my_startup_script.service
 5. Kiểm tra trạng thái dịch vụ để xác nhận rằng script đã được chạy thành công:
 ```
 sudo systemctl status my_startup_script.service
+```
+
+**Ví dụ**
+
+Bước 1: Tạo Script
+
+1. *Tạo một script* để kiểm tra kết nối mạng và ghi kết quả vào tệp log. Gọi script là `network-check.sh` và lưu vào thư mục `/usr/local/bin/`:
+
+   ```bash
+   sudo vim /usr/local/bin/network-check.sh
+   ```
+
+2. *Thêm mã sau vào script*:
+   ```bash
+   #!/bin/bash
+   # Script to check network connectivity
+
+   if ping -c 1 8.8.8.8 &> /dev/null
+   then
+       echo "$(date): Network is up." >> /var/log/network-status.log
+   else
+       echo "$(date): Network is down." >> /var/log/network-status.log
+   fi
+   ```
+
+3. *Cấp quyền thực thi cho script*:
+   ```bash
+   sudo chmod +x /usr/local/bin/network-check.sh
+   ```
+
+Bước 2: Tạo Systemd Service File
+
+1. *Tạo một file service mới cho systemd*. Gọi là `network-check.service` và lưu vào `/etc/systemd/system`:
+   ```bash
+   sudo vim /etc/systemd/system/network-check.service
+   ```
+
+2. *Thêm nội dung sau vào file service*:
+   ```ini
+   [Unit]
+   Description=Check network connectivity and log status
+   Wants=network-online.target
+   After=network-online.target
+
+   [Service]
+   Type=simple
+   ExecStart=/usr/local/bin/network-check.sh
+   Restart=on-failure
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+   - `Description`: Mô tả dịch vụ.
+   - `Wants` và `After`: Đảm bảo rằng dịch vụ này sẽ chạy sau khi mạng được thiết lập.
+   - `Type=simple`: Chỉ ra rằng nên chờ script chạy xong.
+   - `ExecStart`: Lệnh để khởi chạy script.
+   - `Restart`: Cấu hình tái khởi động dịch vụ khi có lỗi xảy ra.
+   - `WantedBy`: Cho biết dịch vụ này sẽ được khởi động cùng với runlevel `multi-user.target`.
+
+Bước 3: Kích hoạt và Khởi động Dịch vụ
+
+1. *Kích hoạt dịch vụ* để nó tự động khởi động khi hệ thống boot:
+   ```bash
+   sudo systemctl enable network-check.service
+   ```
+
+2. *Khởi động dịch vụ*:
+   ```bash
+   sudo systemctl start network-check.service
+   ```
+
+3. *Kiểm tra trạng thái của dịch vụ** để đảm bảo nó đang hoạt động:
+   ```bash
+   sudo systemctl status network-check.service
+   ```
+
+**Kiểm tra log**
+```
+sudo less /var/log/network-status.log
+```
+
+**Cách tắt**
+```
+sudo systemctl disable [service-name].service
+sudo systemctl stop [service-name].service
+sudo systemctl stop network-check.service
 ```
 
 **3.3 Sử dụng `crontab` với Tùy chọn `@reboot`**
