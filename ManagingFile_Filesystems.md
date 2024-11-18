@@ -105,7 +105,7 @@ df -h
 ```
 df -a
 ```  
-*3. `-T`: Hiển thị loại hệ thống tập tin của mỗi phân vùng.*
+*3. `-T`: Hiển thị loại file system của mỗi phân vùng.*
 ```
 df -T
 ```  
