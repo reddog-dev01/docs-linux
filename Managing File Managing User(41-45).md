@@ -17,7 +17,7 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 - **Chứa**: Lệnh như `init`, `ip`, `reboot`.
 
  4. `/etc` (Configuration Files)
-- **Mục đích**: Chứa các tập tin cấu hình toàn cục của hệ thống.
+- **Mục đích**: Chứa các file cấu hình của hệ thống.
 - **Chứa**: Tập tin cấu hình như `passwd`, `group`, `hostname`, cũng như các tập tin cấu hình cho các dịch vụ khác nhau như `httpd`, `sshd`.
 
  5. `/dev` (Device Files)
