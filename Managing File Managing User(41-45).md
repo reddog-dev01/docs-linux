@@ -470,7 +470,8 @@ find [where to start searching from] [options] [what to find] [action]
 - **`-size [+-]size`**: Tìm file theo kích thước. Ví dụ, `-size +2M` tìm các file lớn hơn 2 megabytes.
 - **`-mtime -n`**: Tìm các file đã được sửa đổi trong `n` ngày trước.
 - **`-user 'username'`**: Tìm tất cả các file thuộc về người dùng `username`.
-- **`-exec cmd {} \;`**: Thực hiện lệnh `cmd` trên mỗi file tìm được. `{}` là nơi tên file được chèn vào.
+- **`-exec cmd {} \;`**: Thực hiện lệnh `cmd` 1 lần cho mỗi file tìm thấy. `{}` là nơi tên file được chèn vào.
+- **`-exec cmd {} +`**: Thực hiện lệnh `cmd` trên 1 lần trên tất cả các file tìm thấy. `{}` là nơi tên file được chèn vào.
 
 **Ví Dụ Nâng Cao**
 
