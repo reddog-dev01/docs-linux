@@ -16,7 +16,7 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 - **Mục đích**: Chứa các chương trình thiết yếu cho quản trị hệ thống.
 - **Chứa**: Lệnh như `init`, `ip`, `reboot`.
 
- 4. `/etc` (Configuration Files)
+ 4. `/etc` (Configuration Files)  
 - **Mục đích**: Chứa các file cấu hình của hệ thống.
 - **Chứa**: Tập tin cấu hình như `passwd`, `group`, `hostname`, cũng như các tập tin cấu hình cho các dịch vụ khác nhau như `httpd`, `sshd`.
 
@@ -104,27 +104,23 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
    ls -lS
    ```
 
-9. **`--color`**: Hiển thị màu sắc để phân biệt loại file và thư mục.
-   ```bash
-   ls --color=auto
-   ```
 
-10. **`-i`**: Hiển thị số inode của mỗi file.
+9. **`-i`**: Hiển thị số inode của mỗi file.
     ```bash
     ls -i
     ```
 
-11. **`-1`**: Hiển thị mỗi file trên một dòng.
+10. **`-1`**: Hiển thị mỗi file trên một dòng.
     ```bash
     ls -1
     ```
 
-12. **`-X`**: Sắp xếp theo phần mở rộng của file.
+11. **`-X`**: Sắp xếp theo phần mở rộng của file.
     ```bash
     ls -lX
     ```
 
-13. **`-F`**: Thêm ký tự xác định loại file, ví dụ: `/` cho thư mục, `*` cho file thực thi.
+12. **`-F`**: Thêm ký tự xác định loại file, ví dụ: `/` cho thư mục, `*` cho file thực thi.
     ```bash
     ls -F
     ```    
