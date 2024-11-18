@@ -21,8 +21,8 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 - **Chứa**: Tập tin cấu hình như `passwd`, `group`, `hostname`, cũng như các tập tin cấu hình cho các dịch vụ khác nhau như `httpd`, `sshd`.
 
  5. `/dev` (Device Files)
-- **Mục đích**: Chứa các tập tin thiết bị.
-- **Chứa**: Tập tin đặc biệt biểu diễn các thiết bị hệ thống như ổ đĩa cứng (`sda`), các thiết bị ký tự (`tty`), các thiết bị âm thanh (`snd`).
+- **Mục đích**: Chứa các file thiết bị.
+- **Chứa**: file đặc biệt biểu diễn các thiết bị hệ thống như ổ đĩa cứng (`sda`), các thiết bị ký tự (`tty`), các thiết bị âm thanh (`snd`).
 
  6. `/proc` (Process Information)
 - **Mục đích**: Chứa thông tin về hệ thống và các tiến trình đang chạy.
