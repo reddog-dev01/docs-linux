@@ -97,8 +97,8 @@ sudo fsck -V /dev/sdXN
 
 **Inode** (viết tắt của **Index Node**) là một cấu trúc dữ liệu được sử dụng trong hệ thống tệp của Unix/Linux. Nó đóng vai trò như một "danh bạ" lưu trữ thông tin chi tiết về một tệp hoặc thư mục trong hệ thống tệp. 
 
-### **Chức năng của inode**
-1. **Lưu trữ thông tin tệp**: 
+ **Chức năng của inode**
+**Lưu trữ thông tin tệp**: 
    Mỗi tệp hoặc thư mục trên hệ thống đều được gắn với một inode. Inode chứa các thông tin cần thiết để hệ thống quản lý tệp, bao gồm:
    - Quyền truy cập tệp (permissions).
    - Chủ sở hữu (user ID).
@@ -109,23 +109,23 @@ sudo fsck -V /dev/sdXN
    - Thời gian sửa đổi gần nhất (last modified).
    - Vị trí lưu trữ dữ liệu trên đĩa.
 
-2. **Quản lý vị trí tệp trên đĩa**: 
+**Quản lý vị trí tệp trên đĩa**: 
    Inode không lưu tên tệp; thay vào đó, nó chứa các con trỏ trỏ tới các khối dữ liệu (data blocks) nơi nội dung thực sự của tệp được lưu trữ trên đĩa.
 
-3. **Hỗ trợ hệ thống tệp hiệu quả hơn**: 
+**Hỗ trợ hệ thống tệp hiệu quả hơn**: 
    - Mỗi hệ thống tệp có một số lượng inode cố định, được xác định khi hệ thống tệp được tạo.
    - Các inode giúp nhanh chóng tìm kiếm và quản lý dữ liệu mà không cần duyệt qua toàn bộ ổ đĩa.
 
 ---
 
-### **Thông tin KHÔNG được lưu trong inode**
+**Thông tin KHÔNG được lưu trong inode**
 Inode không lưu trữ tên tệp. Thay vào đó:
 - Tên tệp được lưu trong thư mục cùng với số inode tương ứng.
 - Khi truy cập tệp bằng tên, hệ thống tìm số inode liên quan trong thư mục, sau đó truy cập inode để tìm thông tin chi tiết.
 
 ---
 
-### **Ví dụ hoạt động của inode**
+**Ví dụ hoạt động của inode**
 Khi mở một file:
 1. Hệ thống tệp tra cứu tên tệp trong thư mục.
 2. Lấy số inode liên kết với tên tệp.
@@ -133,7 +133,7 @@ Khi mở một file:
 
 ---
 
-### **Ứng dụng thực tế**
+**Ứng dụng thực tế**
 - **Khắc phục lỗi đầy inode**: Dù vẫn còn dung lượng trống trên ổ đĩa, không thể tạo thêm tệp nếu số lượng inode đã hết.
 - **Kiểm tra inode bằng lệnh**:
   ```bash
