@@ -1,7 +1,7 @@
 ### **1.Understanding Filesystem Hierarchy Standard**
 
 **1.1 Cấu trúc file thư mục**
-Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ chức theo tiêu chuẩn Filesystem Hierarchy Standard (FHS), mỗi thư mục trong hệ thống có mục đích sử dụng và nội dung rõ ràng. Dưới đây là chi tiết về mục đích và nội dung của các thư mục chính trong cấu trúc file system của Linux:
+Trong hệ điều hành Linux, cấu trúc hệ thống file được tổ chức theo tiêu chuẩn Filesystem Hierarchy Standard (FHS), mỗi thư mục trong hệ thống có mục đích sử dụng và nội dung rõ ràng. Dưới đây là chi tiết về mục đích và nội dung của các thư mục chính trong cấu trúc file system của Linux:
 
 **1.2 Mục đích**
  1. `/` (Root)
@@ -18,7 +18,7 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 
  4. `/etc` (Configuration Files)  
 - **Mục đích**: Chứa các file cấu hình của hệ thống.
-- **Chứa**: Tập tin cấu hình như `passwd`, `group`, `hostname`, cũng như các tập tin cấu hình cho các dịch vụ khác nhau như `httpd`, `sshd`.
+- **Chứa**: file cấu hình như `passwd`, `group`, `hostname`, cũng như các file cấu hình cho các dịch vụ khác nhau như `httpd`, `sshd`.
 
  5. `/dev` (Device Files)
 - **Mục đích**: Chứa các file thiết bị.
@@ -29,27 +29,27 @@ Trong hệ điều hành Linux, cấu trúc hệ thống tập tin được tổ
 - **Chứa**: Thư mục ảo, không thực sự lưu trữ dữ liệu trên đĩa. Nó chứa thông tin động về hệ thống như thông tin bộ nhớ, thông tin CPU, thông tin các tiến trình đang chạy.
 
  7. `/var` (Variable Files)
-- **Mục đích**: Chứa các tập tin thường xuyên thay đổi.
-- **Chứa**: Log hệ thống (`/var/log`), gói và cơ sở dữ liệu các dịch vụ (`/var/lib`), tập tin tạm thời (`/var/tmp`).
+- **Mục đích**: Chứa các file thường xuyên thay đổi.
+- **Chứa**: Log hệ thống (`/var/log`), gói và cơ sở dữ liệu các dịch vụ (`/var/lib`), file tạm thời (`/var/tmp`).
 
  8. `/tmp` (Temporary Files)
-- **Mục đích**: Lưu trữ tập tin tạm thời do hệ thống và người dùng tạo ra.
-- **Chứa**: Tập tin tạm thời, thường được xóa khi hệ thống khởi động lại.
+- **Mục đích**: Lưu trữ file tạm thời do hệ thống và người dùng tạo ra.
+- **Chứa**: file tạm thời, thường được xóa khi hệ thống khởi động lại.
 
  9. `/usr` (User Programs)
-- **Mục đích**: Chứa ứng dụng và tập tin có thể chia sẻ được.
-- **Chứa**: Thư viện (`/usr/lib`), tập tin thực thi của người dùng (`/usr/bin`), tài liệu (`/usr/share/doc`), mã nguồn (`/usr/src`).
+- **Mục đích**: Chứa ứng dụng và file có thể chia sẻ được.
+- **Chứa**: Thư viện (`/usr/lib`), file thực thi của người dùng (`/usr/bin`), tài liệu (`/usr/share/doc`), mã nguồn (`/usr/src`).
 
  10. `/home` (Home Directories)
 - **Mục đích**: Chứa thư mục cá nhân của từng người dùng.
 - **Chứa**: Dữ liệu cá nhân, cài đặt cấu hình riêng của từng người dùng.
 
  11. `/boot` (Boot Loader Files)
-- **Mục đích**: Chứa các tập tin cần thiết cho quá trình khởi động hệ thống.
+- **Mục đích**: Chứa các file cần thiết cho quá trình khởi động hệ thống.
 - **Chứa**: Kernel Linux, initrd, GRUB.
 
  12. `/lib` (System Libraries)
-- **Mục đích**: Chứa thư viện cần thiết cho các tập tin thực thi trong `/bin` và `/sbin`.
+- **Mục đích**: Chứa thư viện cần thiết cho các file thực thi trong `/bin` và `/sbin`.
 - **Chứa**: Thư viện hệ thống cần thiết cho các chương trình để chạy.
 
  13. `/opt` (Optional add-on Applications)
