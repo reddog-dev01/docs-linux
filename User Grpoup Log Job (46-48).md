@@ -434,3 +434,80 @@ tắt job
 ```
 VD: tự động sao lưu 1 thư mục quan trọng /home.user/data
 
+tạo file .sh
+```
+vim /home/user/scripts/backup.sh
+```
+thêm lệnh sau vào file
+```
+#!/bin/bash
+tar -czf /home/user/backups/data-$(date +\%Y\%m\%d-\%H\%M).tar.gz /home/user/data
+```
+cấp quyền
+```
+chmod +x /home/user/scripts/backup.sh
+```
+mở crontab
+```
+crontab
+```
+thêm dòng lệnh vào 
+```
+0 2 * * * /home/user/scripts/backup.sh
+```
+kiểm tra
+```
+crontab
+```
+
+2. Thiết lập 1 job chạy vào 3 giờ, 2 ngày 1 lần
+
+Bước 1: Tạo Script Điều Khiển
+
+kiểm tra ngày và thực hiện công việc nếu đã đủ hai ngày kể từ lần chạy cuối.
+
+**Tạo script (`run_every_two_days.sh`):*
+
+```bash
+#!/bin/bash
+
+# Đường dẫn tệp lưu ngày cuối cùng chạy
+STATE_FILE="/path/to/last_run_date.txt"
+
+# Lấy ngày hiện tại theo dạng YYYYMMDD
+TODAY=$(date +%Y%m%d)
+
+# Kiểm tra nếu tệp trạng thái tồn tại
+if [ -f "$STATE_FILE" ]; then
+    LAST_RUN=$(cat "$STATE_FILE")
+else
+    LAST_RUN=0
+fi
+
+# So sánh ngày hiện tại với ngày cuối cùng chạy
+DIFF=$(( (TODAY - LAST_RUN) ))
+
+# Nếu chênh lệch 20000, tương đương khoảng 2 ngày, chạy script
+if [ "$DIFF" -ge 20000 ]; then
+    echo $TODAY > "$STATE_FILE"
+    /path/to/your/script.sh
+fi
+```
+
+Bước 2: Cấp Quyền Thực Thi Cho Script
+
+```bash
+chmod +x /path/to/run_every_two_days.sh
+```
+
+Bước 3: Thêm Script vào Crontab
+
+```bash
+0 3 * * * /path/to/run_every_two_days.sh
+```
+
+Bước 4: Kiểm tra cài đặt Cron
+
+```bash
+crontab -l
+```
