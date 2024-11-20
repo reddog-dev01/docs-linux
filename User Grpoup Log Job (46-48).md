@@ -113,7 +113,7 @@ usermod [options] username
 
 **Các Tùy Chọn Phổ Biến của `usermod`**
 
-- **`-d, --home HOME_DIR`**: Thay đổi thư mục nhà của người dùng. Sử dụng tùy chọn `-m` để di chuyển nội dung của thư mục nhà cũ vào thư mục mới.
+- **`-d, --home HOME_DIR`**: Thay đổi thư mục home của người dùng. Sử dụng tùy chọn `-m` để di chuyển nội dung của thư mục home cũ vào thư mục mới.
   ```bash
   usermod -d /new/home/dir -m username
   ```
