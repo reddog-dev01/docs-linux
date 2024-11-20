@@ -303,35 +303,37 @@ Trong hệ điều hành Ubuntu, các file log hệ thống được lưu trữ 
 
 ### Các File Log Chính trong Ubuntu
 
-1. **/var/log/syslog**:
-   - Đây là file nhật ký chính trong Ubuntu, nơi ghi lại hầu hết các hoạt động của hệ thống không được ghi vào các file log chuyên biệt khác.
+### 1. **/var/log/syslog**
+- Đây là file log chính cho hầu hết các thông báo của hệ thống, ngoại trừ các thông điệp được lọc ra để ghi vào các file log chuyên biệt khác. `syslog` chứa đa dạng các thông tin từ thông báo hệ thống cho tới cảnh báo và lỗi.
 
-2. **/var/log/auth.log**:
-   - Chứa thông tin liên quan đến xác thực người dùng và bảo mật, bao gồm cả các nỗ lực đăng nhập thành công và không thành công.
+### 2. **/var/log/auth.log**
+- Ghi lại tất cả các hoạt động liên quan đến xác thực, bao gồm đăng nhập của người dùng, sử dụng sudo và các hoạt động xác thực khác. Đây là file quan trọng để kiểm tra nếu bạn muốn theo dõi các vấn đề về bảo mật và xác thực.
 
-3. **/var/log/kern.log**:
-   - Ghi lại các thông điệp từ nhân Linux (kernel), bao gồm thông tin về phần cứng và trình điều khiển.
+### 3. **/var/log/kern.log**
+- Chứa thông tin chi tiết liên quan đến kernel của Linux. Nếu bạn gặp vấn đề về phần cứng hoặc driver, thông tin trong file này sẽ rất hữu ích.
 
-4. **/var/log/boot.log**:
-   - Chứa thông tin về quá trình khởi động của hệ thống, bao gồm các dịch vụ và tiến trình được khởi tạo trong quá trình khởi động.
+### 4. **/var/log/dpkg.log**
+- Theo dõi tất cả các hoạt động liên quan đến hệ thống quản lý gói dpkg, bao gồm cài đặt và gỡ bỏ phần mềm.
 
-5. **/var/log/dmesg**:
-   - Lưu trữ các thông điệp hệ thống được nhân Linux sinh ra trong quá trình khởi động, có ích cho việc chẩn đoán các vấn đề liên quan đến phần cứng.
+### 5. **/var/log/boot.log**
+- Chứa thông tin về quá trình khởi động, giúp phân tích các vấn đề khởi động của máy.
 
-6. **/var/log/apache2/access.log** và **/var/log/apache2/error.log**:
-   - Dành cho các máy chủ web Apache trên Ubuntu. `access.log` ghi lại tất cả các yêu cầu đến máy chủ, trong khi `error.log` ghi lại các lỗi.
+### 6. **/var/log/apache2/ (thư mục)**
+- Nếu bạn cài đặt và chạy máy chủ web Apache, các file log của Apache sẽ nằm ở đây, bao gồm `access.log` và `error.log`, giúp bạn theo dõi yêu cầu đến và các lỗi của máy chủ web.
 
-7. **/var/log/mysql/error.log**:
-   - Nhật ký hoạt động của máy chủ cơ sở dữ liệu MySQL hoặc MariaDB, bao gồm các truy vấn và lỗi.
+### 7. **/var/log/mysql/ (thư mục)**
+- Tương tự, nếu bạn chạy máy chủ cơ sở dữ liệu MySQL, bạn sẽ tìm thấy các file log liên quan trong thư mục này, giúp bạn giám sát hoạt động của MySQL.
 
-8. **/var/log/cron.log**:
-   - Ghi lại thông tin về các công việc cron được thực thi, bao gồm thời gian khởi chạy và kết quả của các tác vụ tự động.
+### 8. **/var/log/faillog**
+- Ghi lại các lần đăng nhập thất bại, có thể hữu ích để phát hiện các nỗ lực truy cập không được phép.
 
-9. **/var/log/mail.log**:
-   - Ghi thông tin về hoạt động của máy chủ mail, bao gồm cả việc gửi và nhận thư.
+### 9. **/var/log/ufw.log**
+- Nếu bạn sử dụng Uncomplicated Firewall (UFW), các hoạt động của tường lửa này sẽ được ghi lại ở đây.
 
-10. **/var/log/auth.log**:
-    - Ghi lại các sự kiện liên quan đến xác thực như đăng nhập và sử dụng sudo.
+### 10. **/var/log/mail.log**
+- Nếu bạn chạy một máy chủ thư, các thông tin liên quan đến gửi và nhận thư sẽ được ghi lại trong file này.
+
+Các file log này cung cấp thông tin quý giá giúp bạn hiểu rõ hoạt động của hệ thống và giải quyết các vấn đề có thể xảy ra. Đối với một quản trị viên hệ thống, việc thường xuyên kiểm tra các file log này là một phần quan trọng của quản lý hệ thống.
 
 ### Quản Lý và Giám Sát File Nhật Ký
 
