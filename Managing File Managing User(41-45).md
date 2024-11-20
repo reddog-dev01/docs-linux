@@ -45,8 +45,8 @@ Trong hệ điều hành Linux, cấu trúc hệ thống file được tổ ch�
 - **Chứa**: Dữ liệu cá nhân, cài đặt cấu hình riêng của từng người dùng.
 
  11. `/boot` (Boot Loader Files)
-- **Mục đích**: Chứa các file cần thiết cho quá trình khởi động hệ thống.
-- **Chứa**: Kernel Linux, initrd, GRUB.
+- **Mục đích**: Chứa các file cần thiết cho quá trình khởi động hệ thống. Cần thiết trong quá trình khởi động vì thiếu kernel, initramfs và các file cấu hình bootloader. Nhưng trong 1 số cài đặt hệ thống có thể tích hợp vào `/` thay vì phân vùng riêng.
+- **Chứa**: Kernel Linux, initramfs/initrd, GRUB.
 
  12. `/lib` (System Libraries)
 - **Mục đích**: Chứa thư viện cần thiết cho các file thực thi trong `/bin` và `/sbin`.
