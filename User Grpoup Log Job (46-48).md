@@ -303,37 +303,36 @@ Trong hệ điều hành Ubuntu, các file log hệ thống được lưu trữ 
 
 ### Các File Log Chính trong Ubuntu
 
-### 1. **/var/log/syslog**
-- Đây là file log chính cho hầu hết các thông báo của hệ thống, ngoại trừ các thông điệp được lọc ra để ghi vào các file log chuyên biệt khác. `syslog` chứa đa dạng các thông tin từ thông báo hệ thống cho tới cảnh báo và lỗi.
+ 1. **/var/log/syslog**
+- file log chính cho hầu hết các thông báo của hệ thống, ngoại trừ các thông điệp được lọc ra để ghi vào các file log chuyên biệt khác. `syslog` chứa đa dạng các thông tin từ thông báo hệ thống cho tới cảnh báo và lỗi.
 
-### 2. **/var/log/auth.log**
-- Ghi lại tất cả các hoạt động liên quan đến xác thực, bao gồm đăng nhập của người dùng, sử dụng sudo và các hoạt động xác thực khác. Đây là file quan trọng để kiểm tra nếu bạn muốn theo dõi các vấn đề về bảo mật và xác thực.
+ 2. **/var/log/auth.log**
+- Ghi lại tất cả các hoạt động liên quan đến xác thực, bao gồm đăng nhập của người dùng, sử dụng sudo và các hoạt động xác thực khác.
 
-### 3. **/var/log/kern.log**
-- Chứa thông tin chi tiết liên quan đến kernel của Linux. Nếu bạn gặp vấn đề về phần cứng hoặc driver, thông tin trong file này sẽ rất hữu ích.
+ 3. **/var/log/kern.log**
+- Chứa thông tin chi tiết liên quan đến kernel của Linux. vấn đề về phần cứng hoặc driver.
 
-### 4. **/var/log/dpkg.log**
+ 4. **/var/log/dpkg.log**
 - Theo dõi tất cả các hoạt động liên quan đến hệ thống quản lý gói dpkg, bao gồm cài đặt và gỡ bỏ phần mềm.
 
-### 5. **/var/log/boot.log**
+ 5. **/var/log/boot.log**
 - Chứa thông tin về quá trình khởi động, giúp phân tích các vấn đề khởi động của máy.
 
-### 6. **/var/log/apache2/ (thư mục)**
-- Nếu bạn cài đặt và chạy máy chủ web Apache, các file log của Apache sẽ nằm ở đây, bao gồm `access.log` và `error.log`, giúp bạn theo dõi yêu cầu đến và các lỗi của máy chủ web.
+ 6. **/var/log/apache2/ (thư mục)**
+- cài đặt và chạy máy chủ web Apache, các file log của Apache sẽ nằm ở đây, bao gồm `access.log` và `error.log`, theo dõi yêu cầu đến và các lỗi của máy chủ web.
 
-### 7. **/var/log/mysql/ (thư mục)**
-- Tương tự, nếu bạn chạy máy chủ cơ sở dữ liệu MySQL, bạn sẽ tìm thấy các file log liên quan trong thư mục này, giúp bạn giám sát hoạt động của MySQL.
+ 7. **/var/log/mysql/ (thư mục)**
+- chạy máy chủ cơ sở dữ liệu MySQL, sẽ tìm thấy các file log liên quan trong thư mục này, giúp giám sát hoạt động của MySQL.
 
-### 8. **/var/log/faillog**
+ 8. **/var/log/faillog**
 - Ghi lại các lần đăng nhập thất bại, có thể hữu ích để phát hiện các nỗ lực truy cập không được phép.
 
-### 9. **/var/log/ufw.log**
-- Nếu bạn sử dụng Uncomplicated Firewall (UFW), các hoạt động của tường lửa này sẽ được ghi lại ở đây.
+ 9. **/var/log/ufw.log**
+- Nếu sử dụng Uncomplicated Firewall (UFW), các hoạt động của tường lửa này sẽ được ghi lại ở đây.
 
-### 10. **/var/log/mail.log**
-- Nếu bạn chạy một máy chủ thư, các thông tin liên quan đến gửi và nhận thư sẽ được ghi lại trong file này.
+ 10. **/var/log/mail.log**
+- Nếu chạy một máy chủ thư, các thông tin liên quan đến gửi và nhận thư sẽ được ghi lại trong file này.
 
-Các file log này cung cấp thông tin quý giá giúp bạn hiểu rõ hoạt động của hệ thống và giải quyết các vấn đề có thể xảy ra. Đối với một quản trị viên hệ thống, việc thường xuyên kiểm tra các file log này là một phần quan trọng của quản lý hệ thống.
 
 ### Quản Lý và Giám Sát File Nhật Ký
 
