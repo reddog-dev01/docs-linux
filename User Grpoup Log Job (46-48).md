@@ -349,23 +349,88 @@ Các file nhật ký này là công cụ không thể thiếu cho quản trị v
 
 Việc xoay (rotate) file nhật ký là một phần thiết yếu trong việc quản lý hệ thống hiệu quả, đặc biệt là trong môi trường vận hành máy chủ. Dưới đây là các lý do chính đằng sau nhu cầu xoay file nhật ký:
 
-### 1. Quản lý không gian đĩa
-File nhật ký có thể phát triển rất nhanh, đặc biệt là trên các hệ thống có lượng truy cập cao hoặc những hệ thống mà log rất nhiều sự kiện. Nếu không được quản lý, file nhật ký có thể chiếm hết không gian đĩa, dẫn đến tình trạng hệ thống không thể ghi thêm dữ liệu mới hoặc thậm chí gây ra sự cố hệ thống. Xoay file nhật ký giúp hạn chế kích thước của chúng, đảm bảo không gian đĩa luôn được giải phóng một cách thường xuyên.
+*1. Quản lý không gian đĩa*
+- File nhật ký có thể phát triển rất nhanh, đặc biệt là trên các hệ thống có lượng truy cập cao hoặc những hệ thống mà log rất nhiều sự kiện. Nếu không được quản lý, file nhật ký có thể chiếm hết không gian đĩa, dẫn đến tình trạng hệ thống không thể ghi thêm dữ liệu mới hoặc thậm chí gây ra sự cố hệ thống. Xoay file nhật ký giúp hạn chế kích thước của chúng, đảm bảo không gian đĩa luôn được giải phóng một cách thường xuyên.
 
-### 2. Cải thiện hiệu suất hệ thống
-Việc xử lý và tìm kiếm trong một file nhật ký lớn có thể tốn kém về mặt hiệu suất. Các công cụ giám sát và phân tích log phải mất nhiều thời gian hơn để xử lý dữ liệu. Bằng cách xoay file nhật ký, bạn giảm kích thước của từng file, làm cho việc xử lý nhanh hơn và hiệu quả hơn.
+ *2. Cải thiện hiệu suất hệ thống*
+- Việc xử lý và tìm kiếm trong một file nhật ký lớn có thể tốn kém về mặt hiệu suất. Các công cụ giám sát và phân tích log phải mất nhiều thời gian hơn để xử lý dữ liệu. Bằng cách xoay file nhật ký, bạn giảm kích thước của từng file, làm cho việc xử lý nhanh hơn và hiệu quả hơn.
 
-### 3. Đơn giản hóa việc bảo trì và quản lý
-File nhật ký nhỏ hơn dễ quản lý và phân tích hơn. Xoay file nhật ký cũng giúp tổ chức thông tin theo cách có cấu trúc, làm cho việc truy xuất và phục hồi dữ liệu từ các file nhật ký lịch sử trở nên dễ dàng hơn.
+*3. Đơn giản hóa việc bảo trì và quản lý*
+- File nhật ký nhỏ hơn dễ quản lý và phân tích hơn. Xoay file nhật ký cũng giúp tổ chức thông tin theo cách có cấu trúc, làm cho việc truy xuất và phục hồi dữ liệu từ các file nhật ký lịch sử trở nên dễ dàng hơn.
 
-### 4. Đảm bảo tuân thủ và bảo mật
-Trong nhiều ngành, việc lưu trữ nhật ký trong một khoảng thời gian xác định là yêu cầu pháp lý. Xoay file nhật ký giúp đảm bảo rằng dữ liệu nhật ký được lưu giữ và xóa đúng cách theo các tiêu chuẩn tuân thủ. Ngoài ra, việc lưu trữ các file nhật ký cũ ở dạng nén giúp bảo mật thông tin nhạy cảm khỏi bị truy cập trái phép.
+*4. Đảm bảo tuân thủ và bảo mật*
+- Trong nhiều ngành, việc lưu trữ nhật ký trong một khoảng thời gian xác định là yêu cầu pháp lý. Xoay file nhật ký giúp đảm bảo rằng dữ liệu nhật ký được lưu giữ và xóa đúng cách theo các tiêu chuẩn tuân thủ. Ngoài ra, việc lưu trữ các file nhật ký cũ ở dạng nén giúp bảo mật thông tin nhạy cảm khỏi bị truy cập trái phép.
 
-### 5. Phục hồi sau sự cố
-Trong trường hợp xảy ra sự cố, việc có các file nhật ký được quản lý tốt có thể hỗ trợ đáng kể trong việc phân tích nguyên nhân và khôi phục hệ thống. File nhật ký được xoay định kỳ cung cấp bản ghi lịch sử chi tiết mà không bị quá tải bởi thông tin quá cũ hoặc không liên quan.
-
-Tóm lại, xoay file nhật ký là một chiến lược quan trọng để duy trì hiệu quả hoạt động, bảo mật, và tuân thủ trong môi trường IT. Việc này không chỉ giúp quản lý tốt không gian đĩa mà còn cải thiện hiệu quả tổng thể trong việc quản lý và phân tích log.
-
+*5. Phục hồi sau sự cố*
+- Trong trường hợp xảy ra sự cố, việc có các file nhật ký được quản lý tốt có thể hỗ trợ đáng kể trong việc phân tích nguyên nhân và khôi phục hệ thống. File nhật ký được xoay định kỳ cung cấp bản ghi lịch sử chi tiết mà không bị quá tải bởi thông tin quá cũ hoặc không liên quan.
 
 
 ### **7. Running Job in the Future: `cron`, `at`**
+
+**7.1 `cron`**
+
+- Dùng để lên lịch thực hiện các tác vụ tự động tại các thời điểm định kỳ. Cho phép chạy các script, lệnh, chương trình tại các khoảng thời gian cụ thể.
+- Sao lưu dữ liệu định kỳ, bảo trì hệ thống, xử lý batch (sử lý log, cập nhật hệ thống), gửi thông báo và báo cáo, tự động tạo backup, tự dộng khởi động lại dịch vụ
+1. Truy cập cron
+```
+crontab -e
+```
+2. Thêm lệnh
+```
+phút giờ ngày_tháng tháng ngày_tuần lệnh
+```
+VD: chạy 1 script mỗi ngày lúc 3h sáng
+```
+0 3 * * * /path/to/script.sh
+```
+3. Lưu
+4. Kiểm tra
+```
+crontab -l
+```
+
+**7.2 `at`
+1. Cài đặt `at`
+```
+sudo apt update
+sudo apt install at
+```
+2. Khởi động dịch vụ
+```
+sudo systemctl start atd
+sudo systemctl enable atd
+```
+3. Lên lịch
+
+VD:
+```
+echo "/path/to/script.sh" | at 4pm tomorrow
+```
+```
+at 4pm tomorrow
+/path/to/script.sh
+<Ctrl+D>
+```
+4. Kiểm tra
+```
+atq
+```
+5. Hủy 1 tác vụ
+```
+atrm [job number]
+```
+
+**7.3 Ví dụ job**
+
+1. Thiết lập 1 job chạy vào 2 giờ sáng mỗi ngày
+
+```
+0 2 * * * /path/tp/your/script.sh
+```
+tắt job
+
+```
+#0 2 * * * /path/tp/your/script.sh
+```
+VD: tự động sao lưu 1 thư mục quan trọng /home.user/data
+
