@@ -465,18 +465,50 @@ RAID là một công nghệ lưu trữ được sử dụng để kết hợp nh
 Các phương thức lưu trữ dữ liệu chính trong mảng là:
 
 **Striping (Phân chia dải):** Tách luồng dữ liệu thành các khối có kích thước nhất định (được gọi là kích thước khối) sau đó viết từng khối này qua từng RAID. Cách lưu trữ dữ liệu này ảnh hưởng đến hiệu suất.
+
 **Mirroring (mirroring):** Là một kỹ thuật lưu trữ trong đó các bản sao dữ liệu giống hệt nhau được lưu trữ trên các thành viên RAID cùng một lúc. Loại vị trí dữ liệu này ảnh hưởng đến khả năng chịu lỗi cũng như hiệu suất.
+
 **Parity** là một kỹ thuật lưu trữ được sử dụng các phương pháp phân loại và tổng kiểm tra. Trong kỹ thuật chẵn lẻ, một hàm chẵn lẻ nhất định được tính cho các khối dữ liệu. Nếu một ổ đĩa bị lỗi, khối bị thiếu được tính toán lại từ tổng kiểm tra, cung cấp khả năng chịu lỗi RAID.
 
 **a. RAID 0**
 
 RAID 0 – dựa trên kỹ thuật striping. Mức RAID này không cung cấp khả năng chịu lỗi nhưng tăng hiệu năng hệ thống (tốc độ đọc và ghi cao). RAID 0 cần ít nhất 2 ổ đĩa (có thể sử dụng 1 ổ đĩa). Tổng quát ta có n đĩa (n>=2) và các đĩa là cùng loại. Dữ liệu sẽ được chia ra thành nhiều phần bằng nhau.
+
 ![image](https://github.com/user-attachments/assets/ed328f6f-0747-4c1b-b967-bb63e8b95377)
+
 **Ưu điểm:** Tăng tốc độ đọc/ghi ổ đĩa, mỗi đĩa chỉ cần đọc/ghi 1/n lượng dữ liệu yêu cầu.
+
 **Nhược điểm:** Tính an toàn thấp vì nếu một đĩa hư thì dữ liệu trên tất cả các đĩa còn lại sẽ không còn sử dụng được.
+
 **Sử dụng lý tưởng:** RAID 0 lý tưởng cho việc lưu trữ dữ liệu không quan trọng cần được đọc / ghi ở tốc độ cao. Chẳng hạn như trên chỉnh sửa hình ảnh hoặc video.
+
 
 **b. RAID 1**
 
 RAID 1 – sử dụng kỹ thuật mirroring, tăng tốc độ đọc trong một số trường hợp. Và cung cấp khả năng chịu lỗi khi mất không quá một đĩa thành viên. Đây là RAID cơ bản nhất có khả năng đảm bảo an toàn dữ liệu. Cũng giống như RAID 0, thì RAID 1 cũng yêu cầu 2 ổ đĩa cứng để làm việc. Dữ liệu sẽ được ghi vào 2 ổ đĩa giống nhau (Mirroring) và nếu một ổ đĩa gặp trục trặc thì ổ đĩa còn lại vẫn làm việc và hoạt động bình thường.
+
 ![image](https://github.com/user-attachments/assets/63b23243-ca65-4b4a-b95c-bc3fa98095a1)
+
+**Ưu điểm:** RAID 1 cung cấp tốc độ đọc tuyệt vời và tốc độ ghi có thể so sánh với tốc độ của một ổ đĩa duy nhất. Trong trường hợp một ổ đĩa bị lỗi, dữ liệu không cần phải được xây dựng lại. Chỉ cần sao chép chúng vào ổ đĩa drive thay thế.
+
+**Nhược điểm:** Dung lượng lưu trữ hiệu quả chỉ bằng một nửa tổng dung lượng drive. Vì tất cả dữ liệu đều được ghi hai lần. Các giải pháp phần mềm RAID 1 không phải lúc nào cũng cho phép hoán đổi nhanh ở drive bị lỗi. Điều đó có nghĩa là drive bị lỗi chỉ có thể được thay thế sau khi tắt nguồn máy tính mà nó được gắn vào. Đối với các server được sử dụng đồng thời bởi nhiều người, điều này có thể không được chấp nhận. Các hệ thống như vậy thường sử dụng bộ điều khiển phần cứng hỗ trợ hoán đổi nhanh.
+
+**Sử dụng lý tưởng:** RAID-1 lý tưởng cho nhiệm vụ lưu trữ quan trọng, chẳng hạn như cho các hệ thống kế toán. Nó cũng thích hợp cho các server nhỏ, trong đó chỉ có hai drive dữ liệu sẽ được sử dụng.
+
+**c. RAID 5**
+
+RAID 5 – sử dụng cả kỹ thuật phân stripe và parity. Cung cấp cải thiện tốc độ đọc như trong RAID 0 xấp xỉ, tồn tại khi mất một đĩa thành viên RAID. Có cơ chế khôi phục dũ liệu, các parity dùng để khổi phục dữ liệu được phân bổ đều trên tất cả các ổ cứng. RAID 5 yêu cầu tối thiểu 3 ổ cứng.
+
+![image](https://github.com/user-attachments/assets/619f929f-3320-4ae6-8bba-2c435d15b246)
+
+Ví dụ dữ liệu A được phân tách thành 3 phần A1, A2, A3, khi đó dữ liệu được chia thành 3 phần chứa trên các ổ đĩa cứng 0, 1, 2 (giống như RAID 0). Phần ổ đĩa cứng thứ 3 chứa Parity (Ap) của A1, A2, A3 để khôi phục dữ liệu có thể sẽ mất ở ổ đĩa cứng 0, 1, 2.
+
+Dữ liệu B được chia thành B1 B2 B3 và Parity của nó là Bp, theo thứ tự B1 B2 B3 được lưu trữ tại ổ 0 1 3, và Bp được lưu trữ tại ổ 2. Các Parity được lưu trữ tuần tự trên các ổ đĩa cứng. RAID 5 cho phép tối đa có 1 ổ cứng bị chết tại một thời điểm, nếu có nhiều hơn 1 ổ cứng bị chết tại một thời điểm thì toàn bộ dữ liệu coi như mất hết. RAID 5 cũng yêu cầu các ổ cứng tham gia RAID phải có dung lượng bằng nhau.
+
+Dung lượng cuối cùng RAID 5 được tính: (Dung lượng 1 ổ cứng) x [(Số lượng ổ cứng tham gia) – 1].
+
+**Ưu điểm:** Các giao dịch dữ liệu đọc rất nhanh trong khi các giao dịch dữ liệu ghi có phần chậm hơn (do parity phải được tính toán). Nếu một drive bị lỗi, bạn vẫn có quyền truy cập vào tất cả dữ liệu. Ngay cả khi drive bị lỗi đang được thay thế và bộ điều khiển lưu trữ rebuild dữ liệu trên ổ đĩa mới.
+
+**Nhược điểm:** Lỗi drive có ảnh hưởng đến thông lượng, mặc dù điều này vẫn có thể chấp nhận được. Đây là công nghệ phức tạp. Nếu một trong các đĩa trong mảng sử dụng đĩa 4TB bị lỗi và cần thay thế, việc khôi phục dữ liệu có thể mất một ngày hoặc lâu hơn. Việc này tùy thuộc vào load trên array và tốc độ của bộ điều khiển. Nếu một đĩa khác bị hỏng trong thời gian đó, dữ liệu sẽ bị mất vĩnh viễn.
+
+**Sử dụng lý tưởng:** RAID 5 là một hệ thống toàn diện tốt, kết hợp khả năng lưu trữ hiệu quả với khả năng bảo mật tuyệt vời và hiệu suất tốt. Nó lý tưởng cho các server file và ứng dụng có số lượng ổ đĩa dữ liệu hạn chế.
