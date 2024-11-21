@@ -365,6 +365,158 @@ Việc xoay (rotate) file nhật ký là một phần thiết yếu trong việc
 *5. Phục hồi sau sự cố*
 - Trong trường hợp xảy ra sự cố, việc có các file nhật ký được quản lý tốt có thể hỗ trợ đáng kể trong việc phân tích nguyên nhân và khôi phục hệ thống. File nhật ký được xoay định kỳ cung cấp bản ghi lịch sử chi tiết mà không bị quá tải bởi thông tin quá cũ hoặc không liên quan.
 
+**6.3 Cách cấu hình rotate log cho /var/log/syslog**
+
+Trong cấu hình `logrotate`, bạn có thể sử dụng nhiều tham số để kiểm soát cách thức xoay vòng và xử lý các file log. Dưới đây là một số tham số phổ biến và giải thích về chúng:
+
+1. **rotate**: Định nghĩa số lượng file log cũ mà bạn muốn giữ lại. Sau khi đạt đến số này, file log cũ nhất sẽ bị xóa.
+   ```
+   rotate 4
+   ```
+
+2. **daily/weekly/monthly/yearly**: Xác định chu kỳ xoay vòng log.
+   ```
+   daily
+   ```
+
+3. **size**: Xoay vòng file log khi nó đạt đến một kích thước nhất định.
+   ```
+   size 100M
+   ```
+
+4. **missingok**: Nếu file log không tồn tại, logrotate sẽ không hiển thị lỗi.
+   ```
+   missingok
+   ```
+
+5. **notifempty**: Không xoay vòng file nếu file đó trống.
+   ```
+   notifempty
+   ```
+
+6. **compress**: Nén file log xoay vòng để tiết kiệm không gian đĩa.
+   ```
+   compress
+   ```
+
+7. **nocompress**: Không nén file log, ngay cả khi có chỉ thị nén khác.
+   ```
+   nocompress
+   ```
+
+8. **delaycompress**: Hoãn việc nén cho đến xoay vòng lần kế tiếp, thường được sử dụng cùng với `compress`.
+   ```
+   delaycompress
+   ```
+
+9. **create**: Tạo file log mới sau khi xoay vòng, với các quyền và chủ sở hữu nhất định.
+   ```
+   create 0644 root adm
+   ```
+
+10. **copytruncate**: Sao chép nội dung file log vào file mới và cắt ngắn file log ban đầu thay vì xóa file log cũ.
+    ```
+    copytruncate
+    ```
+
+11. **dateext**: Thêm ngày tháng vào tên file log xoay vòng.
+    ```
+    dateext
+    ```
+
+12. **olddir**: Di chuyển các file log xoay vòng vào một thư mục khác.
+    ```
+    olddir /var/log/old_logs
+    ```
+
+13. **include**: Đưa các file cấu hình khác vào cấu hình hiện tại.
+    ```
+    include /etc/logrotate.d/
+    ```
+
+14. **postrotate/endscript**: Khối lệnh thực hiện sau khi xoay vòng log. Mọi lệnh giữa `postrotate` và `endscript` sẽ được thực thi sau mỗi lần xoay vòng.
+    ```
+    postrotate
+        /usr/lib/rsyslog/rsyslog-rotate
+    endscript
+    ```
+
+15. **prerotate/preremove**: Tương tự như `postrotate`, nhưng các lệnh được thực thi trước khi xoay vòng hoặc trước khi xoá file log cuối cùng.
+
+16. **sharedscripts**: Chạy script một lần cho tất cả các file log thay vì cho mỗi file.
+    ```
+    sharedscripts
+    ```
+
+Sử dụng những tham số này, bạn có thể tùy chỉnh quá trình quản lý log của mình một cách linh hoạt, phù hợp với yêu cầu cụ thể của hệ thống.
+
+**VD**
+
+Để cấu hình việc xoay vòng (`rotate`) cho file log `/var/log/syslog` trong hệ thống Linux, bạn thường sử dụng công cụ `logrotate`. `Logrotate` cho phép tự động xoay, nén và xóa các file log để không gian lưu trữ được quản lý hiệu quả hơn.
+
+### Bước 1: Kiểm tra cấu hình hiện tại
+
+Hầu hết các hệ thống Linux đã có cấu hình `logrotate` cho `/var/log/syslog` sẵn trong file `/etc/logrotate.d/rsyslog`. Bạn nên kiểm tra trước:
+
+```bash
+cat /etc/logrotate.d/rsyslog
+```
+
+Nội dung thường như sau:
+
+```bash
+/var/log/syslog
+{
+    rotate 7
+    daily
+    missingok
+    notifempty
+    delaycompress
+    compress
+    postrotate
+        invoke-rc.d rsyslog rotate > /dev/null
+    endscript
+}
+```
+
+### Giải thích cấu hình
+
+- `rotate 7`: Giữ 7 bản sao của file log sau khi xoay.
+- `daily`: Xoay file log hàng ngày.
+- `missingok`: Không báo lỗi nếu file không tồn tại.
+- `notifempty`: Không xoay file nếu file đó trống.
+- `delaycompress`: Hoãn nén cho đến xoay lần kế tiếp.
+- `compress`: Nén file log cũ để tiết kiệm không gian.
+- `postrotate` và `endscript`: Chạy lệnh trong khối này sau khi xoay log xong. Ở đây là khởi động lại dịch vụ rsyslog để nó nhận file log mới.
+
+### Bước 2: Chỉnh sửa hoặc thêm cấu hình
+
+Nếu bạn muốn thay đổi cách xoay vòng file log này, bạn có thể chỉnh sửa file `/etc/logrotate.d/rsyslog`:
+
+1. **Mở file cấu hình**:
+   ```bash
+   sudo nano /etc/logrotate.d/rsyslog
+   ```
+
+2. **Chỉnh sửa theo nhu cầu của bạn**, ví dụ:
+   - Thay đổi số lượng bản sao lưu.
+   - Thay đổi chu kỳ xoay vòng từ `daily` sang `weekly` hoặc `monthly`.
+   - Thêm tùy chọn `dateext` để thêm ngày tháng vào tên file sau khi xoay.
+
+3. **Lưu và đóng file**:
+   - Lưu thay đổi và thoát khỏi nano (`Ctrl+O`, `Enter`, `Ctrl+X`).
+
+### Bước 3: Kiểm tra cấu hình
+
+Để đảm bảo rằng cấu hình `logrotate` của bạn không có lỗi và hoạt động như mong đợi, bạn có thể chạy một test:
+
+```bash
+sudo logrotate --debug /etc/logrotate.conf
+```
+
+Lệnh này sẽ không xoay vòng log thực sự mà chỉ kiểm tra toàn bộ cấu hình và báo cáo bất kỳ lỗi nào.
+
+Việc cấu hình xoay vòng log hiệu quả sẽ giúp quản lý không gian đĩa và giữ cho hệ thống của bạn hoạt động trơn tru. Đảm bảo rằng bạn có các bản sao lưu thích hợp để tránh mất dữ liệu quan trọng trong quá trình xoay vòng log.
 
 ### **7. Running Job in the Future: `cron`, `at`**
 
