@@ -273,7 +273,7 @@ hoặc
 mkfs.ext4 /dev/sda1
 ```
 
-### Lưu ý khi sử dụng `mkfs`
+ **Lưu ý khi sử dụng `mkfs`**
 
 - **Xóa dữ liệu**: Lệnh `mkfs` sẽ xóa tất cả dữ liệu hiện có trên phân vùng hoặc thiết bị, vì nó sẽ tạo lại hệ thống file từ đầu.
 - **Quyền quản trị**: cần quyền `root` hoặc `sudo` để sử dụng `mkfs` vì lệnh này can thiệp trực tiếp vào thiết bị lưu trữ.
