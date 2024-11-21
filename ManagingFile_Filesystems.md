@@ -462,5 +462,21 @@ RAID là một công nghệ lưu trữ được sử dụng để kết hợp nh
 
 **6.2 Nguyên lý hoạt động**
 
+Các phương thức lưu trữ dữ liệu chính trong mảng là:
+
+**Striping (Phân chia dải):** Tách luồng dữ liệu thành các khối có kích thước nhất định (được gọi là kích thước khối) sau đó viết từng khối này qua từng RAID. Cách lưu trữ dữ liệu này ảnh hưởng đến hiệu suất.
+**Mirroring (mirroring):** Là một kỹ thuật lưu trữ trong đó các bản sao dữ liệu giống hệt nhau được lưu trữ trên các thành viên RAID cùng một lúc. Loại vị trí dữ liệu này ảnh hưởng đến khả năng chịu lỗi cũng như hiệu suất.
+**Parity** là một kỹ thuật lưu trữ được sử dụng các phương pháp phân loại và tổng kiểm tra. Trong kỹ thuật chẵn lẻ, một hàm chẵn lẻ nhất định được tính cho các khối dữ liệu. Nếu một ổ đĩa bị lỗi, khối bị thiếu được tính toán lại từ tổng kiểm tra, cung cấp khả năng chịu lỗi RAID.
+
 **a. RAID 0**
 
+RAID 0 – dựa trên kỹ thuật striping. Mức RAID này không cung cấp khả năng chịu lỗi nhưng tăng hiệu năng hệ thống (tốc độ đọc và ghi cao). RAID 0 cần ít nhất 2 ổ đĩa (có thể sử dụng 1 ổ đĩa). Tổng quát ta có n đĩa (n>=2) và các đĩa là cùng loại. Dữ liệu sẽ được chia ra thành nhiều phần bằng nhau.
+![image](https://github.com/user-attachments/assets/ed328f6f-0747-4c1b-b967-bb63e8b95377)
+**Ưu điểm:** Tăng tốc độ đọc/ghi ổ đĩa, mỗi đĩa chỉ cần đọc/ghi 1/n lượng dữ liệu yêu cầu.
+**Nhược điểm:** Tính an toàn thấp vì nếu một đĩa hư thì dữ liệu trên tất cả các đĩa còn lại sẽ không còn sử dụng được.
+**Sử dụng lý tưởng:** RAID 0 lý tưởng cho việc lưu trữ dữ liệu không quan trọng cần được đọc / ghi ở tốc độ cao. Chẳng hạn như trên chỉnh sửa hình ảnh hoặc video.
+
+**b. RAID 1**
+
+RAID 1 – sử dụng kỹ thuật mirroring, tăng tốc độ đọc trong một số trường hợp. Và cung cấp khả năng chịu lỗi khi mất không quá một đĩa thành viên. Đây là RAID cơ bản nhất có khả năng đảm bảo an toàn dữ liệu. Cũng giống như RAID 0, thì RAID 1 cũng yêu cầu 2 ổ đĩa cứng để làm việc. Dữ liệu sẽ được ghi vào 2 ổ đĩa giống nhau (Mirroring) và nếu một ổ đĩa gặp trục trặc thì ổ đĩa còn lại vẫn làm việc và hoạt động bình thường.
+![image](https://github.com/user-attachments/assets/63b23243-ca65-4b4a-b95c-bc3fa98095a1)
