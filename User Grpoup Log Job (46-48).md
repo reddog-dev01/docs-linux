@@ -381,7 +381,7 @@ crontab -e
 phút giờ ngày_tháng tháng ngày_tuần lệnh
 ```
 
-**chạy 1 script mỗi ngày lúc 3h sáng**
+VD: chạy 1 script mỗi ngày lúc 3h sáng
 
 ```
 0 3 * * * /path/to/script.sh
@@ -425,7 +425,7 @@ atrm [job number]
 
 **7.3 Ví dụ job**
 
-1. Thiết lập 1 job chạy vào 2 giờ sáng mỗi ngày
+**1. Thiết lập 1 job chạy vào 2 giờ sáng mỗi ngày**
 
 ```
 0 2 * * * /path/tp/your/script.sh
@@ -463,7 +463,7 @@ kiểm tra
 crontab
 ```
 
-**Thiết lập 1 job chạy vào 3 giờ, 2 ngày 1 lần**
+**2. Thiết lập 1 job chạy vào 3 giờ, 2 ngày 1 lần**
 
 Bước 1: Tạo Script Điều Khiển
 
