@@ -461,5 +461,6 @@ RAID là một công nghệ lưu trữ được sử dụng để kết hợp nh
 - Parity là một kỹ thuật lưu trữ được sử dụng các phương pháp phân loại và tổng kiểm tra. Trong kỹ thuật chẵn lẻ, một hàm chẵn lẻ nhất định được tính cho các khối dữ liệu. Nếu một ổ đĩa bị lỗi, khối bị thiếu được tính toán lại từ tổng kiểm tra, cung cấp khả năng chịu lỗi RAID.
 
 **6.2 Nguyên lý hoạt động**
+
 **a. RAID 0**
 
