@@ -4,6 +4,7 @@
 
 - Một cách thức để quản lý và tổ chức dữ liệu trên các thiết bị lưu trữ ( ổ cứng, thẻ nhớ, SSD...)
 - xác định cách dữ liệu được lưu trữ, truy cập, và quản lý, đồng thời cung cấp cấu trúc logic để hệ điều hành và người dùng có thể làm việc với dữ liệu
+
 **Các thành phần cơ bản của 1 file system**
 
   1. Tệp(file)
