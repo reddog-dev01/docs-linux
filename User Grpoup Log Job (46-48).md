@@ -102,7 +102,10 @@ groupadd [options] groupname
   ```
 
 kiểm tra người dùng thuộc những nhóm nào: ` groups user_name`
+
 xem id `id user_name`
+
+login vào 1 tk khác `sudo -i -u baonb12`
 
 **5.3 `usermod`**
 
