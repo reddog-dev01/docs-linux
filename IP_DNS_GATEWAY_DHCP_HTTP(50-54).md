@@ -18,7 +18,7 @@ sudo vim /etc/netplan/01-netcfg.yaml
 network:
   version: 2
   ethernets:
-    ens33: # Thay 'ens33' bằng tên interface mạng của bạn
+    ens33: # Thay 'ens33' bằng tên interface mạng của mình
       dhcp4: true
 ```
 4. Áp dụng cấu hình
