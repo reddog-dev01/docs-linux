@@ -101,6 +101,9 @@ groupadd [options] groupname
   groupadd -f groupname
   ```
 
+kiểm tra người dùng thuộc những nhóm nào: ` groups user_name`
+xem id `id user_name`
+
 **5.3 `usermod`**
 
  công cụ dùng để sửa đổi các cài đặt của tài khoản người dùng đã tồn tại.
