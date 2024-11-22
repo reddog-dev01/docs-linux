@@ -110,3 +110,69 @@ Giá trị cao ở đây cho thấy CPU đang được sử dụng bởi các �
 - Kernel sẽ ngay lập tức dừng tiến trình, bất kể trạng thái của nó.
 - Kernel sẽ dừng tiến trình ngay lập tức.
 - Tiến trình không thể từ chối hoặc xử lý tín hiệu này.
+
+**7. Các thành phần của 1 server vật lý**
+
+**7.1 CPU**
+
+CPU (Central Processing Unit - bộ xử lý trung tâm) gồm:
+- Đơn vị điều khiển: quản lý và điều khiển luồng dữ liệu giữ các thành phần của máy tính, giải mã và thực thi các lệnh.
+- Đơn vị tính toán và logic: thực hiện các phép toán số học, xử lý các phép logic
+- Thanh ghi: bộ nhớ nhỏ, tốc độ cao trong CPU, lưu trữ tạm thời dữ liệu và lệnh trong khi xử lý.
+
+**Chức năng CPU:**
+
+- xử lý dữ liệu
+- giải mã và thực thi lệnh
+- điều phối hoạt động của hệ thống
+- đa nhiệm
+- quản lý bộ nhớ: sử dụng các thanh ghi (registers) và cache để lưu trữ tạm thời dữ liệu trong quá trình xử lý. Nó cũng phối hợp với RAM để lấy và trả dữ liệu nhanh chóng, đảm bảo hiệu suất hoạt động tối ưu
+
+**Đơn vị đo:**
+
+*a. Tốc độ xung nhịp* 
+
+Đơn vị: Hertz (Hz)
+
+Thường được đo bằng:
+
+MHz (Megahertz): 1 triệu chu kỳ/giây.
+
+GHz (Gigahertz): 1 tỷ chu kỳ/giây.
+
+Ý nghĩa: Thể hiện số chu kỳ xử lý mà CPU có thể thực hiện trong mỗi giây.
+
+Ví dụ: CPU có xung nhịp 3.5 GHz có thể thực hiện 3.5 tỷ chu kỳ mỗi giây.
+
+*b. Số lõi (Cores) và Số luồng (Threads)*
+
+Số lõi: Số đơn vị xử lý độc lập trong CPU.
+
+Số luồng: Các luồng xử lý ảo được hỗ trợ nhờ công nghệ siêu phân luồng (Hyper-Threading hoặc SMT).
+
+Ý nghĩa:
+
+CPU nhiều lõi và luồng có thể xử lý đồng thời nhiều tác vụ hơn, đặc biệt trong các ứng dụng đa luồng như dựng phim, xử lý video, hoặc chơi game hiện đại.
+
+**7.2 RAM**
+
+- Bộ nhớ tạm thời trong máy tính, lưu trữ dữ liệu và các lệnh đang được CPU xử lý, giúp tăng tốc độ truy xuất
+
+**Chức năng**
+
+- Lưu trữ dữ liệu tạm thời
+- Hỗ trợ đa nhiệm
+- Tăng tốc độ xử lý: giúp CPU không phải truy cập dữ liệu từ ổ cứng
+- Dung lượng RAM: Gigabytes (GB) hoặc Terabytes (TB), RAM dung lượng lớn cho phép chạy nhiều chương trình nặng hoặc xử lý dữ liệu lớn hơn.
+- Tốc độ RAM: Đơn vị: MHz hoặc MT/s (Megatransfers per second), Tốc độ càng cao, dữ liệu được truyền tải giữa RAM và CPU càng nhanh.
+
+**7.3 DISK**
+
+thiết bị dùng để lưu trữ dữ liệu trong máy tính. Nó giữ toàn bộ hệ điều hành, phần mềm, tệp tin và dữ liệu cá nhân, hoạt động ngay cả khi máy tính tắt.
+
+**Chức năng**
+- Lưu trữ dữ liệu lâu dài
+- Cung cấp dữ liệu cho hệ thống
+- Quản lý không gian lưu trữ
+- Dung lượng lưu trữ (Capacity): Gigabytes (GB), Terabytes (TB)
+- Tốc độ đọc/ghi (Read/Write Speed): MB/s (Megabytes per second), GB/s (Gigabytes per second).
