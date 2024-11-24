@@ -44,7 +44,7 @@ VD: Apache2 có 1 số dependencies cần thiết:
 - libssl1.1: thư viện mã hóa SSL, cần thiết nếu chạy Apache với HTTPS.
 - apache2-bin: Các tệp thực thi chính của Apache2, cần thiết để khởi động và chạy dịch vụ.
 - 
-VD: kiểm tra dependencies: `apt-cache depends apache2`   
+VD: kiểm tra dependencies: `apt show apache2`   
 
 **1.3 Binary package (gói nhị phân)**  
 -  Binary package là tập hợp các file nhị phân, thư viện, và tài nguyên khác đã được biên dịch sẵn từ source packages.Có thể được cài đặt ngay lập tức mà không cần quá trình biên dịch.
@@ -65,6 +65,11 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
 - 
 **1.5 Cách kiểm tra các Repository đang dùng**
   
+  ```
+  ls /etc/apt/sources.list.d/
+  
+``
+
 **a. Ubuntu/Debian**  
 - Liệt kê các repo hiện có: apt policy
 
