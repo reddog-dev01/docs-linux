@@ -74,6 +74,8 @@ Trong hệ điều hành Linux, cấu trúc hệ thống file được tổ ch�
 - Cung cấp thông tin về phần cứng: cho phép người dùng và các chương trình truy cập thông tin chi tiết về thiết bị phần cứng như CPU, bộ nhớ, thiết bị lưu trữ, card mạng, v.v.
 ### **2. Managing Files and Link: `ls`, `cp`, `mv`, `rm`, `touch`, `ln`**
 
+19. ` lost+found`
+- được tạo tự động trên mỗi phân vùng sử dụng ext. được sử dụng để lưu trữ các file hoặc khối dữ liệu bị "mất" hoặc bị lỗi trong hệ thống tệp, thường xảy ra sau các sự cố như mất điện, hỏng ổ đĩa, hoặc tắt máy đột ngột.
 **2.1 `ls`**
 
 1. **`-a`**: Hiển thị tất cả các file, bao gồm cả các file ẩn (các file bắt đầu bằng dấu `.`).
