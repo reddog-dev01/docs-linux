@@ -23,7 +23,7 @@
   
 **a. Ext4**
 - Hệ thống tệp mặc định trong hầu hết các bản phối linux. Hiệu suất tốt, khả năng mở rộng cao
-- Hỗ trợ tính năng journaling, giúp bảo vệ dữ liệu khỏi bị hỏng nếu hệ thống bị tắt đột ngột
+- Hỗ trợ tính năng journaling(ghi lại các thay đổi trước khi áp dụng lên filesystem), giúp bảo vệ dữ liệu khỏi bị hỏng nếu hệ thống bị tắt đột ngột
 - Thường sử dụng cho các phân vùng gốc `/` và các phân vùng dữ liệu trên các hệ thống Linux.
 - 16TB, sử dụng trong máy tính cá nhân, máy chủ và các hệ thống lưu trữ thông thường.
 
