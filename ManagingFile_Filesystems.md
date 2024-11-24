@@ -22,7 +22,8 @@
 ### **1.2 Các loại File System**
   
 **a. Ext4**
-- Hệ thống tệp mặc định trong hầu hết các bản phối linux. Hiệu suất tốt, khả năng mở rộng cao
+- Ext4 lưu trữ dữ liệu dưới dạng các dải liên tiếp (extents)
+- Delayed Allocation Thay vì phân bổ khối ngay khi nhận yêu cầu ghi, hệ thống Ext4 sẽ lưu dữ liệu tạm thời trong bộ nhớ đệm (buffer) Khi đủ dữ liệu hoặc cần ghi thực sự, Ext4 sẽ phân bổ khối trên đĩa và ghi dữ liệu xuống
 - Hỗ trợ tính năng journaling(ghi lại các thay đổi trước khi áp dụng lên filesystem), giúp bảo vệ dữ liệu khỏi bị hỏng nếu hệ thống bị tắt đột ngột
 - Thường sử dụng cho các phân vùng gốc `/` và các phân vùng dữ liệu trên các hệ thống Linux.
 - 16TB, sử dụng trong máy tính cá nhân, máy chủ và các hệ thống lưu trữ thông thường.
