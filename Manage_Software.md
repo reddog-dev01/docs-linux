@@ -62,13 +62,12 @@ sudo apt install nginx
 - Các thành phần của một Repository: Matadata (thông tin về các package gồm package, phiên bản, mô tả, phụ thuộc, thông tin cần thiết khác), Package files (Các tệp nhị phân (.deb, .rpm ...) của từng phần mềm,
 Release files (chứa thông tin về phiên bản, phân phối, trạng thái của kho)
 - Cách hoạt động của Repository: Kết nối tới Repository => Tải Matadata => Cài đặt và quản lý phụ thuộc => Lưu trữ package đã cài.
-- 
+
 **1.5 Cách kiểm tra các Repository đang dùng**
   
   ```
   ls /etc/apt/sources.list.d/
-  
-``
+```
 
 **a. Ubuntu/Debian**  
 - Liệt kê các repo hiện có: apt policy
@@ -81,8 +80,9 @@ Release files (chứa thông tin về phiên bản, phân phối, trạng thái 
 
 **1.6 Các cách cài phần mềm**  
 **a. Sử dụng APT (Advanced Package Tool)**  
-- Cài đặt phần mềm:  
-```bash
+- Cài đặt phần mềm:
+
+```
   sudo apt update
   sudo apt install package_name
 ```
