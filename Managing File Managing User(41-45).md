@@ -60,10 +60,18 @@ Trong hệ điều hành Linux, cấu trúc hệ thống file được tổ ch�
 - **Mục đích**: Điểm gắn kết cho các ổ đĩa và thiết bị lưu trữ tạm thời.
 - **Chứa**: `/mnt` cho gắn kết tạm thời, `/media` cho gắn kết thiết bị như USB, CD-ROM.
 
-15. `srv`
+15. `/srv`
 - Chứa dữ liệu và tài nguyên được cung cấp bởi các dịch vụ (web, FTP, NFS, v.v.).
 
+16. `/run`
+- sử dụng để lưu trữ dữ liệu runtime của hệ thống hoặc các ứng dụng đang chạy
+- chứa các tệp mà hệ thống hoặc các ứng dụng cần truy cập trong suốt thời gian chạy
 
+17. `/lib64`
+- chứa các thư viện được biên dịch dành riêng cho các ứng dụng 64-bit.
+
+18. `sys`
+- Cung cấp thông tin về phần cứng: cho phép người dùng và các chương trình truy cập thông tin chi tiết về thiết bị phần cứng như CPU, bộ nhớ, thiết bị lưu trữ, card mạng, v.v.
 ### **2. Managing Files and Link: `ls`, `cp`, `mv`, `rm`, `touch`, `ln`**
 
 **2.1 `ls`**
