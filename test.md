@@ -189,3 +189,92 @@ Như vậy, cấu hình IP động giúp thiết bị tự động nhận địa
 
 ### Tóm lại:
 Cấu hình IP động giúp việc quản lý mạng trở nên đơn giản, linh hoạt và giảm thiểu sai sót trong việc cấp phát địa chỉ IP cho các thiết bị. Nó giúp tự động hóa quá trình kết nối thiết bị vào mạng mà không cần sự can thiệp thủ công của người dùng, đồng thời tránh được các vấn đề về xung đột địa chỉ IP.
+
+
+
+Để cấu hình IP tĩnh cho một giao diện mạng (network interface) trên Ubuntu, bạn sẽ chỉnh sửa file cấu hình của `netplan`. Dưới đây là các bước chi tiết:
+
+### 1. **Xác định tên của interface mạng**:
+   Trước tiên, bạn cần biết tên của card mạng mà bạn muốn cấu hình IP tĩnh. Bạn có thể sử dụng lệnh sau để liệt kê các giao diện mạng:
+
+   ```bash
+   ip a
+   ```
+
+   Hoặc bạn cũng có thể sử dụng lệnh `ifconfig` nếu công cụ này đã được cài đặt.
+
+   Giả sử tên giao diện mạng của bạn là `enp3s0`.
+
+### 2. **Chỉnh sửa file cấu hình netplan**:
+   Tệp cấu hình của `netplan` thường nằm trong thư mục `/etc/netplan/`. Các tệp này có phần mở rộng `.yaml`. Bạn cần chỉnh sửa tệp phù hợp với giao diện của bạn.
+
+   Ví dụ, nếu tệp cấu hình của bạn là `01-netcfg.yaml`, bạn có thể mở nó bằng lệnh:
+
+   ```bash
+   sudo nano /etc/netplan/01-netcfg.yaml
+   ```
+
+### 3. **Cấu hình IP tĩnh**:
+   Trong tệp cấu hình, bạn cần chỉ định thông tin IP tĩnh cho giao diện mạng. Cấu hình ví dụ dưới đây cho phép bạn cấu hình IP tĩnh cho giao diện `enp3s0`:
+
+   ```yaml
+   network:
+     version: 2
+     renderer: networkd
+     ethernets:
+       enp3s0:
+         dhcp4: false  # Tắt DHCP IPv4
+         addresses:
+           - 192.168.1.100/24  # Địa chỉ IP tĩnh và subnet mask
+         gateway4: 192.168.1.1  # Cổng mặc định (gateway)
+         nameservers:
+           addresses:
+             - 8.8.8.8   # DNS của Google
+             - 8.8.4.4   # DNS dự phòng của Google
+   ```
+
+   Giải thích cấu hình:
+   - **dhcp4: false**: Tắt chế độ DHCP cho IPv4 (sử dụng IP tĩnh thay vì DHCP).
+   - **addresses**: Địa chỉ IP tĩnh và subnet mask (`/24` là subnet mask 255.255.255.0).
+   - **gateway4**: Địa chỉ của cổng mặc định (gateway).
+   - **nameservers**: Các máy chủ DNS để phân giải tên miền.
+
+### 4. **Áp dụng cấu hình**:
+   Sau khi lưu và đóng tệp cấu hình (nhấn `Ctrl + X`, sau đó chọn `Y` để lưu và `Enter`), bạn cần áp dụng cấu hình mới bằng cách sử dụng lệnh:
+
+   ```bash
+   sudo netplan apply
+   ```
+
+   Điều này sẽ áp dụng cấu hình IP tĩnh cho giao diện mạng của bạn.
+
+### 5. **Kiểm tra kết quả**:
+   Để kiểm tra xem cấu hình IP tĩnh đã được áp dụng thành công, bạn có thể sử dụng lệnh `ip a` để xem địa chỉ IP của giao diện:
+
+   ```bash
+   ip a
+   ```
+
+   Đảm bảo rằng địa chỉ IP bạn cấu hình hiển thị trong kết quả.
+
+### Ví dụ cấu hình IP tĩnh đầy đủ:
+
+Giả sử bạn muốn cấu hình một địa chỉ IP tĩnh cho giao diện mạng `enp3s0` với địa chỉ IP `192.168.1.100`, gateway `192.168.1.1`, và sử dụng DNS của Google (`8.8.8.8` và `8.8.4.4`):
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0:
+      dhcp4: false
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+```
+
+Sau khi áp dụng, giao diện `enp3s0` sẽ sử dụng IP tĩnh `192.168.1.100` thay vì nhận IP tự động từ DHCP.
