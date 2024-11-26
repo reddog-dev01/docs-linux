@@ -173,3 +173,8 @@ network:
           - 8.8.8.8
           - 8.8.4.4
 ```
+**1.4 Khi nào cấu hình IP động, khi nào cấu hình IP tĩnh**
+
+**a. Khi nào cấu hình IP động**
+
+-
