@@ -156,4 +156,20 @@ sudo netplan apply
 ```
 ip addr show ens33
 ```
-6. 
+
+**1.3 Cấu hình IP tĩnh**
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0:
+      dhcp4: false
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+```
