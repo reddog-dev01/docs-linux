@@ -124,13 +124,29 @@ ls -l /etc/netplan/
 ```
 sudo vim /etc/netplan/01-netcfg.yaml
 ```
-```
+```yaml
 network:
   version: 2
   renderer: networkd
   ethernets:
     enp3s0:
       dhcp4: true
+```
+
+cấu hình đầy đủ
+```yaml
+network: 
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0:
+      dhcp4: true  # Dùng DHCP để nhận địa chỉ IP IPv4 động
+      dhcp6: true  # Dùng DHCP để nhận địa chỉ IPv6 động
+      nameservers:
+        addresses:
+          - 8.8.8.8  # DNS của Google
+          - 8.8.4.4  # DNS dự phòng của Google
+      gateway4: 192.168.1.1  # Địa chỉ Gateway IPv4
 ```
 4. Áp dụng cấu hình
 ```
