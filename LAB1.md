@@ -1,9 +1,5 @@
-
-Để triển khai và kiểm tra cấu hình DNS server theo các bước như bạn yêu cầu, đây là hướng dẫn chi tiết:
-
----
-
 ### **Máy 1: Cài đặt và cấu hình DNS server**
+
 1. **Cài đặt DNS server (Bind9 hoặc tương đương)**:
    - Với hệ điều hành Linux (Ubuntu/Debian):
      ```bash
@@ -76,6 +72,7 @@
 ---
 
 ### **Máy 2: Cấu hình DNS server trỏ về máy 1**
+
 1. **Chỉnh sửa file cấu hình DNS trên máy 2**:
    - Mở file cấu hình DNS (`resolv.conf`):
      ```bash
@@ -99,8 +96,3 @@
    - Lúc này, kết quả phải trả về IP `103.45.89.45`.
 
 ---
-
-### **Kết luận**
-Nếu làm đúng các bước, DNS server trên máy 1 sẽ hoạt động như mong muốn, và máy 2 sau khi trỏ DNS về máy 1 sẽ truy xuất được IP `103.45.89.45` của domain `toilamlab.com`. 
-
-Lưu lại zalo nếu hết Plus 4.0: [08686.01263](https://zalo.me/0868601263).
