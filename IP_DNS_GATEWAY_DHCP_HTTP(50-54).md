@@ -178,3 +178,135 @@ network:
 **a. Khi nào cấu hình IP động**
 
 -
+
+### **2. DNS System**
+
+- DNS là một hệ thống phân dải giúp chuyển đổi tên miền (domain name) thành địa chỉ IP (IP address) và ngược lại.
+
+**2.1 Các khái niệm và cơ chế hoạt động của DNS**
+
+**a. Tên miền (Domain name)**
+
+- Là tên được dùng để định dạng các tài nguyên trên internet
+
+**Cấu trúc phân cấp:**
+- Root Domain: Là cấp cao nhất, biểu thị bằng dấu chấm (`.`)
+- Top-Level Domain (TLD): Phân chia theo loại (.com, .org, .vn) hoặc quốc gia (.uk, .jp).
+- Second-Level Domain (SLD): Phần tên cụ thể, ví dụ: `google` trong `google.com`.
+- Subdomain: Tên miền con, ví dụ: www trong `www.google.com`.
+
+**b. Địa chỉ IP**
+
+- Dùng để định danh thiết bị hoặc máy chủ trên Internet.
+- IPv4: 32-bit, dạng `192.168.1.1`
+- IPv6: 128-bit, dạng `2001:0db8::1`
+
+**c. Máy chủ DNS(DNS Server)**
+
+Lưu trữ thông tin ánh xạ giữa tên miền và địa chỉ IP.
+
+Các loại máy chủ:
+
+- Recursive Resolver: Máy chủ trung gian xử lý các yêu cầu từ người dùng.
+- Root Server: Máy chủ gốc, quản lý thông tin cấp cao nhất.
+- TLD Server: Quản lý thông tin tên miền cấp cao như `.com`, `.vn`.
+- Authoritative Server: Máy chủ ủy quyền chứa thông tin chính xác về tên miền.
+
+**d. Bản ghi DNS (DNS Records):**
+
+Các loại thông tin ánh xạ trong DNS:
+
+- A Record: Tên miền → IPv4.
+- AAAA Record: Tên miền → IPv6.
+- CNAME Record: Alias tên miền, chuyển hướng từ tên này sang tên khác.
+- MX Record: Máy chủ email.
+- TXT Record: Chứa dữ liệu văn bản, dùng để xác thực bảo mật (SPF, DKIM).
+
+**2.2 Cơ chế hoạt động của hệ thống DNS**
+
+Khi người dùng nhập một tên miền vào trình duyệt, DNS sẽ phân giải thành địa chỉ IP qua các bước sau:
+
+1. Người dùng gửi yêu cầu phân giải DNS:
+
+Trình duyệt gửi yêu cầu phân giải tên miền (DNS query) đến máy chủ DNS cục bộ (thường là của ISP).
+
+2. Máy chủ DNS cục bộ kiểm tra cache:
+
+Nếu kết quả phân giải đã được lưu trữ trong bộ nhớ cache, máy chủ trả lại ngay địa chỉ IP.
+
+Nếu không có, yêu cầu sẽ được gửi tiếp đến hệ thống DNS để phân giải.
+
+3. Truy vấn đến Root Server:
+
+Máy chủ DNS cục bộ gửi yêu cầu đến Root Server.
+
+Root Server không lưu địa chỉ IP chính xác nhưng trả về địa chỉ của máy chủ TLD Server phù hợp (ví dụ .com).
+
+4. Truy vấn đến TLD Server:
+
+Máy chủ TLD trả về địa chỉ của Authoritative Server cho tên miền cụ thể.
+
+5. Truy vấn đến Authoritative Server:
+
+Máy chủ ủy quyền trả về địa chỉ IP chính xác của tên miền.
+
+6. Trả kết quả về trình duyệt:
+
+Địa chỉ IP được gửi ngược về trình duyệt.
+
+Trình duyệt sử dụng địa chỉ IP này để kết nối đến máy chủ đích. 
+
+**2.3 Các loại máy chủ DNS, các loại query DNS**
+
+**2.3.1 Các loại máy chủ DNS**
+
+**a. Recursive Resolver (Máy chủ phân giải đệ quy):**
+
+Là máy chủ DNS cục bộ, thường thuộc ISP hoặc nhà cung cấp dịch vụ DNS (như Google DNS, Cloudflare DNS).
+
+Chức năng:
+
+Nhận yêu cầu từ người dùng và tìm kiếm địa chỉ IP tương ứng thông qua các máy chủ DNS khác.
+
+Kiểm tra cache và trả lời nhanh nếu thông tin đã có sẵn.
+
+Ví dụ: 8.8.8.8 (Google Public DNS).
+
+**b. Root Server (Máy chủ gốc):**
+
+Điểm bắt đầu của hệ thống DNS, quản lý thông tin phân cấp các miền TLD (Top-Level Domain).
+
+Chức năng:
+
+Hướng dẫn Recursive Resolver đến máy chủ TLD Server phù hợp.
+
+Số lượng: 13 cụm máy chủ Root Server (được nhân bản trên toàn cầu).
+
+**c. TLD Server (Máy chủ miền cấp cao nhất):**
+
+Quản lý thông tin về các miền cấp cao (TLD), ví dụ .com, .org, .vn.
+
+Chức năng:
+
+Trả về địa chỉ của Authoritative Server quản lý tên miền cụ thể.
+
+Ví dụ:
+
+Máy chủ quản lý .com: Verisign.
+
+Máy chủ quản lý .vn: VNNIC.
+
+**d. Authoritative Server (Máy chủ ủy quyền):**
+
+Lưu trữ thông tin chính xác nhất về tên miền.
+
+Chức năng:
+
+Trả lời cuối cùng cho các truy vấn DNS với địa chỉ IP của tài nguyên mạng.
+
+Ví dụ:
+
+Tên miền example.com được quản lý bởi một máy chủ DNS cụ thể (của nhà cung cấp hosting hoặc tổ chức sở hữu tên miền).
+
+**2.3.2 Các loại Query DNS**
+
