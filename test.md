@@ -278,3 +278,78 @@ network:
 ```
 
 Sau khi áp dụng, giao diện `enp3s0` sẽ sử dụng IP tĩnh `192.168.1.100` thay vì nhận IP tự động từ DHCP.
+
+--------
+
+Giao thức **DHCP (Dynamic Host Configuration Protocol)** là một giao thức mạng cho phép các thiết bị trong mạng tự động nhận các thông tin cấu hình mạng, như **địa chỉ IP**, **cổng mặc định (default gateway)**, **DNS server**, và các thông số khác mà không cần phải cấu hình thủ công trên mỗi thiết bị. Cơ chế hoạt động của DHCP giúp giảm thiểu việc quản lý địa chỉ IP thủ công và giúp các thiết bị dễ dàng tham gia vào mạng mà không cần phải thiết lập chi tiết.
+
+---
+
+### **Cơ chế hoạt động của giao thức DHCP**
+
+1. **Khởi tạo yêu cầu DHCP (DHCP Discover)**
+   - Khi một thiết bị (chẳng hạn như máy tính, điện thoại hoặc máy chủ) được kết nối vào mạng lần đầu tiên hoặc sau khi khởi động lại, nó cần một **địa chỉ IP** để giao tiếp với các thiết bị khác trên mạng.
+   - Thiết bị này gửi một **gói tin DHCP Discover** (gọi là broadcast) tới **các máy chủ DHCP** trong mạng. Yêu cầu này không có địa chỉ IP, vì thiết bị chưa có IP và không biết địa chỉ máy chủ DHCP, nên gói tin được gửi đi dưới dạng broadcast (quét toàn mạng).
+
+2. **Máy chủ DHCP trả lời (DHCP Offer)**
+   - Máy chủ DHCP nhận được gói tin DHCP Discover và gửi lại một **gói tin DHCP Offer**. Gói tin này chứa các thông tin cấu hình mạng cần thiết, bao gồm:
+     - **Địa chỉ IP** mà máy chủ DHCP đề xuất cho thiết bị.
+     - **Thời gian thuê (lease time)** của địa chỉ IP.
+     - **Cổng mặc định** (default gateway).
+     - **DNS server**.
+     - Một số thông tin khác (tùy thuộc vào cấu hình của DHCP server).
+
+3. **Thiết bị gửi yêu cầu xác nhận (DHCP Request)**
+   - Sau khi nhận được **gói tin DHCP Offer**, thiết bị sẽ chọn một trong các gói tin (nếu có nhiều máy chủ DHCP phản hồi) và gửi lại một **gói tin DHCP Request**. Gói tin này yêu cầu **xác nhận** địa chỉ IP và các thông tin cấu hình mạng từ máy chủ DHCP.
+   - Gói tin này cũng được gửi dưới dạng **broadcast**, thông báo cho tất cả các máy chủ DHCP biết rằng thiết bị đã chọn một máy chủ để cấu hình địa chỉ IP.
+
+4. **Máy chủ DHCP xác nhận (DHCP Acknowledgment)**
+   - Khi nhận được yêu cầu từ thiết bị (DHCP Request), máy chủ DHCP sẽ gửi lại một **gói tin DHCP Acknowledgment (DHCP ACK)** để xác nhận rằng thiết bị đã được cấp phát địa chỉ IP và có thể sử dụng địa chỉ này trong một khoảng thời gian cụ thể.
+   - Sau khi nhận được gói tin **DHCP ACK**, thiết bị có thể bắt đầu sử dụng địa chỉ IP được cấp và các thông tin cấu hình khác để giao tiếp với mạng.
+
+5. **Cập nhật lại thông tin khi hết thời gian thuê (DHCP Lease Renewal)**
+   - Địa chỉ IP được cấp cho thiết bị qua DHCP có một **thời gian thuê** (lease time). Trước khi thời gian thuê kết thúc, thiết bị sẽ tự động gửi yêu cầu gia hạn (lease renewal) đến máy chủ DHCP để giữ lại địa chỉ IP.
+   - Nếu máy chủ DHCP không phản hồi hoặc không gia hạn, thiết bị sẽ phải tìm một địa chỉ IP khác.
+
+---
+
+### **Các thành phần chính trong quá trình DHCP**
+- **Client (Máy khách)**: Là thiết bị yêu cầu và nhận các thông tin mạng từ máy chủ DHCP. Ví dụ: máy tính, điện thoại, máy in, v.v.
+- **Server (Máy chủ DHCP)**: Cung cấp địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị trong mạng.
+- **Relay Agent (Máy chủ chuyển tiếp DHCP)**: Trong một số mạng phức tạp (khi máy chủ DHCP và client không nằm trong cùng một mạng con), có thể sử dụng **DHCP relay agent** để chuyển tiếp các gói tin DHCP giữa client và server.
+
+---
+
+### **Các loại địa chỉ IP cấp phát bởi DHCP**
+- **Dynamic IP**: Địa chỉ IP được cấp phát cho client từ một **pool** địa chỉ IP mà máy chủ DHCP quản lý. Đây là loại IP thông dụng và sẽ hết hạn sau một thời gian.
+- **Static IP**: Trong một số trường hợp, máy chủ DHCP có thể cấu hình cấp phát các **địa chỉ IP tĩnh** cho các thiết bị cụ thể dựa trên **địa chỉ MAC** của thiết bị.
+- **Automatic IP**: Cung cấp địa chỉ IP từ một dải IP cố định, nhưng có thể thay đổi theo thời gian tùy theo yêu cầu.
+
+---
+
+### **Quá trình hoạt động chi tiết hơn**
+- **Gói tin DHCP Discover**: 
+  - Được gửi từ thiết bị yêu cầu (client) đến địa chỉ broadcast `255.255.255.255` hoặc địa chỉ multicast đặc biệt của mạng.
+  
+- **Gói tin DHCP Offer**: 
+  - Máy chủ DHCP gửi lại thông tin đề xuất địa chỉ IP cho client, bao gồm cả **thời gian thuê** (lease time).
+  
+- **Gói tin DHCP Request**: 
+  - Thiết bị client gửi yêu cầu xác nhận (broadcast) đến tất cả các máy chủ DHCP có thể, xác nhận máy chủ đã chọn.
+
+- **Gói tin DHCP Acknowledgment**: 
+  - Máy chủ DHCP gửi gói tin xác nhận rằng client đã được cấp phát IP và các thông tin cấu hình mạng.
+
+---
+
+### **Ưu điểm của DHCP**
+1. **Tiết kiệm thời gian và công sức**: Không cần phải cấu hình địa chỉ IP thủ công cho từng thiết bị trong mạng.
+2. **Quản lý linh hoạt**: Các địa chỉ IP có thể được cấp phát và thu hồi tự động, giúp quản lý mạng dễ dàng hơn.
+3. **Giảm rủi ro lỗi cấu hình**: Các thiết bị nhận thông tin cấu hình chính xác từ máy chủ DHCP, giảm thiểu khả năng lỗi trong việc cấu hình mạng thủ công.
+
+---
+
+### **Tóm tắt**
+Giao thức DHCP giúp tự động cấp phát địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị trong mạng mà không cần cấu hình thủ công. Quá trình này bao gồm các bước: yêu cầu, trả lời, xác nhận và cấp phát địa chỉ IP từ máy chủ DHCP. DHCP giúp quản lý mạng hiệu quả, giảm thiểu lỗi và tiết kiệm thời gian trong việc cấu hình mạng.
+
+Lưu lại zalo nếu hết Plus 4.0: [08686.01263](https://zalo.me/0868601263).
