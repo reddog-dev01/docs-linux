@@ -101,40 +101,56 @@
 
 **Quá trình phân giải domain**
 
-B1: Trình duyệt gửi yêu cầu DNS
-- Khi nhập 1 tên miền vào trình duyệt web (VDL toilamlab.com) trình duyệt sẽ kiểm tra xem DNS cache của hệ thống có lưu sẵn địa chỉ IP của 
 Bước 1: Trình duyệt gửi yêu cầu DNS
 
 Khi bạn nhập một tên miền vào trình duyệt web (ví dụ: toilamlab.com), trình duyệt sẽ kiểm tra xem DNS cache của hệ thống có lưu sẵn địa chỉ IP của tên miền đó không.
+
 Nếu địa chỉ IP đã được lưu trong cache (ví dụ, từ lần truy cập trước), trình duyệt sẽ sử dụng ngay địa chỉ đó mà không cần thực hiện truy vấn DNS lại.
+
 Bước 2: Kiểm tra cache DNS của hệ thống
 
 Nếu địa chỉ IP không có trong cache DNS local của hệ thống (ví dụ: trên máy tính của bạn), hệ thống sẽ tiếp tục gửi yêu cầu tới DNS resolver (có thể là DNS server của ISP hoặc DNS server công cộng như Google DNS, Cloudflare, v.v.).
+
 Bước 3: DNS resolver gửi yêu cầu tới root DNS server
 
 DNS resolver (hay còn gọi là DNS resolver recursive) sẽ gửi yêu cầu DNS đến một trong các root DNS server. Các root DNS server này quản lý thông tin về các top-level domain (TLD), như .com, .org, .net, v.v.
+
 Root DNS server không lưu thông tin về tên miền cụ thể mà chỉ biết về các TLD name servers (ví dụ: .com).
+
 Bước 4: TLD DNS server trả về Name Servers của domain
 
 Root DNS server sẽ trả về địa chỉ của TLD DNS server tương ứng với tên miền yêu cầu. Ví dụ, nếu bạn yêu cầu phân giải toilamlab.com, root DNS server sẽ chuyển hướng yêu cầu đến .com TLD DNS server.
+
 TLD DNS server chứa thông tin về các DNS server của các domain cụ thể (ví dụ: thông tin về DNS của toilamlab.com).
+
 Bước 5: Truy vấn đến Authoritative DNS Server
 
 Sau khi nhận được thông tin từ TLD DNS server, DNS resolver sẽ tiếp tục gửi yêu cầu đến authoritative DNS server của domain, nơi chứa bản ghi DNS chính thức cho tên miền đó.
+
 Authoritative DNS server có thể là DNS server do chủ sở hữu domain tự quản lý hoặc dịch vụ DNS của nhà cung cấp tên miền.
+
 Bước 6: Phản hồi từ Authoritative DNS Server
 
 Authoritative DNS server sẽ trả về bản ghi DNS (thường là bản ghi A đối với địa chỉ IP) cho tên miền yêu cầu. Ví dụ, toilamlab.com có thể có bản ghi A trỏ đến 103.45.89.45.
+
 Nếu tên miền yêu cầu có các bản ghi khác như MX (Mail Exchange), CNAME (Canonical Name), thì các bản ghi này cũng sẽ được trả về nếu có.
+
 Bước 7: Cập nhật cache DNS của resolver và hệ thống
 
 DNS resolver sẽ lưu trữ kết quả này vào DNS cache để sử dụng cho các truy vấn sau này trong một khoảng thời gian nhất định (TTL - Time to Live).
+
 Sau đó, kết quả sẽ được gửi lại đến hệ thống của người dùng, và trình duyệt sẽ sử dụng địa chỉ IP này để kết nối đến server ứng với tên miền.
+
 Bước 8: Trình duyệt kết nối đến máy chủ
 
 Sau khi có địa chỉ IP, trình duyệt sử dụng nó để kết nối đến máy chủ của website, gửi yêu cầu HTTP/HTTPS, và hiển thị nội dung của website trên trình duyệt.
+
 Tóm tắt quy trình phân giải domain
+
 Người dùng nhập tên miền vào trình duyệt.
+
 Hệ thống kiểm tra cache DNS cục bộ.
+
 Nếu không có trong cache, yêu cầu được 
+
 ---
