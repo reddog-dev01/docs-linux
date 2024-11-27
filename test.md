@@ -634,3 +634,262 @@ Trong đó, `hosts` là file inventory của bạn chứa danh sách các máy c
 4. Chạy playbook với lệnh `ansible-playbook`.
 
 Lưu lại zalo nếu hết Plus 4.0: [08686.01263](https://zalo.me/0868601263).
+
+
+
+------------------
+----------------------
+-----------------------
+
+
+
+
+
+
+Để viết **Ansible Role** trên một máy Ubuntu thật, cài đặt **DHCP server** trên cả **Ubuntu 24** và **CentOS 9** ảo, và cấu hình **DNS** cho các domain (`test1.com`, `test2.com`), bạn cần làm theo các bước dưới đây. Chúng ta sẽ tạo một **role** đầy đủ để có thể cài đặt và cấu hình các dịch vụ này trên các máy chủ mục tiêu.
+
+### 1. **Tạo Cấu Trúc Thư Mục Cho Ansible Role**
+
+Đầu tiên, tạo cấu trúc thư mục cho **Ansible Role**. Cấu trúc này sẽ bao gồm các thư mục và tệp cần thiết như `defaults`, `vars`, `tasks`, `templates`...
+
+#### Cấu trúc thư mục:
+
+```bash
+ansible-project/
+└── roles/
+    └── dhcp_dns/
+        ├── defaults/
+        │   └── main.yml
+        ├── tasks/
+        │   └── main.yml
+        ├── templates/
+        │   ├── dhcpd.conf.j2
+        │   └── named.conf.local.j2
+        └── vars/
+            └── main.yml
+```
+
+### 2. **Tạo Tệp Defaults (Để Cấu Hình Mặc Định)**
+
+Tệp `defaults/main.yml` sẽ lưu trữ các thông tin mặc định như danh sách các domain cần cấu hình DNS. Bạn có thể thay đổi danh sách này khi cần mà không phải sửa trực tiếp vào Playbook.
+
+#### **roles/dhcp_dns/defaults/main.yml**
+
+```yaml
+# roles/dhcp_dns/defaults/main.yml
+domains:
+  - name: "test1.com"
+    ip: "1.2.3.4"
+  - name: "test2.com"
+    ip: "1.2.3.4"
+```
+
+### 3. **Tạo Tệp Vars (Biến Cấu Hình)**
+
+Tệp `vars/main.yml` sẽ chứa các biến cần thiết cho việc cài đặt và cấu hình DHCP server và DNS server, chẳng hạn như subnet, range IP DHCP, gateway, và DNS.
+
+#### **roles/dhcp_dns/vars/main.yml**
+
+```yaml
+# roles/dhcp_dns/vars/main.yml
+dhcp_subnet: "192.168.1.0"
+dhcp_netmask: "255.255.255.0"
+dhcp_range_start: "192.168.1.10"
+dhcp_range_end: "192.168.1.100"
+dhcp_gateway: "192.168.1.1"
+dhcp_dns: "192.168.1.1"
+```
+
+### 4. **Tạo Các Tệp Template Cho DHCP và DNS**
+
+Các tệp template sẽ được sử dụng để tạo các tệp cấu hình cho DHCP và DNS, giúp chúng ta dễ dàng thay đổi khi cần thiết.
+
+#### Tệp `dhcpd.conf.j2` (Template Cấu Hình DHCP Server)
+
+```jinja
+# roles/dhcp_dns/templates/dhcpd.conf.j2
+subnet {{ dhcp_subnet }} netmask {{ dhcp_netmask }} {
+    range {{ dhcp_range_start }} {{ dhcp_range_end }};
+    option routers {{ dhcp_gateway }};
+    option domain-name-servers {{ dhcp_dns }};
+    option domain-name "{{ domains | map(attribute='name') | join(', ') }}";
+}
+```
+
+Template này sẽ tạo cấu hình cho DHCP server với các thông số động từ biến trong `vars/main.yml` và `defaults/main.yml`.
+
+#### Tệp `named.conf.local.j2` (Template Cấu Hình DNS Server)
+
+```jinja
+# roles/dhcp_dns/templates/named.conf.local.j2
+{% for domain in domains %}
+zone "{{ domain.name }}" {
+    type master;
+    file "/etc/bind/db.{{ domain.name }}";
+    allow-update { none; };
+};
+{% endfor %}
+```
+
+Tệp template này sẽ tạo cấu hình cho DNS server để thêm các domain vào danh sách cấu hình. Danh sách này sẽ được lấy từ biến `domains` trong `defaults/main.yml`.
+
+### 5. **Tạo Tệp Tasks (Các Tác Vụ Cài Đặt và Cấu Hình)**
+
+Tệp `tasks/main.yml` sẽ chứa các tác vụ cài đặt **DHCP server** và **DNS server**, cũng như triển khai các tệp cấu hình từ các template.
+
+#### **roles/dhcp_dns/tasks/main.yml**
+
+```yaml
+# roles/dhcp_dns/tasks/main.yml
+---
+- name: Cài đặt DHCP Server trên Ubuntu
+  when: ansible_facts['os_family'] == 'Debian'
+  apt:
+    name: isc-dhcp-server
+    state: present
+    update_cache: yes
+
+- name: Cài đặt DHCP Server trên CentOS
+  when: ansible_facts['os_family'] == 'RedHat'
+  yum:
+    name: dhcp
+    state: present
+
+- name: Cài đặt Bind DNS Server trên Ubuntu
+  when: ansible_facts['os_family'] == 'Debian'
+  apt:
+    name: bind9
+    state: present
+
+- name: Cài đặt Bind DNS Server trên CentOS
+  when: ansible_facts['os_family'] == 'RedHat'
+  yum:
+    name: bind
+    state: present
+
+- name: Cấu hình DHCP Server
+  copy:
+    dest: /etc/dhcp/dhcpd.conf
+    content: "{{ lookup('template', 'dhcpd.conf.j2') }}"
+  notify: Khởi động lại dịch vụ DHCP
+
+- name: Cấu hình DNS Server
+  copy:
+    dest: /etc/bind/named.conf.local
+    content: "{{ lookup('template', 'named.conf.local.j2') }}"
+  notify: Khởi động lại dịch vụ DNS
+
+- name: Khởi động lại dịch vụ DHCP trên Ubuntu
+  service:
+    name: isc-dhcp-server
+    state: restarted
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Khởi động lại dịch vụ DHCP trên CentOS
+  service:
+    name: dhcpd
+    state: restarted
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: Khởi động lại dịch vụ DNS trên Ubuntu
+  service:
+    name: bind9
+    state: restarted
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Khởi động lại dịch vụ DNS trên CentOS
+  service:
+    name: named
+    state: restarted
+  when: ansible_facts['os_family'] == 'RedHat'
+```
+
+Tệp `tasks/main.yml` sẽ thực hiện các tác vụ:
+- Cài đặt **DHCP server** và **DNS server** (tùy theo hệ điều hành).
+- Cấu hình **DHCP** và **DNS** từ các template.
+- Khởi động lại các dịch vụ để áp dụng thay đổi.
+
+### 6. **Tạo Playbook để Sử Dụng Role**
+
+Bây giờ, bạn cần tạo **Playbook** để sử dụng role này và áp dụng các cấu hình lên các máy ảo Ubuntu và CentOS.
+
+#### **playbook.yml**
+
+```yaml
+# playbook.yml
+---
+- name: Cài đặt DHCP và DNS Server
+  hosts: all
+  become: yes
+  roles:
+    - dhcp_dns
+```
+
+### 7. **Cấu Hình Tệp Hosts (Inventory)**
+
+Bạn cần tạo một tệp **inventory** để Ansible biết các máy chủ mà nó sẽ quản lý.
+
+#### **hosts**
+
+```ini
+# hosts
+[ubuntu_machines]
+ubuntu24 ansible_host=<ip-ubuntu-24> ansible_user=user
+
+[centos_machines]
+centos9 ansible_host=<ip-centos-9> ansible_user=user
+```
+
+- `<ip-ubuntu-24>` và `<ip-centos-9>` là địa chỉ IP của máy ảo Ubuntu và CentOS.
+- `ansible_user` là tên người dùng SSH của bạn trên máy ảo.
+
+### 8. **Chạy Ansible Playbook**
+
+Sau khi đã cấu hình xong, bạn có thể chạy **Playbook** để cài đặt và cấu hình **DHCP server** và **DNS server** trên cả hai máy ảo Ubuntu và CentOS.
+
+```bash
+ansible-playbook -i hosts playbook.yml
+```
+
+### 9. **Kiểm Tra Kết Quả**
+
+Sau khi Playbook chạy xong, bạn có thể kiểm tra kết quả trên các máy ảo:
+
+- **Kiểm tra DHCP Server**:
+  - Trên **Ubuntu**:
+    ```bash
+    sudo systemctl status isc-dhcp-server
+    ```
+  - Trên **CentOS**:
+    ```bash
+    sudo systemctl status dhcpd
+    ```
+
+- **Kiểm tra DNS Server**:
+  - Trên **Ubuntu**:
+    ```bash
+    sudo systemctl status bind9
+    ```
+  - Trên **CentOS**:
+    ```bash
+    sudo systemctl status named
+    ```
+
+- **Kiểm tra cấu hình DNS**:
+  Sử dụng `nslookup` để kiểm tra việc phân giải các domain đã cấu hình:
+
+  ```bash
+  nslookup test1.com
+  nslookup test2.com
+  ```
+
+### Tóm Tắt
+
+1. **Tạo Ansible Role**: Tạo cấu trúc thư mục cho role và viết các tệp cấu hình (defaults, vars, tasks, templates).
+2. **Tạo Playbook**:
+
+ Tạo Playbook để áp dụng role lên các máy chủ.
+3. **Chạy Playbook**: Dùng Ansible để triển khai cài đặt và cấu hình.
+4. **Kiểm tra kết quả**: Đảm bảo các dịch vụ DHCP và DNS đã hoạt động đúng.
+
+Lưu lại zalo nếu hết Plus 4.0: [08686.01263](https://zalo.me/0868601263).
