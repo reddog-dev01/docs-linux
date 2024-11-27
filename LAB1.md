@@ -145,12 +145,4 @@ Bước 8: Trình duyệt kết nối đến máy chủ
 
 Sau khi có địa chỉ IP, trình duyệt sử dụng nó để kết nối đến máy chủ của website, gửi yêu cầu HTTP/HTTPS, và hiển thị nội dung của website trên trình duyệt.
 
-Tóm tắt quy trình phân giải domain
-
-Người dùng nhập tên miền vào trình duyệt.
-
-Hệ thống kiểm tra cache DNS cục bộ.
-
-Nếu không có trong cache, yêu cầu được 
-
 ---
