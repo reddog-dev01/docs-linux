@@ -93,6 +93,7 @@
      ```bash
      nslookup toilamlab.com
      ```
-   - Lúc này, kết quả phải trả về IP `103.45.89.45`.
+   ![image](https://github.com/user-attachments/assets/6d285748-4906-4d26-8e2e-99562b243f61)
+
 
 ---
