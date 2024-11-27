@@ -95,5 +95,13 @@
      ```
    ![image](https://github.com/user-attachments/assets/6d285748-4906-4d26-8e2e-99562b243f61)
 
+- DNS sử dụng port 53 (cổng mặc định cho DNS, đây là 1 phần trong quy chuẩn của giao thức internet). Sử dụng cho tất cả các truy vấn DNS giữa các máy. Khi máy 2 gửi y/c đến máy 1 để lấy thông tin DNS, máy 1 sẽ trả về thông qua port 53
+- UDP port 53 sẽ được sử dụng chủ yếu khi gửi các truy vấn DNS đơn giản
+- TCP port 53 sẽ được sử dụng nếu có yêu cầu transfer dữ liệu zone hoặc nếu yêu cầu DNS quá lớn không thể trả lời qua UDP
+
+**Quá trình phân giải domain**
+
+B1: Trình duyệt gửi yêu cầu DNS
+- Khi nhập 1 tên miền vào trình duyệt web (VDL toilamlab.com) trình duyệt sẽ kiểm tra xem DNS cache của hệ thống có lưu sẵn địa chỉ IP của 
 
 ---
