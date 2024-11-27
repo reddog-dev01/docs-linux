@@ -310,3 +310,201 @@ Tên miền example.com được quản lý bởi một máy chủ DNS cụ th�
 
 **2.3.2 Các loại Query DNS**
 
+**1. Recursive Query (Truy vấn đệ quy):**
+
+Người dùng (client) yêu cầu máy chủ DNS cục bộ tìm kiếm và trả về kết quả cuối cùng.
+
+Cách hoạt động:
+
+Máy chủ DNS phải tự tìm kiếm thông qua các máy chủ khác (Root Server, TLD Server, Authoritative Server).
+
+Nếu không tìm thấy kết quả, máy chủ trả về lỗi.
+
+Ví dụ: Người dùng truy cập www.example.com, Recursive Resolver trả về địa chỉ IP cuối cùng hoặc lỗi.
+
+**2. Iterative Query (Truy vấn lặp):**
+
+Máy chủ DNS chỉ trả về thông tin gần đúng nhất hoặc chỉ dẫn (hướng đến máy chủ khác).
+
+Cách hoạt động:
+
+Máy chủ DNS không tìm kiếm toàn bộ chuỗi; thay vào đó, nó trả về địa chỉ máy chủ kế tiếp mà client cần truy vấn.
+
+Ví dụ: Recursive Resolver hỏi Root Server, Root Server chỉ dẫn đến TLD Server.
+
+**3. Reverse Query (Truy vấn ngược):**
+
+Dùng để ánh xạ địa chỉ IP thành tên miền (ngược lại với truy vấn thông thường).
+
+Cách hoạt động:
+
+Truy vấn sử dụng PTR Record trong DNS.
+
+Ví dụ:
+
+Địa chỉ IP: 192.168.1.1.
+
+Kết quả: example.com.
+
+**2.4 các loại DNS bản ghi DNS thường sử dụng**
+
+- Lưu trữ thông tin ánh xạ giữa tên miền và tài nguyên mạng
+
+1. A Record (Address Record)
+
+Ánh xạ tên miền thành địa chỉ IPv4.
+
+Ứng dụng: Dùng để truy cập website hoặc dịch vụ qua tên miền.
+
+Ví dụ:
+
+Tên miền: example.com
+
+Địa chỉ IPv4: 192.168.1.1
+
+2. AAAA Record (IPv6 Address Record)
+
+Ánh xạ tên miền thành địa chỉ IPv6.
+
+Ứng dụng: Dùng cho các mạng hỗ trợ IPv6.
+
+Ví dụ:
+
+Tên miền: example.com
+
+Địa chỉ IPv6: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+
+3. CNAME Record (Canonical Name Record)
+
+Tạo bí danh (alias) cho một tên miền khác.
+
+Ứng dụng: Dùng để chuyển hướng truy cập từ một tên miền sang tên miền khác.
+
+Ví dụ:
+
+Alias: www.example.com
+
+Tên chính: example.com
+
+4. MX Record (Mail Exchange Record)
+
+Xác định máy chủ email chịu trách nhiệm xử lý thư điện tử cho tên miền.
+
+Ứng dụng: Cấu hình email hosting.
+
+Ví dụ:
+
+Tên miền: example.com
+
+Máy chủ email: mail.example.com, độ ưu tiên: 10
+
+5. NS Record (Name Server Record)
+
+Xác định các máy chủ DNS chịu trách nhiệm phân giải tên miền.
+
+Ứng dụng: Cấu hình tên miền với máy chủ DNS phù hợp.
+
+Ví dụ:
+
+Tên miền: example.com
+
+Máy chủ DNS: ns1.example.com, ns2.example.com
+
+6. SOA Record (Start of Authority Record)
+
+Chứa thông tin quản trị của tên miền, như máy chủ DNS chính, email quản trị, thời gian làm mới bản ghi.
+
+Ứng dụng: Quản lý vùng DNS (DNS zone).
+
+Ví dụ:
+
+Máy chủ chính: ns1.example.com
+
+Email quản trị: admin@example.com
+
+7. TXT Record (Text Record)
+
+Lưu trữ dữ liệu văn bản tùy chỉnh. Thường dùng cho xác thực và bảo mật.
+
+Ứng dụng:
+
+Xác thực email (SPF, DKIM, DMARC).
+
+Xác minh tên miền với dịch vụ bên thứ ba (Google, AWS).
+
+Ví dụ:
+
+SPF: v=spf1 include:_spf.example.com ~all
+
+8. PTR Record (Pointer Record)
+
+Ánh xạ địa chỉ IP thành tên miền (truy vấn ngược).
+
+Ứng dụng: Dùng trong kiểm tra xác thực IP gửi email (Reverse DNS Lookup).
+
+Ví dụ:
+
+IP: 192.168.1.1
+
+Tên miền: example.com
+
+9. SRV Record (Service Record)
+
+Chỉ định thông tin về các dịch vụ mạng cụ thể.
+
+Ứng dụng: Cấu hình VoIP, XMPP, hoặc các dịch vụ khác.
+
+Ví dụ:
+
+Dịch vụ: _sip._tcp.example.com
+
+Máy chủ: sipserver.example.com, cổng: 5060
+
+10. CAA Record (Certification Authority Authorization Record)
+
+Xác định tổ chức nào được phép cấp chứng chỉ SSL cho tên miền.
+
+Ứng dụng: Bảo vệ tên miền khỏi chứng chỉ không hợp lệ.
+
+Ví dụ:
+
+Tên miền: example.com
+
+CA được phép: letsencrypt.org
+
+11. HINFO Record (Host Information Record)
+
+Lưu trữ thông tin về phần cứng và hệ điều hành của máy chủ.
+
+Ứng dụng: Cung cấp thông tin mô tả máy chủ (ít dùng).
+
+Ví dụ:
+
+CPU: Intel i7
+
+Hệ điều hành: Ubuntu
+
+12. DS Record (Delegation Signer Record)
+
+Lưu chữ ký số dùng trong DNSSEC (DNS Security Extensions).
+
+Ứng dụng: Đảm bảo tính toàn vẹn và xác thực của dữ liệu DNS.
+
+Ví dụ:
+
+Tên miền: example.com
+
+Chữ ký: 12345abcde...
+
+**2.5 Cách tìm IP domain**
+```
+nslookup example.com
+```
+```
+dig example.com
+```
+```
+host example.com
+```
+```ping -c 1 example.com```
+```curl -s https://api64.ipify.org?domain=example.com```
