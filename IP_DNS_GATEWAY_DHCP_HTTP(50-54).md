@@ -506,5 +506,9 @@ dig example.com
 ```
 host example.com
 ```
-```ping -c 1 example.com```
-```curl -s https://api64.ipify.org?domain=example.com```
+```
+ping -c 1 example.com
+```
+```
+curl -s https://api64.ipify.org?domain=example.com
+```
