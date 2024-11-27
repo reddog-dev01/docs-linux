@@ -353,3 +353,284 @@ Giao thức **DHCP (Dynamic Host Configuration Protocol)** là một giao thức
 Giao thức DHCP giúp tự động cấp phát địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị trong mạng mà không cần cấu hình thủ công. Quá trình này bao gồm các bước: yêu cầu, trả lời, xác nhận và cấp phát địa chỉ IP từ máy chủ DHCP. DHCP giúp quản lý mạng hiệu quả, giảm thiểu lỗi và tiết kiệm thời gian trong việc cấu hình mạng.
 
 Lưu lại zalo nếu hết Plus 4.0: [08686.01263](https://zalo.me/0868601263).
+
+
+-----
+
+Để tạo và sử dụng Ansible Role, bạn cần tạo thư mục cho role và các tệp cấu hình trên máy tính của bạn. Dưới đây là hướng dẫn chi tiết về nơi và cách bạn có thể tạo các tệp và thư mục cần thiết.
+
+### 1. **Tạo thư mục cho Role**
+
+Trước hết, bạn cần xác định thư mục nơi bạn sẽ lưu trữ các role của Ansible. Thông thường, các role của Ansible được tạo trong thư mục `roles` trong thư mục dự án của bạn.
+
+Giả sử bạn đang làm việc trong một dự án Ansible, bạn có thể tạo thư mục này trong thư mục chính của dự án:
+
+```bash
+mkdir -p ~/ansible-project/roles/my_role
+```
+
+### 2. **Tạo cấu trúc thư mục của Role**
+
+Sau khi đã tạo thư mục cho role, bạn cần tạo các thư mục con bên trong `my_role` để tổ chức các tệp cấu hình, như đã mô tả ở trên.
+
+Ví dụ, bạn có thể tạo cấu trúc thư mục như sau:
+
+```bash
+mkdir -p ~/ansible-project/roles/my_role/{defaults,files,handlers,meta,tasks,templates,vars,tests}
+```
+
+Cấu trúc này sẽ có dạng:
+
+```
+~/ansible-project/
+├── roles/
+│   └── my_role/
+│       ├── defaults/
+│       ├── files/
+│       ├── handlers/
+│       ├── meta/
+│       ├── tasks/
+│       ├── templates/
+│       ├── vars/
+│       └── tests/
+```
+
+### 3. **Tạo các tệp trong Role**
+
+Tiếp theo, bạn cần tạo các tệp trong các thư mục mà bạn đã tạo. Ví dụ:
+
+#### a. **defaults/main.yml**
+Tạo tệp **defaults/main.yml** để khai báo các biến mặc định cho DHCP và DNS.
+
+```bash
+nano ~/ansible-project/roles/my_role/defaults/main.yml
+```
+
+Dán nội dung sau vào tệp:
+
+```yaml
+dhcp_subnet: "192.168.1.0"
+dhcp_netmask: "255.255.255.0"
+dhcp_range_start: "192.168.1.100"
+dhcp_range_end: "192.168.1.200"
+dhcp_gateway: "192.168.1.1"
+dhcp_dns: "8.8.8.8"
+
+dns_domains:
+  - domain: "test1.com"
+    ip: "1.2.3.4"
+  - domain: "test2.com"
+    ip: "1.2.3.4"
+```
+
+#### b. **vars/main.yml**
+Tạo tệp **vars/main.yml** để cấu hình các biến nâng cao (ví dụ, tên dịch vụ DHCP và DNS tùy thuộc vào hệ điều hành).
+
+```bash
+nano ~/ansible-project/roles/my_role/vars/main.yml
+```
+
+Dán nội dung sau vào tệp:
+
+```yaml
+dhcp_interface: "eth0"  # Interface mạng cho DHCP server
+
+dns_service_ubuntu: "bind9"
+dns_service_centos: "named"
+
+dhcp_service_ubuntu: "isc-dhcp-server"
+dhcp_service_centos: "dhcpd"
+```
+
+#### c. **tasks/main.yml**
+Tạo tệp **tasks/main.yml** để định nghĩa các tác vụ (ví dụ, cài đặt và cấu hình DHCP và DNS).
+
+```bash
+nano ~/ansible-project/roles/my_role/tasks/main.yml
+```
+
+Dán nội dung sau vào tệp:
+
+```yaml
+# Cài đặt DHCP server trên Ubuntu
+- name: Install DHCP server (Ubuntu)
+  apt:
+    name: isc-dhcp-server
+    state: present
+  when: ansible_os_family == "Debian"
+
+# Cài đặt DHCP server trên CentOS 7
+- name: Install DHCP server (CentOS 7)
+  yum:
+    name: dhcp
+    state: present
+  when: ansible_os_family == "RedHat"
+
+# Cài đặt Bind DNS server trên Ubuntu
+- name: Install Bind DNS server (Ubuntu)
+  apt:
+    name: bind9
+    state: present
+  when: ansible_os_family == "Debian"
+
+# Cài đặt Bind DNS server trên CentOS 7
+- name: Install Bind DNS server (CentOS 7)
+  yum:
+    name: bind
+    state: present
+  when: ansible_os_family == "RedHat"
+
+# Cấu hình DHCP server
+- name: Configure DHCP server
+  template:
+    src: dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+  notify:
+    - Restart DHCP service
+
+# Cấu hình DNS server
+- name: Configure DNS server
+  template:
+    src: named.conf.j2
+    dest: /etc/bind/named.conf.local
+  notify:
+    - Restart DNS service
+
+# Khởi động và kích hoạt DHCP service
+- name: Ensure DHCP service is running (Ubuntu)
+  service:
+    name: "{{ dhcp_service_ubuntu }}"
+    state: started
+    enabled: yes
+  when: ansible_os_family == "Debian"
+
+- name: Ensure DHCP service is running (CentOS 7)
+  service:
+    name: "{{ dhcp_service_centos }}"
+    state: started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+# Khởi động và kích hoạt DNS service
+- name: Ensure DNS service is running (Ubuntu)
+  service:
+    name: "{{ dns_service_ubuntu }}"
+    state: started
+    enabled: yes
+  when: ansible_os_family == "Debian"
+
+- name: Ensure DNS service is running (CentOS 7)
+  service:
+    name: "{{ dns_service_centos }}"
+    state: started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+```
+
+#### d. **templates/dhcpd.conf.j2**
+Tạo tệp **templates/dhcpd.conf.j2** chứa cấu hình mẫu cho **DHCP server**.
+
+```bash
+nano ~/ansible-project/roles/my_role/templates/dhcpd.conf.j2
+```
+
+Dán nội dung sau vào tệp:
+
+```jinja
+subnet {{ dhcp_subnet }} netmask {{ dhcp_netmask }} {
+  range {{ dhcp_range_start }} {{ dhcp_range_end }};
+  option routers {{ dhcp_gateway }};
+  option domain-name-servers {{ dhcp_dns }};
+}
+```
+
+#### e. **templates/named.conf.j2**
+Tạo tệp **templates/named.conf.j2** chứa cấu hình mẫu cho **DNS server**.
+
+```bash
+nano ~/ansible-project/roles/my_role/templates/named.conf.j2
+```
+
+Dán nội dung sau vào tệp:
+
+```jinja
+{% for domain in dns_domains %}
+zone "{{ domain.domain }}" {
+  type master;
+  file "/etc/bind/db.{{ domain.domain }}";
+};
+{% endfor %}
+```
+
+#### f. **handlers/main.yml**
+Tạo tệp **handlers/main.yml** để cấu hình các tác vụ sẽ được gọi khi có sự thay đổi (ví dụ: khởi động lại dịch vụ).
+
+```bash
+nano ~/ansible-project/roles/my_role/handlers/main.yml
+```
+
+Dán nội dung sau vào tệp:
+
+```yaml
+- name: Restart DHCP service (Ubuntu)
+  service:
+    name: "{{ dhcp_service_ubuntu }}"
+    state: restarted
+  when: ansible_os_family == "Debian"
+
+- name: Restart DHCP service (CentOS 7)
+  service:
+    name: "{{ dhcp_service_centos }}"
+    state: restarted
+  when: ansible_os_family == "RedHat"
+
+- name: Restart DNS service (Ubuntu)
+  service:
+    name: "{{ dns_service_ubuntu }}"
+    state: restarted
+  when: ansible_os_family == "Debian"
+
+- name: Restart DNS service (CentOS 7)
+  service:
+    name: "{{ dns_service_centos }}"
+    state: restarted
+  when: ansible_os_family == "RedHat"
+```
+
+### 4. **Tạo Playbook**
+
+Cuối cùng, tạo một **playbook** để sử dụng role này. Tạo tệp `playbook.yml` trong thư mục dự án của bạn:
+
+```bash
+nano ~/ansible-project/playbook.yml
+```
+
+Dán nội dung sau vào tệp:
+
+```yaml
+- hosts: all
+  become: yes
+  roles:
+    - my_role
+```
+
+### 5. **Chạy Playbook**
+
+Bây giờ bạn đã tạo xong role và playbook, bạn có thể chạy playbook để thực thi cấu hình trên các máy chủ.
+
+```bash
+ansible-playbook -i hosts playbook.yml
+```
+
+Trong đó, `hosts` là file inventory của bạn chứa danh sách các máy chủ mà bạn muốn áp dụng cấu hình.
+
+---
+
+### **Tóm tắt các bước:**
+
+1. Tạo thư mục cho role và các thư mục con.
+2. Tạo các tệp cấu hình trong role (`defaults`, `vars`, `tasks`, `templates`, `handlers`).
+3. Tạo playbook sử dụng role.
+4. Chạy playbook với lệnh `ansible-playbook`.
+
+Lưu lại zalo nếu hết Plus 4.0: [08686.01263](https://zalo.me/0868601263).
