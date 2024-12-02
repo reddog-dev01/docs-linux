@@ -193,4 +193,78 @@ Chức năng chính của Transport Layer
 
 a. Chia nhỏ và tái hợp dữ liệu
 
-  - 
+- Tầng vận chuyển chia dữ liệu từ ứng dụng thành các segments được đánh số thứ tự. Các segments này sau đó được truyền qua mạng và sẽ được tái hợp tại thiết bị nhận.
+
+b. Quản lý kết nối
+
+- Quyết định có nên tạo kết nối giữa các thiết bị hay không (VD TCP) và đảm bảo sự ổn định của kết nối trong suốt quá trình truyền tải.
+- Các giao thức trong transport layer hỗ trợ 2 phương thức kết nối chính: TCP và UDP
+
+c. Đảm bảo tính toàn vẹn của dữ liệu
+
+- Sử dụng checksum để kiểm tra tính toàn vẹn của dữ liệu
+
+d. Kiểm soát lưu lượng
+
+- Tránh tình trạng tắc nghẽn mạng
+
+e. Quản lý lỗi
+
+- TCP có khả năng phát hiện lỗi và y/c gửi lại dữ liệu nếu phát hiện lỗi
+- UDP không có
+
+**Tầng 2 - Internet Layer (Tầng Mạng)**
+
+ - Cung cấp phương thức định tuyến và chuyển tiếp dữ liệu giữa các thiết bị qua các mạng khác nhau.
+
+Chức năng
+
+a. Định tuyến dữ liệu (Routing)
+
+- Lớp mạng xác định đường đi (route) mà dữ liệu phải đi qua giữa các mạng. Các router trong Internet Layer sẽ quyết định đường đi tốt nhất cho dữ liệu. Đảm bảo dữ liệu có thể vượt qua nhiều mạng khác nhau, từ mạng nội bộ đén mạng công cộng.
+
+b. Addressing
+
+- Sử dụng các địa chỉ IP để xác định và phân biệt các thiết bị trong mạng. Mỗi thiết bị kết nối vào mạng sẽ có 1 địa chỉ IP duy nhất
+
+c. Phân mảnh và tái hợp dữ liệu (Fragmantation and Reassembly)
+
+- Dữ liệu có thể bị phân mảnh tròng quá trình truyền tải qua mạng. Nếu dữ liệu quá lớn để truyền qua 1 mạng với kích thước gói tin tối đa (MTU - Maximum Transmission Unit), lớp mạng sẽ phân dữ liệu thành các gói tin nhỏ hơn
+- Các gói tin này sau đó sẽ được tái hợp tại đích để thành dữ liệu đầy đủ.
+
+d. Truyền thông giữa các mạng.
+
+Các giao thức IP, ARP, ICMP, IGMP....
+
+**Tầng 1 - Link Layer (Tầng vật lý)**
+
+- Tương đương với Tầng Liên Kết Dữ Liệu (Data Link Layer) trong mô hình OSI.
+
+Chức năng
+
+a. Đóng gói dữ liệu thành frame
+
+- Dữ liệu được truyền từ Network Layer sẽ được đóng gói thành các frame trong Link Layer
+- frame chứa nhiều thành phần như địa chỉ MAC nguồn và đích, dữ liệu, thông tin kiểm tra lỗi (CRC)
+- frame giúp truyền dữ liệu qua mạng vật lý từ thiết bị này sang thiết bị khác.
+
+b. Địa chỉ MAC
+
+- Link Layer sử dụng địa chỉ MAC để xác định thiết bị trong mạng LAN. Các địa chỉ MAC giúp các thiết bị trong mạng LAN giao tiếp và xác định thiết bị đích khi gửi dữ liệu.
+
+c. Kiểm tra lỗi
+
+- Lớp này cung cấp cơ chế kiểm tra lỗi để đảm bảo rằng dữ liệu truyền qua mạng không bị hỏng. Các phương pháp phổ biến như CRC (Cyclic Redundancy Check) được sử dụng để kiểm tra tính toàn vẹn của dữ liệu.
+- Nếu phát hiện lỗi, các frame bị lỗi sẽ bị loại bỏ, và yêu cầu gửi lại có thể được đưa ra (tùy thuộc vào giao thức).
+
+d. Điều khiển truy cập phương tiện (Media Access Control - MAC)
+
+- Lớp Liên Kết Dữ Liệu kiểm soát việc các thiết bị trong mạng LAN truy cập phương tiện truyền dẫn (như cáp đồng, cáp quang, sóng vô tuyến) để tránh xung đột khi nhiều thiết bị truyền tải đồng thời.
+- Một số giao thức như CSMA/CD trong Ethernet hoặc CSMA/CA trong Wi-Fi được sử dụng để điều khiển quyền truy cập vào phương tiện.
+
+e. Quản lý luồng (Flow Control)
+
+- Kiểm soát tốc độ truyền tải dữ liệu giữa các thiết bị để tránh tình trạng tắc nghẽn hoặc mất mát dữ liệu.
+- Điều này đặc biệt quan trọng trong các mạng có băng thông hạn chế.
+
+Các giao thức....
