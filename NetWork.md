@@ -362,7 +362,7 @@ TCP được sử dụng trong các tình huống và ứng dụng cần:
 **1. Cấu trúc địa chỉ IPv4**
 Địa chỉ **IPv4** (Internet Protocol version 4) là một địa chỉ 32 bit, được biểu diễn dưới dạng 4 phần, mỗi phần là một số nguyên từ 0 đến 255, cách nhau bằng dấu chấm, ví dụ: `192.168.1.1`.
 
-- **Định dạng**: `X.X.X.X`, trong đó mỗi `X` là một số từ 0 đến 255 (biểu diễn trong hệ thập phân), nhưng thực tế mỗi số này đại diện cho một octet (tám bit), vì vậy mỗi phần có giá trị từ `00000000` đến `11111111` trong hệ nhị phân.
+- **Định dạng**: `X.X.X.X`, trong đó mỗi `X` là một số từ 0 đến 255 (biểu diễn trong hệ thập phân), nhưng thực tế mỗi số này đại diện cho một octet (tám bit), vì vậy mỗi phần có giá trị từ `0000 0000` đến `1111 1111` trong hệ nhị phân.
 - **Số bit**: IPv4 sử dụng 32 bit (4 x 8 bit), được chia thành 4 phần, mỗi phần là 1 octet (8 bit).
 
 **Ví dụ**: Địa chỉ IPv4 `192.168.1.1` có dạng nhị phân là:
@@ -457,3 +457,134 @@ Với subnet mask `255.255.255.0`, ta biết rằng 24 bit đầu tiên là ph�
 - **CIDR**: `/24` (tức là 24 bit đầu tiên là phần mạng).
 
 CIDR cho phép chia địa chỉ mạng thành các subnet nhỏ hơn mà không bị ràng buộc bởi các lớp A, B, C.
+
+### **IPv6**
+
+**1. Tổng Quan về Địa chỉ IPv6**
+- **Địa chỉ IPv6 có độ dài 128 bit**, tức là 16 byte. Điều này giúp IPv6 có thể hỗ trợ rất nhiều địa chỉ, gấp nhiều lần IPv4.
+- Địa chỉ IPv6 được chia thành **8 nhóm 16 bit**, mỗi nhóm được biểu diễn dưới dạng một **chữ số hex** (hệ thập lục phân), và các nhóm được ngăn cách bởi dấu **cột đôi (:)**.
+
+**2. Cấu trúc Địa chỉ IPv6**
+Mỗi địa chỉ IPv6 có dạng:
+```
+xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx
+```
+- **Mỗi nhóm 4 chữ số hex** tương đương với **16 bit**.
+- **Tổng cộng là 128 bit** (8 nhóm x 16 bit = 128 bit).
+
+**Ví dụ**:
+Một địa chỉ IPv6 đầy đủ có thể là:
+```
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+```
+**3. Phân chia các thành phần trong địa chỉ IPv6**
+
+Địa chỉ IPv6 có thể bao gồm các thành phần sau:
+
+1. **Network Prefix** (Tiền tố mạng): Phần đầu của địa chỉ IPv6 dùng để xác định mạng, tương tự như phần mạng trong địa chỉ IPv4. Phần này có thể có độ dài từ 0 đến 128 bit, thông thường là **64 bit** cho phần mạng.
+   
+2. **Interface Identifier** (Mã nhận diện giao diện): Phần còn lại của địa chỉ IPv6 được dùng để xác định một thiết bị cụ thể trong mạng. Phần này có thể có độ dài từ 0 đến 128 bit, thường là **64 bit**.
+
+**4. Cấu trúc cụ thể trong IPv6**
+- **Phần mạng** (Network Prefix): Thường chiếm 64 bit đầu tiên trong địa chỉ IPv6.
+- **Phần host** (Interface Identifier): Chiếm 64 bit còn lại.
+
+**Ví dụ**:
+Địa chỉ IPv6: `2001:0db8:85a3:0000:0000:8a2e:0370:7334/64`
+- **Phần mạng**: `2001:0db8:85a3:0000`
+- **Phần host**: `0000:8a2e:0370:7334`
+- Đổi hex ra nhị phân: 2001 (hex) = 0010 0000 0000 0001 (bin)
+- 
+**5. Định dạng và Rút gọn Địa chỉ IPv6**
+
+IPv6 cho phép **rút gọn địa chỉ** để giảm độ dài của địa chỉ, bao gồm các quy tắc sau:
+
+1. **Loại bỏ các nhóm toàn 0**: Bạn có thể loại bỏ các nhóm toàn 0 và thay thế bằng **`::`** (chỉ có thể thay thế một lần trong một địa chỉ).
+
+   Ví dụ: 
+   ```
+   2001:0db8:0000:0000:0000:0000:0000:0001
+   ```
+   Có thể rút gọn thành:
+   ```
+   2001:db8::1
+   ```
+
+2. **Loại bỏ các số 0 ở đầu mỗi nhóm**: Các chữ số 0 ở đầu của mỗi nhóm có thể bị loại bỏ.
+
+   Ví dụ:
+   ```
+   2001:0db8:0a00:0000:0000:0000:0001:0001
+   ```
+   Có thể rút gọn thành:
+   ```
+   2001:db8:a00::1:1
+   ```
+
+**6. Các Loại Địa chỉ IPv6**
+
+IPv6 hỗ trợ ba loại địa chỉ chính:
+
+1. Unicast (Đơn phát)
+Địa chỉ Unicast là địa chỉ duy nhất trong một mạng và dùng để gửi dữ liệu từ một thiết bị này đến một thiết bị khác. Nó là địa chỉ "một với một" (one-to-one), nghĩa là dữ liệu chỉ được gửi đến một thiết bị duy nhất.
+
+Cấu trúc: Địa chỉ Unicast có thể có cấu trúc giống như bất kỳ địa chỉ IPv6 nào, nhưng thường không bắt đầu với FF00::/8 (được dành cho Multicast) hay fe80::/10 (dành cho địa chỉ Link-local).
+Ví dụ:
+2001:db8::1 là một địa chỉ Unicast, chỉ đến một máy chủ duy nhất.
+Địa chỉ này có thể là của một thiết bị trong mạng, chẳng hạn như một máy tính, máy chủ hoặc thiết bị mạng.
+Mục đích sử dụng: Địa chỉ Unicast là loại địa chỉ phổ biến nhất trong mạng, dùng trong hầu hết các giao tiếp trực tiếp giữa các thiết bị (ví dụ: từ máy tính này sang máy chủ, từ máy tính này sang máy tính khác).
+
+2. Multicast (Đa phát)
+Địa chỉ Multicast là loại địa chỉ dùng để gửi thông tin đến một nhóm thiết bị trong mạng. Thông điệp multicast được gửi đến tất cả các thiết bị trong nhóm được chỉ định, thay vì gửi tới từng thiết bị một như trong trường hợp Unicast. Đây là địa chỉ "một với nhiều" (one-to-many).
+
+Cấu trúc: Địa chỉ Multicast bắt đầu với tiền tố FF00::/8.
+Ví dụ, các địa chỉ trong phạm vi FF00::/8 được dành riêng cho Multicast.
+Một ví dụ về địa chỉ multicast là ff02::1, địa chỉ này được sử dụng để gửi thông điệp đến tất cả các node trong mạng nội bộ (link-local scope).
+Mục đích sử dụng:
+
+FF02::1: Địa chỉ này được sử dụng trong mạng nội bộ (link-local) để gửi dữ liệu đến tất cả các thiết bị trong mạng nội bộ.
+FF02::2: Địa chỉ multicast này được gửi đến tất cả các router trong mạng nội bộ.
+Ví dụ ứng dụng: Địa chỉ multicast rất hữu ích trong việc phát video trực tuyến, truyền tải dữ liệu nhóm (group communication), hoặc trong các ứng dụng VoIP (Voice over IP) khi nhiều thiết bị cần nhận một luồng dữ liệu đồng thời.
+3. Anycast (Bất kỳ phát)
+Địa chỉ Anycast là loại địa chỉ được sử dụng để gửi thông tin đến một thiết bị trong nhóm thiết bị có địa chỉ gần nhất. Khi một thông điệp được gửi đến một địa chỉ Anycast, nó sẽ được chuyển đến thiết bị có địa chỉ gần nhất (theo định nghĩa của "gần nhất" trong routing, có thể là gần nhất về mặt địa lý hoặc về mặt cấu trúc mạng).
+
+Cấu trúc: Địa chỉ Anycast có thể giống như một địa chỉ Unicast trong mạng, nhưng với định nghĩa đặc biệt trong bảng định tuyến. Một địa chỉ Anycast có thể trông giống như bất kỳ địa chỉ Unicast nào.
+
+Ví dụ: Một ví dụ điển hình là địa chỉ Anycast trong hệ thống DNS. Khi bạn gửi một yêu cầu DNS tới một địa chỉ Anycast, yêu cầu đó sẽ được chuyển đến máy chủ DNS gần nhất về mặt mạng (tức là máy chủ DNS với độ trễ thấp nhất, có thể là máy chủ gần về mặt địa lý hoặc có bảng định tuyến tối ưu).
+
+Ví dụ: Một dịch vụ DNS có thể được triển khai với địa chỉ Anycast, nơi nhiều máy chủ DNS ở các vị trí khác nhau sử dụng cùng một địa chỉ Anycast. Khi bạn gửi một yêu cầu DNS đến địa chỉ này, thông tin sẽ được chuyển tới máy chủ DNS gần nhất.
+
+Mục đích sử dụng:
+
+Anycast chủ yếu được sử dụng trong các dịch vụ mà bạn muốn chuyển hướng yêu cầu đến thiết bị/điểm truy cập gần nhất.
+
+Ứng dụng phổ biến của Anycast có thể thấy trong các dịch vụ như DNS, CDN (Content Delivery Networks), DDoS mitigation (chống tấn công DDoS), nơi yêu cầu sẽ được chuyển đến điểm gần nhất để giảm độ trễ và cải thiện hiệu suất.
+
+**7. Các Phần trong Địa chỉ IPv6**
+
+1. **Địa chỉ Giao thức Internet (Prefix)**:
+   - Phần này xác định mạng con của địa chỉ IPv6, và độ dài thường là **64 bit**.
+
+2. **Mã nhận diện giao diện (Interface Identifier)**:
+   - Đây là phần xác định một thiết bị trong mạng con. Thông thường, **64 bit cuối cùng** trong địa chỉ IPv6 sẽ là mã nhận diện giao diện.
+
+3. **Prefix Length**:
+   - Đây là độ dài của phần mạng trong địa chỉ IPv6, thường được biểu thị bằng `/n`, ví dụ `/64` trong địa chỉ `2001:db8::/64`, nơi 64 bit đầu tiên là phần mạng.
+
+### **8. Đặc điểm nổi bật của IPv6**
+
+1. **Không gian địa chỉ lớn**: IPv6 có không gian địa chỉ rất lớn với **128 bit**, điều này giúp giải quyết vấn đề thiếu hụt địa chỉ mà IPv4 gặp phải.
+
+2. **Không cần NAT**: IPv6 không yêu cầu sử dụng **NAT (Network Address Translation)** vì có đủ không gian địa chỉ cho mỗi thiết bị có thể có một địa chỉ IP công cộng riêng biệt.
+
+3. **Tự động cấu hình (SLAAC)**: IPv6 cho phép các thiết bị tự động cấu hình địa chỉ mà không cần sử dụng **DHCP**.
+
+4. **Bảo mật**: IPv6 hỗ trợ **IPsec** (Internet Protocol Security) mặc định, giúp bảo mật kết nối trong suốt quá trình truyền tải dữ liệu.
+
+### **9. Tóm tắt cấu trúc của IPv6**
+
+- **Địa chỉ IPv6 có 128 bit**, chia thành 8 nhóm, mỗi nhóm 16 bit.
+- Địa chỉ được biểu diễn dưới dạng **chữ số hex**, với các nhóm ngăn cách bằng dấu `:`.
+- **Phần mạng** (Network Prefix) chiếm 64 bit đầu tiên, phần còn lại là **Mã nhận diện giao diện**.
+- Các loại địa chỉ IPv6 gồm **Unicast**, **Multicast**, và **Anycast**.
+- IPv6 hỗ trợ **rút gọn địa chỉ**, giúp viết địa chỉ ngắn gọn và dễ sử dụng.
