@@ -256,4 +256,41 @@ Khi viết địa chỉ IPv6, có một số quy tắc giúp giảm bớt độ 
 
 Hy vọng giải thích này giúp bạn hiểu rõ hơn về cấu trúc và các tính năng của IPv6!
 
+------------
+------------
 
+
+### **Địa chỉ Loopback là gì?**
+
+**Địa chỉ loopback** trong mạng máy tính là một địa chỉ đặc biệt được sử dụng để **gửi dữ liệu quay lại chính thiết bị** mà không cần phải rời khỏi máy tính đó. Nó cho phép các ứng dụng và chương trình trên máy tính có thể giao tiếp với nhau qua mạng mà không cần phải kết nối vật lý với một thiết bị khác trong mạng.
+
+### **Địa chỉ Loopback trong IPv4**
+- **Dải địa chỉ loopback IPv4**: **127.0.0.0/8**
+- Điều này có nghĩa là bất kỳ địa chỉ nào trong khoảng từ **127.0.0.0** đến **127.255.255.255** đều là các địa chỉ loopback.
+- **Địa chỉ loopback phổ biến nhất**: **127.0.0.1**, thường được gọi là "localhost".
+
+### **Tại sao cần địa chỉ loopback?**
+- **Kiểm tra kết nối mạng nội bộ**: Địa chỉ loopback giúp kiểm tra kết nối mạng của hệ thống mà không cần phải truy cập mạng thực tế. Ví dụ, bạn có thể kiểm tra xem liệu phần mềm mạng (như một máy chủ web) có hoạt động đúng trên chính máy tính của bạn hay không mà không cần phải kết nối ra ngoài.
+- **Chạy ứng dụng mạng**: Các ứng dụng và dịch vụ có thể sử dụng địa chỉ loopback để gửi yêu cầu đến chính mình mà không đi qua mạng vật lý, giúp giảm độ trễ và cải thiện hiệu suất.
+- **Hỗ trợ cấu hình và thử nghiệm**: Các kỹ thuật viên hoặc nhà phát triển phần mềm có thể sử dụng địa chỉ loopback để kiểm tra cấu hình mạng và các dịch vụ mà không cần thiết bị mạng bên ngoài.
+
+### **Các Đặc Điểm của Địa Chỉ Loopback**
+- **Không có kết nối vật lý**: Địa chỉ loopback không yêu cầu kết nối vật lý với mạng bên ngoài; nó chỉ sử dụng **giao thức TCP/IP** để giao tiếp trong hệ thống.
+- **Được xử lý trong hệ điều hành**: Địa chỉ loopback được xử lý bởi hệ điều hành và phần mềm mạng trên chính máy tính đó.
+- **Không thể được định tuyến ra ngoài**: Các địa chỉ loopback không thể đi ra ngoài máy tính và không thể được sử dụng trên các mạng ngoài. Tất cả các dữ liệu gửi đến các địa chỉ loopback sẽ không rời khỏi hệ thống.
+
+### **Ví dụ về Địa chỉ Loopback**
+- **127.0.0.1**: Địa chỉ loopback thông dụng nhất, được gọi là **localhost**. Ví dụ, bạn có thể sử dụng địa chỉ này trong trình duyệt web để truy cập vào dịch vụ web đang chạy trên máy tính của bạn: `http://127.0.0.1` hoặc `http://localhost`.
+- Các địa chỉ trong dải **127.0.0.1 - 127.255.255.255** đều có thể được sử dụng làm địa chỉ loopback, mặc dù thông thường chỉ **127.0.0.1** được sử dụng.
+
+### **Ứng dụng của Địa Chỉ Loopback**
+- **Máy chủ web và dịch vụ web**: Khi phát triển ứng dụng web hoặc dịch vụ mạng trên máy tính cá nhân, bạn có thể cấu hình ứng dụng để nghe trên **127.0.0.1**, điều này có nghĩa là chỉ có máy tính của bạn có thể truy cập vào dịch vụ web đó, giúp kiểm tra hoặc phát triển ứng dụng mà không cần phải kết nối ra ngoài.
+- **Kiểm tra mạng**: Bạn có thể sử dụng lệnh `ping 127.0.0.1` trong Command Prompt (Windows) hoặc Terminal (Linux/macOS) để kiểm tra xem giao thức mạng TCP/IP có hoạt động đúng trên máy tính hay không. Nếu lệnh `ping` thành công, điều đó có nghĩa là các giao thức mạng của hệ thống đang hoạt động bình thường.
+  
+### **Tóm lại**
+- **Địa chỉ loopback** là một công cụ mạnh mẽ để kiểm tra, phát triển và thử nghiệm các dịch vụ mạng trong một hệ thống mà không cần kết nối ra ngoài mạng.
+- **127.0.0.1** (localhost) là địa chỉ phổ biến nhất được sử dụng trong lớp địa chỉ loopback.
+
+
+-------------
+----------
