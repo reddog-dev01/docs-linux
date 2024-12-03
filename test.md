@@ -29,45 +29,71 @@
 
 
 
-**1. Nó là gì?**  
-- **TCP (Transmission Control Protocol)** là một giao thức truyền tải dữ liệu có kết nối, hoạt động ở tầng vận chuyển (Transport Layer) trong mô hình OSI. TCP đảm bảo rằng dữ liệu được truyền tải một cách đáng tin cậy, bảo mật và theo thứ tự. Giao thức này thiết lập một kết nối giữa máy gửi và máy nhận trước khi bắt đầu truyền dữ liệu, đảm bảo rằng dữ liệu được nhận chính xác và đầy đủ.
+### **1. TCP là gì?**
+**TCP (Transmission Control Protocol)** là một giao thức truyền tải dữ liệu có kết nối, hoạt động tại tầng vận chuyển (Transport Layer) trong mô hình OSI. TCP đảm bảo rằng các gói dữ liệu được truyền một cách đáng tin cậy và theo thứ tự, bảo vệ tính toàn vẹn của dữ liệu. Khi một kết nối TCP được thiết lập, nó sẽ duy trì sự ổn định và bảo mật trong suốt quá trình truyền tải, sử dụng các cơ chế kiểm tra lỗi và xác nhận dữ liệu.
 
-**2. Cơ chế hoạt động của TCP:**
-- **Kết nối đầy đủ (Three-way Handshake)**: Trước khi bắt đầu truyền tải dữ liệu, TCP thiết lập một kết nối bằng ba bước:  
-  1. **SYN**: Máy gửi gửi một gói SYN yêu cầu kết nối.  
-  2. **SYN-ACK**: Máy nhận trả lời với một gói SYN-ACK để xác nhận nhận yêu cầu kết nối.  
-  3. **ACK**: Máy gửi cuối cùng xác nhận bằng gói ACK và kết nối được thiết lập.
-  
-- **Kiểm tra lỗi và xác nhận (Error Checking & Acknowledgment)**: TCP sử dụng kiểm tra CRC (Cyclic Redundancy Check) để phát hiện lỗi trong quá trình truyền. Máy nhận gửi lại một xác nhận (ACK) cho mỗi gói dữ liệu đã nhận thành công.
-  
-- **Quản lý độ tin cậy (Reliability)**: Nếu một gói dữ liệu bị mất hoặc không xác nhận, TCP sẽ gửi lại gói đó cho đến khi nhận được xác nhận đúng.
-  
-- **Điều khiển lưu lượng và quản lý tắc nghẽn**: TCP kiểm soát tốc độ truyền dữ liệu và có cơ chế giảm tốc độ khi xảy ra tắc nghẽn mạng để đảm bảo độ ổn định.
-  
-- **Truyền dữ liệu theo thứ tự (Order)**: TCP đảm bảo rằng các gói dữ liệu được nhận và tái sắp xếp theo đúng thứ tự.
+### **2. Cơ chế hoạt động của TCP**
+#### **a. Kết nối đầy đủ (Three-way Handshake)**
+Trước khi truyền dữ liệu, TCP thiết lập một kết nối bằng quá trình gọi là **three-way handshake**. Quá trình này gồm ba bước:
+1. **SYN (Synchronize)**: Máy gửi gửi một gói SYN yêu cầu thiết lập kết nối với máy nhận.
+2. **SYN-ACK (Synchronize-Acknowledge)**: Máy nhận trả lời với một gói SYN-ACK để xác nhận yêu cầu kết nối.
+3. **ACK (Acknowledge)**: Máy gửi gửi một gói ACK xác nhận kết nối đã được thiết lập và quá trình truyền tải có thể bắt đầu.
 
-**3. Khi nào dùng TCP?**
-- **Ứng dụng cần tính toàn vẹn cao và độ tin cậy**: TCP là lựa chọn lý tưởng cho các ứng dụng yêu cầu đảm bảo rằng tất cả dữ liệu được truyền tải đầy đủ và đúng thứ tự, mà không bị mất mát.
-  
-- **Ứng dụng yêu cầu truyền tải theo kết nối**: Các ứng dụng như duyệt web, gửi email, hay tải tệp tin cần một kết nối ổn định và bảo mật, nơi việc mất gói dữ liệu hoặc lỗi truyền tải sẽ gây ảnh hưởng nghiêm trọng.
-  
-- **Ứng dụng yêu cầu kiểm tra lỗi**: TCP là lựa chọn chính trong các hệ thống cần phát hiện và sửa lỗi truyền tải, như tải tệp tin hoặc giao dịch trực tuyến.
+#### **b. Truyền tải dữ liệu và bảo mật**
+- **Xác nhận (Acknowledgment)**: Mỗi gói dữ liệu khi nhận được sẽ được xác nhận bằng một gói ACK. Máy nhận sẽ gửi lại một gói ACK đến máy gửi để thông báo rằng dữ liệu đã được nhận đúng.
+- **Kiểm tra lỗi (Error Checking)**: TCP sử dụng kiểm tra lỗi (checksum) để đảm bảo rằng dữ liệu không bị lỗi trong quá trình truyền. Nếu có lỗi trong gói dữ liệu, TCP sẽ yêu cầu máy gửi gửi lại gói đó.
+- **Điều khiển lưu lượng (Flow Control)**: TCP sử dụng một cơ chế điều khiển lưu lượng để điều chỉnh tốc độ truyền tải dữ liệu, đảm bảo máy nhận không bị quá tải.
+- **Điều khiển tắc nghẽn (Congestion Control)**: TCP cũng có cơ chế giảm tốc độ truyền tải nếu xảy ra tắc nghẽn mạng, tránh làm mạng bị quá tải.
 
-**4. Các dịch vụ phổ biến dùng TCP:**
-- **Web Browsing (HTTP/HTTPS)**: Giao thức HTTP và HTTPS sử dụng TCP để tải trang web. TCP đảm bảo rằng tất cả các tài nguyên trên trang (ảnh, văn bản, video) được tải đúng thứ tự và không bị mất mát.
-  
-- **Email (SMTP, IMAP, POP3)**: Các giao thức gửi và nhận email như SMTP (gửi email), IMAP và POP3 (nhận email) sử dụng TCP để đảm bảo rằng thư được gửi và nhận chính xác, không bị mất mát.
-  
-- **File Transfer (FTP)**: FTP (File Transfer Protocol) sử dụng TCP để truyền tải tệp giữa các máy tính. TCP đảm bảo rằng các tệp sẽ được truyền đầy đủ và đúng thứ tự.
-  
-- **Remote Desktop (RDP)**: Giao thức Remote Desktop Protocol (RDP) cho phép điều khiển máy tính từ xa và sử dụng TCP để duy trì kết nối ổn định và bảo mật.
-  
-- **Database Connections (SQL)**: Các kết nối với cơ sở dữ liệu như MySQL, SQL Server thường sử dụng TCP để đảm bảo dữ liệu được truy vấn và truyền tải chính xác giữa các ứng dụng và cơ sở dữ liệu.
-  
-- **VoIP**: Dù UDP thường được ưu tiên cho VoIP vì yêu cầu độ trễ thấp, một số hệ thống VoIP sử dụng TCP trong trường hợp cần đảm bảo độ tin cậy và bảo mật cho các cuộc gọi.
+#### **c. Truyền tải dữ liệu theo thứ tự**
+TCP đảm bảo rằng các gói dữ liệu được tái sắp xếp theo đúng thứ tự mà chúng được gửi đi, ngay cả khi chúng đến nơi không theo thứ tự. Điều này giúp đảm bảo rằng người nhận sẽ nhận dữ liệu theo đúng thứ tự mà máy gửi mong muốn.
 
-**Tóm lại:**
-- **TCP** là giao thức truyền tải dữ liệu có kết nối, đảm bảo độ tin cậy, toàn vẹn dữ liệu và đảm bảo truyền tải theo thứ tự. Nó thích hợp cho các ứng dụng yêu cầu tính chính xác cao và không thể chấp nhận mất dữ liệu, như duyệt web, gửi email, tải tệp tin và các kết nối cơ sở dữ liệu.
+#### **d. Kết thúc kết nối (Four-way Handshake)**
+Khi quá trình truyền tải dữ liệu kết thúc, kết nối TCP được đóng lại bằng một quy trình gọi là **four-way handshake**:
+1. Máy gửi gửi một gói FIN (Finish) để yêu cầu đóng kết nối.
+2. Máy nhận gửi lại một gói ACK xác nhận đã nhận yêu cầu.
+3. Máy nhận gửi một gói FIN để kết thúc kết nối.
+4. Máy gửi gửi lại một gói ACK để xác nhận kết nối đã đóng hoàn tất.
+
+### **3. Khi nào dùng TCP?**
+TCP được sử dụng trong các tình huống và ứng dụng cần:
+- **Độ tin cậy cao và bảo vệ dữ liệu**: TCP đảm bảo rằng dữ liệu sẽ được truyền đúng đắn, không mất mát và theo thứ tự. Điều này rất quan trọng đối với các ứng dụng như gửi email, tải tệp tin, hoặc các giao dịch tài chính.
+- **Truyền tải dữ liệu theo kết nối**: Các ứng dụng yêu cầu một kết nối ổn định trong suốt quá trình truyền tải sẽ sử dụng TCP, vì giao thức này duy trì kết nối trong suốt phiên làm việc.
+- **Ứng dụng không thể chịu mất dữ liệu**: Các ứng dụng yêu cầu toàn vẹn dữ liệu và không thể chấp nhận mất mát, ví dụ như giao dịch ngân hàng, các kết nối cơ sở dữ liệu, hoặc truyền tải tệp tin quan trọng.
+- **Điều khiển tắc nghẽn và lưu lượng**: Các mạng có mật độ truy cập cao sẽ sử dụng TCP để đảm bảo không bị tắc nghẽn và điều chỉnh lưu lượng truyền tải phù hợp.
+
+### **4. Các dịch vụ phổ biến dùng TCP (chi tiết)**
+
+#### **a. Web Browsing (HTTP/HTTPS)**
+- **Cách hoạt động**: Giao thức HTTP (HyperText Transfer Protocol) và HTTPS (HTTP Secure) được sử dụng trong duyệt web. Khi bạn truy cập một trang web, trình duyệt gửi yêu cầu HTTP/HTTPS đến máy chủ và nhận lại nội dung trang web (HTML, hình ảnh, video, v.v.).
+- **Lý do dùng TCP**: Web duyệt yêu cầu một kết nối ổn định và đảm bảo rằng tất cả các tài nguyên trên trang web được tải đúng đắn và không bị mất mát. TCP đảm bảo rằng tất cả các gói dữ liệu (trang web, hình ảnh, v.v.) được truyền tải theo thứ tự và đầy đủ.
+
+#### **b. Email (SMTP, IMAP, POP3)**
+- **Cách hoạt động**: Các giao thức gửi và nhận email như **SMTP (Simple Mail Transfer Protocol)**, **IMAP (Internet Message Access Protocol)** và **POP3 (Post Office Protocol)** đều sử dụng TCP để đảm bảo email được gửi và nhận một cách chính xác.
+- **Lý do dùng TCP**: Email yêu cầu tính toàn vẹn dữ liệu cao và không thể chấp nhận việc mất mát thư. TCP đảm bảo rằng mọi thông tin gửi đi được bảo vệ và đảm bảo sự ổn định trong quá trình giao tiếp giữa các máy chủ email.
+
+#### **c. File Transfer (FTP)**
+- **Cách hoạt động**: **FTP (File Transfer Protocol)** là giao thức cho phép truyền tệp giữa các máy tính. Nó sử dụng TCP để truyền tải tệp, đảm bảo tính toàn vẹn và chính xác của dữ liệu.
+- **Lý do dùng TCP**: Việc truyền tệp cần đảm bảo rằng dữ liệu không bị mất và được truyền đầy đủ, đúng thứ tự. TCP cung cấp các cơ chế kiểm tra lỗi và xác nhận gói dữ liệu đã nhận.
+
+#### **d. Remote Desktop (RDP)**
+- **Cách hoạt động**: **RDP (Remote Desktop Protocol)** cho phép người dùng kết nối từ xa vào máy tính khác và điều khiển nó như thể đang ngồi trước máy. RDP sử dụng TCP để duy trì kết nối ổn định giữa các thiết bị.
+- **Lý do dùng TCP**: Để điều khiển máy tính từ xa, yêu cầu phải có một kết nối ổn định và đáng tin cậy, đảm bảo rằng mọi thao tác từ xa được thực hiện chính xác.
+
+#### **e. Database Connections (SQL)**
+- **Cách hoạt động**: Các ứng dụng kết nối với cơ sở dữ liệu, ví dụ như MySQL, SQL Server, Oracle, sử dụng TCP để truy vấn và trả về kết quả từ cơ sở dữ liệu.
+- **Lý do dùng TCP**: Các giao dịch cơ sở dữ liệu yêu cầu độ tin cậy cao và không thể chấp nhận mất mát dữ liệu. TCP giúp duy trì một kết nối ổn định và bảo vệ tính toàn vẹn của dữ liệu.
+
+#### **f. VoIP (Voice over IP)**
+- **Cách hoạt động**: **VoIP (Voice over IP)** là công nghệ cho phép gọi thoại qua Internet. Dù UDP thường được sử dụng cho VoIP vì tính hiệu quả và độ trễ thấp, nhưng một số hệ thống VoIP vẫn sử dụng TCP trong các trường hợp yêu cầu độ tin cậy cao và bảo mật.
+- **Lý do dùng TCP**: Khi cần bảo mật và ổn định trong quá trình gọi thoại, TCP có thể được sử dụng. Điều này đặc biệt quan trọng trong các ứng dụng VoIP cho các cuộc gọi doanh nghiệp hoặc các giao dịch yêu cầu bảo mật.
+
+#### **g. SSH (Secure Shell)**
+- **Cách hoạt động**: **SSH (Secure Shell)** là một giao thức bảo mật cho phép người dùng kết nối từ xa vào hệ thống máy tính. SSH sử dụng TCP để mã hóa và bảo vệ các kết nối.
+- **Lý do dùng TCP**: SSH yêu cầu bảo mật và tính toàn vẹn cao, vì các kết nối này thường liên quan đến quyền truy cập hệ thống và điều khiển máy tính từ xa.
+
+### **Tóm lại:**
+**TCP** là giao thức được sử dụng cho các ứng dụng yêu cầu độ tin cậy cao, bảo vệ dữ liệu, và tính toàn vẹn. Các dịch vụ như duyệt web (HTTP/HTTPS), gửi email (SMTP, IMAP), truyền tải tệp (FTP), và kết nối cơ sở dữ liệu sử dụng TCP để đảm bảo rằng dữ liệu được truyền tải chính xác, không mất mát, và theo đúng thứ tự. TCP là lựa chọn lý tưởng cho các ứng dụng cần một kết nối ổn định và bảo mật.
 
   ------------
 
