@@ -185,4 +185,75 @@ CIDR cho phép chia địa chỉ mạng thành các subnet nhỏ hơn mà không
 - Địa chỉ công cộng dùng để kết nối Internet, còn địa chỉ riêng dùng trong các mạng nội bộ.
 - **Subnetting** và **CIDR** giúp chia mạng lớn thành các mạng con nhỏ hơn, tối ưu hóa việc sử dụng địa chỉ IP.
 - Địa chỉ **loopback** (127.0.0.1) dành cho việc kiểm tra mạng cục bộ và địa chỉ **broadcast**
+
+
+
+  --------------
+  ----------
+
+
+  ### **Cấu trúc của Địa chỉ IPv6**
+
+IPv6 (Internet Protocol version 6) là phiên bản thứ 6 của giao thức Internet, được thiết kế để thay thế IPv4, giúp giải quyết vấn đề thiếu hụt địa chỉ IP trong mạng toàn cầu. IPv6 có cấu trúc địa chỉ khác hoàn toàn so với IPv4, với không gian địa chỉ lớn hơn và khả năng hỗ trợ nhiều tính năng mới.
+
+### **1. Cấu trúc Địa chỉ IPv6**
+
+- **Dài 128 bit**: Địa chỉ IPv6 có tổng cộng 128 bit (16 byte), gấp 4 lần số lượng bit trong IPv4 (32 bit). Điều này cho phép tạo ra khoảng **3.4 x 10^38 địa chỉ** (tức khoảng 340 undecillion địa chỉ).
+
+- **Định dạng**: Địa chỉ IPv6 được biểu diễn dưới dạng **8 nhóm 4 chữ số hex** (số hệ thập lục phân), mỗi nhóm có 16 bit. Các nhóm được phân tách bởi dấu hai chấm (`:`).
+
+- **Ví dụ**: Một địa chỉ IPv6 điển hình có dạng như sau:
+  ```
+  2001:0db8:85a3:0000:0000:8a2e:0370:7334
+  ```
+  Mỗi nhóm này là một cặp chữ số hex, và mỗi nhóm đại diện cho 16 bit.
+
+### **2. Cấu trúc chi tiết**
+
+- **Phần mạng** (Network Prefix): Tương tự như trong IPv4, IPv6 cũng có một phần dùng để xác định mạng. Phần mạng được phân biệt bằng cách sử dụng **mặt nạ mạng** (`/prefix`), ví dụ `/64`, có nghĩa là 64 bit đầu tiên là phần mạng.
   
+- **Phần host**: Phần còn lại của địa chỉ là phần host, tương đương với các địa chỉ trong mạng con đó.
+
+### **Ví dụ về phân chia IPv6**:
+- **2001:0db8:85a3:0000:0000:8a2e:0370:7334/64**
+  - **2001:0db8:85a3** là phần mạng (64 bit).
+  - **0000:0000:8a2e:0370:7334** là phần host (64 bit).
+
+### **3. Các loại Địa chỉ IPv6**
+
+IPv6 có ba loại địa chỉ chính:
+1. **Địa chỉ Unicast**: Địa chỉ gửi thông tin đến **một thiết bị duy nhất** trong mạng.
+   - Ví dụ: `2001:0db8::1` (địa chỉ đến một máy chủ cụ thể).
+   
+2. **Địa chỉ Multicast**: Địa chỉ gửi thông tin đến **một nhóm thiết bị** trong mạng.
+   - Ví dụ: `ff02::1` (địa chỉ multicast đến tất cả các node trong mạng nội bộ).
+
+3. **Địa chỉ Anycast**: Địa chỉ gửi thông tin đến **một thiết bị trong nhóm** mà có địa chỉ gần nhất.
+   - Ví dụ: Một dịch vụ DNS có thể sử dụng địa chỉ anycast để trả lời yêu cầu từ các máy khách gần nhất.
+
+### **4. Các Tính Năng Mới của IPv6**
+- **Không gian địa chỉ rộng lớn**: IPv6 cung cấp một không gian địa chỉ đủ lớn để hỗ trợ tất cả các thiết bị kết nối mạng trên toàn cầu, thậm chí là các thiết bị IoT (Internet of Things).
+  
+- **Tự động cấu hình** (Stateless Address Autoconfiguration - SLAAC): IPv6 cho phép thiết bị tự động cấu hình địa chỉ của mình mà không cần phải sử dụng DHCP.
+  
+- **Không có NAT**: Do không gian địa chỉ rộng lớn, IPv6 không cần sử dụng NAT (Network Address Translation), giúp đơn giản hóa việc định tuyến và cải thiện hiệu suất mạng.
+
+- **An toàn và bảo mật**: IPv6 hỗ trợ các giao thức bảo mật như IPsec (Internet Protocol Security) mặc định, giúp bảo vệ dữ liệu khi truyền tải qua mạng.
+
+### **5. Rút gọn Địa chỉ IPv6**
+
+Khi viết địa chỉ IPv6, có một số quy tắc giúp giảm bớt độ dài của địa chỉ:
+
+- **Loại bỏ các nhóm 0**: Các nhóm toàn `0` có thể bị loại bỏ. Ví dụ: `2001:0db8:0000:0000:0000:0000:0000:0001` có thể viết rút gọn thành `2001:db8::1`.
+  
+- **Rút gọn `0` trong một nhóm**: Các chữ số `0` ở đầu mỗi nhóm có thể được loại bỏ. Ví dụ: `2001:0db8:0a00::/32` có thể viết thành `2001:db8:a00::/32`.
+
+### **Tóm lại về Cấu trúc IPv6**
+- **Dài 128 bit**, được chia thành 8 nhóm 16-bit, mỗi nhóm biểu diễn một cặp chữ số hex.
+- Có 3 loại địa chỉ chính: **Unicast**, **Multicast**, **Anycast**.
+- IPv6 hỗ trợ nhiều tính năng hiện đại như **tự động cấu hình**, **bảo mật IPsec**, và **không cần NAT**.
+- **Không gian địa chỉ cực kỳ rộng** cho phép hàng tỷ thiết bị kết nối mà không lo thiếu hụt địa chỉ.
+
+Hy vọng giải thích này giúp bạn hiểu rõ hơn về cấu trúc và các tính năng của IPv6!
+
+
