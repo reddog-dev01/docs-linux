@@ -355,3 +355,88 @@ TCP được sử dụng trong các tình huống và ứng dụng cần:
 **g. SSH (Secure Shell)**
 - **Cách hoạt động**: **SSH (Secure Shell)** là một giao thức bảo mật cho phép người dùng kết nối từ xa vào hệ thống máy tính. SSH sử dụng TCP để mã hóa và bảo vệ các kết nối.
 - **Lý do dùng TCP**: SSH yêu cầu bảo mật và tính toàn vẹn cao, vì các kết nối này thường liên quan đến quyền truy cập hệ thống và điều khiển máy tính từ xa.
+
+
+### **IPv4**
+
+**1. Cấu trúc địa chỉ IPv4**
+Địa chỉ **IPv4** (Internet Protocol version 4) là một địa chỉ 32 bit, được biểu diễn dưới dạng 4 phần, mỗi phần là một số nguyên từ 0 đến 255, cách nhau bằng dấu chấm, ví dụ: `192.168.1.1`.
+
+- **Định dạng**: `X.X.X.X`, trong đó mỗi `X` là một số từ 0 đến 255 (biểu diễn trong hệ thập phân), nhưng thực tế mỗi số này đại diện cho một octet (tám bit), vì vậy mỗi phần có giá trị từ `00000000` đến `11111111` trong hệ nhị phân.
+- **Số bit**: IPv4 sử dụng 32 bit (4 x 8 bit), được chia thành 4 phần, mỗi phần là 1 octet (8 bit).
+
+**Ví dụ**: Địa chỉ IPv4 `192.168.1.1` có dạng nhị phân là:
+- `192` → `11000000`
+- `168` → `10101000`
+- `1`   → `00000001`
+- `1`   → `00000001`
+
+**2. Phân loại địa chỉ IPv4**
+Các địa chỉ IPv4 được phân loại thành các lớp khác nhau dựa trên phạm vi và mục đích sử dụng, bao gồm **Class A**, **Class B**, **Class C**, **Class D**, và **Class E**.
+
+**a. Phân loại theo Class**
+Địa chỉ IPv4 được chia thành các lớp (Class) sau đây:
+
+1. **Class A** (`0.0.0.0` - `127.255.255.255`)
+   - **Đặc điểm**: Class A có 8 bit đầu tiên dành cho **phần mạng** và 24 bit còn lại dành cho **phần host**. 
+   - **Dải địa chỉ**: Địa chỉ từ `0.0.0.0` đến `127.255.255.255`. Trong đó, `127.0.0.0` đến `127.255.255.255` được dành riêng cho **loopback** (quay lại máy tính của mình).
+   - **Số mạng**: 128 mạng (2^7) với khoảng 16 triệu host mỗi mạng (2^24 - 2).
+   - **Ứng dụng**: Lớp A được dùng cho các tổ chức lớn cần nhiều địa chỉ IP cho các thiết bị trong mạng của mình.
+
+2. **Class B** (`128.0.0.0` - `191.255.255.255`)
+   - **Đặc điểm**: Class B có 16 bit đầu tiên dành cho **phần mạng** và 16 bit còn lại dành cho **phần host**.
+   - **Dải địa chỉ**: Địa chỉ từ `128.0.0.0` đến `191.255.255.255`.
+   - **Số mạng**: 16,384 mạng (2^14) với khoảng 65,534 host mỗi mạng (2^16 - 2).
+   - **Ứng dụng**: Dành cho các tổ chức vừa và lớn, cần số lượng host vừa phải trong mỗi mạng.
+
+3. **Class C** (`192.0.0.0` - `223.255.255.255`)
+   - **Đặc điểm**: Class C có 24 bit đầu tiên dành cho **phần mạng** và 8 bit còn lại dành cho **phần host**.
+   - **Dải địa chỉ**: Địa chỉ từ `192.0.0.0` đến `223.255.255.255`.
+   - **Số mạng**: 2 triệu mạng (2^21) với khoảng 254 host mỗi mạng (2^8 - 2).
+   - **Ứng dụng**: Lớp C được sử dụng cho các mạng nhỏ hơn, như các mạng văn phòng hoặc doanh nghiệp nhỏ.
+
+4. **Class D** (`224.0.0.0` - `239.255.255.255`)
+   - **Đặc điểm**: Class D được dùng cho **multicast** (truyền tải thông tin đến nhóm nhiều thiết bị).
+   - **Dải địa chỉ**: Địa chỉ từ `224.0.0.0` đến `239.255.255.255`.
+   - **Ứng dụng**: Dùng cho các ứng dụng như phát sóng video hoặc thoại qua Internet (VoIP).
+
+5. **Class E** (`240.0.0.0` - `255.255.255.255`)
+   - **Đặc điểm**: Class E dành cho các mục đích thử nghiệm và nghiên cứu, không được sử dụng rộng rãi trong mạng công cộng.
+   - **Dải địa chỉ**: Địa chỉ từ `240.0.0.0` đến `255.255.255.255`.
+   - **Ứng dụng**: Dành cho các nghiên cứu hoặc thử nghiệm của các nhà phát triển mạng.
+
+**b. Địa chỉ công cộng và địa chỉ riêng**
+- **Địa chỉ công cộng**: Đây là địa chỉ có thể truy cập trực tiếp từ Internet và được cấp phát bởi các nhà cung cấp dịch vụ mạng (ISP). Những địa chỉ này không bị giới hạn trong mạng nội bộ.
+- **Địa chỉ riêng (Private IP)**: Là địa chỉ được sử dụng trong các mạng nội bộ (LAN), không thể truy cập từ Internet. Các địa chỉ riêng thuộc các dải sau:
+  - **Class A**: `10.0.0.0` đến `10.255.255.255`
+  - **Class B**: `172.16.0.0` đến `172.31.255.255`
+  - **Class C**: `192.168.0.0` đến `192.168.255.255`
+  
+- **Địa chỉ loopback** (`127.0.0.0` đến `127.255.255.255`): Dùng để gửi các gói tin từ máy tính đến chính nó, thường được sử dụng để kiểm tra các kết nối mạng trong máy tính.
+
+**c. Địa chỉ Broadcast**
+- **Địa chỉ Broadcast** được dùng để gửi dữ liệu đến tất cả các thiết bị trong một mạng. Địa chỉ broadcast có dạng `X.X.X.255`, trong đó `X.X.X` là địa chỉ mạng. Ví dụ: `192.168.1.255` là broadcast cho mạng `192.168.1.0`.
+
+**d. Địa chỉ Multicast**
+- **Multicast** là một phương thức truyền dữ liệu đến một nhóm các thiết bị, không phải tất cả các thiết bị trong mạng. Địa chỉ multicast nằm trong dải từ `224.0.0.0` đến `239.255.255.255`.
+
+**3. Chia địa chỉ IPv4 (Subnetting)**
+Quá trình **Subnetting** là việc chia một mạng lớn thành nhiều mạng nhỏ hơn. Điều này giúp tối ưu hóa việc sử dụng địa chỉ IP và tổ chức mạng một cách hợp lý hơn.
+
+**a. Subnet Mask**
+- **Subnet Mask** giúp xác định phần mạng và phần host trong một địa chỉ IP. Đây là một giá trị 32-bit, với phần mạng có giá trị 1 và phần host có giá trị 0.
+  
+**Ví dụ**:
+- **IP**: `192.168.1.1`
+- **Subnet Mask**: `255.255.255.0` (biểu diễn nhị phân là `11111111.11111111.11111111.00000000`).
+
+Với subnet mask `255.255.255.0`, ta biết rằng 24 bit đầu tiên là phần mạng, còn 8 bit cuối cùng là phần host. Điều này có nghĩa là ta có thể chia mạng `192.168.1.0` thành 256 địa chỉ host (từ `192.168.1.0` đến `192.168.1.255`).
+
+**b. CIDR (Classless Inter-Domain Routing)**
+- **CIDR** là phương pháp chia địa chỉ linh hoạt hơn so với phân chia theo lớp (Classful). CIDR sử dụng cú pháp `X.X.X.X/bit` để xác định số bit được sử dụng cho phần mạng. Ví dụ: `192.168.1.0/24` có nghĩa là 24 bit đầu tiên được dùng cho phần mạng và 8 bit còn lại dành cho phần host.
+  
+**Ví dụ**:
+- **Địa chỉ IP**: `192.168.1.0`
+- **CIDR**: `/24` (tức là 24 bit đầu tiên là phần mạng).
+
+CIDR cho phép chia địa chỉ mạng thành các subnet nhỏ hơn mà không bị ràng buộc bởi các lớp A, B, C.
