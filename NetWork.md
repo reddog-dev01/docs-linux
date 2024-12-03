@@ -374,13 +374,30 @@ TCP được sử dụng trong các tình huống và ứng dụng cần:
 **2. Phân loại địa chỉ IPv4**
 Các địa chỉ IPv4 được phân loại thành các lớp khác nhau dựa trên phạm vi và mục đích sử dụng, bao gồm **Class A**, **Class B**, **Class C**, **Class D**, và **Class E**.
 
+**loopback** 
+
+- được sử dụng để gửi dữ liệu quay lại chính thiết bị mà không phải rời khỏi máy tính đó. 
+- **Dải địa chỉ loopback IPv4**: **127.0.0.0/8**
+- Điều này có nghĩa là bất kỳ địa chỉ nào trong khoảng từ **127.0.0.0** đến **127.255.255.255** đều là các địa chỉ loopback.
+- **Địa chỉ loopback phổ biến nhất**: **127.0.0.1**, thường được gọi là "localhost".
+**Tại sao cần địa chỉ loopback?**
+- **Kiểm tra kết nối mạng nội bộ**: Địa chỉ loopback giúp kiểm tra kết nối mạng của hệ thống mà không cần phải truy cập mạng thực tế. Ví dụ, bạn có thể kiểm tra xem liệu phần mềm mạng (như một máy chủ web) có hoạt động đúng trên chính máy tính của bạn hay không mà không cần phải kết nối ra ngoài.
+- **Chạy ứng dụng mạng**: Các ứng dụng và dịch vụ có thể sử dụng địa chỉ loopback để gửi yêu cầu đến chính mình mà không đi qua mạng vật lý, giúp giảm độ trễ và cải thiện hiệu suất.
+- **Hỗ trợ cấu hình và thử nghiệm**: Các kỹ thuật viên hoặc nhà phát triển phần mềm có thể sử dụng địa chỉ loopback để kiểm tra cấu hình mạng và các dịch vụ mà không cần thiết bị mạng bên ngoài.
+
+**Các Đặc Điểm của Địa Chỉ Loopback**
+- **Không có kết nối vật lý**: Địa chỉ loopback không yêu cầu kết nối vật lý với mạng bên ngoài; nó chỉ sử dụng **giao thức TCP/IP** để giao tiếp trong hệ thống.
+- **Được xử lý trong hệ điều hành**: Địa chỉ loopback được xử lý bởi hệ điều hành và phần mềm mạng trên chính máy tính đó.
+- **Không thể được định tuyến ra ngoài**: Các địa chỉ loopback không thể đi ra ngoài máy tính và không thể được sử dụng trên các mạng ngoài. Tất cả các dữ liệu gửi đến các địa chỉ loopback sẽ không rời khỏi hệ thống.
+
 **a. Phân loại theo Class**
 Địa chỉ IPv4 được chia thành các lớp (Class) sau đây:
 
 1. **Class A** (`0.0.0.0` - `127.255.255.255`)
    - **Đặc điểm**: Class A có 8 bit đầu tiên dành cho **phần mạng** và 24 bit còn lại dành cho **phần host**. 
    - **Dải địa chỉ**: Địa chỉ từ `0.0.0.0` đến `127.255.255.255`. Trong đó, `127.0.0.0` đến `127.255.255.255` được dành riêng cho **loopback** (quay lại máy tính của mình).
-   - **Số mạng**: 128 mạng (2^7) với khoảng 16 triệu host mỗi mạng (2^24 - 2).
+   - **Số mạng**: 128 mạng (2^7) với khoảng 16 triệu host mỗi mạng (2^24 - 2). 0.0.0.0 dành riêng cho mục đích đặc biệt như chỉ ra mạng hiện tại hoặc làm địa chỉ mặc định. 127.0.0.0/8 được dành riêng cho các địa chỉ loopback, không dùng làm địa chỉ mạng thực tế.
+    
    - **Ứng dụng**: Lớp A được dùng cho các tổ chức lớn cần nhiều địa chỉ IP cho các thiết bị trong mạng của mình.
 
 2. **Class B** (`128.0.0.0` - `191.255.255.255`)
