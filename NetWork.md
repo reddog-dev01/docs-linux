@@ -571,7 +571,7 @@ Anycast chủ yếu được sử dụng trong các dịch vụ mà bạn muốn
 3. **Prefix Length**:
    - Đây là độ dài của phần mạng trong địa chỉ IPv6, thường được biểu thị bằng `/n`, ví dụ `/64` trong địa chỉ `2001:db8::/64`, nơi 64 bit đầu tiên là phần mạng.
 
-### **8. Đặc điểm nổi bật của IPv6**
+**8. Đặc điểm nổi bật của IPv6**
 
 1. **Không gian địa chỉ lớn**: IPv6 có không gian địa chỉ rất lớn với **128 bit**, điều này giúp giải quyết vấn đề thiếu hụt địa chỉ mà IPv4 gặp phải.
 
@@ -581,10 +581,3 @@ Anycast chủ yếu được sử dụng trong các dịch vụ mà bạn muốn
 
 4. **Bảo mật**: IPv6 hỗ trợ **IPsec** (Internet Protocol Security) mặc định, giúp bảo mật kết nối trong suốt quá trình truyền tải dữ liệu.
 
-### **9. Tóm tắt cấu trúc của IPv6**
-
-- **Địa chỉ IPv6 có 128 bit**, chia thành 8 nhóm, mỗi nhóm 16 bit.
-- Địa chỉ được biểu diễn dưới dạng **chữ số hex**, với các nhóm ngăn cách bằng dấu `:`.
-- **Phần mạng** (Network Prefix) chiếm 64 bit đầu tiên, phần còn lại là **Mã nhận diện giao diện**.
-- Các loại địa chỉ IPv6 gồm **Unicast**, **Multicast**, và **Anycast**.
-- IPv6 hỗ trợ **rút gọn địa chỉ**, giúp viết địa chỉ ngắn gọn và dễ sử dụng.
