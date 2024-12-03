@@ -410,3 +410,39 @@ Hy vọng rằng thông tin trên giúp bạn hiểu rõ hơn về **cấu trúc
 Ví dụ: Một ví dụ điển hình là địa chỉ Anycast trong hệ thống DNS. Khi bạn gửi một yêu cầu DNS tới một địa chỉ Anycast, yêu cầu đó sẽ được chuyển đến máy chủ DNS gần nhất về mặt mạng (tức là máy chủ DNS với độ trễ thấp nhất, có thể là máy chủ gần về mặt địa lý hoặc có bảng định tuyến tối ưu).
 
 Ví dụ: Một dịch vụ DNS có thể được triển khai với địa chỉ Anycast, nơi nhiều máy chủ DNS ở các vị trí khác nhau sử dụng cùng một địa chỉ Anycast. Khi bạn gửi một yêu cầu DNS đến địa chỉ này, thông tin sẽ được chuyển tới máy chủ DNS gần nhất.
+
+
+Trong IPv6, có ba loại địa chỉ chính mà mỗi loại phục vụ các mục đích khác nhau trong việc gửi và nhận thông tin trên mạng. Đây là các loại địa chỉ Unicast, Multicast và Anycast. Dưới đây là giải thích chi tiết về từng loại địa chỉ:
+
+1. Unicast (Đơn phát)
+Địa chỉ Unicast là địa chỉ duy nhất trong một mạng và dùng để gửi dữ liệu từ một thiết bị này đến một thiết bị khác. Nó là địa chỉ "một với một" (one-to-one), nghĩa là dữ liệu chỉ được gửi đến một thiết bị duy nhất.
+
+Cấu trúc: Địa chỉ Unicast có thể có cấu trúc giống như bất kỳ địa chỉ IPv6 nào, nhưng thường không bắt đầu với FF00::/8 (được dành cho Multicast) hay fe80::/10 (dành cho địa chỉ Link-local).
+Ví dụ:
+2001:db8::1 là một địa chỉ Unicast, chỉ đến một máy chủ duy nhất.
+Địa chỉ này có thể là của một thiết bị trong mạng, chẳng hạn như một máy tính, máy chủ hoặc thiết bị mạng.
+Mục đích sử dụng: Địa chỉ Unicast là loại địa chỉ phổ biến nhất trong mạng, dùng trong hầu hết các giao tiếp trực tiếp giữa các thiết bị (ví dụ: từ máy tính này sang máy chủ, từ máy tính này sang máy tính khác).
+
+2. Multicast (Đa phát)
+Địa chỉ Multicast là loại địa chỉ dùng để gửi thông tin đến một nhóm thiết bị trong mạng. Thông điệp multicast được gửi đến tất cả các thiết bị trong nhóm được chỉ định, thay vì gửi tới từng thiết bị một như trong trường hợp Unicast. Đây là địa chỉ "một với nhiều" (one-to-many).
+
+Cấu trúc: Địa chỉ Multicast bắt đầu với tiền tố FF00::/8.
+Ví dụ, các địa chỉ trong phạm vi FF00::/8 được dành riêng cho Multicast.
+Một ví dụ về địa chỉ multicast là ff02::1, địa chỉ này được sử dụng để gửi thông điệp đến tất cả các node trong mạng nội bộ (link-local scope).
+Mục đích sử dụng:
+
+FF02::1: Địa chỉ này được sử dụng trong mạng nội bộ (link-local) để gửi dữ liệu đến tất cả các thiết bị trong mạng nội bộ.
+FF02::2: Địa chỉ multicast này được gửi đến tất cả các router trong mạng nội bộ.
+Ví dụ ứng dụng: Địa chỉ multicast rất hữu ích trong việc phát video trực tuyến, truyền tải dữ liệu nhóm (group communication), hoặc trong các ứng dụng VoIP (Voice over IP) khi nhiều thiết bị cần nhận một luồng dữ liệu đồng thời.
+3. Anycast (Bất kỳ phát)
+Địa chỉ Anycast là loại địa chỉ được sử dụng để gửi thông tin đến một thiết bị trong nhóm thiết bị có địa chỉ gần nhất. Khi một thông điệp được gửi đến một địa chỉ Anycast, nó sẽ được chuyển đến thiết bị có địa chỉ gần nhất (theo định nghĩa của "gần nhất" trong routing, có thể là gần nhất về mặt địa lý hoặc về mặt cấu trúc mạng).
+
+Cấu trúc: Địa chỉ Anycast có thể giống như một địa chỉ Unicast trong mạng, nhưng với định nghĩa đặc biệt trong bảng định tuyến. Một địa chỉ Anycast có thể trông giống như bất kỳ địa chỉ Unicast nào.
+
+Ví dụ: Một ví dụ điển hình là địa chỉ Anycast trong hệ thống DNS. Khi bạn gửi một yêu cầu DNS tới một địa chỉ Anycast, yêu cầu đó sẽ được chuyển đến máy chủ DNS gần nhất về mặt mạng (tức là máy chủ DNS với độ trễ thấp nhất, có thể là máy chủ gần về mặt địa lý hoặc có bảng định tuyến tối ưu).
+
+Ví dụ: Một dịch vụ DNS có thể được triển khai với địa chỉ Anycast, nơi nhiều máy chủ DNS ở các vị trí khác nhau sử dụng cùng một địa chỉ Anycast. Khi bạn gửi một yêu cầu DNS đến địa chỉ này, thông tin sẽ được chuyển tới máy chủ DNS gần nhất.
+Mục đích sử dụng:
+
+Anycast chủ yếu được sử dụng trong các dịch vụ mà bạn muốn chuyển hướng yêu cầu đến thiết bị/điểm truy cập gần nhất.
+Ứng dụng phổ biến của Anycast có thể thấy trong các dịch vụ như DNS, CDN (Content Delivery Networks), DDoS mitigation (chống tấn công DDoS), nơi yêu cầu sẽ được chuyển đến điểm gần nhất để giảm độ trễ và cải thiện hiệu suất.
