@@ -1,144 +1,120 @@
-Cấu hình định tuyến tĩnh trên máy ảo Ubuntu chạy trong VMware có thể thực hiện qua các bước giống như cấu hình trên Ubuntu thông thường. Tuy nhiên, để đảm bảo rằng cấu hình được áp dụng chính xác trong môi trường máy ảo, bạn cần lưu ý một số điều kiện đặc biệt liên quan đến mạng trong VMware. Dưới đây là hướng dẫn chi tiết:
+### Cơ Chế Hoạt Động của Iptables
 
-### **1. Kiểm Tra Cấu Hình Mạng Của Máy Ảo**
+**Iptables** là một công cụ quản lý tường lửa trên hệ thống Linux, giúp kiểm soát lưu lượng mạng đi qua hệ thống dựa trên các quy tắc mà bạn định nghĩa. Cơ chế hoạt động của iptables có thể được mô tả như sau:
 
-Trước khi cấu hình định tuyến tĩnh, bạn cần đảm bảo rằng máy ảo của bạn có cấu hình mạng hợp lý trong VMware:
+#### **1. Các Bảng (Tables) trong Iptables**
+Iptables sử dụng **bảng** để phân loại các quy tắc. Mỗi bảng có mục đích khác nhau:
 
-#### **Kiểm Tra Thiết Lập Mạng trong VMware:**
-- **Bridged Network (Mạng nối cầu)**: Máy ảo sẽ kết nối trực tiếp với mạng của máy chủ vật lý. Mạng máy ảo sẽ nhận địa chỉ IP từ cùng một DHCP server như máy chủ vật lý.
-- **NAT Network (Mạng NAT)**: Máy ảo sẽ sử dụng mạng ảo và có một IP riêng, nhưng tất cả kết nối từ máy ảo ra ngoài đều đi qua máy chủ vật lý (máy chủ VMware).
-- **Host-Only Network (Mạng chỉ có máy chủ)**: Máy ảo có thể kết nối với máy chủ vật lý và các máy ảo khác nhưng không thể truy cập internet.
+- **Filter Table**: Đây là bảng mặc định, được dùng để kiểm soát truy cập mạng. Nó quản lý các chuỗi `INPUT`, `OUTPUT`, và `FORWARD`:
+  - `INPUT`: Quy tắc này áp dụng cho các gói tin đến máy tính (máy chủ).
+  - `OUTPUT`: Quy tắc này áp dụng cho các gói tin đi ra khỏi máy tính (máy chủ).
+  - `FORWARD`: Quy tắc này áp dụng cho các gói tin được chuyển tiếp qua máy tính (máy chủ) tới một máy tính khác.
+  
+- **NAT Table**: Dùng để thực hiện NAT (Network Address Translation), thường được dùng để thay đổi địa chỉ IP trong các gói tin khi chuyển tiếp qua router hoặc gateway.
+  - Các chuỗi trong NAT: `PREROUTING`, `POSTROUTING`, và `OUTPUT`.
+  
+- **Mangle Table**: Dùng để thay đổi các thuộc tính của gói tin, như TTL (Time To Live), TOS (Type of Service), hoặc các trường khác trong gói tin.
 
-Lựa chọn cấu hình mạng phù hợp với yêu cầu của bạn.
+- **Raw Table**: Được sử dụng để miễn trừ các gói tin khỏi việc theo dõi (connection tracking).
 
-### **2. Cấu Hình Định Tuyến Tĩnh Trên Máy Ảo Ubuntu**
+#### **2. Các Chuỗi (Chains) trong Iptables**
+Mỗi bảng chứa các chuỗi, các chuỗi này là nơi lưu trữ các quy tắc lọc gói tin. Mỗi chuỗi có một mục đích cụ thể:
 
-Sau khi xác nhận cấu hình mạng của máy ảo, bạn có thể tiếp tục cấu hình định tuyến tĩnh trên hệ thống Ubuntu trong máy ảo. Dưới đây là các bước cụ thể:
+- **INPUT**: Quy tắc dành cho các gói tin đến máy chủ.
+- **OUTPUT**: Quy tắc dành cho các gói tin đi từ máy chủ.
+- **FORWARD**: Quy tắc dành cho các gói tin chuyển tiếp qua máy chủ.
+- **PREROUTING** và **POSTROUTING** (chỉ có trong NAT và Mangle): Dùng để thay đổi hoặc điều hướng các gói tin khi chúng đi qua máy chủ.
 
-#### **Bước 1: Kiểm Tra Giao Diện Mạng**
-Mở terminal trong máy ảo Ubuntu và kiểm tra các giao diện mạng hiện có bằng lệnh:
+#### **3. Các Quy Tắc trong Iptables**
+Mỗi quy tắc trong iptables là một điều kiện mà gói tin phải thỏa mãn, để quyết định xem nó có được phép đi qua hay không. Các quy tắc được cấu hình để chấp nhận (ACCEPT), từ chối (DROP), hay tiếp tục kiểm tra các quy tắc khác (RETURN).
+
+#### **4. Các Quy Tắc Lọc Gói Tin**
+Khi một gói tin đến hệ thống, iptables sẽ kiểm tra chuỗi của bảng filter (mặc định) để quyết định xem gói tin đó có được phép đi qua không. Dưới đây là các hành động mà bạn có thể cấu hình trong iptables:
+- **ACCEPT**: Chấp nhận gói tin và cho phép nó tiếp tục.
+- **DROP**: Từ chối gói tin và không gửi thông báo về việc từ chối.
+- **REJECT**: Từ chối gói tin và gửi thông báo về việc từ chối.
+- **LOG**: Ghi lại gói tin (nếu bạn muốn theo dõi).
+- **RETURN**: Dừng kiểm tra trong chuỗi và chuyển sang chuỗi khác.
+
+### Cách Cấu Hình Iptables
+
+Để cấu hình iptables, bạn cần quyền root (quản trị viên). Dưới đây là hướng dẫn chi tiết về cách thêm, xem, và xóa các quy tắc trong iptables.
+
+#### **1. Xem Các Quy Tắc Hiện Tại**
+Để liệt kê các quy tắc iptables đang hoạt động:
 ```bash
-ip addr
+sudo iptables -L -n -v
 ```
-Hoặc:
+- `-L`: Liệt kê các quy tắc.
+- `-n`: Hiển thị địa chỉ IP và cổng bằng số, không chuyển thành tên.
+- `-v`: Hiển thị thêm chi tiết.
+
+#### **2. Thêm Quy Tắc**
+Bạn có thể thêm quy tắc vào các chuỗi khác nhau tùy theo mục đích sử dụng.
+
+##### **Ví dụ 1: Chặn IP**
+Nếu bạn muốn chặn địa chỉ IP `192.168.1.100` gửi yêu cầu đến máy tính của mình, bạn có thể sử dụng quy tắc sau:
 ```bash
-ifconfig
+sudo iptables -A INPUT -s 192.168.1.100 -j DROP
 ```
-Lệnh này sẽ liệt kê tất cả các giao diện mạng có trên máy ảo, ví dụ `eth0`, `ens33`, `enp0s3`... (tên giao diện có thể thay đổi tùy vào bản phân phối Ubuntu và cấu hình mạng).
+- `-A INPUT`: Thêm quy tắc vào chuỗi INPUT.
+- `-s 192.168.1.100`: Quy tắc áp dụng cho gói tin có địa chỉ nguồn là `192.168.1.100`.
+- `-j DROP`: Từ chối (DROP) các gói tin này.
 
-#### **Bước 2: Thêm Tuyến Đường Tĩnh**
-
-Sử dụng lệnh `ip route` để thêm tuyến đường tĩnh. Ví dụ, bạn muốn thêm một tuyến đường đến mạng `192.168.2.0/24` qua gateway `192.168.1.1` trên giao diện `ens33`.
-
-Cú pháp:
+##### **Ví dụ 2: Cho phép kết nối SSH**
+Để cho phép kết nối SSH từ các máy tính khác, bạn có thể thêm quy tắc sau:
 ```bash
-sudo ip route add 192.168.2.0/24 via 192.168.1.1 dev ens33
+sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 ```
+- `-A INPUT`: Thêm quy tắc vào chuỗi INPUT.
+- `-p tcp`: Sử dụng giao thức TCP.
+- `--dport 22`: Chỉ định cổng đích là cổng 22 (cổng mặc định của SSH).
+- `-m conntrack --ctstate NEW,ESTABLISHED`: Sử dụng module conntrack để cho phép các kết nối mới và đã thiết lập.
+- `-j ACCEPT`: Cho phép các gói tin này.
 
-- `192.168.2.0/24`: Mạng đích bạn muốn định tuyến.
-- `192.168.1.1`: Gateway (địa chỉ IP của router hoặc next-hop).
-- `ens33`: Tên giao diện mạng.
-
-#### **Bước 3: Kiểm Tra Bảng Định Tuyến**
-Sau khi thêm tuyến đường tĩnh, bạn có thể kiểm tra bảng định tuyến của máy ảo bằng lệnh:
+##### **Ví dụ 3: Cho phép Ping**
+Để cho phép các gói tin ICMP (Ping), bạn có thể thêm quy tắc sau:
 ```bash
-ip route show
+sudo iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
 ```
+- `-p icmp`: Chỉ định giao thức ICMP.
+- `--icmp-type echo-request`: Cho phép loại gói tin `echo-request` (gói tin Ping).
+- `-j ACCEPT`: Cho phép gói tin này.
 
-Nếu tuyến đường đã được thêm thành công, bạn sẽ thấy mạng đích và gateway trong bảng định tuyến.
-
----
-
-### **3. Cấu Hình Định Tuyến Tĩnh Vĩnh Cửu**
-
-Để đảm bảo rằng tuyến đường tĩnh vẫn tồn tại sau khi máy ảo khởi động lại, bạn cần thêm chúng vào các file cấu hình mạng.
-
-#### **Trên Ubuntu 18.04 và các bản mới hơn (sử dụng `netplan`)**
-
-Ubuntu 18.04 trở lên sử dụng **Netplan** để quản lý cấu hình mạng. Bạn cần chỉnh sửa các file cấu hình trong `/etc/netplan/` để thêm tuyến đường tĩnh.
-
-1. Mở thư mục cấu hình Netplan:
-   ```bash
-   cd /etc/netplan/
-   ```
-
-2. Tìm và mở file cấu hình mạng (ví dụ: `00-installer-config.yaml` hoặc tên khác tùy thuộc vào hệ thống của bạn):
-   ```bash
-   sudo nano 00-installer-config.yaml
-   ```
-
-3. Thêm tuyến đường tĩnh vào phần cấu hình mạng dưới giao diện bạn đang sử dụng. Ví dụ:
-   ```yaml
-   network:
-     version: 2
-     renderer: networkd
-     ethernets:
-       ens33:
-         dhcp4: true
-         routes:
-           - to: 192.168.2.0/24
-             via: 192.168.1.1
-   ```
-
-   - `ens33`: Tên giao diện mạng bạn sử dụng.
-   - `routes`: Phần này định nghĩa các tuyến đường tĩnh. Bạn có thể thêm nhiều tuyến đường nếu cần.
-
-4. Lưu file và thoát trình soạn thảo.
-
-5. Áp dụng cấu hình mới:
-   ```bash
-   sudo netplan apply
-   ```
-
-#### **Trên Ubuntu 16.04 và các bản cũ hơn (sử dụng `/etc/network/interfaces`)**
-
-1. Mở file `/etc/network/interfaces` để chỉnh sửa:
-   ```bash
-   sudo nano /etc/network/interfaces
-   ```
-
-2. Thêm cấu hình cho mạng và tuyến đường tĩnh, ví dụ:
-   ```bash
-   iface ens33 inet static
-       address 192.168.1.2
-       netmask 255.255.255.0
-       gateway 192.168.1.1
-       up ip route add 192.168.2.0/24 via 192.168.1.1
-   ```
-
-   - `up ip route add ...` sẽ thêm tuyến đường tĩnh mỗi khi giao diện `ens33` được kích hoạt.
-
-3. Lưu và đóng file.
-
-4. Khởi động lại dịch vụ mạng:
-   ```bash
-   sudo systemctl restart networking
-   ```
-
----
-
-### **4. Kiểm Tra Định Tuyến Tĩnh Sau Khi Khởi Động**
-
-Sau khi cấu hình vĩnh cửu, bạn có thể kiểm tra bảng định tuyến sau khi khởi động lại máy ảo bằng lệnh:
+#### **3. Xóa Quy Tắc**
+Để xóa một quy tắc, bạn có thể sử dụng lệnh `-D` thay vì `-A`:
 ```bash
-ip route show
+sudo iptables -D INPUT -s 192.168.1.100 -j DROP
 ```
-Hoặc:
+Điều này sẽ xóa quy tắc chặn IP `192.168.1.100` mà bạn đã thêm trước đó.
+
+#### **4. Lưu Quy Tắc**
+Khi bạn cấu hình iptables, các quy tắc này sẽ bị mất khi hệ thống khởi động lại. Để lưu các quy tắc, bạn có thể sử dụng công cụ `iptables-persistent`.
+
+Cài đặt `iptables-persistent` để tự động lưu cấu hình khi hệ thống khởi động lại:
 ```bash
-netstat -rn
+sudo apt-get install iptables-persistent
 ```
+Khi bạn cài đặt, hệ thống sẽ yêu cầu bạn có muốn lưu các quy tắc hiện tại không, chọn **Yes** để lưu.
 
-Các tuyến đường tĩnh mà bạn đã cấu hình sẽ được hiển thị trong bảng định tuyến.
+#### **5. Thiết Lập Chính Sách Mặc Định**
+Nếu bạn muốn cấu hình chính sách mặc định cho các chuỗi như `INPUT`, `OUTPUT`, hoặc `FORWARD`, bạn có thể thay đổi chính sách mặc định để từ chối hoặc chấp nhận tất cả các gói tin.
 
----
+- **Chính sách mặc định là từ chối tất cả**:
+  ```bash
+  sudo iptables -P INPUT DROP
+  sudo iptables -P FORWARD DROP
+  sudo iptables -P OUTPUT ACCEPT
+  ```
 
-### **Tóm Tắt**
+  Điều này có nghĩa là mặc định tất cả các gói tin đến (INPUT) và chuyển tiếp (FORWARD) đều bị từ chối, chỉ các gói tin đi ra (OUTPUT) mới được phép.
 
-1. **Kiểm tra giao diện mạng**: Sử dụng `ip addr` hoặc `ifconfig` để xác định tên giao diện mạng trên máy ảo Ubuntu.
-2. **Cấu hình tạm thời**: Dùng lệnh `ip route add` để thêm tuyến đường tĩnh.
-3. **Cấu hình vĩnh cửu**:
-   - **Ubuntu 18.04+**: Sử dụng `netplan` để cấu hình.
-   - **Ubuntu 16.04 và các phiên bản cũ**: Sử dụng file `/etc/network/interfaces`.
-4. **Kiểm tra định tuyến**: Sử dụng lệnh `ip route show` hoặc `netstat -rn` để kiểm tra bảng định tuyến.
+#### **6. Reset Iptables**
+Nếu bạn muốn xóa tất cả các quy tắc và trở về trạng thái ban đầu:
+```bash
+sudo iptables -F
+```
+- `-F`: Xóa tất cả các quy tắc.
 
-Hy vọng hướng dẫn này giúp bạn cấu hình định tuyến tĩnh trên máy ảo Ubuntu trong VMware thành công!
+### Tóm Lại:
+Iptables là công cụ quản lý tường lửa mạnh mẽ trên hệ thống Linux, cho phép bạn kiểm soát lưu lượng mạng đi vào và đi ra qua các quy tắc linh hoạt. Việc hiểu rõ cơ chế hoạt động của các bảng và chuỗi trong iptables giúp bạn cấu hình và quản lý các quy tắc bảo mật một cách hiệu quả, bảo vệ hệ thống khỏi các mối đe dọa từ mạng bên ngoài.
