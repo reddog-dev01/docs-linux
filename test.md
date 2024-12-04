@@ -137,4 +137,123 @@ Khi đó, bất kỳ gói tin nào cần đến mạng `192.168.2.0` từ router
 ### 8. **Kết luận**
 Định tuyến tĩnh là một phương pháp định tuyến đơn giản và hiệu quả cho các mạng nhỏ hoặc ổn định. Mặc dù có nhược điểm về tính linh hoạt và khả năng phục hồi, nhưng trong các trường hợp mạng không thay đổi nhiều, định tuyến tĩnh vẫn là một lựa chọn tuyệt vời. Việc cấu hình tĩnh giúp giảm tải cho các giao thức định tuyến động và tạo ra một mạng đơn giản, dễ kiểm soát.
 
+### **Chi Tiết về Routing Table (Bảng Định Tuyến)**
 
+**Bảng định tuyến (Routing Table)** là một phần quan trọng trong hoạt động của router hoặc các thiết bị mạng, cung cấp thông tin về cách router sẽ chuyển tiếp gói tin đến các đích mạng khác nhau. Mỗi router trong mạng đều có một bảng định tuyến riêng, chứa thông tin về các tuyến đường (routes) tới các mạng đích.
+
+### **Cấu Trúc của Routing Table**
+
+Bảng định tuyến bao gồm một hoặc nhiều mục (entries) chứa thông tin về các tuyến đường mà router sử dụng để quyết định cách chuyển tiếp gói tin. Mỗi mục thường có các thành phần chính sau:
+
+1. **Network Destination (Địa chỉ mạng đích)**:
+   - Đây là địa chỉ mạng mà router đang tìm cách chuyển tiếp gói tin tới.
+   - Mạng đích được biểu diễn dưới dạng **địa chỉ IP** (ví dụ: `192.168.1.0/24`), trong đó `/24` là mặt nạ subnet, xác định phạm vi của mạng con.
+
+2. **Subnet Mask (Mặt nạ mạng)**:
+   - Mặt nạ mạng giúp router phân biệt đâu là **địa chỉ mạng** và đâu là **địa chỉ host** trong một gói tin.
+   - Ví dụ, đối với `192.168.1.0/24`, mặt nạ mạng là `255.255.255.0`.
+
+3. **Next-Hop (Cổng tiếp theo)**:
+   - Địa chỉ IP của router hoặc thiết bị tiếp theo trong chuỗi chuyển tiếp.
+   - Đây là nơi gói tin được chuyển đến sau khi rời khỏi router hiện tại. Nếu không có next-hop (trường hợp mạng đích được kết nối trực tiếp), thông tin này có thể là `0.0.0.0`.
+
+4. **Interface (Giao diện)**:
+   - Giao diện mạng mà gói tin sẽ được gửi qua. Giao diện này có thể là một cổng vật lý như `eth0`, `eth1` hoặc `wan0`.
+   - Router sử dụng thông tin này để biết cổng nào sẽ truyền gói tin đi.
+
+5. **Metric (Chi phí)**:
+   - Đây là một giá trị chỉ ra "chi phí" của một tuyến đường. Nó có thể phụ thuộc vào nhiều yếu tố như độ dài tuyến đường (số lượng hop), băng thông, độ trễ, v.v.
+   - Giao thức định tuyến sử dụng metric để chọn tuyến đường tối ưu (ví dụ: tuyến đường có metric thấp nhất).
+
+6. **Route Source (Nguồn tuyến đường)**:
+   - Cho biết tuyến đường đến từ đâu. Nó có thể là một **tuyến đường tĩnh**, **tuyến đường động** (được học từ các giao thức định tuyến như RIP, OSPF, BGP), hoặc **tuyến đường kết nối trực tiếp** (directly connected).
+
+7. **TTL (Time To Live)**:
+   - Trường này giúp kiểm soát vòng đời của gói tin trong mạng. Mỗi khi gói tin đi qua một router, TTL sẽ giảm đi một đơn vị. Khi TTL đạt 0, gói tin sẽ bị loại bỏ để tránh vòng lặp vô hạn.
+
+### **Ví Dụ về Routing Table**
+
+Dưới đây là ví dụ về một bảng định tuyến trên một router trong mạng:
+
+| Network Destination | Subnet Mask       | Next Hop        | Interface  | Metric | Route Source  |
+|---------------------|-------------------|-----------------|------------|--------|---------------|
+| 0.0.0.0             | 0.0.0.0           | 192.168.1.1     | eth0       | 1      | Static        |
+| 192.168.1.0         | 255.255.255.0     | 0.0.0.0         | eth0       | 0      | Connected     |
+| 192.168.2.0         | 255.255.255.0     | 192.168.1.2     | eth1       | 1      | Static        |
+| 192.168.3.0         | 255.255.255.0     | 192.168.1.3     | eth1       | 2      | Static        |
+
+### **Giải Thích Cột trong Routing Table**
+
+1. **Network Destination**:
+   - Địa chỉ mạng đích mà router cần gửi gói tin tới. 
+   - Ví dụ: `192.168.1.0/24` có nghĩa là mạng con có địa chỉ `192.168.1.x`.
+
+2. **Subnet Mask**:
+   - Mặt nạ mạng xác định phạm vi của mạng đích. 
+   - Ví dụ: `255.255.255.0` có nghĩa là mạng con với 24 bit cho phần mạng và 8 bit cho phần host (có thể có tối đa 254 địa chỉ IP).
+
+3. **Next Hop**:
+   - Địa chỉ IP của router hoặc gateway tiếp theo mà router này sẽ chuyển gói tin tới.
+   - Ví dụ: `192.168.1.2` là địa chỉ của router tiếp theo mà gói tin phải đi qua để đến mạng `192.168.2.0`.
+
+4. **Interface**:
+   - Giao diện mạng mà gói tin sẽ được chuyển tiếp qua. 
+   - Ví dụ: `eth0` là giao diện mạng của router kết nối với mạng `192.168.1.x`.
+
+5. **Metric**:
+   - Chỉ ra chi phí của tuyến đường, có thể là giá trị tùy chỉnh hoặc được tính toán tự động.
+   - Tuyến đường có metric thấp hơn thường được ưu tiên sử dụng.
+
+6. **Route Source**:
+   - Cho biết nguồn của tuyến đường. Ví dụ:
+     - `Static`: Tuyến đường được cấu hình thủ công bởi người quản trị.
+     - `Connected`: Tuyến đường mà router tự động nhận ra vì mạng được kết nối trực tiếp với giao diện của router.
+     - `Dynamic`: Tuyến đường được học từ các giao thức định tuyến động như RIP, OSPF, BGP.
+
+### **Các Loại Tuyến Đường trong Routing Table**
+
+1. **Tuyến đường trực tiếp (Directly Connected Routes)**:
+   - Các mạng mà router kết nối trực tiếp qua các giao diện mạng của nó.
+   - Những mạng này tự động được thêm vào bảng định tuyến khi router được cấu hình với địa chỉ IP trên giao diện.
+   - Ví dụ: `192.168.1.0/24` nếu router có giao diện `eth0` với địa chỉ IP `192.168.1.1`.
+
+2. **Tuyến đường tĩnh (Static Routes)**:
+   - Tuyến đường được cấu hình thủ công bởi người quản trị mạng, ví dụ qua các lệnh như `ip route`.
+   - Ví dụ: `ip route 192.168.2.0 255.255.255.0 192.168.1.2` chỉ ra rằng các gói tin đến `192.168.2.0` sẽ được chuyển tiếp qua router có địa chỉ IP `192.168.1.2`.
+
+3. **Tuyến đường động (Dynamic Routes)**:
+   - Tuyến đường mà router học được thông qua các giao thức định tuyến động như **RIP**, **OSPF**, hoặc **BGP**. Các tuyến đường này có thể thay đổi theo thời gian nếu có sự thay đổi trong mạng.
+   - Tuyến đường động có thể được xác định bởi các giao thức định tuyến dựa trên các thuật toán tối ưu như **distance-vector** hoặc **link-state**.
+
+4. **Tuyến đường mặc định (Default Route)**:
+   - Là tuyến đường được sử dụng khi không có tuyến đường cụ thể nào khớp với mạng đích của gói tin.
+   - Tuyến đường mặc định thường được cấu hình với địa chỉ `0.0.0.0/0` và gửi tất cả các gói tin không xác định đến một router hoặc gateway bên ngoài.
+   - Ví dụ: `ip route 0.0.0.0 0.0.0.0 192.168.1.1` có nghĩa là tất cả các gói tin không khớp với các tuyến đường khác sẽ được gửi đến router có địa chỉ `192.168.1.1`.
+
+### **Kiểm Tra Routing Table trong Router**
+
+Trong môi trường Cisco, bạn có thể kiểm tra bảng định tuyến của router bằng lệnh:
+
+```
+show ip route
+```
+
+Kết quả trả về có thể giống như sau:
+
+```
+Router# show ip route
+C    192.168.1.0/24 is directly connected, Ethernet0
+S    192.168.2.0/24 [1/0] via 192.168.1.2, Ethernet1
+C    192.168.3.0/24 is directly connected, Ethernet1
+S    0.0.0.0/0 [1/0] via 192.168.1.1, Ethernet0
+```
+
+- `C` (Connected): Mạng được kết nối trực tiếp với router.
+- `S` (Static): Mạng được cấu hình thông qua định tuyến tĩnh.
+- `[1/0]`: Metric của tuyến đường, với số đầu tiên là chi phí và số thứ hai là tuổi thọ của tuyến đường.
+- Tuyến đường mặc định (`0.0.0.0/0`) trỏ đến `192.168.1.1`.
+
+###
+
+ **Tóm Tắt**
+Bảng định tuyến (Routing Table) là một bảng chứa thông tin về các tuyến đường mà router sử dụng để chuyển tiếp gói tin đến các mạng đích. Nó bao gồm các tuyến đường trực tiếp, tĩnh, động và mặc định. Việc quản lý bảng định tuyến là rất quan trọng trong việc đảm bảo hiệu quả và độ tin cậy của việc chuyển tiếp dữ liệu trong mạng.
