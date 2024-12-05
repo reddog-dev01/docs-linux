@@ -872,5 +872,7 @@ Kết quả khi sử dụng `ping` sẽ hiển thị các thông tin như:
    - **0% packet loss**: Không mất gói nào.
    - **min/avg/max/mdev**: Thời gian trễ tối thiểu, trung bình, tối đa và độ lệch chuẩn.
 
+-----------------------------
+
 
 
