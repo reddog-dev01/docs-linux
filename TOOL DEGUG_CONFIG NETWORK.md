@@ -467,3 +467,410 @@ f. **`primary`**
   sudo ip address del 192.168.2.200/24 dev eth0
   ```
 
+-------------------------------------------
+
+### **arp**
+
+Lệnh `arp` (Address Resolution Protocol) là một công cụ trong Linux và các hệ điều hành khác để quản lý và hiển thị bảng ARP, nơi lưu trữ ánh xạ giữa địa chỉ IP và địa chỉ MAC của các thiết bị trong mạng cục bộ.
+
+**1. Cú pháp cơ bản của lệnh `arp`:**
+```bash
+arp [options] [hostname]
+```
+
+**2. Các option của lệnh `arp`**
+
+- **`-a`**: Hiển thị toàn bộ bảng ARP của hệ thống.
+  - **Cú pháp**: 
+    ```bash
+    arp -a
+    ```
+    Lệnh này hiển thị tất cả các mục trong bảng ARP của hệ thống, bao gồm các địa chỉ IP và địa chỉ MAC.
+
+- **`-n`**: Hiển thị địa chỉ IP và MAC mà không giải quyết tên máy chủ.
+  - **Cú pháp**: 
+    ```bash
+    arp -n
+    ```
+    Lệnh này sẽ hiển thị địa chỉ IP và địa chỉ MAC mà không giải quyết thành tên máy chủ.
+
+- **`-d`**: Xóa một mục ARP.
+  - **Cú pháp**: 
+    ```bash
+    arp -d <ip-address>
+    ```
+    Lệnh này sẽ xóa mục ánh xạ địa chỉ IP từ bảng ARP. Ví dụ:
+    ```bash
+    arp -d 192.168.1.100
+    ```
+
+- **`-s`**: Thêm một ánh xạ IP-MAC vào bảng ARP.
+  - **Cú pháp**:
+    ```bash
+    arp -s <ip-address> <mac-address>
+    ```
+    Lệnh này cho phép bạn thêm một mục vào bảng ARP, ánh xạ một địa chỉ IP với một địa chỉ MAC cụ thể. Ví dụ:
+    ```bash
+    arp -s 192.168.1.200 00:14:22:01:23:45
+    ```
+
+- **`-i`**: Chỉ định giao diện mạng.
+  - **Cú pháp**: 
+    ```bash
+    arp -i <interface> -a
+    ```
+    Lệnh này sẽ hiển thị bảng ARP của một giao diện mạng cụ thể, ví dụ:
+    ```bash
+    arp -i eth0 -a
+    ```
+    Điều này sẽ chỉ hiển thị bảng ARP cho giao diện `eth0`.
+
+- **`-v`**: Hiển thị thông tin chi tiết hơn.
+  - **Cú pháp**:
+    ```bash
+    arp -v
+    ```
+    Lệnh này sẽ hiển thị thêm thông tin chi tiết về các mục trong bảng ARP.
+
+- **`-V`**: Hiển thị phiên bản của lệnh `arp`.
+  - **Cú pháp**:
+    ```bash
+    arp -V
+    ```
+    Lệnh này sẽ hiển thị thông tin về phiên bản của công cụ ARP đang được sử dụng.
+
+**3. Các ví dụ sử dụng lệnh `arp`**
+
+- **Hiển thị toàn bộ bảng ARP**:
+  ```bash
+  arp -a
+  ```
+  Kết quả:
+  ```bash
+  ? (192.168.1.1) at 00:14:22:01:23:45 [ether] on eth0
+  ? (192.168.1.100) at 00:25:96:67:6f:ac [ether] on eth0
+  ```
+
+- **Hiển thị bảng ARP cho giao diện `eth0`**:
+  ```bash
+  arp -i eth0 -a
+  ```
+
+- **Thêm ánh xạ IP và MAC vào bảng ARP**:
+  ```bash
+  sudo arp -s 192.168.1.200 00:14:22:01:23:45
+  ```
+
+- **Xóa ánh xạ ARP cho một địa chỉ IP**:
+  ```bash
+  sudo arp -d 192.168.1.200
+  ```
+
+- **Hiển thị thông tin chi tiết về bảng ARP**:
+  ```bash
+  arp -v
+  ```
+
+- **Hiển thị phiên bản của `arp`**:
+  ```bash
+  arp -V
+  ```
+
+**4. Cách bảng ARP hoạt động**
+- Bảng ARP lưu trữ ánh xạ giữa địa chỉ IP và địa chỉ MAC của các thiết bị trong mạng cục bộ.
+- Khi một thiết bị muốn giao tiếp với một thiết bị khác trong mạng cục bộ nhưng chỉ biết địa chỉ IP, nó sẽ gửi một yêu cầu ARP (ARP Request) để tìm kiếm địa chỉ MAC tương ứng.
+- Các thiết bị trong cùng một mạng cục bộ sẽ lưu trữ các ánh xạ này trong bảng ARP để giảm thiểu số lần gửi yêu cầu ARP.
+
+**5. Tóm tắt các option của `arp`**
+
+| Option       | Mô tả                                                        |
+|--------------|--------------------------------------------------------------|
+| `-a`         | Hiển thị toàn bộ bảng ARP.                                    |
+| `-n`         | Hiển thị địa chỉ IP và MAC mà không giải quyết tên.           |
+| `-d`         | Xóa mục ánh xạ ARP cho một địa chỉ IP cụ thể.                 |
+| `-s`         | Thêm ánh xạ IP và MAC vào bảng ARP.                           |
+| `-i`         | Chỉ định giao diện mạng để hiển thị bảng ARP của giao diện đó.|
+| `-v`         | Hiển thị thông tin chi tiết hơn.                              |
+| `-V`         | Hiển thị phiên bản của lệnh `arp`.                             |
+
+
+-------------------------
+
+### **Telnet**
+
+Lệnh `telnet` là một công cụ mạng được sử dụng để kết nối với các dịch vụ mạng từ xa qua giao thức Telnet (TCP port 23). Mặc dù Telnet không mã hóa dữ liệu truyền tải và có thể gặp rủi ro bảo mật, nhưng nó vẫn được sử dụng trong một số trường hợp, như quản lý thiết bị mạng cũ hoặc khi việc mã hóa không cần thiết.
+
+Dưới đây là các thông tin chi tiết về lệnh `telnet` và các option của nó:
+
+**1. Cú pháp cơ bản của lệnh `telnet`**
+
+```bash
+telnet [hostname] [port]
+```
+
+- **`hostname`**: Địa chỉ IP hoặc tên miền của máy chủ bạn muốn kết nối.
+- **`port`**: Cổng dịch vụ mà bạn muốn kết nối (mặc định là 23 đối với Telnet, nhưng bạn có thể thay đổi cổng nếu cần).
+
+**2. Các option của lệnh `telnet`**
+
+Lệnh `telnet` có một số option giúp bạn tùy chỉnh kết nối và kiểm soát phiên Telnet.
+
+- **`-l <username>`**: Đặt tên người dùng khi kết nối đến một máy chủ Telnet.
+  - **Ví dụ**:
+    ```bash
+    telnet -l user1 192.168.1.10
+    ```
+    Lệnh này sẽ kết nối đến địa chỉ IP `192.168.1.10` và sử dụng `user1` làm tên người dùng.
+
+- **`-e <character>`**: Chỉ định ký tự để gửi lệnh từ xa, thay vì sử dụng "Ctrl-]". Thường dùng để thoát khỏi phiên Telnet.
+  - **Ví dụ**:
+    ```bash
+    telnet -e q 192.168.1.10
+    ```
+    Lệnh này sử dụng ký tự `q` để thoát khỏi phiên Telnet thay vì `Ctrl-]`.
+
+- **`-n <filename>`**: Ghi lại phiên Telnet vào một tệp tin.
+  - **Ví dụ**:
+    ```bash
+    telnet -n session.log 192.168.1.10
+    ```
+    Lệnh này ghi lại tất cả các lệnh và phản hồi của phiên Telnet vào tệp `session.log`.
+
+- **`-8`**: Sử dụng chế độ 8-bit, giúp làm việc với các ký tự 8-bit.
+  - **Ví dụ**:
+    ```bash
+    telnet -8 192.168.1.10
+    ```
+    Lệnh này bật chế độ 8-bit khi kết nối tới máy chủ Telnet.
+
+- **`-d`**: Bật chế độ debug để hiển thị thông tin chi tiết về kết nối.
+  - **Ví dụ**:
+    ```bash
+    telnet -d 192.168.1.10
+    ```
+    Lệnh này sẽ in ra thông tin debug chi tiết về quá trình kết nối và giao tiếp với máy chủ.
+
+- **`-f`**: Kết nối và ghi lại phiên làm việc vào tệp nhật ký (log).
+  - **Ví dụ**:
+    ```bash
+    telnet -f mylog.txt 192.168.1.10
+    ```
+    Lệnh này sẽ ghi lại toàn bộ phiên Telnet vào tệp `mylog.txt`.
+
+- **`-x`**: Bật chế độ "hex" để hiển thị các dữ liệu truyền tải ở dạng mã hex.
+  - **Ví dụ**:
+    ```bash
+    telnet -x 192.168.1.10
+    ```
+    Lệnh này sẽ hiển thị các dữ liệu giao tiếp dưới dạng mã hex.
+
+**3. Các lệnh cơ bản trong phiên `telnet`**
+
+Khi bạn đã kết nối thành công với máy chủ qua Telnet, bạn có thể sử dụng một số lệnh bên trong phiên Telnet:
+
+- **`Ctrl-]`**: Thoát khỏi chế độ Telnet và quay lại dòng lệnh.
+- **`quit`** hoặc **`exit`**: Đóng phiên Telnet.
+- **`status`**: Hiển thị thông tin trạng thái kết nối hiện tại.
+- **`close`**: Đóng kết nối hiện tại mà không thoát khỏi lệnh Telnet.
+- **`open <hostname> [port]`**: Kết nối lại đến một máy chủ hoặc cổng khác.
+
+**4. Ví dụ sử dụng `telnet`**
+
+- **Kết nối đến máy chủ Telnet mặc định (cổng 23)**:
+  ```bash
+  telnet 192.168.1.10
+  ```
+
+- **Kết nối đến một máy chủ và chỉ định cổng**:
+  ```bash
+  telnet 192.168.1.10 8080
+  ```
+
+- **Kết nối với tên người dùng cụ thể**:
+  ```bash
+  telnet -l admin 192.168.1.10
+  ```
+
+- **Ghi lại phiên Telnet vào tệp tin**:
+  ```bash
+  telnet -n session.log 192.168.1.10
+  ```
+
+- **Kết nối với máy chủ và sử dụng chế độ debug**:
+  ```bash
+  telnet -d 192.168.1.10
+  ```
+
+**5. Telnet và bảo mật**
+
+Mặc dù Telnet có thể hữu ích trong việc kết nối đến các thiết bị mạng hoặc máy chủ, nhưng **Telnet không mã hóa** dữ liệu được truyền tải, bao gồm cả thông tin đăng nhập (username và password). Điều này làm cho Telnet không an toàn trong các môi trường mạng công cộng.
+
+- **Sử dụng Telnet chỉ nên áp dụng trong các mạng riêng (LAN) hoặc khi bạn biết rõ môi trường kết nối.**
+- **Sử dụng SSH thay thế**: Do Telnet không bảo mật, các hệ thống hiện đại thường sử dụng **SSH (Secure Shell)** để thay thế, vì SSH mã hóa dữ liệu và cung cấp bảo mật mạnh mẽ hơn.
+
+**6. Tóm tắt các option của `telnet`**
+
+| Option       | Mô tả                                                        |
+|--------------|--------------------------------------------------------------|
+| `-l <username>` | Chỉ định tên người dùng khi kết nối với máy chủ.               |
+| `-e <character>` | Xác định ký tự để thoát khỏi phiên Telnet (mặc định là `Ctrl-]`). |
+| `-n <filename>` | Ghi lại phiên Telnet vào tệp tin.                              |
+| `-8`          | Sử dụng chế độ 8-bit cho các ký tự.                            |
+| `-d`          | Bật chế độ debug để hiển thị thông tin chi tiết về kết nối.    |
+| `-f`          | Ghi lại phiên Telnet vào tệp nhật ký.                         |
+| `-x`          | Hiển thị dữ liệu giao tiếp dưới dạng mã hex.                  |
+
+
+------------------------------------------
+
+### **ping**
+
+Lệnh `ping` là một công cụ mạng cơ bản và rất phổ biến dùng để kiểm tra khả năng kết nối mạng giữa hai thiết bị. `ping` hoạt động bằng cách gửi các gói ICMP (Internet Control Message Protocol) Echo Request đến một địa chỉ IP và đợi phản hồi Echo Reply. Đây là cách đơn giản để kiểm tra xem một thiết bị có thể kết nối đến một thiết bị khác trên mạng hay không.
+
+### **Cú pháp cơ bản của lệnh `ping`**
+```bash
+ping [options] <hostname|IP_address>
+```
+- **`hostname`**: Tên miền hoặc địa chỉ IP của thiết bị mà bạn muốn kiểm tra kết nối.
+- **`options`**: Các tùy chọn bổ sung để điều chỉnh hành vi của lệnh ping.
+
+**Các Option của lệnh `ping`**
+
+- **`-c <count>`**: Chỉ định số lần gửi gói ping (số gói ICMP Echo Request).
+  - **Ví dụ**:
+    ```bash
+    ping -c 5 192.168.1.1
+    ```
+    Lệnh này sẽ gửi 5 gói ping đến địa chỉ IP `192.168.1.1` và dừng lại sau khi nhận đủ 5 phản hồi.
+
+- **`-i <interval>`**: Thiết lập khoảng thời gian giữa các lần gửi gói ping. Mặc định là 1 giây.
+  - **Ví dụ**:
+    ```bash
+    ping -i 2 192.168.1.1
+    ```
+    Lệnh này sẽ gửi gói ping đến `192.168.1.1` mỗi 2 giây.
+
+- **`-t <ttl>`**: Xác định giá trị TTL (Time to Live) cho mỗi gói ping. TTL quyết định số bước nhảy tối đa mà gói tin có thể đi qua các router.
+  - **Ví dụ**:
+    ```bash
+    ping -t 64 192.168.1.1
+    ```
+    Lệnh này sẽ thiết lập TTL là 64 cho các gói ping gửi đi.
+
+- **`-s <size>`**: Thiết lập kích thước của mỗi gói ping (tính bằng byte).
+  - **Ví dụ**:
+    ```bash
+    ping -s 1500 192.168.1.1
+    ```
+    Lệnh này sẽ gửi gói ping có kích thước 1500 byte tới `192.168.1.1`.
+
+- **`-W <timeout>`**: Đặt thời gian chờ tối đa (tính bằng giây) để nhận phản hồi từ đích. Nếu hết thời gian chờ mà không nhận được phản hồi, lệnh sẽ kết thúc.
+  - **Ví dụ**:
+    ```bash
+    ping -W 3 192.168.1.1
+    ```
+    Lệnh này sẽ chờ tối đa 3 giây để nhận phản hồi từ `192.168.1.1`.
+
+- **`-q`**: Chỉ hiển thị kết quả tóm tắt, không hiển thị các gói ping chi tiết.
+  - **Ví dụ**:
+    ```bash
+    ping -q 192.168.1.1
+    ```
+    Lệnh này chỉ hiển thị tóm tắt về các gói ping mà không hiển thị các thông tin chi tiết về mỗi gói.
+
+- **`-a`**: Làm cho máy phát âm thanh khi nhận được phản hồi từ mục tiêu. Lựa chọn này có thể hữu ích khi kiểm tra kết nối trong môi trường không nhìn thấy màn hình.
+  - **Ví dụ**:
+    ```bash
+    ping -a 192.168.1.1
+    ```
+
+- **`-f`**: Gửi các gói ping một cách liên tục và không dừng lại cho đến khi bạn dừng lệnh bằng cách nhấn `Ctrl+C`. Lệnh này thường được sử dụng để kiểm tra khả năng tải mạng.
+  - **Ví dụ**:
+    ```bash
+    ping -f 192.168.1.1
+    ```
+    Lệnh này sẽ gửi các gói ping liên tục và hiển thị thông tin về tốc độ và độ trễ của mạng.
+
+- **`-v`**: Bật chế độ verbose, hiển thị chi tiết thông tin về mỗi gói ping.
+  - **Ví dụ**:
+    ```bash
+    ping -v 192.168.1.1
+    ```
+
+- **`-R`**: Gửi các gói ICMP Echo Request với đường đi phản hồi (Record Route). Chỉ hoạt động nếu người nhận hỗ trợ ghi lại các router đã đi qua.
+  - **Ví dụ**:
+    ```bash
+    ping -R 192.168.1.1
+    ```
+
+**Ví dụ sử dụng lệnh `ping`**
+
+1. **Ping một địa chỉ IP đơn giản**:
+   ```bash
+   ping 192.168.1.1
+   ```
+   Gửi các gói ping tới địa chỉ IP `192.168.1.1` và hiển thị thời gian phản hồi của mỗi gói.
+
+2. **Ping đến một tên miền (ví dụ: `google.com`)**:
+   ```bash
+   ping google.com
+   ```
+
+3. **Ping với giới hạn số gói**:
+   ```bash
+   ping -c 4 192.168.1.1
+   ```
+   Gửi 4 gói ping tới `192.168.1.1` và sau đó dừng lại.
+
+4. **Ping với khoảng thời gian giữa các gói**:
+   ```bash
+   ping -i 2 192.168.1.1
+   ```
+   Gửi gói ping đến `192.168.1.1` mỗi 2 giây.
+
+5. **Ping với kích thước gói lớn**:
+   ```bash
+   ping -s 1000 192.168.1.1
+   ```
+   Gửi gói ping có kích thước 1000 byte đến `192.168.1.1`.
+
+6. **Ping với chế độ tóm tắt**:
+   ```bash
+   ping -q 192.168.1.1
+   ```
+   Hiển thị kết quả tóm tắt mà không hiển thị thông tin chi tiết của mỗi gói ping.
+
+7. **Ping liên tục (đến khi nhấn `Ctrl+C` để dừng)**:
+   ```bash
+   ping -f 192.168.1.1
+   ```
+
+**Giải thích các thông tin trong kết quả lệnh `ping`**
+
+Kết quả khi sử dụng `ping` sẽ hiển thị các thông tin như:
+
+1. **Thời gian phản hồi**: Thời gian mà gói ping đi từ máy của bạn đến máy đích và quay lại (tính bằng mili giây). Ví dụ:
+   ```
+   64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=0.045 ms
+   ```
+
+   - **64 bytes**: Kích thước của gói ICMP.
+   - **from 192.168.1.1**: Địa chỉ IP của máy đích.
+   - **icmp_seq=1**: Số thứ tự của gói ping.
+   - **ttl=64**: Giá trị TTL (Time to Live), cho biết số lần gói ping có thể đi qua các router trước khi bị loại bỏ.
+   - **time=0.045 ms**: Thời gian trễ (round-trip time), thời gian từ khi gói ping được gửi đi đến khi nhận được phản hồi.
+
+2. **Tóm tắt kết quả sau khi dừng**:
+   Sau khi bạn dừng lệnh `ping` (ví dụ, sử dụng `Ctrl+C`), nó sẽ hiển thị một tóm tắt về số lượng gói gửi đi, nhận lại và tỷ lệ mất gói, như sau:
+   ```
+   --- 192.168.1.1 ping statistics ---
+   4 packets transmitted, 4 received, 0% packet loss, time 3002ms
+   rtt min/avg/max/mdev = 0.045/0.058/0.071/0.010 ms
+   ```
+
+   - **4 packets transmitted, 4 received**: Gửi đi 4 gói và nhận lại 4 gói.
+   - **0% packet loss**: Không mất gói nào.
+   - **min/avg/max/mdev**: Thời gian trễ tối thiểu, trung bình, tối đa và độ lệch chuẩn.
+
+
+
