@@ -1,3 +1,68 @@
+### **Routing**
+
+Routing (Định tuyến) là quá trình xác định và chỉ đường cho các gói dữ liệu từ nguồn đến đích qua các thiết bị và mạng trung gian. Trong mạng máy tính, quá trình này rất quan trọng vì nó giúp chuyển tiếp các gói dữ liệu qua các router (bộ định tuyến) để đảm bảo chúng đến đúng nơi.
+
+**Quá trình Routing (Định tuyến)** là quá trình xác định đường đi của các gói dữ liệu từ nguồn đến đích trong mạng, thông qua các router và các thiết bị mạng trung gian khác. Quá trình này đảm bảo rằng các gói dữ liệu sẽ được chuyển qua các mạng khác nhau một cách hiệu quả và chính xác. 
+
+**Các Bước trong Quá Trình Routing**
+
+Quá trình định tuyến có thể được mô tả qua các bước chính sau:
+
+**1. Gửi Gói Dữ Liệu**
+- Một thiết bị (ví dụ: máy tính, điện thoại) tạo và gửi một gói dữ liệu đến đích qua mạng.
+- Gói dữ liệu này chứa thông tin quan trọng như:
+  - **Địa chỉ IP nguồn (Source IP)**: Địa chỉ IP của thiết bị gửi.
+  - **Địa chỉ IP đích (Destination IP)**: Địa chỉ IP của thiết bị nhận.
+
+**2. Kiểm Tra Địa Chỉ Đích**
+- Khi một router nhận được gói dữ liệu, nó sẽ kiểm tra địa chỉ IP đích trong header của gói.
+- Router không cần biết nội dung của gói, chỉ cần biết địa chỉ đích để quyết định gửi gói dữ liệu đi đâu.
+
+**3. Tra Cứu Bảng Định Tuyến**
+- Mỗi router có một bảng định tuyến (routing table) để quyết định đường đi của gói dữ liệu.
+- Bảng định tuyến chứa các thông tin sau:
+  - **Mạng đích (Destination network)**: Mạng mà gói dữ liệu sẽ đến.
+  - **Gateway (Cổng tiếp theo)**: Địa chỉ IP của router tiếp theo để chuyển tiếp gói dữ liệu.
+  - **Interface (Giao diện mạng)**: Cổng hoặc giao diện mà router sử dụng để gửi gói đến mạng đích.
+  - **Metric (Chỉ số ưu tiên)**: Một chỉ số để xác định độ ưu tiên của một đường dẫn. Đường dẫn có metric thấp hơn sẽ được ưu tiên hơn.
+
+Router sử dụng địa chỉ IP đích để tra cứu trong bảng định tuyến và tìm ra cổng tiếp theo để chuyển tiếp gói.
+
+**4. Chuyển Tiếp Gói Dữ Liệu**
+- Sau khi tìm được thông tin về cổng tiếp theo (gateway), router sẽ chuyển tiếp gói dữ liệu qua cổng này.
+- Gói dữ liệu có thể đi qua nhiều router khác nhau trên đường đi từ nguồn đến đích.
+
+**5. Đến Mạng Đích**
+- Quá trình trên sẽ tiếp tục cho đến khi gói dữ liệu đến được mạng đích.
+- Nếu router cuối cùng trong chuỗi kết nối tới mạng đích, gói dữ liệu sẽ được gửi trực tiếp đến thiết bị đích (máy tính, server...).
+
+**6. Phản Hồi (Nếu Có)**
+- Nếu ứng dụng ở thiết bị đích yêu cầu phản hồi (ví dụ: trong trường hợp gửi một yêu cầu HTTP), một gói dữ liệu phản hồi sẽ được tạo và quá trình routing sẽ lặp lại cho gói phản hồi.
+
+**Ví Dụ Về Quá Trình Routing**
+
+Giả sử bạn có một mạng với ba router:
+
+- **Router A** kết nối với **Router B**, và **Router B** kết nối với **Router C**.
+- Thiết bị nguồn (máy tính) có địa chỉ IP là `192.168.1.2` và muốn gửi gói dữ liệu đến một server có địa chỉ IP là `10.10.10.10`.
+
+Quá trình sẽ như sau:
+
+1. **Máy tính (Nguồn)**: Gói dữ liệu được tạo với địa chỉ đích là `10.10.10.10`.
+2. **Router A**:
+   - Router A sẽ kiểm tra bảng định tuyến và phát hiện rằng gói dữ liệu cần được chuyển tiếp qua **Router B** (thông qua cổng mạng của nó).
+3. **Router B**:
+   - Router B kiểm tra bảng định tuyến của mình và gửi gói dữ liệu đến **Router C**.
+4. **Router C**:
+   - Router C kiểm tra bảng định tuyến và gửi gói dữ liệu đến thiết bị đích có địa chỉ IP `10.10.10.10`.
+
+
+**Các Loại Định Tuyến (Routing Types)**
+1. **Direct Routing**: Khi gói dữ liệu đi trực tiếp từ một thiết bị đến thiết bị đích mà không cần qua các router trung gian.
+2. **Indirect Routing**: Gói dữ liệu phải đi qua một hoặc nhiều router trung gian để đến đích.
+
+-------------
+
 ### **1. Giao thức định tuyến (Routing Protocol)**
 
 **Giao thức định tuyến** (Routing Protocol) là một tập hợp các quy tắc, quy trình và phương pháp mà các router hoặc thiết bị mạng sử dụng để quyết định con đường tối ưu (tuyến đường) để chuyển tiếp các gói tin từ nguồn 
@@ -10,6 +75,116 @@
 - **Khả năng mở rộng**: Khi mạng phát triển lớn hơn, các giao thức định tuyến giúp quản lý các tuyến đường và duy trì hiệu suất mạng mà không cần điều chỉnh thủ công.
 
 **1.1 Định tuyến tĩnh (Static Routing)**
+
+**Giao thức định tuyến tĩnh (Static Routing)**
+
+**Giao thức định tuyến tĩnh** là phương pháp định tuyến trong đó các tuyến đường được cấu hình thủ công vào bảng định tuyến của router hoặc thiết bị mạng khác. Tuyến đường này không thay đổi tự động, chỉ khi có sự can thiệp của người quản trị mạng.
+
+**Đặc điểm của Giao thức Định tuyến Tĩnh**:
+1. **Cấu hình thủ công**: Mọi tuyến đường được người quản trị cấu hình trực tiếp vào router, không có sự trao đổi thông tin định tuyến tự động giữa các router.
+2. **Không tự động thay đổi**: Các tuyến đường tĩnh không thay đổi khi có sự thay đổi trong mạng (ví dụ: router hỏng hoặc link bị mất). Người quản trị phải cập nhật lại nếu có sự thay đổi.
+3. **Định tuyến cố định**: Các router sẽ sử dụng tuyến đường được cấu hình cố định để chuyển tiếp gói tin đến các đích cụ thể.
+4. **Không sử dụng băng thông mạng**: Vì không có giao tiếp giữa các router để trao đổi thông tin định tuyến, nó không sử dụng băng thông mạng như trong các giao thức định tuyến động.
+
+**Cấu trúc của một tuyến đường tĩnh**:
+Một tuyến đường tĩnh thông thường sẽ có các thành phần sau:
+- **Địa chỉ đích (Destination Address)**: Địa chỉ IP của mạng đích.
+- **Mặt nạ mạng (Subnet Mask)**: Xác định phần mạng của địa chỉ đích.
+- **Địa chỉ Gateway (Next-Hop)**: Địa chỉ IP của router tiếp theo, nơi gói tin sẽ được gửi tới.
+- **Interface**: Giao diện mạng trên router mà gói tin sẽ rời đi.
+
+**Ưu điểm của Giao thức Định tuyến Tĩnh**:
+1. **Đơn giản và dễ cấu hình**: Cấu hình rất đơn giản và dễ dàng thực hiện, đặc biệt là trong các mạng nhỏ hoặc mạng ít thay đổi.
+2. **Tiết kiệm tài nguyên**: Không cần tài nguyên hệ thống hoặc băng thông mạng để trao đổi thông tin định tuyến, nên rất tiết kiệm tài nguyên.
+3. **Bảo mật**: Vì không có việc trao đổi thông tin định tuyến, giao thức tĩnh hạn chế nguy cơ tấn công liên quan đến việc chiếm quyền điều khiển định tuyến.
+4. **Kiểm soát chính xác**: Người quản trị có thể kiểm soát hoàn toàn các tuyến đường, dễ dàng cấu hình và điều chỉnh chúng cho phù hợp với yêu cầu cụ thể.
+
+**Nhược điểm của Giao thức Định tuyến Tĩnh**:
+1. **Không linh hoạt**: Nếu có sự thay đổi trong cấu trúc mạng (chẳng hạn router bị lỗi hoặc link không khả dụng), các tuyến đường không thể tự động thay đổi. Người quản trị phải thay đổi cấu hình thủ công.
+2. **Khó mở rộng**: Khi mạng trở nên lớn và phức tạp, việc quản lý các tuyến đường tĩnh có thể rất khó khăn và dễ xảy ra lỗi.
+3. **Khả năng phục hồi kém**: Nếu một router hoặc link gặp sự cố, các tuyến đường tĩnh không thể tự động chuyển sang tuyến đường thay thế, dẫn đến gián đoạn dịch vụ.
+
+**Cách cấu hình Định tuyến Tĩnh trên Ubuntu**:
+
+Trên hệ điều hành Ubuntu, bạn có thể cấu hình định tuyến tĩnh bằng cách chỉnh sửa file cấu hình mạng hoặc sử dụng lệnh `ip route`.
+
+1. **Sử dụng lệnh `ip route`**:
+   Cấu hình một tuyến đường tĩnh từ terminal:
+   ```bash
+   sudo ip route add <Địa chỉ đích>/<mặt nạ mạng> via <Địa chỉ Gateway> dev <Tên giao diện>
+   ```
+   Ví dụ:
+   ```bash
+   sudo ip route add 192.168.2.0/24 via 192.168.1.1 dev eth0
+   ```
+   Lệnh này sẽ thêm một tuyến đường tĩnh cho mạng `192.168.2.0/24` thông qua gateway `192.168.1.1` và sử dụng giao diện mạng `eth0`.
+
+2. **Cấu hình trong file `/etc/network/interfaces`**:
+   Bạn có thể cấu hình định tuyến tĩnh bằng cách thêm các dòng vào file cấu hình mạng:
+   ```bash
+   sudo nano /etc/network/interfaces
+   ```
+   Thêm các dòng sau vào file cấu hình để thêm tuyến đường tĩnh:
+   ```bash
+   up ip route add 192.168.2.0/24 via 192.168.1.1 dev eth0
+   ```
+   Sau đó, khởi động lại dịch vụ mạng để áp dụng cấu hình:
+   ```bash
+   sudo systemctl restart networking
+   ```
+
+3. **Cấu hình trong file `/etc/netplan/*.yaml` (Ubuntu 18.04 trở lên)**:
+   Với Ubuntu 18.04 và các phiên bản mới hơn sử dụng Netplan, bạn có thể cấu hình định tuyến tĩnh bằng cách sửa file YAML trong thư mục `/etc/netplan/`.
+   ```bash
+   sudo nano /etc/netplan/00-installer-config.yaml
+   ```
+   Thêm phần cấu hình tĩnh vào file YAML:
+   ```yaml
+   network:
+     version: 2
+     renderer: networkd
+     ethernets:
+       eth0:
+         dhcp4: true
+         routes:
+           - to: 192.168.2.0/24
+             via: 192.168.1.1
+             metric: 100
+   ```
+   Áp dụng cấu hình mới:
+   ```bash
+   sudo netplan apply
+   ```
+
+**Khi nào nên sử dụng Định tuyến Tĩnh**:
+1. **Mạng nhỏ và ổn định**: Đối với các mạng nhỏ hoặc mạng không thay đổi thường xuyên, định tuyến tĩnh là một giải pháp đơn giản và hiệu quả.
+2. **Mạng không cần tính linh hoạt cao**: Nếu không yêu cầu khả năng phục hồi tự động hoặc thay đổi mạng thường xuyên, định tuyến tĩnh là một lựa chọn phù hợp.
+3. **Bảo mật cao**: Khi cần kiểm soát chính xác các tuyến đường và giảm thiểu nguy cơ tấn công hoặc sự xâm nhập, định tuyến tĩnh sẽ đảm bảo rằng thông tin về định tuyến không được chia sẻ.
+4. **Mạng với yêu cầu hiệu suất cao**: Định tuyến tĩnh không yêu cầu băng thông để trao đổi thông tin định tuyến, giúp tối ưu hóa hiệu suất mạng trong các tình huống nhất định.
+
+**Ví dụ về một tình huống sử dụng Định tuyến Tĩnh**:
+Giả sử bạn có một mạng công ty nhỏ gồm 3 router:
+- **Router A** kết nối với **Router B** và **Router C**.
+- **Router B** kết nối với mạng 192.168.1.0/24.
+- **Router C** kết nối với mạng 192.168.2.0/24.
+
+Giả sử router A cần gửi gói tin tới mạng 192.168.2.0/24 qua router B và router C.
+
+1. Trên **Router A**, bạn sẽ cấu hình tuyến đường tĩnh như sau:
+   ```bash
+   ip route add 192.168.2.0/24 via 192.168.1.2
+   ```
+   (Giả sử 192.168.1.2 là địa chỉ của Router B)
+
+2. Trên **Router B**, bạn sẽ cấu hình tuyến đường tĩnh như sau:
+   ```bash
+   ip route add 192.168.2.0/24 via 192.168.1.3
+   ```
+   (Giả sử 192.168.1.3 là địa chỉ của Router C)
+
+Khi đó, Router A sẽ gửi gói tin đến Router B, và Router B sẽ tiếp tục chuyển gói tin đến Router C để đến mạng 192.168.2.0/24.
+
+----------------
 
 - phương pháp định tuyến trong đó các tuyến đường được cấu hình thủ công và không thay đổi trừ khi người quản trị mạng thay đổi chúng. Các router sử dụng bảng định tuyến tĩnh để chuyển tiếp gói tin từ nguồn đến đích dựa trên các tuyến đường mà quản trị viên đã chỉ định.
 
@@ -43,8 +218,12 @@
 
 - Định tuyến tĩnh bảo mật cao vì không trao đổi thông tin (địa chỉ mạng, gateway, đoạn đường...) giữa các router. Mỗi router chỉ biết tuyến đường mà nó đã được cấu hình cụ thể. 
 
+-----------------
+
 **1.2 Định tuyến động (Dynamic Routing)**
 Định tuyến động là phương pháp mà các router sử dụng giao thức định tuyến để tự động trao đổi thông tin và xác định các tuyến đường tối ưu. Các giao thức định tuyến động chia sẻ thông tin giữa các router, giúp tự động cập nhật bảng định tuyến.
+
+-------------------
 
 ### ** Routing Table**
 
@@ -102,24 +281,129 @@ Bảng định tuyến bao gồm một hoặc nhiều mục (entries) chứa th�
   
 ### **Cách cấu hình Routing Table**
 
-- Gateway phải thuộc cùng một subnet với giao diện mạng sử dụng để định tuyến.
-- 
 
-Cấu hình tạm thời reboot hoăc tắt máy là mất
+Dưới đây là hướng dẫn chi tiết:
 
-**Bước 1: Thêm Tuyến Đường Tĩnh**
+**1. Xác định Tệp Cấu Hình Netplan**
 
-Cú pháp:
+Netplan sử dụng các tệp YAML để cấu hình mạng, thường nằm trong thư mục `/etc/netplan/`. Các tệp này có tên như `00-installer-config.yaml` hoặc các tệp khác tùy thuộc vào hệ thống của bạn.
+
+Để xác định chính xác tệp cấu hình, bạn có thể liệt kê các tệp trong thư mục `/etc/netplan/`:
 ```bash
-sudo ip route add 192.168.1.0/24 via 192.168.1.1 dev ens33
+ls /etc/netplan/
 ```
 
-- `192.168.1.0/24`: Mạng đích bạn muốn định tuyến.
-- `192.168.1.1`: Gateway (địa chỉ IP của router hoặc next-hop).
-- `ens33`: Tên giao diện mạng.
+**2. Sửa Tệp Cấu Hình Netplan**
 
-**Bước 2: Kiểm Tra Bảng Định Tuyến**
-Sau khi thêm tuyến đường tĩnh, kiểm tra bảng định tuyến của máy ảo bằng lệnh:
+Giả sử tệp cấu hình của bạn là `00-installer-config.yaml`. Bạn sẽ mở tệp này để chỉnh sửa.
+
+```bash
+sudo nano /etc/netplan/00-installer-config.yaml
+```
+
+---
+
+**3. Thêm Định Tuyến Tĩnh vào Cấu Hình**
+
+Trong tệp cấu hình Netplan, dưới phần cấu hình của giao diện mạng (thường là `eth0` hoặc `enpXsY`), bạn có thể thêm phần `routes` để cấu hình định tuyến tĩnh. 
+
+Ví dụ: Cấu hình một tuyến đường tĩnh để gửi gói tin đến mạng `192.168.2.0/24` qua gateway `192.168.1.1`.
+
+Cấu trúc file YAML có thể trông như sau:
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: true
+      routes:
+        - to: 192.168.2.0/24
+          via: 192.168.1.1
+          metric: 100
+```
+
+**Giải thích**:
+- `to: 192.168.2.0/24`: Địa chỉ đích là mạng `192.168.2.0/24`.
+- `via: 192.168.1.1`: Địa chỉ gateway tiếp theo mà gói tin sẽ được gửi đến (router).
+- `metric: 100`: (Tùy chọn) Chỉ định độ ưu tiên của tuyến đường, tuyến có `metric` thấp hơn sẽ được ưu tiên. Bạn có thể bỏ qua dòng này nếu không cần.
+
+
+**4. Áp Dụng Cấu Hình**
+
+Sau khi chỉnh sửa xong tệp YAML, bạn cần áp dụng cấu hình để các thay đổi có hiệu lực.
+
+```bash
+sudo netplan apply
+```
+
+Lệnh này sẽ áp dụng các thay đổi cấu hình mà bạn vừa thực hiện.
+
+**5. Kiểm Tra Bảng Định Tuyến**
+
+Sau khi áp dụng cấu hình, bạn có thể kiểm tra lại bảng định tuyến của hệ thống để đảm bảo rằng tuyến đường tĩnh đã được thêm vào.
+
 ```bash
 ip route show
 ```
+
+Bạn sẽ thấy một dòng tương tự như:
+```
+192.168.2.0/24 via 192.168.1.1 dev eth0 metric 100
+```
+
+Điều này chứng tỏ tuyến đường tĩnh đã được cấu hình và hệ thống có thể sử dụng nó để định tuyến gói tin đến mạng `192.168.2.0/24` qua gateway `192.168.1.1`.
+
+---
+
+**6. Cấu Hình Định Tuyến Tĩnh Nhiều Gateway**
+
+Nếu bạn cần thêm nhiều tuyến đường tĩnh, chỉ cần thêm các mục vào phần `routes` trong tệp YAML.
+
+Ví dụ, để thêm một tuyến đường đến mạng `192.168.3.0/24` qua gateway `192.168.1.2`, bạn có thể cấu hình như sau:
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: true
+      routes:
+        - to: 192.168.2.0/24
+          via: 192.168.1.1
+        - to: 192.168.3.0/24
+          via: 192.168.1.2
+          metric: 200
+```
+
+---
+
+**7. Các Lựa Chọn Thêm trong Cấu Hình Định Tuyến Tĩnh**
+
+- **`metric`**: Như đã đề cập ở trên, `metric` là độ ưu tiên của tuyến đường. Nếu bạn có nhiều tuyến đường đến cùng một đích, tuyến đường có `metric` thấp sẽ được ưu tiên.
+- **`on-link`**: Thêm tùy chọn này để báo cho hệ thống biết rằng gateway không cần phải có tuyến đường định sẵn. Điều này hữu ích khi gateway nằm trong cùng mạng con.
+  
+Ví dụ:
+```yaml
+        - to: 192.168.2.0/24
+          via: 192.168.1.1
+          on-link: true
+```
+
+**Tóm Tắt Các Bước Cấu Hình Định Tuyến Tĩnh trên Ubuntu 20.04 trở lên**
+
+1. **Xác định tệp cấu hình Netplan**:
+   - Mở thư mục `/etc/netplan/` để tìm tệp cấu hình (ví dụ `00-installer-config.yaml`).
+   
+2. **Chỉnh sửa tệp cấu hình**:
+   - Thêm các tuyến đường tĩnh vào phần `routes` dưới giao diện mạng (ví dụ `eth0`).
+   
+3. **Áp dụng cấu hình**:
+   - Dùng lệnh `sudo netplan apply` để áp dụng cấu hình mới.
+
+4. **Kiểm tra bảng định tuyến**:
+   - Sử dụng lệnh `ip route show` để xác nhận tuyến đường tĩnh đã được thêm vào.
+
+
