@@ -1179,8 +1179,194 @@ traceroute to google.com (142.250.72.14), 30 hops max, 60 byte packets
   
 - **Thời Gian Phản Hồi (Latency)**: Các giá trị thời gian phản hồi (được đo bằng mili giây, ms) giúp bạn đánh giá độ trễ của các hop. Thời gian càng thấp thì mạng càng nhanh.
 
-----------
+---------------------
 
+### **mtr**
 
+**MTR (My Traceroute) và Các Option**
 
+`MTR` (My Traceroute) là một công cụ kết hợp giữa `ping` và `traceroute`, giúp bạn kiểm tra và phân tích tuyến đường mạng, đồng thời đo lường độ trễ và tỷ lệ mất gói tin (packet loss) cho mỗi hop trong suốt quá trình đi từ máy tính của bạn đến đích. `MTR` cung cấp thông tin chi tiết hơn so với `traceroute` vì nó liên tục gửi các gói tin đến mỗi hop và cập nhật kết quả trong thời gian thực.
+
+**Cấu Trúc Lệnh `mtr`**
+
+```bash
+mtr [options] <destination>
+```
+
+Ví dụ:
+```bash
+mtr google.com
+```
+
+---
+
+**Các Tùy Chọn (Options) Của `mtr`**
+
+Dưới đây là các tùy chọn phổ biến của `mtr` cùng cách sử dụng:
+
+#### **1. `-r`**: Chế Độ Báo Cáo (Report Mode)
+
+Khi sử dụng tùy chọn `-r`, `mtr` sẽ chạy một lần duy nhất, gửi gói tin đến các hop, thu thập thông tin và xuất kết quả dưới dạng báo cáo thay vì chạy liên tục như mặc định.
+
+```bash
+mtr -r google.com
+```
+
+**Kết quả**:
+- Chế độ này sẽ xuất ra kết quả thống kê sau một số gói tin được gửi đến mỗi hop, bao gồm thông tin về độ trễ và tỷ lệ mất gói.
+
+---
+
+#### **2. `-c <count>`**: Số Lượng Gói Tin
+
+Tùy chọn `-c` cho phép bạn chỉ định số lượng gói tin tối đa mà `mtr` sẽ gửi đến mỗi hop. Mặc định là 10 gói tin.
+
+```bash
+mtr -c 20 google.com
+```
+
+**Kết quả**:
+- Gửi 20 gói tin đến mỗi hop thay vì số gói tin mặc định.
+
+---
+
+#### **3. `-p <port>`**: Xác Định Cổng TCP
+
+MTR có thể sử dụng giao thức TCP thay vì ICMP (được sử dụng mặc định trong `traceroute`). Nếu bạn muốn gửi các gói TCP đến một cổng cụ thể (ví dụ, cổng HTTP là 80), bạn có thể sử dụng tùy chọn `-p`.
+
+```bash
+mtr -p 80 google.com
+```
+
+**Kết quả**:
+- Sử dụng TCP và gửi các gói tin đến cổng 80 của `google.com`.
+
+---
+
+#### **4. `-i <interval>`**: Thời Gian Giữa Các Gói Tin
+
+Tùy chọn `-i` cho phép bạn chỉ định thời gian (tính bằng giây) giữa các gói tin được gửi đi. Mặc định là 1 giây.
+
+```bash
+mtr -i 2 google.com
+```
+
+**Kết quả**:
+- Thời gian giữa mỗi gói tin sẽ là 2 giây thay vì mặc định 1 giây.
+
+---
+
+#### **5. `-w`**: Chế Độ Tĩnh (Non-Interactive Mode)
+
+Tùy chọn `-w` cho phép bạn chạy `mtr` trong chế độ không tương tác, có nghĩa là chương trình sẽ không hiển thị bản đồ trực quan hoặc yêu cầu đầu vào từ người dùng.
+
+```bash
+mtr -w google.com
+```
+
+**Kết quả**:
+- Chạy `mtr` trong chế độ báo cáo mà không có giao diện đồ họa.
+
+---
+
+#### **6. `-n`**: Hiển Thị Địa Chỉ IP Thay Vì Tên Miền
+
+Tùy chọn `-n` yêu cầu `mtr` hiển thị địa chỉ IP thay vì tên miền (hostname) của các hop. Điều này giúp rút ngắn thời gian và không cần phải thực hiện phân giải DNS.
+
+```bash
+mtr -n google.com
+```
+
+**Kết quả**:
+- Hiển thị chỉ địa chỉ IP thay vì tên miền cho các hop.
+
+---
+
+#### **7. `-v`**: Chế Độ Chi Tiết (Verbose Mode)
+
+Tùy chọn `-v` hiển thị thêm thông tin chi tiết về kết quả của `mtr`. Đây có thể là thông tin hữu ích cho việc phân tích các hop và tình trạng mạng.
+
+```bash
+mtr -v google.com
+```
+
+**Kết quả**:
+- Hiển thị thông tin chi tiết hơn về mỗi hop trong suốt quá trình traceroute.
+
+---
+
+#### **8. `-t`**: Chế Độ Thời Gian Chờ (Timeout)
+
+Tùy chọn `-t` cho phép bạn chỉ định thời gian tối đa để đợi một phản hồi từ mỗi hop. Điều này hữu ích khi các hop có độ trễ cao hoặc khi bạn muốn kiểm tra các tuyến đường với thời gian chờ ngắn hơn.
+
+```bash
+mtr -t 500 google.com
+```
+
+**Kết quả**:
+- Đặt thời gian chờ tối đa cho mỗi hop là 500 ms.
+
+---
+
+#### **9. `-h`**: Hiển Thị Trợ Giúp
+
+Để xem tất cả các tùy chọn và cách sử dụng của `mtr`, bạn có thể sử dụng tùy chọn `-h`.
+
+```bash
+mtr -h
+```
+
+**Kết quả**:
+- Hiển thị danh sách đầy đủ các tùy chọn và giải thích.
+
+---
+
+**Giải Thích Kết Quả `mtr`**
+
+Kết quả của `mtr` cung cấp thông tin về mỗi hop (router hoặc thiết bị mạng) mà gói tin đi qua, kèm theo các chỉ số về độ trễ (latency) và tỷ lệ mất gói tin (packet loss).
+
+Dưới đây là một ví dụ kết quả từ `mtr`:
+
+```plaintext
+Start: 2024-12-06T12:00:00+0000
+HOST: localhost                       Loss%   Snt   Last   Avg  Best  Wrst StDev
+  1.|-- 192.168.1.1                    0.0%     10    0.3   0.4   0.2   0.6   0.1
+  2.|-- 10.10.10.1                     0.0%     10    1.2   1.3   1.1   1.5   0.1
+  3.|-- 142.250.72.14                  0.0%     10   15.4  15.6  15.3  15.8   0.1
+```
+
+**Các Thành Phần Của Kết Quả `mtr`:**
+- **Số Thứ Tự**: Chỉ số của hop (1, 2, 3,...).
+- **Địa Chỉ IP**: Địa chỉ của router hoặc thiết bị mạng mà gói tin đi qua.
+- **Loss%**: Tỷ lệ mất gói tin tại hop đó. Một giá trị `0.0%` có nghĩa là không có gói tin bị mất.
+- **Snt**: Số lượng gói tin được gửi đến hop đó.
+- **Last**: Thời gian phản hồi (latency) của gói tin cuối cùng gửi đi tại hop đó.
+- **Avg**: Thời gian phản hồi trung bình (average latency) của tất cả các gói tin gửi đến hop đó.
+- **Best**: Thời gian phản hồi tốt nhất (best latency) trong quá trình gửi gói tin.
+- **Wrst**: Thời gian phản hồi tệ nhất (worst latency) trong quá trình gửi gói tin.
+- **StDev**: Độ lệch chuẩn (standard deviation) của các giá trị thời gian phản hồi, cho biết sự biến động của các thời gian phản hồi.
+
+**Ví Dụ Thực Tế về `mtr`**
+
+Giả sử bạn muốn kiểm tra tuyến đường đến `google.com` và muốn gửi 30 gói tin. Bạn có thể sử dụng lệnh sau:
+
+```bash
+mtr -r -c 30 google.com
+```
+
+**Kết quả có thể như sau:**
+
+```plaintext
+HOST: localhost                       Loss%   Snt   Last   Avg  Best  Wrst StDev
+  1.|-- 192.168.1.1                    0.0%     30    0.3   0.4   0.2   0.6   0.1
+  2.|-- 10.10.10.1                     0.0%     30    1.2   1.3   1.1   1.5   0.1
+  3.|-- 142.250.72.14                  0.0%     30   15.4  15.6  15.3  15.8   0.1
+```
+
+**Giải Thích**:
+- **Snt = 30**: Đã gửi 30 gói tin đến mỗi hop.
+- **Loss% = 0.0%**: Không có gói tin bị mất trong suốt quá trình.
+- **Last**: Thời gian phản hồi của gói tin cuối cùng tại mỗi hop.
+- **Avg**: Thời gian phản hồi trung bình cho các gói tin gửi đến hop.
+- **StDev**: Độ lệch chuẩn của thời gian phản hồi, cho biết sự biến động của thời gian phản hồi qua các gói tin.
 
