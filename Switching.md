@@ -202,4 +202,25 @@ Packet Switching là một kỹ thuật mạng cho phép dữ liệu được ch
 - **Lịch Sử:**
   - Tuy nhiên, phương pháp này đã dần bị thay thế bởi **packet switching** vì tính linh hoạt, hiệu quả và khả năng quản lý lưu lượng tốt hơn, đặc biệt là trong môi trường mạng ngày nay.
 
+----------------------
 
+### **Bonding**
+
+-  quá trình kết hợp nhiều kết nối mạng (hoặc cổng mạng) để tạo thành một kết nối duy nhất với băng thông cao hơn hoặc độ tin cậy cao hơn. Việc kết hợp này giúp tăng tốc độ truyền tải dữ liệu, cải thiện độ sẵn sàng (availability), và cung cấp khả năng dự phòng (redundancy) trong trường hợp một kết nối gặp sự cố.
+
+**Các loại Bonding trong mạng**
+
+**1. Link Aggregation (Liên kết các liên kết)**
+
+IEEE 802.3ad (LACP - Link Aggregation Control Protocol) là giao thức phổ biến nhất để kết hợp nhiều liên kết vật lý vào một liên kết duy nhất. Điều này giúp tăng băng thông và tạo độ tin cậy cao hơn cho mạng.
+LACP tự động phát hiện các cổng có thể gộp lại, và tối ưu hóa việc phân bổ tải và tăng băng thông.
+
+**2. Ethernet Bonding (Liên kết Ethernet)**
+
+Đây là việc kết hợp các cổng Ethernet của switch hoặc máy chủ để tăng băng thông hoặc độ tin cậy. Các phương pháp bonding này giúp cải thiện hiệu suất mạng và đảm bảo truyền tải dữ liệu mượt mà.
+Bonding Ethernet thường được cấu hình thông qua các hệ điều hành như Linux, với các công cụ như ifenslave hoặc các trình điều khiển hệ thống mạng.
+
+**3. Software-based Bonding (Bonding dựa trên phần mềm)**
+
+Bonding có thể được thực hiện thông qua phần mềm trên máy chủ hoặc thiết bị mạng mà không cần phần cứng đặc biệt.
+Phần mềm giúp kết hợp các kết nối mạng vật lý lại với nhau và tạo ra các kết nối mạng logic. Đây là một giải pháp linh hoạt và tiết kiệm chi phí, đặc biệt hữu ích trong các hệ thống Linux.
