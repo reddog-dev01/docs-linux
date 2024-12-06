@@ -225,7 +225,7 @@ Khi đó, Router A sẽ gửi gói tin đến Router B, và Router B sẽ tiếp
 
 -------------------
 
-### ** Routing Table**
+### **Routing Table**
 
 - cung cấp thông tin về cách router sẽ chuyển tiếp gói tin đến các đích mạng khác nhau. Mỗi router trong mạng đều có một bảng định tuyến riêng, chứa thông tin về các tuyến đường (routes) tới các mạng đích. Ngoài ra còn chứa các thông tin liên quan đến cách router xử lý và chuyển tiếp gói tin. 
 
