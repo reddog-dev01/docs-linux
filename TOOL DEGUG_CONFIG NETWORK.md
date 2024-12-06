@@ -1351,22 +1351,709 @@ HOST: localhost                       Loss%   Snt   Last   Avg  Best  Wrst StDev
 Giả sử bạn muốn kiểm tra tuyến đường đến `google.com` và muốn gửi 30 gói tin. Bạn có thể sử dụng lệnh sau:
 
 ```bash
-mtr -r -c 30 google.com
+mtr -r google.com
 ```
 
 **Kết quả có thể như sau:**
 
-```plaintext
-HOST: localhost                       Loss%   Snt   Last   Avg  Best  Wrst StDev
-  1.|-- 192.168.1.1                    0.0%     30    0.3   0.4   0.2   0.6   0.1
-  2.|-- 10.10.10.1                     0.0%     30    1.2   1.3   1.1   1.5   0.1
-  3.|-- 142.250.72.14                  0.0%     30   15.4  15.6  15.3  15.8   0.1
+![image](https://github.com/user-attachments/assets/f88e09a9-2ca9-4268-b79a-3d40c1766aa0)
+
+**Cấu Trúc Kết Quả `mtr`**
+Mỗi dòng trong bảng này có các thành phần sau:
+- **Số Thứ Tự**: Chỉ số của hop (ví dụ, "1", "2", "3", ...).
+- **Địa Chỉ IP hoặc Tên Host**: Địa chỉ IP hoặc tên máy chủ của hop (ví dụ, `192.168.18.2`, `static.vnpt.vn`).
+- **Loss%**: Tỷ lệ mất gói tin (Packet Loss). Nó thể hiện phần trăm gói tin bị mất trong quá trình gửi.
+- **Snt**: Số gói tin đã gửi đến hop đó.
+- **Last**: Thời gian phản hồi (Latency) của gói tin cuối cùng tại hop đó (đơn vị: ms).
+- **Avg**: Thời gian phản hồi trung bình (Average Latency) cho tất cả các gói tin gửi đến hop đó.
+- **Best**: Thời gian phản hồi nhanh nhất (Best Latency) cho các gói tin gửi đến hop đó.
+- **Wrst**: Thời gian phản hồi chậm nhất (Worst Latency) cho các gói tin gửi đến hop đó.
+- **StDev**: Độ lệch chuẩn (Standard Deviation) của các thời gian phản hồi, cho biết mức độ biến động của thời gian phản hồi từ gói tin này sang gói tin khác.
+
+**Phân Tích Các Bước Mạng**
+
+1. **Hop 1: `192.168.18.2`**  
+   - **Loss% = 0.0%**: Không có gói tin bị mất.
+   - **Last = 0.6 ms, Avg = 5.3 ms**: Thời gian phản hồi của gói tin cuối cùng là 0.6 ms, và thời gian trung bình là 5.3 ms. Thời gian phản hồi khá ổn định.
+   - **Wrst = 36.0 ms**: Thời gian phản hồi chậm nhất tại hop này là 36 ms, điều này cho thấy sự biến động nhỏ nhưng vẫn trong mức bình thường.
+
+2. **Hop 2: `10.0.1.2`**  
+   - **Loss% = 0.0%**: Không mất gói tin.
+   - **Last = 0.4 ms, Avg = 0.4 ms**: Thời gian phản hồi rất ngắn và ổn định tại hop này, cho thấy đây là một thiết bị gần bạn trong mạng nội bộ.
+
+3. **Hop 3: `192.168.4.3`**  
+   - **Loss% = 0.0%**: Không mất gói tin.
+   - **Last = 0.7 ms, Avg = 0.9 ms**: Mức độ trễ vẫn khá thấp, cho thấy hop này là một thiết bị mạng gần như trong mạng nội bộ.
+
+4. **Hop 4: `192.168.8.205`**  
+   - **Loss% = 0.0%**: Không mất gói tin.
+   - **Last = 0.5 ms, Avg = 0.5 ms**: Thời gian phản hồi rất nhanh và ổn định.
+
+5. **Hop 5: `static.vnpt.vn`**  
+   - **Loss% = 0.0%**: Không mất gói tin.
+   - **Last = 0.8 ms, Avg = 0.9 ms**: Gói tin tiếp tục đi ra ngoài mạng nội bộ vào mạng của VNPT (một nhà cung cấp dịch vụ).
+
+6. **Hop 6: `dynamic.vnpt.vn`**  
+   - **Loss% = 20.0%**: 20% gói tin bị mất tại hop này, đây có thể là một dấu hiệu của sự cố hoặc nghẽn mạng tại nhà cung cấp dịch vụ.
+   - **Last = 9.4 ms, Avg = 9.8 ms**: Mức độ trễ cao và không ổn định, có thể do vấn đề tại hop này hoặc tại mạng VNPT.
+
+7. **Hop 7: `static.vnpt.vn`**  
+   - **Loss% = 0.0%**: Không mất gói tin.
+   - **Last = 0.8 ms, Avg = 1.1 ms**: Trễ vẫn thấp, mặc dù có sự biến động nhỏ.
+
+8. **Hop 8: `???`**  
+   - **Loss% = 100.0%**: Tất cả các gói tin đều bị mất tại hop này.
+   - Đây có thể là do router hoặc thiết bị mạng tại hop này đã bị cấu hình để từ chối hoặc không trả lời các yêu cầu ICMP (tác động của các tường lửa hoặc các cấu hình bảo mật).
+
+9. **Hop 9: `static.vnpt.vn`**  
+   - **Loss% = 0.0%**: Không mất gói tin.
+   - **Last = 1.0 ms, Avg = 2.7 ms**: Trễ hơi cao hơn nhưng không có vấn đề mất gói tin.
+
+10. **Hop 10: `static.vnpt.vn`**  
+    - **Loss% = 0.0%**: Không mất gói tin.
+    - **Last = 17.6 ms, Avg = 17.6 ms**: Trễ khá ổn định tại hop này, và thời gian phản hồi không có sự biến động lớn.
+
+11. **Hop 11: `72.14.219.148`**  
+    - **Loss% = 0.0%**: Không mất gói tin.
+    - **Last = 17.2 ms, Avg = 17.3 ms**: Trễ thấp và ổn định.
+
+12. **Hop 12: `142.251.67.15`**  
+    - **Loss% = 0.0%**: Không mất gói tin.
+    - **Last = 19.8 ms, Avg = 19.6 ms**: Trễ hơi cao một chút, nhưng vẫn ổn định.
+
+13. **Hop 13: `66.249.95.171`**  
+    - **Loss% = 0.0%**: Không mất gói tin.
+    - **Last = 17.1 ms, Avg = 17.1 ms**: Thời gian phản hồi ổn định.
+
+14. **Hop 14: `nchkgb-af-in-f14.1e100.ne`**  
+    - **Loss% = 0.0%**: Không mất gói tin.
+    - **Last = 17.7 ms, Avg = 17.8 ms**: Trễ ổn định, và có vẻ như gói tin đã đến gần đích (có thể là một máy chủ Google hoặc tương tự).
+
+Khi **Hop 8** trong kết quả `mtr` hiển thị là `???` với tỷ lệ mất gói tin là **100.0%**, điều này có thể gây ra sự lo ngại về một số vấn đề mạng. Tuy nhiên, điều quan trọng là hiểu rằng sự mất gói tin này không nhất thiết phải có ảnh hưởng nghiêm trọng đến kết quả tổng thể của kết nối mạng của bạn. Đây là một số điều bạn cần lưu ý:
+
+**Nguyên Nhân và Ý Nghĩa của Mất Gói Tin tại Hop 8**
+
+1. **Cấu Hình Router hoặc Thiết Bị Mạng**:
+   - **Không phản hồi ICMP**: Một số router hoặc thiết bị mạng có thể được cấu hình để **không phản hồi** các yêu cầu ICMP (ping/traceroute). Điều này có thể là do các **tường lửa** hoặc các biện pháp bảo mật khác nhằm ngăn chặn các cuộc tấn công từ bên ngoài, hoặc đơn giản là để giảm tải cho các thiết bị mạng.
+   - **Bảo mật**: Một số nhà cung cấp dịch vụ hoặc tổ chức mạng có thể cấu hình các router của họ để không trả lời các yêu cầu ICMP, vì điều này không ảnh hưởng đến việc truyền tải dữ liệu thực sự trong mạng.
+
+2. **Không ảnh hưởng đến kết nối thực tế**:
+   - **Không ảnh hưởng đến kết nối cuối cùng**: Mặc dù bạn không nhận được phản hồi từ hop này, điều này không có nghĩa là kết nối mạng của bạn bị gián đoạn. Các gói tin vẫn có thể tiếp tục đến đích mà không gặp sự cố. Traceroute chỉ gửi gói tin ICMP để kiểm tra các hop trên đường đi, nhưng các giao thức dữ liệu thực tế (như TCP hoặc UDP) vẫn có thể hoạt động bình thường mà không bị ảnh hưởng.
+   - **Dữ liệu vẫn đi qua mạng bình thường**: Nếu các hop tiếp theo vẫn có phản hồi bình thường và không có mất gói tin, thì kết nối mạng của bạn có thể vẫn ổn, ngay cả khi một số hop không phản hồi.
+
+3. **Các Router hoặc Thiết Bị Trung Gian**:
+   - **Không phải tất cả các hop đều trả lời**: Thực tế, có thể có nhiều lý do khiến một số router hoặc thiết bị mạng không trả lời yêu cầu ICMP. Điều này bao gồm việc chúng có thể **không tham gia vào quá trình phân phối gói tin** hoặc **được cấu hình để không phản hồi** với các gói ICMP để bảo vệ bản thân khỏi các cuộc tấn công DDoS hoặc đơn giản là không hỗ trợ ICMP.
+
+**Ảnh Hưởng của Việc Mất Gói Tin 100% tại Hop 8**
+
+1. **Nếu các hop sau vẫn bình thường**:
+   - Nếu **các hop sau (hop 9, hop 10,...) vẫn phản hồi tốt** và không có sự mất gói tin, thì sự cố tại hop 8 không ảnh hưởng nghiêm trọng đến kết nối mạng của bạn. Bạn vẫn có thể truy cập các dịch vụ, website, và thực hiện các giao tiếp mạng bình thường mà không gặp vấn đề.
+
+2. **Nếu mạng hoặc kết nối của bạn gặp vấn đề**:
+   - Nếu bạn nhận thấy **mạng chậm hoặc gián đoạn** và việc mất gói tin tại hop 8 xảy ra cùng với các vấn đề này, thì có thể hop này đang gây ra một vấn đề tiềm ẩn trong việc định tuyến gói tin. Tuy nhiên, như đã đề cập trước, mất gói tin ICMP không luôn đồng nghĩa với mất gói tin thực tế trong giao tiếp dữ liệu.
+
+**Khi Nào Bạn Cần Lo Ngại?**
+Mất gói tin tại một hop không phải là một dấu hiệu chắc chắn của sự cố mạng. Tuy nhiên, nếu vấn đề này xảy ra thường xuyên và bạn gặp phải **mất kết nối** hoặc **truyền tải dữ liệu bị gián đoạn**, thì bạn có thể cần phải:
+
+- **Kiểm tra lại kết nối mạng**: Đảm bảo không có vấn đề với các hop trước hoặc sau đó.
+- **Liên hệ với nhà cung cấp dịch vụ mạng**: Nếu vấn đề liên quan đến một hop ngoài mạng của bạn (chẳng hạn như hop của nhà cung cấp dịch vụ Internet hoặc một thiết bị mạng bên ngoài), bạn có thể cần thông báo cho họ để họ kiểm tra và khắc phục sự cố.
+- **Thử các công cụ khác**: Bạn có thể sử dụng các công cụ khác như **ping** hoặc **iperf** để kiểm tra thêm về độ trễ, mất gói tin, hoặc tốc độ mạng thực tế.
+
+---------------------------------------
+
+### **netstat**
+
+`netstat` là một công cụ dòng lệnh rất hữu ích để hiển thị các kết nối mạng, bảng định tuyến, thống kê giao thức, và thông tin về các cổng đang mở trên hệ thống. Bạn có thể sử dụng `netstat` để kiểm tra tình trạng mạng và tìm hiểu về các kết nối đang hoạt động trên hệ thống của mình.
+
+### **Công Dụng của `netstat`**
+
+1. **Hiển thị các kết nối mạng đang hoạt động**: Bạn có thể xem các kết nối TCP, UDP hiện tại, trạng thái của chúng (ví dụ: LISTENING, ESTABLISHED), và các cổng mà chúng sử dụng.
+2. **Hiển thị bảng định tuyến**: `netstat` có thể giúp bạn xem các tuyến đường mạng được cấu hình trên hệ thống.
+3. **Thống kê giao thức**: Bạn có thể xem thống kê chi tiết về các giao thức như TCP, UDP, ICMP, v.v.
+4. **Kiểm tra cổng và các dịch vụ mạng**: Bạn có thể xác định các cổng đang mở và các ứng dụng nào đang sử dụng chúng.
+
+### **Các Tùy Chọn (`Options`) của `netstat`**
+
+Dưới đây là một số tùy chọn phổ biến mà bạn có thể sử dụng với `netstat`:
+
+----------------
+
+#### 1. **`-a` (All)**
+   - Hiển thị **tất cả các kết nối** và các cổng đang lắng nghe.
+   - Cả kết nối TCP và UDP sẽ được liệt kê.
+   - **Ví dụ**:
+     ```bash
+     netstat -a
+     ```
+
+Khi bạn chạy lệnh `netstat -a` trên hệ thống của mình, kết quả trả về sẽ hiển thị một danh sách các kết nối mạng và các cổng đang lắng nghe. Dưới đây là **giải thích ý nghĩa các cột** trong kết quả của `netstat -a`:
+
+**Ví Dụ về Kết Quả `netstat -a`**
+```bash
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 192.168.1.2:80         0.0.0.0:*               LISTEN
+tcp        0      0 192.168.1.2:22         192.168.1.3:53372       ESTABLISHED
+udp        0      0 192.168.1.2:123        0.0.0.0:*               LISTEN
 ```
 
-**Giải Thích**:
-- **Snt = 30**: Đã gửi 30 gói tin đến mỗi hop.
-- **Loss% = 0.0%**: Không có gói tin bị mất trong suốt quá trình.
-- **Last**: Thời gian phản hồi của gói tin cuối cùng tại mỗi hop.
-- **Avg**: Thời gian phản hồi trung bình cho các gói tin gửi đến hop.
-- **StDev**: Độ lệch chuẩn của thời gian phản hồi, cho biết sự biến động của thời gian phản hồi qua các gói tin.
+**Các Cột trong Kết Quả `netstat -a`**
+
+1. **Proto**: 
+   - **Mô tả**: Cột này cho biết loại giao thức của kết nối mạng.
+   - **Giá trị có thể xuất hiện**:
+     - `tcp`: Giao thức TCP (Transmission Control Protocol).
+     - `udp`: Giao thức UDP (User Datagram Protocol).
+     - `unix`: Kết nối sử dụng socket UNIX (local inter-process communication).
+
+2. **Recv-Q** (Receive Queue):
+   - **Mô tả**: Đây là số lượng byte mà hệ thống đang chờ để đọc từ **bộ đệm nhận** (receive buffer) cho mỗi kết nối.
+   - **Giải thích**: Nếu giá trị này lớn, điều đó có thể cho thấy hệ thống đang gặp khó khăn trong việc xử lý các gói tin đến và có thể ảnh hưởng đến hiệu suất của kết nối. Tuy nhiên, thông thường, giá trị này thường bằng `0` khi không có gói tin nào chờ xử lý.
+
+3. **Send-Q** (Send Queue):
+   - **Mô tả**: Đây là số byte mà hệ thống đang chờ để gửi đi qua kết nối này, tức là số dữ liệu chưa được truyền đi từ bộ đệm gửi (send buffer).
+   - **Giải thích**: Nếu giá trị này lớn, có thể có vấn đề với băng thông mạng hoặc mạng bị quá tải, dẫn đến việc dữ liệu không thể gửi đi kịp thời.
+
+4. **Local Address**:
+   - **Mô tả**: Đây là địa chỉ IP và cổng của **hệ thống cục bộ** (local system), tức là hệ thống đang thực hiện lệnh `netstat`.
+   - **Giải thích**: Địa chỉ này có thể là địa chỉ IP của hệ thống (ví dụ: `192.168.1.2`) và cổng mà ứng dụng hoặc dịch vụ trên máy của bạn đang lắng nghe (ví dụ: `:80`, `:22`).
+     - Nếu địa chỉ là `0.0.0.0`, điều này có nghĩa là hệ thống lắng nghe trên **tất cả các địa chỉ IP** khả dụng của máy.
+     - Nếu địa chỉ là `::` (IPv6), có nghĩa là hệ thống lắng nghe trên tất cả các địa chỉ IPv6 khả dụng.
+
+5. **Foreign Address**:
+   - **Mô tả**: Đây là địa chỉ IP và cổng của **hệ thống từ xa** (remote system) mà máy của bạn đang kết nối tới, hoặc là hệ thống mà bạn đang giao tiếp.
+   - **Giải thích**: Nếu kết nối đang lắng nghe (ví dụ, đối với cổng HTTP - 80), thì cột này sẽ là `*`, có nghĩa là không có kết nối cụ thể nào, máy của bạn đang chờ các kết nối đến. Nếu kết nối đã được thiết lập, địa chỉ IP và cổng của hệ thống từ xa sẽ được hiển thị tại đây (ví dụ: `192.168.1.3:53372`).
+
+6. **State**:
+   - **Mô tả**: Cột này cho biết **trạng thái** hiện tại của kết nối TCP.
+   - **Giải thích các trạng thái có thể xuất hiện**:
+     - `LISTEN`: Cổng đang **lắng nghe** cho các kết nối đến từ bên ngoài. Dịch vụ đang chờ để chấp nhận kết nối (ví dụ: một server web đang chờ kết nối HTTP).
+     - `ESTABLISHED`: Kết nối đã được thiết lập giữa hai hệ thống. Các gói tin có thể được truyền qua kết nối này.
+     - `TIME_WAIT`: Kết nối đã đóng và đang đợi đủ thời gian để chắc chắn các gói tin đã được truyền hết. Sau thời gian này, kết nối sẽ được giải phóng.
+     - `CLOSE_WAIT`: Hệ thống đã nhận được yêu cầu đóng kết nối từ phía đối tác, nhưng chưa đóng kết nối đó.
+     - `SYN_SENT`: Hệ thống đã gửi yêu cầu kết nối (SYN) nhưng chưa nhận được phản hồi từ phía đối tác.
+     - `SYN_RECV`: Hệ thống đã nhận yêu cầu kết nối (SYN) và đang chờ phản hồi từ phía đối tác.
+     - `FIN_WAIT1` và `FIN_WAIT2`: Kết nối đang trong quá trình đóng.
+     - `CLOSING`: Cả hai hệ thống đã gửi yêu cầu đóng kết nối và đang chờ phản hồi cuối cùng.
+     - `LAST_ACK`: Hệ thống đã gửi yêu cầu đóng và đang chờ xác nhận từ phía đối tác.
+
+**Ví Dụ về Kết Quả `netstat -a`**
+
+```bash
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 192.168.1.2:80         0.0.0.0:*               LISTEN
+tcp        0      0 192.168.1.2:22         192.168.1.3:53372       ESTABLISHED
+udp        0      0 192.168.1.2:123        0.0.0.0:*               LISTEN
+```
+
+- **Dòng 1**:
+  - Giao thức là `tcp`.
+  - Cổng 80 trên địa chỉ IP cục bộ `192.168.1.2` đang **lắng nghe** (LISTEN) cho các kết nối HTTP từ hệ thống khác.
+  - Không có địa chỉ từ xa (do đây là cổng lắng nghe).
+  
+- **Dòng 2**:
+  - Giao thức là `tcp`.
+  - Cổng 22 (SSH) trên `192.168.1.2` đang **kết nối** với `192.168.1.3:53372`.
+  - Trạng thái của kết nối là `ESTABLISHED`, tức là kết nối SSH đã được thiết lập và đang hoạt động.
+
+- **Dòng 3**:
+  - Giao thức là `udp`.
+  - Cổng 123 trên `192.168.1.2` đang **lắng nghe** (LISTEN) cho các kết nối NTP (Network Time Protocol).
+ 
+
+----------------------
+
+#### 2. **`-t` (TCP)**
+   - Chỉ hiển thị các kết nối **TCP**.
+   - **Ví dụ**:
+     ```bash
+     netstat -t
+     ```
+
+
+
+#### 3. **`-u` (UDP)**
+   - Chỉ hiển thị các kết nối **UDP**.
+   - **Ví dụ**:
+     ```bash
+     netstat -u
+     ```
+
+#### 4. **`-n` (Numerical)**
+   - Hiển thị địa chỉ IP và số cổng dưới dạng **số** thay vì tên miền hoặc tên dịch vụ.
+   - **Ví dụ**:
+     ```bash
+     netstat -n
+     ```
+
+#### 5. **`-l` (Listening)**
+   - Chỉ hiển thị các **cổng đang lắng nghe** (đang chờ kết nối).
+   - **Ví dụ**:
+     ```bash
+     netstat -l
+     ```
+
+#### 6. **`-p` (Program)**
+   - Hiển thị **PID** và tên chương trình đang sử dụng cổng.
+   - Bạn cần quyền root để sử dụng tùy chọn này.
+   - **Ví dụ**:
+     ```bash
+     sudo netstat -p
+     ```
+---------------------------
+
+#### 7. **`-r` (Routing Table)**
+   - Hiển thị **bảng định tuyến mạng** của hệ thống.
+   - **Ví dụ**:
+     ```bash
+     netstat -r
+     ```
+
+![image](https://github.com/user-attachments/assets/6f6a44c9-db31-4361-a0e0-eae8bea3f4d3)
+
+**Giải Thích Các Cột trong Bảng Định Tuyến**
+
+1. **Destination** (Đích):
+   - **Mô tả**: Đây là địa chỉ IP hoặc mạng đích mà gói tin sẽ được gửi đến. 
+   - **Ví dụ**: `default`, `172.16.1.0`, `192.168.18.0`, `192.168.168.0`.
+   - - `default`: Đây là tuyến đường mặc định (default route), tức là tuyến đường được sử dụng khi không có tuyến đường cụ thể cho đích được tìm thấy.
+  
+2. **Gateway** (Cổng đích):
+   - **Mô tả**: Đây là địa chỉ IP của cổng (gateway) hoặc thiết bị tiếp theo mà gói tin sẽ đi qua để đến đích.
+   - **Ví dụ**: `_gateway`, `0.0.0.0`.
+     - Nếu cổng là `0.0.0.0`, có nghĩa là không có cổng trung gian (directly reachable).
+     - `_gateway`: Thường là địa chỉ của cổng mặc định mà hệ thống sẽ sử dụng để ra ngoài mạng hoặc đến các mạng khác.
+   
+3. **Genmask** (Netmask):
+   - **Mô tả**: Địa chỉ subnet mask của mạng đích. Subnet mask xác định phần nào của địa chỉ IP là mạng và phần nào là địa chỉ máy.
+   - **Ví dụ**: `255.255.255.0`.
+     - Subnet mask `255.255.255.0` có nghĩa là hệ thống này có thể giao tiếp với tất cả các địa chỉ IP trong cùng mạng con có đầu 24 bit giống nhau.
+   
+4. **Flags**:
+   - **Mô tả**: Các cờ trạng thái về tuyến đường. Một số giá trị phổ biến:
+     - **U**: Tuyến đường này **hoạt động** (Up).
+     - **G**: Tuyến đường này là một **tuyến đường qua cổng** (Gateway).
+     - **H**: Tuyến đường này dùng cho **host-specific** (tuyến đường đến một máy tính cụ thể).
+   
+5. **MSS** (Maximum Segment Size):
+   - **Mô tả**: Kích thước phân đoạn tối đa cho các gói TCP trong kết nối này. MSS không thường xuyên được sử dụng trong bảng định tuyến.
+   - **Giải thích**: MSS có thể là `0` nếu không có giá trị cụ thể.
+
+6. **Window**:
+   - **Mô tả**: Đây là cửa sổ băng thông của kết nối mạng. Thường không có ý nghĩa trong bảng định tuyến cơ bản và thường được đặt là `0`.
+
+7. **irtt** (Initial Round Trip Time):
+   - **Mô tả**: Thời gian trễ (RTT) ban đầu ước tính cho tuyến đường này.
+   - **Giải thích**: Đây là một giá trị độ trễ có thể được sử dụng trong một số giao thức định tuyến động để tính toán đường đi tối ưu. Tuy nhiên, giá trị này thường bằng `0` trong các bảng định tuyến mặc định.
+
+8. **Iface** (Interface):
+   - **Mô tả**: Giao diện mạng mà hệ thống sử dụng để gửi gói tin đến đích. Đây có thể là một cổng mạng vật lý hoặc mạng ảo.
+   - **Ví dụ**: `eno1`, `vmnet8`, `vmnet1`.
+     - **eno1**: Thường là tên của một giao diện Ethernet.
+     - **vmnet8**: Là tên của một giao diện mạng ảo trong môi trường ảo hóa (VMware hoặc VirtualBox).
+     - **vmnet1**: Một giao diện mạng ảo khác (thường liên quan đến mạng nội bộ trong máy ảo).
+
+### **Giải Thích Các Dòng Kết Quả**
+
+1. **Dòng 1**: 
+   ```plaintext
+   default         _gateway        0.0.0.0         UG        0 0          0 eno1
+   ```
+   - **Destination**: `default` (tuyến đường mặc định).
+   - **Gateway**: `_gateway` (cổng mặc định, có thể là địa chỉ của router).
+   - **Genmask**: `0.0.0.0` (mạng không xác định, áp dụng cho tất cả các địa chỉ IP).
+   - **Flags**: `UG` (U: tuyến đường hoạt động, G: qua cổng - Gateway).
+   - **Iface**: `eno1` (giao diện mạng cổng này kết nối tới).
+
+2. **Dòng 2**:
+   ```plaintext
+   172.16.1.0      0.0.0.0         255.255.255.0   U         0 0          0 vmnet8
+   ```
+   - **Destination**: `172.16.1.0` (mạng con 172.16.1.0/24).
+   - **Gateway**: `0.0.0.0` (địa chỉ này có thể được tiếp cận trực tiếp, không cần cổng trung gian).
+   - **Genmask**: `255.255.255.0` (mạng con này có độ dài mạng là 24 bit).
+   - **Flags**: `U` (tuyến đường hoạt động).
+   - **Iface**: `vmnet8` (giao diện mạng ảo).
+
+3. **Dòng 3**:
+   ```plaintext
+   192.168.18.0    0.0.0.0         255.255.255.0   U         0 0          0 eno1
+   ```
+   - **Destination**: `192.168.18.0` (mạng con 192.168.18.0/24).
+   - **Gateway**: `0.0.0.0` (địa chỉ này có thể được tiếp cận trực tiếp).
+   - **Genmask**: `255.255.255.0` (mạng con này có độ dài mạng là 24 bit).
+   - **Flags**: `U` (tuyến đường hoạt động).
+   - **Iface**: `eno1` (giao diện mạng vật lý).
+
+4. **Dòng 4**:
+   ```plaintext
+   192.168.168.0   0.0.0.0         255.255.255.0   U         0 0          0 vmnet1
+   ```
+   - **Destination**: `192.168.168.0` (mạng con 192.168.168.0/24).
+   - **Gateway**: `0.0.0.0` (địa chỉ này có thể được tiếp cận trực tiếp).
+   - **Genmask**: `255.255.255.0` (mạng con này có độ dài mạng là 24 bit).
+   - **Flags**: `U` (tuyến đường hoạt động).
+   - **Iface**: `vmnet1` (giao diện mạng ảo).
+  
+------------------
+
+#### 8. **`-i` (Interface)**
+   - Hiển thị các thông tin mạng của **giao diện mạng** (interface) như eth0, wlan0, v.v.
+   - **Ví dụ**:
+     ```bash
+     netstat -i
+     ```
+
+Kết quả của lệnh `netstat -i` sẽ hiển thị thông tin chi tiết về các **giao diện mạng** (network interfaces) trên hệ thống của bạn. Dưới đây là giải thích các cột trong kết quả này.
+
+ **Ví Dụ về Kết Quả `netstat -i`**
+
+```bash
+Kernel Interface table
+Iface    MTU   RX-OK  RX-ERR  RX-DRP  RX-OVR  TX-OK  TX-ERR  TX-DRP  TX-OVR  Flg
+eth0    1500   12345      0      0       0    67890      0      0       0  BMRU
+lo      65536  56789      0      0       0    56789      0      0       0  LRU
+```
+
+**Giải Thích Các Cột trong Kết Quả `netstat -i`**
+
+1. **Iface**:
+   - **Mô tả**: Đây là tên của **giao diện mạng** trên hệ thống.
+   - **Ví dụ**: `eth0`, `lo`.
+     - `eth0`: Thường là tên của giao diện Ethernet (mạng vật lý).
+     - `lo`: Là giao diện loopback (mạng nội bộ, được sử dụng để giao tiếp với chính hệ thống).
+
+2. **MTU (Maximum Transmission Unit)**:
+   - **Mô tả**: Kích thước tối đa của một gói tin mà giao diện mạng này có thể truyền tải. 
+   - **Giải thích**: MTU mặc định của Ethernet thường là 1500 byte. Giao diện loopback (`lo`) thường có MTU là 65536 byte, vì đây là giao diện chỉ sử dụng trong hệ thống nội bộ.
+
+3. **RX-OK (Received OK)**:
+   - **Mô tả**: Số lượng gói tin **nhận thành công** qua giao diện này.
+   - **Giải thích**: Đây là số gói tin mà giao diện mạng đã nhận mà không có lỗi.
+
+4. **RX-ERR (Received Errors)**:
+   - **Mô tả**: Số lượng gói tin nhận được có **lỗi**.
+   - **Giải thích**: Các lỗi nhận gói có thể là do các vấn đề như lỗi CRC, gói tin bị hỏng hoặc không hợp lệ.
+
+5. **RX-DRP (Received Drops)**:
+   - **Mô tả**: Số lượng gói tin bị **rớt** trong quá trình nhận.
+   - **Giải thích**: Các gói tin có thể bị rớt do quá tải bộ đệm hoặc bộ đệm của giao diện mạng bị đầy.
+
+6. **RX-OVR (Received Overruns)**:
+   - **Mô tả**: Số lượng gói tin bị **tràn bộ đệm nhận**.
+   - **Giải thích**: Tràn bộ đệm xảy ra khi các gói tin đến quá nhanh và hệ thống không thể xử lý kịp thời.
+
+7. **TX-OK (Transmitted OK)**:
+   - **Mô tả**: Số lượng gói tin **gửi thành công** qua giao diện này.
+   - **Giải thích**: Đây là số gói tin mà giao diện mạng đã gửi mà không có lỗi.
+
+8. **TX-ERR (Transmit Errors)**:
+   - **Mô tả**: Số lượng gói tin gửi đi bị **lỗi**.
+   - **Giải thích**: Lỗi truyền có thể xảy ra do sự cố phần cứng hoặc cấu hình không đúng.
+
+9. **TX-DRP (Transmit Drops)**:
+   - **Mô tả**: Số lượng gói tin bị **rớt** khi gửi.
+   - **Giải thích**: Gói tin bị rớt khi bộ đệm truyền bị đầy hoặc có sự cố trong quá trình truyền.
+
+10. **TX-OVR (Transmit Overruns)**:
+   - **Mô tả**: Số lượng gói tin bị **tràn bộ đệm gửi**.
+   - **Giải thích**: Khi bộ đệm gửi không thể xử lý các gói tin đến trong một khoảng thời gian ngắn, gói tin có thể bị tràn và mất.
+
+11. **Flg (Flags)**:
+   - **Mô tả**: Các **cờ trạng thái** của giao diện mạng, cho biết trạng thái và tính năng của giao diện.
+   - **Giải thích**:
+     - `B` – Bộ lọc (broadcast).
+     - `M` – Được quản lý bởi một công cụ.
+     - `R` – Giao diện đang chạy (running).
+     - `U` – Giao diện đang **hoạt động** (up).
+     - `L` – Giao diện loopback.
+     - `A` – Giao diện đang nhận địa chỉ.
+     - `P` – Được cấu hình cho **promiscuous mode** (chế độ nhận tất cả các gói tin).
+
+**Ví Dụ Giải Thích**
+Dưới đây là một ví dụ và giải thích chi tiết cho kết quả:
+
+```bash
+Iface    MTU   RX-OK  RX-ERR  RX-DRP  RX-OVR  TX-OK  TX-ERR  TX-DRP  TX-OVR  Flg
+eth0    1500   12345      0      0       0    67890      0      0       0  BMRU
+```
+
+- **eth0**: Tên của giao diện mạng.
+- **MTU**: Kích thước tối đa của gói tin là 1500 byte.
+- **RX-OK**: Giao diện đã nhận thành công 12,345 gói tin.
+- **RX-ERR**: Không có lỗi nhận gói tin (`0`).
+- **RX-DRP**: Không có gói tin nào bị rớt khi nhận (`0`).
+- **RX-OVR**: Không có sự cố tràn bộ đệm nhận (`0`).
+- **TX-OK**: Giao diện đã gửi thành công 67,890 gói tin.
+- **TX-ERR**: Không có lỗi khi gửi gói tin (`0`).
+- **TX-DRP**: Không có gói tin nào bị rớt khi gửi (`0`).
+- **TX-OVR**: Không có sự cố tràn bộ đệm gửi (`0`).
+- **Flg**: Các cờ trạng thái là `BMRU`, nghĩa là:
+  - `B` (broadcast).
+  - `M` (managed).
+  - `R` (running).
+  - `U` (up).
+
+-----------------------
+
+
+#### 9. **`-s` (Statistics)**
+   - Hiển thị các **thống kê chi tiết** về các giao thức mạng (TCP, UDP, ICMP, v.v.).
+   - **Ví dụ**:
+     ```bash
+     netstat -s
+     ```
+Lệnh `netstat -s` được sử dụng để hiển thị các thống kê chi tiết về **giao thức mạng** trên hệ thống. Các thống kê này cung cấp cái nhìn sâu sắc về số lượng gói tin, lỗi, cảnh báo, và các chỉ số khác liên quan đến các giao thức mạng như TCP, UDP, ICMP, v.v.
+
+**Giải Thích Các Thông Tin Hiện Ra khi Dùng `netstat -s`**
+
+Kết quả của lệnh `netstat -s` sẽ hiển thị thống kê cho từng **giao thức mạng**. Dưới đây là các ví dụ và giải thích về các thống kê của một số giao thức phổ biến như TCP, UDP, ICMP.
+
+**Ví Dụ về Kết Quả `netstat -s`**
+
+```bash
+Tcp:
+    11539 segments received
+    12345 segments send out
+    5 segments retransmited
+    0 bad segments received
+    0 resets received
+    0 connections established
+    0 connections reset
+    0 segments discarded for bad checksum
+    0 segments dropped due to full queues
+Udp:
+    11539 packets received
+    12345 packets sent
+    5 packet receive errors
+    0 packets dropped
+Icmp:
+    2345 ICMP messages received
+    1234 ICMP messages sent
+    10 ICMP input errors
+    5 ICMP output errors
+```
+
+### **Giải Thích Các Cột và Dữ Liệu trong `netstat -s`**
+
+#### **TCP (Transmission Control Protocol)**
+
+1. **segments received**:
+   - **Mô tả**: Số lượng **segements TCP** nhận được từ mạng.
+   - **Giải thích**: Một segment TCP là một đơn vị dữ liệu của giao thức TCP.
+
+2. **segments sent out**:
+   - **Mô tả**: Số lượng **segment TCP** đã được gửi ra khỏi hệ thống.
+   - **Giải thích**: Đây là số gói tin TCP mà hệ thống đã gửi.
+
+3. **segments retransmited**:
+   - **Mô tả**: Số lượng **segment TCP** bị **truyền lại** do lỗi (ví dụ, không nhận được ACK).
+   - **Giải thích**: Khi một segment không nhận được phản hồi (ACK), hệ thống sẽ thử gửi lại.
+
+4. **bad segments received**:
+   - **Mô tả**: Số lượng **segment TCP** bị lỗi khi nhận.
+   - **Giải thích**: Các lỗi này có thể liên quan đến vấn đề như lỗi checksum, không hợp lệ hoặc gói tin bị hỏng.
+
+5. **resets received**:
+   - **Mô tả**: Số lần hệ thống nhận **phản hồi RESET** từ kết nối TCP.
+   - **Giải thích**: Phản hồi RESET xảy ra khi một kết nối TCP bị đóng đột ngột (reset).
+
+6. **connections established**:
+   - **Mô tả**: Số lượng **kết nối TCP** đã được thiết lập thành công.
+   - **Giải thích**: Đây là số kết nối TCP mà hệ thống đã thiết lập thành công.
+
+7. **connections reset**:
+   - **Mô tả**: Số lượng **kết nối TCP** bị **đóng** hoặc reset.
+   - **Giải thích**: Kết nối TCP có thể bị đóng khi có lỗi hoặc khi một bên đóng kết nối.
+
+8. **segments discarded for bad checksum**:
+   - **Mô tả**: Số lượng **segment TCP** bị **loại bỏ** do lỗi checksum.
+   - **Giải thích**: Nếu checksum của một segment không hợp lệ, nó sẽ bị loại bỏ.
+
+9. **segments dropped due to full queues**:
+   - **Mô tả**: Số lượng **segment TCP** bị **rớt** do các hàng đợi đầy.
+   - **Giải thích**: Khi bộ đệm đầy, các gói tin sẽ bị mất.
+
+#### **UDP (User Datagram Protocol)**
+
+1. **packets received**:
+   - **Mô tả**: Số lượng **gói tin UDP** nhận được.
+   - **Giải thích**: Đây là số gói tin UDP mà hệ thống đã nhận.
+
+2. **packets sent**:
+   - **Mô tả**: Số lượng **gói tin UDP** đã gửi đi.
+   - **Giải thích**: Đây là số gói tin UDP mà hệ thống đã gửi.
+
+3. **packet receive errors**:
+   - **Mô tả**: Số lượng lỗi khi nhận **gói tin UDP**.
+   - **Giải thích**: Các lỗi này có thể liên quan đến gói tin bị hỏng hoặc lỗi khi xử lý.
+
+4. **packets dropped**:
+   - **Mô tả**: Số lượng **gói tin UDP** bị **rớt**.
+   - **Giải thích**: Gói tin có thể bị rớt do bộ đệm đầy hoặc các vấn đề khác.
+
+#### **ICMP (Internet Control Message Protocol)**
+
+1. **ICMP messages received**:
+   - **Mô tả**: Số lượng **tin nhắn ICMP** nhận được.
+   - **Giải thích**: Đây là số lượng thông điệp ICMP mà hệ thống nhận được, chẳng hạn như các thông điệp echo request và echo reply.
+
+2. **ICMP messages sent**:
+   - **Mô tả**: Số lượng **tin nhắn ICMP** đã gửi đi.
+   - **Giải thích**: Đây là số lượng thông điệp ICMP mà hệ thống đã gửi, như các thông điệp echo request.
+
+3. **ICMP input errors**:
+   - **Mô tả**: Số lượng lỗi khi nhận **tin nhắn ICMP**.
+   - **Giải thích**: Các lỗi này có thể xảy ra khi thông điệp ICMP không hợp lệ hoặc bị hỏng khi nhận.
+
+4. **ICMP output errors**:
+   - **Mô tả**: Số lượng lỗi khi gửi **tin nhắn ICMP**.
+   - **Giải thích**: Lỗi này có thể xảy ra khi hệ thống không thể gửi một tin nhắn ICMP, ví dụ, khi không thể truy cập đích.
+
+**Các Giao Thức Khác**
+Bên cạnh TCP, UDP và ICMP, `netstat -s` còn cung cấp thống kê cho các giao thức khác như:
+
+- **IPv4**: Số lượng gói tin IPv4 gửi và nhận.
+- **IPv6**: Số lượng gói tin IPv6 gửi và nhận.
+- **TCPv6**: Số lượng kết nối TCP qua IPv6.
+- **UDPv6**: Thống kê về các gói UDP qua IPv6.
+
+
+
+---------------------
+
+
+#### 10. **`-c` (Continuous)**
+   - Hiển thị các kết quả theo **chu kỳ** (mỗi vài giây cập nhật lại thông tin).
+   - **Ví dụ**:
+     ```bash
+     netstat -c
+     ```
+
+#### 11. **`-e` (Extended)**
+   - Hiển thị thông tin **mở rộng** về các giao thức, như số lượng gói tin đã truyền, lỗi, v.v.
+   - **Ví dụ**:
+     ```bash
+     netstat -e
+     ```
+
+#### 12. **`-v` (Verbose)**
+   - Hiển thị thông tin chi tiết hơn về kết nối, trạng thái, và các giao thức.
+   - **Ví dụ**:
+     ```bash
+     netstat -v
+     ```
+
+#### 13. **`-g` (Multicast Group)**
+   - Hiển thị thông tin về các **nhóm multicast** mà hệ thống đang tham gia.
+   - **Ví dụ**:
+     ```bash
+     netstat -g
+     ```
+
+--------------------
+     
+Lệnh `netstat -g` được sử dụng để hiển thị các thông tin liên quan đến **địa chỉ nhóm đa phát (multicast group addresses)** mà hệ thống đang tham gia. Nhóm đa phát là một nhóm các địa chỉ IP mà nhiều máy tính có thể tham gia để nhận các gói tin cùng một lúc, giúp tiết kiệm băng thông khi truyền tải dữ liệu tới nhiều máy tính.
+
+**Giải Thích Các Cột Khi Dùng Lệnh `netstat -g`**
+
+Kết quả của lệnh `netstat -g` thường bao gồm các thông tin sau:
+
+```bash
+IPv4 Multicast Group Memberships
+Interface   RefCnt   Group Address     Zone
+eth0        2        224.0.0.1         0
+eth0        3        224.0.0.251       0
+lo          1        224.0.0.1         0
+
+IPv6 Multicast Group Memberships
+Interface   RefCnt   Group Address     Zone
+eth0        2        ff02::1           0
+eth0        3        ff02::fb          0
+lo          1        ff02::1           0
+```
+
+**Giải Thích Các Cột và Thông Tin trong Kết Quả `netstat -g`**
+
+1. **Interface**:
+   - **Mô tả**: Tên của **giao diện mạng** (network interface) mà hệ thống tham gia vào nhóm đa phát.
+   - **Ví dụ**: `eth0`, `lo`, v.v.
+     - `eth0`: Giao diện Ethernet (giao diện mạng vật lý).
+     - `lo`: Giao diện loopback (được sử dụng để giao tiếp với chính máy tính).
+
+2. **RefCnt (Reference Count)**:
+   - **Mô tả**: Số lượng các tiến trình hoặc ứng dụng đang tham gia vào nhóm đa phát này.
+   - **Giải thích**: Nếu một địa chỉ nhóm đa phát có giá trị `RefCnt > 1`, điều này có nghĩa là có nhiều tiến trình đang sử dụng nhóm đa phát đó. Nếu giá trị là `1`, chỉ có một tiến trình tham gia.
+
+3. **Group Address**:
+   - **Mô tả**: Địa chỉ IP của nhóm đa phát mà hệ thống tham gia.
+   - **Giải thích**: Đây là địa chỉ nhóm đa phát (multicast address) mà hệ thống đã tham gia. Các địa chỉ nhóm đa phát thường bắt đầu từ `224.0.0.0` đến `233.255.255.255` cho IPv4 và từ `ff00::` cho IPv6.
+
+4. **Zone**:
+   - **Mô tả**: Tên vùng (zone) của giao diện mạng (thường là `0` trong hầu hết các trường hợp).
+   - **Giải thích**: Đây là thông tin liên quan đến phạm vi của nhóm đa phát. Trong đa số các trường hợp, zone sẽ là `0`, tức là phạm vi toàn cầu. 
+
+**Ví Dụ Giải Thích**
+
+Dưới đây là một ví dụ về kết quả của lệnh `netstat -g`:
+
+```bash
+IPv4 Multicast Group Memberships
+Interface   RefCnt   Group Address     Zone
+eth0        2        224.0.0.1         0
+eth0        3        224.0.0.251       0
+lo          1        224.0.0.1         0
+```
+
+- **eth0** tham gia vào 2 nhóm đa phát: `224.0.0.1` và `224.0.0.251`.
+  - Địa chỉ `224.0.0.1` là nhóm đa phát dành cho tất cả các thiết bị trong mạng cục bộ (local network), được sử dụng trong nhiều ứng dụng như **ARP** (Address Resolution Protocol).
+  - Địa chỉ `224.0.0.251` là nhóm đa phát dành cho **mDNS** (Multicast DNS).
+- **lo** chỉ tham gia vào nhóm đa phát `224.0.0.1` (giao diện loopback).
+
+----------------
+
+#### 14. **`-a` và `-n` kết hợp**
+   - Kết hợp các tùy chọn `-a` và `-n` để hiển thị tất cả các kết nối và địa chỉ dưới dạng số.
+   - **Ví dụ**:
+     ```bash
+     netstat -an
+     ```
+
+### **Một Số Lệnh Thường Dùng**
+
+1. **Hiển thị tất cả các kết nối TCP và UDP**:
+   ```bash
+   netstat -at
+   netstat -au
+   ```
+
+2. **Hiển thị tất cả các cổng đang lắng nghe (Listening ports)**:
+   ```bash
+   netstat -l
+   ```
+
+3. **Hiển thị bảng định tuyến mạng**:
+   ```bash
+   netstat -r
+   ```
+
+4. **Hiển thị thống kê giao thức**:
+   ```bash
+   netstat -s
+   ```
+
+5. **Hiển thị các kết nối đang mở và chương trình sử dụng cổng**:
+   ```bash
+   sudo netstat -tulnp
+   ```
+
+6. **Xem các kết nối TCP đang ESTABLISHED**:
+   ```bash
+   netstat -t | grep ESTABLISHED
+   ```
+
+7. **Hiển thị các kết nối TCP đang chờ (LISTENING)**:
+   ```bash
+   netstat -tuln
+   ```
+
 
