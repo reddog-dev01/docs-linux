@@ -18,11 +18,74 @@
 
 **Tầng 1 - Physical layer (Tầng vật lý)**
 
-- Không quan tâm đến dữ liệu mà chỉ tập trung vào các phương tiện vật lý và cách thức chúng truyền tín hiệu.
+**Lớp Vật lý (Physical Layer)** trong mô hình OSI là lớp **thấp nhất**, chịu trách nhiệm truyền tải tín hiệu vật lý qua phương tiện truyền dẫn (cáp, sóng radio, v.v.). Lớp này không xử lý dữ liệu dưới dạng gói, mà chỉ quan tâm đến cách truyền và nhận tín hiệu giữa các thiết bị.
 
-**Lý do cần**: Vì nó cung cấp các phương tiện để truyền tải dữ liệu giữa các thiết bị mạng, đảm bảo dữ liệu được truyền từ nguồn đến đích đúng và hiệu quả. Không có tầng vật lý các tầng trên không thể giao tiếp hoặc trao đổi dữ liệu.
 
-- Chuyển đổi tín hiệu số (0 và 1) từ các tầng trên thành tín hiệu vật lý ( tín hiệu điện, sóng ánh sáng, sóng vô tuyến) để truyền tải qua các phương tiện vật lý (cáp quang, sóng vô tuyến, cáp đồng trục...). Quy định tốc độ truyền tải dữ liệu và băng thông của mạng đảm bảo dữ liệu được truyền đi đúng tốc độ và không bị mất.
+**Chức năng chính của Lớp Vật lý**
+1. **Chuyển đổi dữ liệu thành tín hiệu vật lý**:
+   - Biến dữ liệu số (bit 0 và 1) thành tín hiệu điện, ánh sáng, hoặc sóng radio để truyền qua cáp hoặc môi trường không dây.
+
+2. **Truyền tín hiệu qua phương tiện truyền dẫn**:
+   - Đảm bảo tín hiệu được truyền từ nguồn đến đích qua các phương tiện truyền dẫn:
+     - Cáp mạng (Ethernet, quang học, đồng).
+     - Sóng không dây (Wi-Fi, Bluetooth, sóng di động).
+
+3. **Đồng bộ hóa tín hiệu**:
+   - Đảm bảo rằng thiết bị gửi và nhận hiểu được thời điểm bắt đầu và kết thúc của mỗi bit.
+
+4. **Xác định tốc độ truyền dữ liệu**:
+   - Quy định tốc độ truyền tải (tốc độ băng thông) giữa các thiết bị.
+
+5. **Kiểm soát môi trường truyền dẫn**:
+   - Xác định các đặc tính vật lý như:
+     - Điện áp sử dụng.
+     - Tần số sóng.
+     - Kiểu đầu nối (RJ45, USB, cổng quang...).
+
+6. **Kiểm soát truy cập môi trường (Media Access Control)**:
+   - Giúp các thiết bị chia sẻ một môi trường truyền dẫn vật lý mà không xung đột tín hiệu.
+
+---
+
+**Ví dụ cụ thể trong Lớp Vật lý**
+- **Cáp Ethernet (RJ45):**
+  - Chuyển đổi tín hiệu điện qua dây cáp đồng.
+  - Tốc độ truyền có thể là 10 Mbps, 100 Mbps, 1 Gbps...
+- **Cáp quang (Fiber Optics):**
+  - Truyền tín hiệu ánh sáng qua sợi quang học, tốc độ cao hơn (10 Gbps, 100 Gbps...).
+- **Wi-Fi:**
+  - Sử dụng sóng radio để truyền tín hiệu qua không khí, thường dùng tần số 2.4 GHz hoặc 5 GHz.
+
+**Các thiết bị liên quan đến Lớp Vật lý**
+1. **Hub**:
+   - Thiết bị đơn giản truyền tín hiệu đến tất cả các thiết bị trong mạng mà không xử lý dữ liệu.
+2. **Repeater**:
+   - Khuếch đại tín hiệu để truyền xa hơn trong mạng.
+3. **Modem**:
+   - Chuyển đổi tín hiệu số từ máy tính thành tín hiệu analog để truyền qua đường dây điện thoại hoặc cáp.
+4. **Cáp mạng**:
+   - Các loại cáp truyền dẫn như Ethernet, cáp quang, hoặc cáp đồng trục.
+
+**Đặc điểm của Lớp Vật lý**
+- **Không xử lý dữ liệu**:
+  - Chỉ quan tâm đến tín hiệu vật lý, không biết nội dung dữ liệu đang truyền.
+- **Hoạt động gần phần cứng**:
+  - Phần lớn công việc được thực hiện bởi phần cứng như card mạng (NIC), dây cáp, hoặc anten Wi-Fi.
+- **Tốc độ truyền**:
+  - Phụ thuộc vào công nghệ truyền dẫn (Ethernet, Wi-Fi, cáp quang…).
+
+**Một số tiêu chuẩn và giao thức của Lớp Vật lý**
+1. **Ethernet (IEEE 802.3)**:
+   - Quy định cách truyền tín hiệu qua cáp đồng hoặc cáp quang.
+2. **Wi-Fi (IEEE 802.11)**:
+   - Quy định cách truyền tín hiệu không dây qua sóng radio.
+3. **Bluetooth**:
+   - Truyền tín hiệu không dây trong khoảng cách ngắn.
+4. **USB (Universal Serial Bus)**:
+   - Truyền dữ liệu giữa các thiết bị thông qua cáp vật lý.
+
+---
+
 
 **Tầng 2 - Data Link Layer ( Tầng liên kết dữ liệu)**
 
@@ -118,8 +181,16 @@ Network Layer sử dụng các thuật toán định tuyến (routing) để xá
 
 **2. IP (Internet Protocol)**
 
-- Mỗi thiết bị trong mạng được cấp 1 địa chỉ IP để có thể giao tiếp với nhau, giúp định tuyến dữ liệu từ máy này sang máy khác. IP quyết định cách thức chuyển tiếp các gói dữ liệu (chia nhỏ thành các gói tin) qua mạng đến đúng đích (định tuyến), làm việc với router để xác định tuyến đường tốt nhất để gói dữ liệu đi từ nguồn đến đích.
-- Hoạt động ở Network Layer trong mô hình OSI
+**Định danh thiết bị**
+- Mỗi thiết bị trong mạng được cấp 1 địa chỉ IP để định danh thiết bị và để chúng có thể giao tiếp với nhau. Giống như mỗi nhà có 1 địa chỉ riêng để nhận thư, mỗi thiết bị trên mạng cần một địa chỉ IP để nhận và gửi dữ liệu.
+
+**Định tuyến dữ liệu (Routing)**
+- Quá trình tìm đường đi tối ưu để các gói tin di chuyển từ thiết bị nguồn đến thiết bị đích qua mạng.
+- Nếu gói tin quá lớn để truyền qua 1 mạng, nó sẽ được phân mảnh thành các gói nhỏ (chứa địa chỉ IP nguồn, đích), mỗi mảnh sẽ có 1 header (tiêu đề) chứa thông tin vị trí. Mỗi mạng có giới hạn kích thước gói tin mà nó có thể truyền (gọi là MTU - Maximum Transmission Unit). Gói tin được gửi từ thiết bị nguồn => Đi qua Router (thiết bị trung gian trên mạng internet): Router đọc địa chỉ IP đích và định tuyến gói tin đến mạng tiếp theo. Khi đến đích, thiết bị đích sẽ dùng thông tin trong tiêu đề để ghép các mảnh lại đúng thứ tự, tạo thành gói tin ban đầu.
+- **Vấn đề phát sinh:**
+Nếu một mảnh bị mất trong quá trình truyền, thiết bị đích không thể lắp ráp gói tin đầy đủ. Khi đó, giao thức cao hơn (như TCP) sẽ yêu cầu gửi lại gói tin.
+
+- Hoạt động ở Network Layer trong mô hình OSI và ở Internet Layer của TCP/IP
 
 **3. TCP (Transmission Control Protocol)**
 
