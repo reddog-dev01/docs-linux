@@ -89,29 +89,161 @@
 
 **Tầng 2 - Data Link Layer ( Tầng liên kết dữ liệu)**
 
-- Đảm bảo việc truyền tải dữ liệu chính xác và không bị lỗi giữa các thiết bị trong cùng 1 mạng hoặc trên 1 liên kết mạng vật lý. Làm việc với tầng vật lý để đảm bảo rằng dữ liệu được truyền 1 cách an toàn hiệu quả.
+**Lớp Liên kết Dữ liệu (Data Link Layer)** trong mô hình OSI là lớp thứ hai, đóng vai trò quan trọng trong việc xử lý và đóng gói dữ liệu để truyền qua phương tiện vật lý. Nó đảm bảo rằng dữ liệu có thể được truyền một cách an toàn và hiệu quả giữa các thiết bị trong một mạng cục bộ hoặc qua môi trường truyền dẫn.
 
-**Lý do cần**
+**Chức năng chính của Lớp Liên kết Dữ liệu**
+1. **Đóng khung (Framing)**:
+   - Chia dữ liệu từ lớp Giao vận (Transport Layer) thành các khung dữ liệu nhỏ hơn.
+   - Mỗi khung bao gồm trường header và trailer để định dạng và kiểm soát lỗi.
 
-- Tầng 2 đảm bảo dữ liệu được gửi đi từ 1 thiết bị đến thiết bị khác không bị lỗi. Nếu có lỗi xảy ra trong quá trình truyền tải nó sẽ phát hiện và sửa lỗi.
-- Kiểm soát tốc độ dữ liệu được truyền, tránh tình trạng tắc nghẽn hoặc mất mát dữ liệu.
-- Dữ liệu từ tầng 3 được đóng gói thành các frames để có thể được truyền tải qua môi trường vật lý.
+2. **Địa chỉ vật lý (Physical Addressing)**:
+   - Sử dụng địa chỉ MAC (Media Access Control) để xác định nguồn và đích của mỗi khung dữ liệu.
 
-**Chức năng của Data Link**
+3. **Kiểm soát truy cập môi trường (Media Access Control)**:
+   - Quản lý việc truy cập vào môi trường truyền dẫn chung, đặc biệt trong mạng có nhiều thiết bị.
+   - Giải quyết vấn đề va chạm và phân bổ thời gian truy cập.
 
-- Data Link nhận dữ liệu từ Network đóng gói thành frames (gồm cả MAC) trong quá trình truyền tải nếu phát hiện lỗi dữ liệu sẽ được sửa hoặc yêu cầu gửi lại. Kiểm soát tốc độ, quản lý truy cập kênh truyền tải để tánh xung đột khi nhiều thiết bị cùng gửi dữ liệu.
+4. **Kiểm tra và xử lý lỗi (Error Detection and Handling)**:
+   - Phát hiện lỗi xảy ra trong quá trình truyền dữ liệu bằng cách sử dụng các thuật toán như CRC (Cyclic Redundancy Check).
+   - Đảm bảo tính toàn vẹn của dữ liệu truyền.
+
+5. **Kiểm soát luồng (Flow Control)**:
+   - Điều chỉnh tốc độ truyền dữ liệu giữa người gửi và người nhận để tránh quá tải.
+
+**Các Giao thức và Tiêu chuẩn của Lớp Liên kết Dữ liệu**
+1. **Ethernet (IEEE 802.3)**:
+   - Là tiêu chuẩn phổ biến nhất cho mạng LAN, sử dụng địa chỉ MAC để xác định các thiết bị và điều khiển việc truy cập môi trường truyền thông.
+
+2. **Wi-Fi (IEEE 802.11)**:
+   - Cũng sử dụng địa chỉ MAC, nhưng trong môi trường không dây, cung cấp kết nối linh hoạt và dễ dàng mở rộng.
+
+3. **PPP (Point-to-Point Protocol)**:
+   - Cho phép truyền thông qua đường dây điện thoại hoặc liên kết dữ liệu nối tiếp, thường được sử dụng trong kết nối internet qua điện thoại.
+
+4. **ARP (Address Resolution Protocol)**:
+   - Giúp dịch địa chỉ IP thành địa chỉ MAC, cần thiết cho việc gửi dữ liệu giữa các thiết bị trong mạng LAN.
+
+5. **HDLC (High-Level Data Link Control)**:
+   - Giao thức liên kết dữ liệu chung, cung cấp cơ chế kiểm tra lỗi và điều khiển luồng trong mạng điểm-đến-điểm và điểm-đến-đa điểm.
+
+**Các Thiết bị Hoạt động ở Lớp Liên kết Dữ liệu**
+1. **Switch**:
+   - Chuyển mạch các khung dữ liệu dựa trên địa chỉ MAC đến cổng đích thích hợp.
+   - Giảm bớt lưu lượng mạng bằng cách giới hạn phạm vi truyền dẫn khung dữ liệu đến các thiết bị đích.
+
+2. **Bridge**:
+   - Kết nối các mạng LAN hoặc phân đoạn mạng LAN thành nhóm nhỏ, giảm bớt lưu lượng và cải thiện hiệu suất.
+   - Hoạt động tại lớp Liên kết Dữ liệu và có khả năng lọc lưu lượng.
+
+**Tác động và Vai trò**
+- **Đảm bảo truyền dẫn dữ liệu**: Lớp Liên kết Dữ liệu là lớp quan trọng để bảo đảm dữ liệu được truyền từ người gửi đến người nhận một cách chính xác và an toàn.
+- **Cải thiện hiệu suất mạng**: Đóng gói dữ liệu vào các khung và quản lý lưu lượng giúp tối ưu hóa sử dụng môi trường truyền dẫn.
+
+-----------------
 
 **Tầng 3 - Network Layer**
 
-- Định tuyến và điều phối dữ liệu giữa các thiết bị trên các mạng khác nhau.
+**Lớp Mạng (Network Layer) trong Mô hình OSI**
 
-Network Layer sử dụng các thuật toán định tuyến (routing) để xác định đường đi tốt nhất cho các packets giữa các mạng (sử dụng các thiết bị định tuyến router, switch). Chịu trách nhiệm cấp phát và sử dụng các địa chỉ logic để nhận dạng các thiết bị trong mạng (phổ biến nhất là IP). Nếu packets quá lớn để truyền qua mạng nó sẽ phân mảnh chúng thành các phần nhỏ hơn để có thể gửi qua mạng, khi đến đích, các mảnh gói này sẽ được tái hợp lại. 
+Lớp Mạng là lớp thứ ba trong mô hình OSI, có vai trò quan trọng trong việc định tuyến gói tin qua mạng, điều phối dữ liệu giữa các mạng khác nhau, và đảm bảo rằng dữ liệu được gửi đến đúng đích. Lớp này xử lý các vấn đề liên quan đến định tuyến gói dữ liệu từ nguồn đến đích, kể cả khi các thiết bị nguồn và đích nằm trên các mạng khác nhau.
+
+**Chức năng chính của Lớp Mạng**
+1. **Định tuyến (Routing):**
+   - Xác định đường đi tối ưu cho gói tin từ nguồn đến đích.
+   - Sử dụng các bảng định tuyến và thuật toán định tuyến để đưa ra quyết định về đường đi cho mỗi gói tin.
+
+2. **Phân đoạn và Tái lắp ráp (Fragmentation and Reassembly):**
+   - Chia gói tin lớn thành các phân đoạn nhỏ hơn phù hợp với kích thước tối đa mà mạng có thể xử lý (MTU) và tái lắp ráp chúng ở đầu cuối nhận.
+
+3. **Địa chỉ hóa logic (Logical Addressing):**
+   - Sử dụng địa chỉ IP để xác định địa chỉ nguồn và đích cho mỗi gói tin.
+   - Địa chỉ IP cho phép định tuyến qua các mạng phức tạp và đa dạng.
+
+4. **Xử lý các gói dữ liệu:**
+   - Xử lý các gói dữ liệu bao gồm các header với thông tin về định tuyến và điều khiển.
+
+5. **Kiểm soát lỗi:**
+   - Phát hiện và xử lý lỗi trong các gói dữ liệu như lỗi định tuyến hoặc địa chỉ không hợp lệ.
+
+**Giao thức phổ biến của Lớp Mạng**
+1. **IP (Internet Protocol):**
+   - Phiên bản IPv4 và IPv6 là nền tảng của Internet hiện đại, định tuyến gói dữ liệu trên mạng toàn cầu.
+
+2. **ICMP (Internet Control Message Protocol):**
+   - Sử dụng cho việc gửi thông điệp điều khiển và báo cáo lỗi, như thông báo đích không đạt được hoặc việc chuyển hướng định tuyến.
+
+3. **IGMP (Internet Group Management Protocol):**
+   - Quản lý thành viên trong các nhóm truyền thông đa điểm (multicast).
+
+4. **OSPF (Open Shortest Path First) và BGP (Border Gateway Protocol):**
+   - OSPF là giao thức định tuyến nội vùng sử dụng thuật toán trạng thái liên kết.
+   - BGP là giao thức định tuyến giữa các tổ chức khác nhau, quản lý cách các nhà cung cấp dịch vụ Internet trao đổi thông tin định tuyến.
+
+ **Thiết bị hoạt động ở Lớp Mạng**
+- **Router:**
+   - Thiết bị chính trong lớp Mạng, chịu trách nhiệm định tuyến gói tin giữa các mạng.
+   - Cập nhật và duy trì bảng định tuyến, quyết định đường đi cho gói tin dựa trên địa chỉ IP.
+
+- **Layer 3 Switch (Switch đa lớp):**
+   - Kết hợp chức năng của switch và router, có thể định tuyến gói tin dựa trên địa chỉ IP ngoài chức năng chuyển mạch thông thường.
+
+**Vai trò và Tác động**
+- **Chức năng mở rộng mạng:** Đảm bảo rằng dữ liệu có thể đi qua các mạng lớn và phức tạp trên toàn cầu.
+- **Cải thiện hiệu suất:** Tối ưu hóa đường đi của gói tin, giảm thiểu độ trễ và tắc nghẽn mạng.
+- **Tăng tính linh hoạt:** Định tuyến dựa trên nhu cầu và tình trạng mạng, cho phép mạng thích ứng với thay đổi.
+
+---------------
 
 **Tầng 4 - Transport Layer (Tầng vận chuyển)**
 
 - Quản lý và điêu phối việc truyền tải dữ liệu giữa các thiết bị đầu cuối (end-to-end). Đảm bảo dữ liệu được truyền tải từ ứng dụng ở thiết bị nguồn đến ứng dụng ở thiết bị đích một cách chính xác, an toàn và hiệu quả.
 
 **Chức năng của Transport layer**
+**Tầng Giao vận (Transport Layer) trong Mô hình OSI**
+
+Tầng Giao vận là lớp thứ tư trong mô hình OSI và có vai trò cực kỳ quan trọng trong việc quản lý giao tiếp dữ liệu giữa các ứng dụng trên các thiết bị mạng. Lớp này cung cấp các dịch vụ truyền thông đáng tin cậy, hiệu quả giữa các thiết bị cuối trong một mạng.
+
+**Chức năng chính của Tầng Giao vận**
+1. **Đa hóa kết nối (Multiplexing):**
+   - Cho phép nhiều ứng dụng trên một thiết bị sử dụng cùng một mạng mà không xảy ra xung đột, thông qua cơ chế gán các cổng khác nhau cho các phiên khác nhau.
+
+2. **Đảm bảo dịch vụ (Service Assurance):**
+   - Cung cấp khả năng truyền dữ liệu đáng tin cậy, bao gồm kiểm soát lỗi, kiểm soát luồng và quản lý tắc nghẽn.
+
+3. **Phân đoạn dữ liệu (Segmentation):**
+   - Chia dữ liệu lớn thành các phân đoạn nhỏ hơn để dễ dàng truyền tải và quản lý.
+
+4. **Kiểm soát luồng (Flow Control):**
+   - Điều chỉnh tốc độ truyền dữ liệu giữa người gửi và người nhận để tránh làm quá tải bộ đệm của người nhận.
+
+5. **Kiểm tra lỗi (Error Checking):**
+   - Sử dụng các thuật toán kiểm tra lỗi để đảm bảo dữ liệu được truyền đúng và hoàn chỉnh.
+
+6. **Điều chỉnh tắc nghẽn (Congestion Control):**
+   - Giảm tốc độ truyền khi phát hiện mạng bị tắc nghẽn để ngăn chặn mất dữ liệu.
+
+**Giao thức phổ biến của Tầng Giao vận**
+1. **TCP (Transmission Control Protocol):**
+   - Giao thức kết nối hướng và đáng tin cậy, cung cấp kiểm soát lỗi, kiểm soát luồng và điều chỉnh tắc nghẽn.
+   - Đảm bảo rằng mọi gói dữ liệu đều được nhận đúng thứ tự và không bị mất mát.
+
+2. **UDP (User Datagram Protocol):**
+   - Giao thức không kết nối và không đáng tin cậy, truyền dữ liệu mà không cần thiết lập kết nối và không cung cấp kiểm soát luồng hay điều chỉnh tắc nghẽn.
+   - Thích hợp cho các ứng dụng yêu cầu tốc độ truyền cao và có thể chấp nhận một số mất mát dữ liệu, như truyền video hoặc trò chơi trực tuyến.
+
+3. **SCTP (Stream Control Transmission Protocol):**
+   - Giao thức mới hơn, kết hợp các tính năng của TCP và UDP.
+   - Hỗ trợ truyền nhiều luồng dữ liệu đồng thời trong một kết nối, giúp cải thiện hiệu suất và độ tin cậy.
+
+**Thiết bị và Công cụ hoạt động ở Tầng Giao vận**
+- **Thiết bị**: Chủ yếu là phần mềm được tích hợp trong hệ điều hành hoặc ứng dụng, vì tầng Giao vận không yêu cầu phần cứng cụ thể.
+- **Công cụ**: Các thư viện lập trình mạng như Winsock, BSD Sockets cho phép các nhà phát triển truy cập vào chức năng của TCP và UDP trong các ứng dụng của họ.
+
+**Vai trò và Tác động**
+- **Đảm bảo tính đáng tin cậy**: TCP và các giao thức khác đảm bảo dữ liệu được gửi một cách đáng tin cậy, đặc biệt là trong môi trường mạng không ổn định.
+- **Hỗ trợ các ứng dụng đa dạng**: Từ duyệt web, email đến trò chơi và truyền phát trực tiếp, tầng Giao vận là nền tảng cho hầu hết các loại giao tiếp mạng.
+
+----
 
 - Quản lý kết nối: Thiết lập 1 kết nối giữa các thiết bị đầu cuối. Kết nối có trạng thái (TCP) dữ liệu được truyền sau khi một kết nối ổn định được thiết lập. Kết nối không trạng thái (UDP) dữ liệu được truyền mà không cần thiết lập kết nối.
 - Đảm bảo truyền tải đáng tin cậy: quản lý việc truyền tải dữ liệu giữa các thiết bị tránh tắc nghẽn. Kiểm tra và sửa lỗi (checksum). Sắp xếp thứ tự packets.
@@ -141,6 +273,50 @@ Network Layer sử dụng các thuật toán định tuyến (routing) để xá
 
 **Tầng 5 - Session Layer (Tầng phiên)**
 
+**Tầng Phiên (Session Layer) trong Mô hình OSI**
+
+Tầng Phiên, lớp thứ năm trong mô hình OSI, đóng vai trò quan trọng trong việc quản lý và duy trì các phiên làm việc giữa hai thiết bị hoặc ứng dụng qua mạng. Tầng này chủ yếu xử lý việc thiết lập, quản lý và kết thúc các phiên giao tiếp.
+
+**Chức năng chính của Tầng Phiên**
+1. **Thiết lập, quản lý và kết thúc phiên làm việc:**
+   - Tạo ra các phiên giao tiếp giữa các ứng dụng trên các thiết bị khác nhau.
+   - Quản lý và duy trì phiên làm việc, đảm bảo thông tin được truyền tải hiệu quả và đúng thứ tự.
+
+2. **Đồng bộ hóa:**
+   - Đảm bảo các giao tiếp diễn ra theo thứ tự và dữ liệu được đồng bộ hóa, giúp phục hồi sau khi có sự cố mạng mà không cần truyền lại toàn bộ thông tin.
+
+3. **Kiểm soát biên (Checkpointing):**
+   - Tạo điểm kiểm soát trong dữ liệu được truyền để trong trường hợp lỗi, chỉ cần phục hồi từ điểm kiểm soát cuối cùng chứ không phải bắt đầu lại từ đầu.
+
+4. **Quản lý các giao tiếp đồng thời:**
+   - Xử lý nhiều phiên giao tiếp giữa các ứng dụng trên một thiết bị, đảm bảo mỗi ứng dụng nhận được sự chú ý thích hợp và không bị can thiệp lẫn nhau.
+
+**Giao thức phổ biến của Tầng Phiên**
+1. **RPC (Remote Procedure Call):**
+   - Cho phép một chương trình yêu cầu một dịch vụ từ một chương trình khác nằm trên máy tính khác trong mạng, mà không cần quan tâm đến chi tiết mạng.
+
+2. **SQL (Structured Query Language):**
+   - Sử dụng trong các giao tiếp cơ sở dữ liệu, SQL quản lý các phiên giao tiếp giữa ứng dụng và cơ sở dữ liệu.
+
+3. **NFS (Network File System):**
+   - Cho phép các hệ thống tập tin trên các máy tính khác nhau chia sẻ thông qua mạng, dùng phiên để quản lý các truy cập tập tin.
+
+4. **NetBIOS (Network Basic Input/Output System):**
+   - Cung cấp dịch vụ giao tiếp cho các máy tính trong mạng LAN, bao gồm thiết lập và quản lý phiên.
+
+5. **PPTP (Point-to-Point Tunneling Protocol):**
+   - Sử dụng trong các kết nối VPN, quản lý các phiên kết nối từ điểm này đến điểm khác qua mạng IP.
+
+**Thiết bị hoạt động ở Tầng Phiên**
+- Không có thiết bị cụ thể nào được thiết kế riêng cho Tầng Phiên. Thay vào đó, các chức năng của tầng này chủ yếu được xử lý bởi phần mềm trên máy chủ và máy trạm, như phần mềm quản lý mạng hoặc các hệ thống quản lý cơ sở dữ liệu.
+
+**Vai trò và Tác động**
+- **Quản lý giao tiếp:** Tầng Phiên đóng vai trò cốt lõi trong việc đảm bảo rằng các phiên giao tiếp giữa các ứng dụng được thiết lập, duy trì và kết thúc một cách hiệu quả.
+- **Hỗ trợ các ứng dụng phức tạp:** Tầng này cung cấp nền tảng cho các ứng dụng đa yêu cầu, như các dịch vụ tài chính trực tuyến, trò chơi đa người chơi và ứng dụng chia sẻ tài liệu.
+
+
+--------
+
 - Quản lý và duy trì các phiên làm việc (sessions) giữa các ứng dụng đang giao tiếp trên các thiết bị khác nhau. Xác định cách giao tiếp, duy trì kết nối quản lý phiên làm việc giữa 2 ứng dụng (gồm khởi tạo, đồng bộ hóa và kết thúc các phiên giao tiếp)
 
 **Chức năng của Session Layer**
@@ -150,7 +326,43 @@ Network Layer sử dụng các thuật toán định tuyến (routing) để xá
 - Đồng bộ hóa dữ liệu: Cung cấp các cơ chế để đồng bộ hóa dữ liệu giữa các ứng dụng, đảm bảo rằng các gói dữ liệu được truyền và nhận đúng thời gian. VD khi tải video từ ỉnternet session layer đảm bảo dữ liệu được đồng bộ hóa để video có thể phát liền mạch mà không bị gián đoạn.
 - Khôi phục giao tiếp: Nếu có gián đoạn trong giao tiếp, session có thể quản lý việc khôi phục lại kết nối mà không làm mất dữ liệu.
 
+------------------------------------------------------------
+
 **Tầng 6 - Presentation Layer (Tầng trình bày)**
+
+**Tầng Trình bày (Presentation Layer) trong Mô hình OSI**
+
+Tầng Trình bày là lớp thứ sáu trong mô hình OSI, đóng vai trò cầu nối giữa các dữ liệu mà ứng dụng tạo ra và cách dữ liệu đó được chuyển qua mạng. Tầng này chủ yếu xử lý định dạng dữ liệu, mã hóa và chuyển đổi dữ liệu để đảm bảo các ứng dụng trên các hệ thống khác nhau có thể hiểu được dữ liệu cùng một cách.
+
+**Chức năng chính của Tầng Trình bày**
+1. **Chuyển đổi dữ liệu:**
+   - Đảm bảo dữ liệu được truyền từ một ứng dụng tới một ứng dụng khác có thể được đọc và hiểu một cách chính xác, không phụ thuộc vào kiến trúc nền tảng hệ thống.
+   - Chuyển đổi các định dạng mã hóa khác nhau, như ASCII, Unicode, EBCDIC.
+
+2. **Mã hóa dữ liệu:**
+   - Bảo mật dữ liệu bằng cách mã hóa trước khi truyền và giải mã tại điểm nhận.
+   - Quan trọng đối với việc truyền thông an toàn trên mạng.
+
+3. **Nén dữ liệu:**
+   - Giảm băng thông cần thiết cho việc truyền tải dữ liệu.
+   - Nén dữ liệu để giảm kích thước gói tin, tăng hiệu quả truyền tải.
+
+**Giao thức và Tiêu chuẩn của Tầng Trình bày**
+- **SSL (Secure Sockets Layer) và TLS (Transport Layer Security):**
+   - Cung cấp bảo mật cho các giao tiếp mạng bằng cách mã hóa phiên trước khi dữ liệu được truyền đi.
+- **MIME (Multipurpose Internet Mail Extensions):**
+   - Cho phép truyền các tệp không phải là văn bản qua email, bằng cách mã hóa chúng thành định dạng có thể truyền qua Internet.
+- **JPEG, GIF, TIFF (định dạng ảnh):**
+   - Quy định cách mã hóa và nén ảnh.
+- **MPEG, QuickTime, RealVideo (định dạng video và âm thanh):**
+   - Quy định cách nén và truyền dữ liệu âm thanh và video.
+
+**Vai trò và Tác động của Tầng Trình bày**
+- **Độc lập với nền tảng:** Đảm bảo rằng dữ liệu từ các ứng dụng được trình bày một cách nhất quán, bất kể nền tảng hệ thống hay kiến trúc của thiết bị.
+- **Tăng cường bảo mật:** Mã hóa dữ liệu trước khi chúng được gửi qua mạng giúp bảo vệ chống lại sự nghe trộm và can thiệp dữ liệu.
+- **Tối ưu hóa băng thông:** Nén dữ liệu giúp giảm thiểu chi phí băng thông và cải thiện hiệu suất truyền tải.
+
+-----------
 
 - Chịu trách nhiệm định dạng, mã hóa, giải mã, nén dữ liệu giữa các ứng dụng. Đảm bảo rằng dữ liệu có thể được hiểu đúng giữa các hệ thống khác nhau, ngay cả khi giữa chúng sử dụng các định dạng hoặc phương thức mã hóa khác nhau. Hoạt động như cầu nối giữa tầng 7 và tầng 5.
 
@@ -161,7 +373,52 @@ Network Layer sử dụng các thuật toán định tuyến (routing) để xá
 - Nén và giải nén: Nén dữ liệu để giảm băng thông khi truyền tải qua mạng và giải nén dữ liệu khi nhận
 - Đảm bảo tính tương thích: Presentation đảm bảo rằng các hệ thống sử dụng các ngôn ngữ hoặc định dạng khác nhau vẫn có thể giao tiếp với nhau mà không gặp lỗi.
 
+------------------------------------------
+
 **Tầng 7 - Application Layer ( Tầng ứng dụng)**
+
+**Tầng Ứng dụng (Application Layer) trong Mô hình OSI**
+
+Tầng Ứng dụng là lớp thứ bảy và cũng là lớp cao nhất trong mô hình OSI. Lớp này cung cấp giao diện cho các ứng dụng để truy cập vào mạng. Nó đóng vai trò trực tiếp trong việc hỗ trợ các dịch vụ mạng cuối cùng cho người dùng.
+
+**Chức năng chính của Tầng Ứng dụng**
+1. **Cung cấp giao diện người dùng:**
+   - Cho phép người dùng tương tác với các ứng dụng mạng như trình duyệt web, email, và các dịch vụ truyền thông.
+
+2. **Hỗ trợ các ứng dụng mạng:**
+   - Tạo điều kiện cho các ứng dụng mạng thực hiện các chức năng cụ thể như truy cập cơ sở dữ liệu, truyền tệp, và truyền thông điện tử.
+
+3. **Xử lý dữ liệu đặc thù ứng dụng:**
+   - Định dạng và mã hóa dữ liệu theo cách thức phù hợp với từng ứng dụng cụ thể.
+
+**Giao thức phổ biến của Tầng Ứng dụng**
+1. **HTTP (HyperText Transfer Protocol):**
+   - Giao thức nền tảng cho web, quản lý truyền thông giữa trình duyệt web và máy chủ web.
+
+2. **FTP (File Transfer Protocol):**
+   - Cho phép truyền tệp giữa máy chủ và máy khách.
+
+3. **SMTP (Simple Mail Transfer Protocol):**
+   - Dùng để truyền email giữa máy chủ thư điện tử.
+
+4. **DNS (Domain Name System):**
+   - Dịch tên miền thành địa chỉ IP, là cơ sở cho mọi hoạt động trên internet.
+
+5. **DHCP (Dynamic Host Configuration Protocol):**
+   - Tự động cấp phát địa chỉ IP và thông tin cấu hình khác cho thiết bị trong mạng.
+
+6. **LDAP (Lightweight Directory Access Protocol):**
+   - Quản lý và truy cập thông tin phân phối rộng rãi trong một mạng máy tính.
+
+7. **SOAP (Simple Object Access Protocol) và REST (Representational State Transfer):**
+   - Cung cấp cơ chế cho các dịch vụ web để giao tiếp với nhau qua mạng.
+
+**Vai trò và Tác động của Tầng Ứng dụng**
+- **Tương tác trực tiếp với người dùng cuối:** Là lớp duy nhất trong mô hình OSI mà người dùng cuối tương tác trực tiếp, qua các ứng dụng mạng.
+- **Quản lý thông tin ứng dụng:** Đảm bảo thông tin được gửi và nhận một cách chính xác, an toàn và hiệu quả qua các ứng dụng.
+- **Độc lập với dữ liệu:** Cho phép các ứng dụng hoạt động mà không cần quan tâm đến chi tiết về cách dữ liệu được truyền qua mạng.
+
+------------
 
  - Cung cấp các dịch vụ và giao thức cho ứng dụng người dùng cuối. Đây là nơi mà các giao tiếp mạng giữa các ứng dụng và hệ thống diễn ra.
 
@@ -172,6 +429,7 @@ Network Layer sử dụng các thuật toán định tuyến (routing) để xá
 - Đảm bảo tính tương thích và định dạng dữ liệu: Chuyển đổi dữ liệu giữa các ứng dụng và hệ thống khác nhau.
 - Chạy các ứng dụng người dùng cuối: Gồm các ứng dụng như web browser, email client, FTP client.
 
+-------------------------------------
 
 ### **TCP/IP (Transmission Control Protocol/Internet Protocol)**
 
