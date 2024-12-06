@@ -1153,6 +1153,14 @@ traceroute to google.com (142.250.72.14), 30 hops max, 60 byte packets
    - **142.250.72.14**: Địa chỉ IP của máy chủ đích (hoặc router gần máy chủ đích).
    - **20.119 ms  20.105 ms  20.091 ms**: Thời gian phản hồi từ hop này (máy chủ đích).
 
+**Tại sao `traceroute` Hiển Thị Ba Giá Trị Thời Gian Phản Hồi Cho Mỗi Hop?**
+
+**Phân Tích Độ Tin Cậy:** Ba giá trị thời gian phản hồi giúp xác định độ tin cậy và sự ổn định của mỗi hop. Nếu ba giá trị có sự chênh lệch lớn, điều này có thể chỉ ra sự không ổn định hoặc các vấn đề về hiệu suất tại hop đó.
+
+**Đánh Giá Chất Lượng Mạng:** Cung cấp ba lần đo cho mỗi hop cho phép bạn đánh giá chất lượng đường truyền tại mỗi điểm. Ví dụ, nếu một trong ba gói tin cho thấy thời gian phản hồi cao bất thường hoặc thất bại (hiển thị dấu *), có thể có sự cố tạm thời hoặc lỗi trên mạng.
+
+**Trung Bình Giá Trị:** Ba giá trị cung cấp cơ sở để tính toán trung bình, cho phép nhận diện xu hướng chung của thời gian phản hồi thay vì dựa trên một mẫu đơn lẻ, giúp giảm thiểu ảnh hưởng của bất kỳ sự bất thường nào trong từng gói tin cụ thể.
+
 **Các Trường Hợp Thông Tin Mất hoặc Không Hiển Thị**
 
 1. **Dấu `*`**: Nếu bạn thấy dấu `*`, điều này có thể có một số nguyên nhân:
