@@ -2056,4 +2056,270 @@ lo          1        224.0.0.1         0
    netstat -tuln
    ```
 
+------------------------------------------
+
+### **tcpdump**
+
+Lệnh `tcpdump` là một công cụ dòng lệnh mạnh mẽ dùng để **bắt gói tin** (packet capture) trên mạng. Nó giúp người dùng phân tích các gói tin đi qua mạng để chẩn đoán sự cố, kiểm tra bảo mật hoặc phân tích lưu lượng mạng. `tcpdump` hỗ trợ nhiều tùy chọn (option) cho phép lọc, ghi lại và phân tích các gói tin.
+
+**Cấu Trúc Lệnh `tcpdump`**
+
+```bash
+tcpdump [options] [expression]
+```
+
+- **options**: Các tùy chọn cho lệnh (giúp kiểm soát cách `tcpdump` hoạt động).
+- **expression**: Các biểu thức lọc (filters) giúp chọn các gói tin bạn muốn bắt.
+
+**Các Tùy Chọn (Options) Thường Dùng trong `tcpdump`**
+
+1. **`-i <interface>`**  
+   Chỉ định giao diện mạng mà bạn muốn bắt gói tin.  
+   Ví dụ: Bắt gói tin trên giao diện `eth0`:
+   ```bash
+   tcpdump -i eth0
+   ```
+
+2. **`-n`**  
+   Hiển thị địa chỉ IP thay vì tên miền (DNS resolution).  
+   Ví dụ:
+   ```bash
+   tcpdump -n
+   ```
+
+3. **`-v`, `-vv`, `-vvv`**  
+   Độ chi tiết của thông tin. Sử dụng nhiều lần để tăng mức độ chi tiết.  
+   - `-v`: Thông tin chi tiết về gói tin.
+   - `-vv`: Chi tiết hơn.
+   - `-vvv`: Thông tin đầy đủ nhất về gói tin.
+   ```bash
+   tcpdump -vv
+   ```
+
+4. **`-c <count>`**  
+   Chỉ bắt một số lượng gói tin nhất định.  
+   Ví dụ: Bắt 10 gói tin:
+   ```bash
+   tcpdump -c 10
+   ```
+
+5. **`-w <file>`**  
+   Ghi gói tin vào một file (thay vì in ra màn hình). Dữ liệu sẽ được lưu dưới định dạng pcap.  
+   Ví dụ: Ghi gói tin vào file `capture.pcap`:
+   ```bash
+   tcpdump -w capture.pcap
+   ```
+
+6. **`-r <file>`**  
+   Đọc và phân tích các gói tin từ một file đã lưu (dưới định dạng pcap).  
+   Ví dụ: Đọc file `capture.pcap`:
+   ```bash
+   tcpdump -r capture.pcap
+   ```
+
+7. **`-s <snaplen>`**  
+   Xác định độ dài tối đa của mỗi gói tin được bắt (snap length). Giá trị mặc định là 262144 byte. Nếu bạn chỉ cần bắt đầu gói tin, có thể đặt giá trị này thấp hơn.  
+   Ví dụ: Bắt 100 byte đầu của mỗi gói tin:
+   ```bash
+   tcpdump -s 100
+   ```
+
+8. **`-X`**  
+   Hiển thị dữ liệu của gói tin ở dạng **hex và ASCII**.  
+   Ví dụ:
+   ```bash
+   tcpdump -X
+   ```
+
+9. **`-A`**  
+   Hiển thị nội dung của gói tin ở dạng **ASCII** (tương tự `-X`, nhưng không có dữ liệu hex).  
+   Ví dụ:
+   ```bash
+   tcpdump -A
+   ```
+
+10. **`-q`**  
+    Giảm thiểu thông tin chi tiết về gói tin. Hiển thị thông tin cơ bản như địa chỉ IP nguồn và đích, số hiệu giao thức, v.v.  
+    Ví dụ:
+    ```bash
+    tcpdump -q
+    ```
+
+11. **`-e`**  
+    Hiển thị địa chỉ MAC (thêm thông tin liên quan đến Ethernet header).  
+    Ví dụ:
+    ```bash
+    tcpdump -e
+    ```
+
+12. **`-p`**  
+    Tắt chế độ **promiscuous** (chế độ mà card mạng bắt mọi gói tin trên mạng, không chỉ những gói tin gửi đến địa chỉ của nó).  
+    Ví dụ:
+    ```bash
+    tcpdump -p
+    ```
+
+13. **`-l`**  
+    Làm cho `tcpdump` xuất thông tin ra **stdout** theo dòng, có thể dùng cho việc ghi log.  
+    Ví dụ:
+    ```bash
+    tcpdump -l
+    ```
+
+14. **`-S`**  
+    Hiển thị số thứ tự của gói tin TCP trong dạng **absolute sequence numbers** (thứ tự tuyệt đối), thay vì sử dụng các số thứ tự tương đối.  
+    Ví dụ:
+    ```bash
+    tcpdump -S
+    ```
+
+**Các Biểu Thức Lọc (Filters)**
+
+`tcpdump` hỗ trợ các biểu thức lọc mạnh mẽ để chọn các gói tin bạn muốn bắt. Dưới đây là một số ví dụ về biểu thức lọc:
+
+1. **Lọc theo giao thức**
+   - Lọc các gói TCP:
+     ```bash
+     tcpdump tcp
+     ```
+   - Lọc các gói UDP:
+     ```bash
+     tcpdump udp
+     ```
+   - Lọc các gói ICMP:
+     ```bash
+     tcpdump icmp
+     ```
+
+2. **Lọc theo địa chỉ IP**
+   - Lọc các gói tin từ địa chỉ IP nguồn là `192.168.1.1`:
+     ```bash
+     tcpdump src 192.168.1.1
+     ```
+   - Lọc các gói tin đến địa chỉ IP đích là `192.168.1.2`:
+     ```bash
+     tcpdump dst 192.168.1.2
+     ```
+   - Lọc các gói tin giữa `192.168.1.1` và `192.168.1.2`:
+     ```bash
+     tcpdump host 192.168.1.1 and 192.168.1.2
+     ```
+
+3. **Lọc theo cổng**
+   - Lọc các gói TCP có cổng nguồn là 80 (HTTP):
+     ```bash
+     tcpdump tcp src port 80
+     ```
+   - Lọc các gói UDP có cổng đích là 53 (DNS):
+     ```bash
+     tcpdump udp dst port 53
+     ```
+
+4. **Lọc theo giao thức và địa chỉ IP**
+   - Lọc các gói tin UDP giữa `192.168.1.1` và `192.168.1.2`:
+     ```bash
+     tcpdump udp and host 192.168.1.1 and 192.168.1.2
+     ```
+
+5. **Lọc theo loại dịch vụ**
+   - Lọc các gói tin TCP có cờ **SYN** (thường được dùng để bắt đầu một kết nối TCP):
+     ```bash
+     tcpdump 'tcp[tcpflags] & tcp-syn != 0'
+     ```
+
+**Ví Dụ Cụ Thể**
+
+1. **Bắt gói tin trên giao diện `eth0` và hiển thị thông tin chi tiết**
+   ```bash
+   tcpdump -i eth0 -v
+   ```
+
+2. **Bắt 10 gói tin TCP từ địa chỉ IP `192.168.1.100`**
+   ```bash
+   tcpdump -i eth0 tcp and src host 192.168.1.100 -c 10
+   ```
+
+3. **Bắt gói tin UDP trên cổng 53 (DNS) và ghi vào file**
+   ```bash
+   tcpdump -i eth0 udp port 53 -w dns_traffic.pcap
+   ```
+
+4. **Bắt tất cả các gói tin ICMP (ping)**
+   ```bash
+   tcpdump icmp
+   ```
+
+---------------------
+
+Khi sử dụng `tcpdump`, bạn sẽ thấy các thông tin liên quan đến gói tin (packet) đang được bắt, bao gồm các chi tiết về giao thức, địa chỉ IP, cổng, loại dữ liệu, và nhiều thông tin khác. Dưới đây là một số thông tin phổ biến bạn sẽ thấy trong kết quả của lệnh `tcpdump` và ý nghĩa của chúng.
+
+**Cấu Trúc Một Dòng Kết Quả Của `tcpdump`**
+Khi chạy `tcpdump`, một dòng kết quả sẽ chứa thông tin về gói tin bắt được, ví dụ như sau:
+
+```bash
+13:45:23.541647 IP 192.168.1.1.80 > 192.168.1.2.12345: Flags [S], seq 123456789, ack 0, win 65535, length 0
+```
+
+**Giải Thích Các Thành Phần Trong Một Dòng Kết Quả**
+
+1. **Thời gian**:
+   - **Mô tả**: Thời gian hiện tại khi gói tin được bắt. `tcpdump` sẽ hiển thị thời gian với định dạng `HH:MM:SS.ssssss` (giờ, phút, giây và phần thập phân của giây).
+   - **Ví dụ**: `13:45:23.541647` — gói tin được bắt vào lúc 13 giờ 45 phút 23 giây và 541647 micro giây.
+
+2. **Giao thức (Protocol)**:
+   - **Mô tả**: Giao thức mạng của gói tin đang được phân tích, ví dụ: `IP`, `TCP`, `UDP`, `ARP`, `ICMP`, v.v.
+   - **Ví dụ**: `IP` — gói tin này là một gói tin IP.
+
+3. **Địa chỉ IP và cổng (Source and Destination IP & Port)**:
+   - **Mô tả**: Địa chỉ IP và cổng (port) của máy nguồn và máy đích trong giao tiếp mạng.
+   - **Cấu trúc**: `source_ip.source_port > destination_ip.destination_port`
+     - `source_ip`: Địa chỉ IP của máy gửi.
+     - `source_port`: Cổng của máy gửi (chỉ áp dụng với các giao thức như TCP/UDP).
+     - `destination_ip`: Địa chỉ IP của máy nhận.
+     - `destination_port`: Cổng của máy nhận (chỉ áp dụng với các giao thức như TCP/UDP).
+   - **Ví dụ**: `192.168.1.1.80 > 192.168.1.2.12345` — Gói tin đi từ địa chỉ IP `192.168.1.1` với cổng `80` (HTTP) đến địa chỉ IP `192.168.1.2` với cổng `12345`.
+
+4. **Flags**:
+   - **Mô tả**: Cờ (flags) của gói tin, chủ yếu liên quan đến giao thức TCP. Các cờ phổ biến bao gồm:
+     - **S**: SYN — dùng để bắt đầu một kết nối TCP.
+     - **F**: FIN — yêu cầu kết thúc kết nối TCP.
+     - **P**: PUSH — yêu cầu truyền ngay lập tức dữ liệu.
+     - **R**: RST — yêu cầu thiết lập lại kết nối.
+     - **A**: ACK — xác nhận gói tin trước đó.
+   - **Ví dụ**: `Flags [S]` — Đây là một gói SYN, dùng để thiết lập kết nối.
+
+5. **Số thứ tự (Sequence number) và xác nhận (Acknowledgment number)**:
+   - **Mô tả**: Trong TCP, mỗi gói tin có một số thứ tự (sequence number) và số xác nhận (acknowledgment number) để đảm bảo tính toàn vẹn của dữ liệu và kiểm soát lưu lượng.
+   - **Ví dụ**: `seq 123456789, ack 0` — Số thứ tự của gói tin là `123456789`, số xác nhận là `0` (chưa có gói tin nào được xác nhận).
+
+6. **Cửa sổ (Window size)**:
+   - **Mô tả**: Cửa sổ (window size) xác định số lượng byte mà máy nhận có thể tiếp nhận mà không cần xác nhận lại.
+   - **Ví dụ**: `win 65535` — Cửa sổ của gói tin này có kích thước là `65535` byte.
+
+7. **Chiều dài gói tin (Length)**:
+   - **Mô tả**: Chiều dài của gói tin dữ liệu (được đo bằng byte).
+   - **Ví dụ**: `length 0` — Gói tin này không chứa dữ liệu (chỉ là gói tin điều khiển như SYN).
+
+**Ví Dụ Kết Quả Của Lệnh `tcpdump`**
+Dưới đây là một ví dụ khác về kết quả của `tcpdump`:
+
+```bash
+13:45:23.541647 IP 192.168.1.1.80 > 192.168.1.2.12345: Flags [S], seq 123456789, ack 0, win 65535, length 0
+13:45:23.541702 IP 192.168.1.2.12345 > 192.168.1.1.80: Flags [S.], seq 987654321, ack 123456790, win 65535, length 0
+13:45:23.541715 IP 192.168.1.1.80 > 192.168.1.2.12345: Flags [P.], seq 123456790:123456800, ack 987654322, win 65535, length 10
+```
+
+1. **Gói tin SYN** từ `192.168.1.1` (cổng 80) đến `192.168.1.2` (cổng 12345).
+2. **Gói tin SYN-ACK** từ `192.168.1.2` (cổng 12345) đến `192.168.1.1` (cổng 80), xác nhận gói SYN trước đó.
+3. **Gói tin PUSH** từ `192.168.1.1` (cổng 80) đến `192.168.1.2` (cổng 12345), gửi dữ liệu 10 byte.
+
+**Tóm Tắt Các Thành Phần Chính Của Một Dòng `tcpdump`:**
+- **Thời gian**: Thời gian bắt gói tin.
+- **Giao thức**: Giao thức sử dụng trong gói tin (IP, TCP, UDP, ICMP, v.v.).
+- **Địa chỉ nguồn và đích**: Địa chỉ IP và cổng của máy gửi và nhận.
+- **Flags**: Cờ (flags) trong giao thức (đặc biệt đối với TCP).
+- **Số thứ tự và xác nhận**: Số thứ tự và số xác nhận của gói tin trong giao thức TCP.
+- **Cửa sổ**: Kích thước cửa sổ nhận của TCP.
+- **Chiều dài gói tin**: Kích thước dữ liệu của gói tin (hoặc `0` nếu là gói tin điều khiển).
+
 
