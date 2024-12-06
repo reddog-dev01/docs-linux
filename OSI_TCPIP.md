@@ -3,6 +3,7 @@
 ### **1. MÔ HÌNH OSI**
 
 -  OSI không chỉ định giao thức, mà chỉ định nhiệm vụ của giao thức
+![image](https://github.com/user-attachments/assets/509547d5-a818-4218-80f2-b9d710677832)
 
 **1.1 Các giao thức trong mô hình OSI**
 
