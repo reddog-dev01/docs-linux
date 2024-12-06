@@ -721,6 +721,8 @@ Mặc dù Telnet có thể hữu ích trong việc kết nối đến các thi�
 | `-x`          | Hiển thị dữ liệu giao tiếp dưới dạng mã hex.                  |
 
 
+--------------
+
 ------------------------------------------
 
 ### **ping**
@@ -873,6 +875,304 @@ Kết quả khi sử dụng `ping` sẽ hiển thị các thông tin như:
    - **min/avg/max/mdev**: Thời gian trễ tối thiểu, trung bình, tối đa và độ lệch chuẩn.
 
 -----------------------------
+
+
+### **Công cụ `traceroute` và các Option**
+
+`traceroute` là công cụ mạnh mẽ dùng để xác định tuyến đường (path) mà gói tin đi qua từ máy tính của bạn đến một máy chủ đích trên mạng. Công cụ này sẽ gửi các gói tin ICMP hoặc UDP (tùy thuộc vào cấu hình) và cho bạn biết từng hop (bước) mà gói tin đi qua, giúp bạn chẩn đoán các vấn đề mạng.
+
+Dưới đây là một số tùy chọn (`options`) phổ biến của `traceroute` mà bạn có thể sử dụng để điều chỉnh cách thức hoạt động của công cụ này.
+
+---
+
+**1. Cấu trúc cơ bản của lệnh `traceroute`**
+
+Cấu trúc cơ bản để sử dụng `traceroute` là:
+
+```bash
+traceroute [options] <địa chỉ đích>
+```
+
+Ví dụ đơn giản:
+```bash
+traceroute google.com
+```
+
+---
+
+**2. Các Tùy Chọn (Options) Của `traceroute`**
+
+Dưới đây là các tùy chọn phổ biến và cách sử dụng chúng:
+
+#### **`-n`**: Hiển thị Địa chỉ IP thay vì tên miền
+
+Khi bạn không muốn `traceroute` giải mã tên miền (DNS lookup) cho mỗi hop, bạn có thể sử dụng tùy chọn `-n`. Điều này giúp rút ngắn thời gian trả về.
+
+```bash
+traceroute -n google.com
+```
+
+**Kết quả:**
+- Hiển thị địa chỉ IP của các hop thay vì tên miền.
+
+---
+
+#### **`-m <hop_count>`**: Giới hạn Số Lượng Hop (Bước)
+
+Sử dụng tùy chọn `-m` để giới hạn số lượng hop mà `traceroute` sẽ kiểm tra. Mặc định, số hop tối đa là 30. Ví dụ, nếu bạn chỉ muốn kiểm tra tối đa 10 hop:
+
+```bash
+traceroute -m 10 google.com
+```
+
+**Kết quả:**
+- `traceroute` sẽ dừng lại sau 10 hop, thay vì tiếp tục cho đến khi đến đích hoặc vượt quá số hop mặc định (30).
+
+---
+
+#### **`-w <timeout>`**: Đặt Thời Gian Chờ (Timeout) cho mỗi Hop
+
+Tùy chọn `-w` cho phép bạn chỉ định thời gian chờ (timeout) cho mỗi gói tin được gửi. Mặc định là 5 giây. Nếu bạn muốn giảm thời gian chờ (ví dụ 3 giây):
+
+```bash
+traceroute -w 3 google.com
+```
+
+**Kết quả:**
+- Nếu không nhận được phản hồi trong 3 giây từ một hop, `traceroute` sẽ hiển thị dấu `*`.
+
+---
+
+#### **`-I`**: Sử dụng ICMP Echo Request thay vì UDP
+
+Mặc định, `traceroute` sử dụng các gói UDP để thực hiện việc định tuyến. Tuy nhiên, bạn có thể sử dụng ICMP Echo Request (giống như `ping`) bằng tùy chọn `-I`. Điều này có thể hữu ích khi các gói UDP bị tường lửa (firewall) hoặc router chặn.
+
+```bash
+traceroute -I google.com
+```
+
+**Kết quả:**
+- `traceroute` sẽ sử dụng ICMP Echo Request (ping) thay vì gói UDP để truy tìm các hop.
+
+---
+
+#### **`-T`**: Sử dụng TCP SYN Packets
+
+Tùy chọn `-T` cho phép bạn sử dụng TCP SYN packets thay vì UDP hoặc ICMP. Điều này có thể hữu ích khi các gói UDP hoặc ICMP bị chặn trong mạng của bạn, nhưng các gói TCP thì không bị ảnh hưởng.
+
+```bash
+traceroute -T google.com
+```
+
+**Kết quả:**
+- Gửi gói SYN TCP để kiểm tra các hop trong mạng.
+
+---
+
+#### **`-p <port>`**: Xác Định Cổng TCP khi Sử Dụng `-T`
+
+Khi sử dụng tùy chọn `-T` (gửi gói TCP), bạn có thể xác định cổng TCP mà gói SYN sẽ được gửi đến. Ví dụ, gửi một gói SYN đến cổng HTTP (80):
+
+```bash
+traceroute -T -p 80 google.com
+```
+
+**Kết quả:**
+- Gửi gói SYN tới cổng TCP 80 (HTTP).
+
+---
+
+#### **`-q <queries>`**: Đặt Số Lượng Gói Tin Gửi đến mỗi Hop
+
+Tùy chọn `-q` cho phép bạn chỉ định số lượng gói tin (queries) được gửi đến mỗi hop. Mặc định là 3 gói tin. Ví dụ, nếu bạn muốn gửi 5 gói tin đến mỗi hop:
+
+```bash
+traceroute -q 5 google.com
+```
+
+**Kết quả:**
+- Mỗi hop sẽ nhận được 5 gói tin thay vì 3 gói tin mặc định.
+
+---
+
+#### **`-f <first_ttl>`**: Đặt Thời Gian Sống (TTL) Bắt Đầu
+
+Tùy chọn `-f` cho phép bạn bắt đầu gửi gói tin từ một TTL (Time-To-Live) cụ thể. Điều này hữu ích khi bạn muốn bắt đầu từ một hop cụ thể trong chuỗi định tuyến. 
+
+Ví dụ, để bắt đầu từ TTL 10 (hoặc hop thứ 10):
+
+```bash
+traceroute -f 10 google.com
+```
+
+**Kết quả:**
+- Gói tin sẽ được gửi từ hop thứ 10 trở đi, bỏ qua các hop trước đó.
+
+---
+
+#### **`-z <wait_time>`**: Đặt Thời Gian Giữa Các Gói Tin
+
+Tùy chọn `-z` cho phép bạn thiết lập thời gian chờ giữa các gói tin. Điều này có thể hữu ích khi bạn muốn tránh gởi quá nhanh các gói tin, điều này có thể gây ra quá tải cho mạng.
+
+```bash
+traceroute -z 0.5 google.com
+```
+
+**Kết quả:**
+- Thời gian chờ giữa các gói tin sẽ là 0.5 giây.
+
+---
+
+#### **`-v`**: Chế Độ Chi Tiết (Verbose Mode)
+
+Sử dụng tùy chọn `-v` để hiển thị thông tin chi tiết hơn về quá trình `traceroute`, chẳng hạn như số lượng gói tin đã gửi, thời gian chờ, và những thông tin kỹ thuật khác.
+
+```bash
+traceroute -v google.com
+```
+
+**Kết quả:**
+- Hiển thị thêm thông tin chi tiết về quá trình gửi gói tin và nhận phản hồi.
+
+---
+
+#### **`-h`**: Hiển Thị Trợ Giúp
+
+Nếu bạn cần trợ giúp hoặc muốn biết thêm thông tin về tất cả các tùy chọn có sẵn của `traceroute`, bạn có thể sử dụng tùy chọn `-h`:
+
+```bash
+traceroute -h
+```
+
+**Kết quả:**
+- Hiển thị danh sách đầy đủ các tùy chọn của `traceroute` cùng với mô tả ngắn gọn.
+
+---
+
+**Ví Dụ về Sử Dụng Các Tùy Chọn `traceroute`**
+
+1. **Truy tìm tuyến đường tới google.com với 5 gói tin mỗi hop và sử dụng ICMP Echo Request:**
+
+   ```bash
+   traceroute -I -q 5 google.com
+   ```
+
+2. **Truy tìm tuyến đường tới google.com, giới hạn ở 10 hop và thời gian chờ 3 giây:**
+
+   ```bash
+   traceroute -m 10 -w 3 google.com
+   ```
+
+3. **Truy tìm tuyến đường tới google.com, sử dụng gói TCP SYN và gửi tới cổng 80:**
+
+   ```bash
+   traceroute -T -p 80 google.com
+   ```
+
+4. **Truy tìm tuyến đường tới google.com, bắt đầu từ hop thứ 5 và gửi gói tin với thời gian giữa các gói là 1 giây:**
+
+   ```bash
+   traceroute -f 5 -z 1 google.com
+   ```
+-------
+
+### **Các Thông Tin Hiển Thị khi Sử Dụng `traceroute`**
+
+Khi bạn chạy lệnh `traceroute`, công cụ sẽ hiển thị thông tin chi tiết về các hop (bước nhảy) mà gói tin đi qua trên đường đi từ máy tính của bạn đến đích (máy chủ hoặc địa chỉ IP). Dưới đây là các thông tin mà bạn sẽ thấy trong kết quả của `traceroute`.
+
+
+**Cấu Trúc Kết Quả `traceroute`**
+
+Một kết quả `traceroute` điển hình có dạng như sau:
+
+```bash
+traceroute to google.com (142.250.72.14), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.389 ms  0.358 ms  0.325 ms
+ 2  10.10.10.1 (10.10.10.1)  10.457 ms  10.432 ms  10.392 ms
+ 3  * * *
+ 4  142.250.72.14 (142.250.72.14)  20.119 ms  20.105 ms  20.091 ms
+```
+
+**Các Thành Phần Của Kết Quả `traceroute`**
+
+1. **Thông Tin Đích (Destination Information)**
+
+   Dòng đầu tiên cung cấp thông tin về địa chỉ đích mà bạn đang traceroute tới. Nó bao gồm:
+   - **Tên miền đích** (ví dụ: `google.com`)
+   - **Địa chỉ IP đích** (ví dụ: `142.250.72.14`)
+   - **Số lượng hop tối đa** (ví dụ: `30 hops max`), đây là số lượng hop tối đa mà gói tin có thể đi qua.
+   - **Kích thước gói tin** (ví dụ: `60 byte packets`), tức là kích thước của các gói tin được gửi trong quá trình traceroute.
+
+2. **Các Hop (Hops)**
+
+   Mỗi dòng tiếp theo đại diện cho một hop trong quá trình đi từ máy bạn đến đích. Một hop thường là một router hoặc thiết bị mạng khác mà gói tin phải đi qua. Cấu trúc mỗi dòng hop gồm:
+   
+   - **Số thứ tự hop**: Đây là số thứ tự của hop trong chuỗi. Ví dụ: `1`, `2`, `3`, ...
+   
+   - **Địa chỉ IP hoặc Tên Miền của Router**: Địa chỉ IP hoặc tên miền của router hoặc thiết bị mạng mà gói tin đi qua. Ví dụ: `192.168.1.1` hoặc `google.com`.
+
+   - **Thời gian (Latency) của các Gói Tin**: Thời gian để gói tin đến và nhận phản hồi từ mỗi hop, được đo bằng mili giây (ms). Thời gian này được hiển thị ba lần (ba giá trị tương ứng với ba gói tin được gửi đến mỗi hop):
+     - **Ví dụ**: `0.389 ms  0.358 ms  0.325 ms`
+
+     Mỗi giá trị tương ứng với thời gian phản hồi của một gói tin. Thời gian thấp cho thấy mạng hoạt động nhanh và ít độ trễ.
+
+   - **Dấu `*` (nếu có)**: Nếu không có phản hồi từ hop nào trong thời gian chờ, bạn sẽ thấy dấu `*`. Điều này có thể xảy ra vì:
+     - Router hoặc thiết bị mạng không trả lời yêu cầu ICMP (hoặc UDP, tùy thuộc vào cấu hình).
+     - Mạng quá tải hoặc có firewall chặn các gói ICMP hoặc UDP.
+     - Thời gian chờ (timeout) đã vượt quá giới hạn.
+
+**Giải Thích Các Dòng trong Kết Quả `traceroute`**
+
+**Ví dụ:**
+
+```bash
+traceroute to google.com (142.250.72.14), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.389 ms  0.358 ms  0.325 ms
+ 2  10.10.10.1 (10.10.10.1)  10.457 ms  10.432 ms  10.392 ms
+ 3  * * *
+ 4  142.250.72.14 (142.250.72.14)  20.119 ms  20.105 ms  20.091 ms
+```
+
+1. **Dòng đầu tiên**: 
+   - **traceroute to google.com (142.250.72.14)**: Công cụ đang truy vết tới máy chủ `google.com` với địa chỉ IP là `142.250.72.14`.
+   - **30 hops max**: Gói tin có thể đi qua tối đa 30 hop.
+   - **60 byte packets**: Kích thước của mỗi gói tin là 60 byte.
+
+2. **Dòng 1 (Hop 1)**:
+   - **192.168.1.1**: Địa chỉ IP của router trong mạng nội bộ của bạn (hoặc gateway).
+   - **0.389 ms  0.358 ms  0.325 ms**: Thời gian phản hồi cho ba gói tin gửi đi từ máy của bạn đến router này.
+
+3. **Dòng 2 (Hop 2)**:
+   - **10.10.10.1**: Địa chỉ IP của một router hoặc thiết bị mạng khác trên tuyến đường.
+   - **10.457 ms  10.432 ms  10.392 ms**: Thời gian phản hồi của ba gói tin gửi đến router này.
+   
+4. **Dòng 3 (Hop 3)**:
+   - **`* * *`**: Không nhận được phản hồi từ hop này trong thời gian chờ. Điều này có thể do firewall hoặc router không trả lời yêu cầu ICMP hoặc gói tin bị chặn.
+
+5. **Dòng 4 (Hop 4)**:
+   - **142.250.72.14**: Địa chỉ IP của máy chủ đích (hoặc router gần máy chủ đích).
+   - **20.119 ms  20.105 ms  20.091 ms**: Thời gian phản hồi từ hop này (máy chủ đích).
+
+**Các Trường Hợp Thông Tin Mất hoặc Không Hiển Thị**
+
+1. **Dấu `*`**: Nếu bạn thấy dấu `*`, điều này có thể có một số nguyên nhân:
+   - **Firewall hoặc Router không trả lời**: Một số router hoặc firewall có thể được cấu hình để không trả lời các gói ICMP (hoặc UDP), vì vậy bạn sẽ không thấy thời gian phản hồi cho hop đó.
+   - **Mạng quá tải**: Mạng quá tải có thể gây ra mất mát gói tin.
+   - **Thời gian chờ (timeout)**: Nếu thời gian chờ quá lâu, bạn sẽ thấy dấu `*`.
+
+2. **Không có kết quả**: Nếu bạn không nhận được bất kỳ kết quả nào, có thể là do:
+   - **Lỗi kết nối mạng**: Đảm bảo bạn có kết nối mạng và kiểm tra lại cài đặt mạng của bạn.
+   - **Tường lửa hoặc Router không cho phép traceroute**: Một số hệ thống hoặc mạng có thể ngăn chặn các yêu cầu `traceroute` vì lý do bảo mật.
+
+
+**Các Thông Tin Đặc Biệt trong Kết Quả `traceroute`**
+
+- **Địa chỉ IP hoặc Tên Miền của Router**: Khi `traceroute` hiển thị tên miền, bạn có thể xác định được tên của router hoặc thiết bị mạng (nếu có thể phân giải DNS).
+  
+- **Thời Gian Phản Hồi (Latency)**: Các giá trị thời gian phản hồi (được đo bằng mili giây, ms) giúp bạn đánh giá độ trễ của các hop. Thời gian càng thấp thì mạng càng nhanh.
+
+----------
+
 
 
 
