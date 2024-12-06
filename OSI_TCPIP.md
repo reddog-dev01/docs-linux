@@ -494,6 +494,45 @@ g. Đóng kết nối (Connection termination)
 
 **Tầng 4 - Application Layer (Tầng ứng dụng)**
 
+**Tầng Ứng dụng (Application Layer) trong Mô hình TCP/IP**
+
+Trong mô hình TCP/IP, tầng Ứng dụng là tầng cao nhất và có vai trò cực kỳ quan trọng trong việc cung cấp giao diện cho các ứng dụng để truy cập vào các dịch vụ mạng. Tầng này không chỉ đảm nhận trách nhiệm cung cấp các dịch vụ cho các ứng dụng mà còn giúp đơn giản hóa quá trình trao đổi thông tin giữa người dùng và mạng.
+
+**Chức năng chính của Tầng Ứng dụng**
+1. **Truy cập tài nguyên mạng:**
+   - Cho phép người dùng và các ứng dụng truy cập vào tài nguyên mạng, như trang web, email, cơ sở dữ liệu, và file.
+
+2. **Xử lý giao thức đặc thù ứng dụng:**
+   - Điều phối và sử dụng các giao thức cụ thể để hỗ trợ các hoạt động như truyền thư điện tử, chuyển file, và xử lý truy vấn từ xa.
+
+3. **Cung cấp các API mạng:**
+   - Cung cấp giao diện lập trình ứng dụng (APIs) cho phép phần mềm ứng dụng tương tác trực tiếp với các lớp thấp hơn trong mô hình TCP/IP, qua đó giúp lập trình viên dễ dàng phát triển các ứng dụng mạng.
+
+**Giao thức phổ biến của Tầng Ứng dụng**
+1. **HTTP (HyperText Transfer Protocol):**
+   - Là giao thức nền tảng cho World Wide Web, quản lý truyền thông giữa trình duyệt web và máy chủ web.
+
+2. **FTP (File Transfer Protocol):**
+   - Dùng để chuyển file giữa máy khách và máy chủ trên một mạng máy tính.
+
+3. **SMTP (Simple Mail Transfer Protocol):**
+   - Được sử dụng để truyền email giữa các máy chủ thư điện tử.
+
+4. **DNS (Domain Name System):**
+   - Chuyển đổi giữa tên miền và địa chỉ IP, cho phép người dùng và ứng dụng truy cập mạng dễ dàng hơn.
+
+5. **DHCP (Dynamic Host Configuration Protocol):**
+   - Tự động cấp phát địa chỉ IP và thông tin cấu hình mạng cho máy khách trong một mạng.
+
+6. **POP3/IMAP (Post Office Protocol / Internet Message Access Protocol):**
+   - Dùng cho việc truy xuất email từ máy chủ thư, cho phép người dùng đọc thư mà không cần phải online.
+
+**Vai trò và Tác động của Tầng Ứng dụng**
+- **Giao tiếp người dùng cuối:** Là tầng mà người dùng tương tác trực tiếp thông qua các ứng dụng, làm điểm truy cập cho các tài nguyên và dịch vụ mạng.
+- **Hỗ trợ đa dạng các ứng dụng:** Từ duyệt web, email, truyền file, và truyền thông điện tử, tầng Ứng dụng hỗ trợ một loạt các ứng dụng khác nhau, giúp đáp ứng nhu cầu ngày càng cao của người dùng và doanh nghiệp.
+
+------------
+
 - Các giao thức trong tầng ứng dụng: HTTP, HTTPS, FTP, DNS, SSH, DHCP...
 
 a. Cung cấp các dịch vụ và giao diện cho người dùng hoặc các ứng dụng
@@ -511,7 +550,43 @@ c. Chuyển đổi dữ liệu giữa các ứng dụng
   - Chuyển đổi dữ liệu giữa các ứng dụng người dùng và các tầng thấp hơn trong mô hình mạng
   - Application Layer cũng có thể chuyển đổi định dạng dữ liệu, mã hóa, giải mã, nén và giải nén dữ liệu khi cần thiết.
 
+------------------------------
+
 **Tầng 3 - Transport Layer (Tầng vận chuyển)**
+
+**Tầng Giao vận (Transport Layer) trong Mô hình TCP/IP**
+
+Tầng Giao vận, hay còn gọi là Transport Layer, là lớp thứ tư trong mô hình TCP/IP, có nhiệm vụ quan trọng trong việc đảm bảo dữ liệu được truyền đi một cách tin cậy giữa các ứng dụng trên các thiết bị mạng. Tầng này cung cấp các dịch vụ kết nối từ điểm đến điểm, điều khiển lỗi, và quản lý luồng dữ liệu để giảm thiểu tình trạng mất mát và đảm bảo tính toàn vẹn của dữ liệu.
+
+**Chức năng chính của Tầng Giao vận**
+1. **Đa hóa kết nối (Multiplexing):**
+   - Cho phép nhiều ứng dụng trên một thiết bị sử dụng cùng một kết nối mạng mà không gây xung đột, bằng cách gán các cổng riêng biệt cho từng phiên ứng dụng.
+
+2. **Điều khiển phiên (Session Control):**
+   - Quản lý phiên làm việc giữa các ứng dụng, đảm bảo rằng dữ liệu gửi đến là liên tục và đúng thứ tự.
+
+3. **Kiểm soát lỗi (Error Control):**
+   - Sử dụng các kỹ thuật như kiểm tra checksum và báo cáo xác nhận để phát hiện và sửa lỗi trong quá trình truyền dữ liệu.
+
+4. **Kiểm soát luồng (Flow Control):**
+   - Điều chỉnh tốc độ truyền dữ liệu giữa người gửi và người nhận để tránh làm quá tải bộ đệm của người nhận.
+
+5. **Kiểm soát tắc nghẽn (Congestion Control):**
+   - Giảm tốc độ truyền khi mạng bị tắc nghẽn để ngăn chặn mất dữ liệu và cải thiện hiệu suất mạng.
+
+**Giao thức phổ biến của Tầng Giao vận**
+1. **TCP (Transmission Control Protocol):**
+   - Giao thức định hướng kết nối, cung cấp dịch vụ truyền dữ liệu đáng tin cậy. TCP đảm bảo rằng mọi gói tin đều được gửi tới điểm đích một cách chính xác và theo đúng thứ tự.
+
+2. **UDP (User Datagram Protocol):**
+   - Giao thức không định hướng kết nối, cung cấp một dịch vụ truyền dữ liệu nhanh nhưng không đáng tin cậy. UDP phù hợp với các ứng dụng đòi hỏi tốc độ cao và có thể chấp nhận một số mất mát dữ liệu, như trò chơi trực tuyến hoặc truyền phát video.
+
+**Vai trò và Tác động của Tầng Giao vận**
+- **Đảm bảo tính đáng tin cậy:** TCP và các giao thức khác tại tầng này đảm bảo dữ liệu được gửi một cách đáng tin cậy, ngay cả trong điều kiện mạng không ổn định.
+- **Hỗ trợ đa dạng các ứng dụng:** Từ duyệt web, gửi email, chơi game đến truyền phát video, tầng Giao vận cung cấp các giao thức hỗ trợ cho nhiều loại hình ứng dụng trên Internet.
+
+
+----------
 
 - Chịu trách nhiệm về việc truyền tải dữ liệu giữa các thiết bị đầu cuối qua mạng.
 
@@ -539,7 +614,48 @@ e. Quản lý lỗi
 - TCP có khả năng phát hiện lỗi và y/c gửi lại dữ liệu nếu phát hiện lỗi
 - UDP không có
 
+--------------------------------------------------------
+
+
 **Tầng 2 - Internet Layer (Tầng Mạng)**
+
+**Tầng Internet (Internet Layer) trong Mô hình TCP/IP**
+
+Tầng Internet, còn được gọi là Network Layer trong một số tài liệu, là lớp thứ ba trong mô hình TCP/IP. Nó chịu trách nhiệm chính trong việc định tuyến gói tin qua các mạng khác nhau để đảm bảo chúng đến được đích cuối cùng. Lớp này giúp xác định lộ trình tốt nhất cho dữ liệu di chuyển qua mạng Internet phức tạp.
+
+**Chức năng chính của Tầng Internet**
+1. **Định tuyến (Routing):**
+   - Chọn lộ trình tối ưu cho gói tin từ nguồn đến đích, dựa trên thông tin định tuyến có sẵn và thuật toán định tuyến. Gói tin có thể đi qua nhiều mạng khác nhau để đến đích.
+
+2. **Địa chỉ hóa logic:**
+   - Sử dụng địa chỉ IP để xác định mỗi thiết bị trên mạng. Địa chỉ này giúp xác định vị trí của nguồn và đích trên mạng rộng lớn.
+
+3. **Phân mảnh và tái lắp ráp gói tin:**
+   - Chia nhỏ gói tin lớn thành các phân đoạn nhỏ hơn nếu kích thước gói tin vượt quá Maximum Transmission Unit (MTU) của mạng mà chúng đi qua. Các phân đoạn này được tái lắp ráp khi đến nơi nhận.
+
+4. **Xử lý lỗi và thông điệp điều khiển:**
+   - Sử dụng các giao thức như ICMP (Internet Control Message Protocol) để xử lý thông báo lỗi và cung cấp thông tin về tình trạng mạng, như thông báo lỗi truyền tải, thời gian sống của gói tin (TTL) đã hết, và các vấn đề khác.
+
+**Giao thức phổ biến của Tầng Internet**
+1. **IP (Internet Protocol):**
+   - Là giao thức chính tại tầng này, định dạng gói tin và định tuyến chúng trong mạng.
+
+2. **ICMP (Internet Control Message Protocol):**
+   - Được sử dụng để gửi thông điệp lỗi và điều khiển, giúp quản lý và gỡ lỗi trong mạng.
+
+3. **ARP (Address Resolution Protocol):**
+   - Dùng để ánh xạ địa chỉ IP với địa chỉ MAC (địa chỉ vật lý), cần thiết cho việc truyền gói tin qua mạng LAN.
+
+4. **RIP (Routing Information Protocol), OSPF (Open Shortest Path First), và BGP (Border Gateway Protocol):**
+   - Là các giao thức định tuyến chủ yếu được sử dụng để trao đổi thông tin định tuyến giữa các router.
+
+**Vai trò và Tác động của Tầng Internet**
+- **Định tuyến toàn cầu:** Đảm bảo gói tin có thể di chuyển từ bất kỳ nguồn nào đến bất kỳ đích nào trên toàn cầu, qua các mạng khác nhau.
+- **Quản lý mạng:** Giám sát và phản hồi các điều kiện mạng, như tắc nghẽn và lỗi kết nối.
+- **Độc lập với phần cứng:** Các giao thức hoạt động ở tầng Internet tương thích với nhiều loại phần cứng và mạng, giúp Internet hoạt động liền mạch giữa các môi trường khác nhau.
+
+
+-------------
 
  - Cung cấp phương thức định tuyến và chuyển tiếp dữ liệu giữa các thiết bị qua các mạng khác nhau.
 
@@ -562,7 +678,47 @@ d. Truyền thông giữa các mạng.
 
 Các giao thức IP, ARP, ICMP, IGMP....
 
+------------------------------
+
 **Tầng 1 - Link Layer (Tầng vật lý)**
+
+**Tầng Liên kết (Link Layer) trong Mô hình TCP/IP**
+
+Tầng Liên kết, còn được gọi là Link Layer hoặc Network Interface Layer trong mô hình TCP/IP, là lớp thấp nhất và đóng vai trò cơ bản trong việc truyền thông dữ liệu trực tiếp giữa các thiết bị trên một mạng cục bộ. Lớp này xử lý các chi tiết về phần cứng và truyền thông vật lý, từ việc đóng gói dữ liệu vào các khung (frames) cho đến việc xử lý truyền nhận tín hiệu.
+
+**Chức năng chính của Tầng Liên kết**
+1. **Đóng khung (Framing):**
+   - Tầng này đóng gói dữ liệu từ tầng trên (Internet Layer) vào trong các khung, bao gồm cả địa chỉ vật lý và thông tin kiểm tra lỗi, để chuẩn bị truyền qua mạng.
+
+2. **Địa chỉ vật lý (Physical Addressing):**
+   - Sử dụng địa chỉ MAC (Media Access Control) để xác định nguồn và đích của các khung dữ liệu trên một mạng cục bộ.
+
+3. **Kiểm soát truy cập môi trường (Media Access Control):**
+   - Quản lý việc truy cập vào môi trường truyền dẫn chung, đặc biệt là trong mạng nơi mà nhiều thiết bị cùng chia sẻ một kênh vật lý.
+
+4. **Phát hiện và xử lý lỗi (Error Detection and Handling):**
+   - Phát hiện lỗi xảy ra trong quá trình truyền dữ liệu (thường thông qua CRC - Cyclic Redundancy Check) và đôi khi sửa chữa các lỗi đó.
+
+5. **Phản hồi tình trạng (Status Reporting):**
+   - Báo cáo trạng thái của kết nối và truyền thông về cho tầng trên, bao gồm cả thông tin về lỗi và các vấn đề khác.
+
+**Giao thức phổ biến của Tầng Liên kết**
+- **Ethernet (IEEE 802.3):**
+   - Phổ biến nhất cho mạng LAN, quy định cách đóng khung dữ liệu và quản lý truy cập vào môi trường vật lý.
+- **Wi-Fi (IEEE 802.11):**
+   - Quản lý truy cập không dây và đóng khung dữ liệu trong môi trường không dây.
+- **ARP (Address Resolution Protocol):**
+   - Dùng để ánh xạ giữa địa chỉ IP và địa chỉ MAC trong một mạng cục bộ.
+- **PPP (Point-to-Point Protocol):**
+   - Cung cấp đóng khung dữ liệu và kiểm soát kết nối trên các liên kết điểm-đến-điểm, thường được sử dụng trong kết nối Internet qua modem.
+
+**Vai trò và Tác động của Tầng Liên kết**
+- **Đảm bảo giao tiếp trên mạng cục bộ:** Là tầng trực tiếp xử lý giao tiếp giữa các thiết bị trong một mạng, đảm bảo rằng dữ liệu được gửi và nhận một cách chính xác.
+- **Cung cấp cơ sở cho các lớp cao hơn:** Làm nền tảng cho tầng Internet để thực hiện định tuyến dữ liệu giữa các mạng khác nhau.
+- **Độc lập với phương tiện truyền dẫn:** Có thể hoạt động trên nhiều loại phương tiện truyền dẫn khác nhau, từ cáp đồng trục, cáp quang đến không gian không dây.
+
+
+-----------------------
 
 - Tương đương với Tầng Liên Kết Dữ Liệu (Data Link Layer) trong mô hình OSI.
 
@@ -595,8 +751,50 @@ e. Quản lý luồng (Flow Control)
 
 Các giao thức....
 
+------------------------
 
 ### **UDP(User Datagram Protocol)**
+
+
+UDP, viết tắt của User Datagram Protocol, là một trong những giao thức cơ bản trong bộ giao thức TCP/IP, hoạt động ở tầng Giao vận (Transport Layer). Đây là giao thức không định hướng kết nối, nghĩa là nó không thiết lập một kết nối ổn định trước khi truyền dữ liệu, và cũng không đảm bảo rằng dữ liệu gửi đi sẽ được nhận chính xác tại điểm đích. Do tính chất nhanh và hiệu quả của nó, UDP thường được sử dụng trong các ứng dụng đòi hỏi truyền dữ liệu thời gian thực như video, âm thanh trong cuộc gọi VoIP, trò chơi trực tuyến và nhiều hệ thống phát sóng trực tiếp.
+
+**Chức năng chính của UDP**
+1. **Truyền dữ liệu nhanh và hiệu quả:**
+   - UDP bỏ qua các bước thiết lập kết nối, kiểm soát luồng và sửa lỗi, cho phép dữ liệu được truyền nhanh chóng mà không cần chờ đợi xác nhận từ đầu nhận.
+
+2. **Không đảm bảo truyền tin:**
+   - Không đảm bảo dữ liệu gửi đi sẽ đến được nơi nhận hay đến trong trạng thái nguyên vẹn. Dữ liệu có thể bị mất hoặc sai lệch mà không được phát hiện hoặc sửa chữa.
+
+3. **Không duy trì trạng thái:**
+   - UDP không duy trì trạng thái kết nối giữa các lần trao đổi thông tin, giúp giảm tải cho máy chủ vì không cần theo dõi trạng thái của các kết nối.
+
+4. **Đa hóa:**
+   - Sử dụng cổng để phân biệt các ứng dụng khác nhau trên cùng một máy, cho phép nhiều ứng dụng sử dụng UDP cùng một lúc.
+
+**Giao thức và Ứng dụng sử dụng UDP**
+- **DNS (Domain Name System):**
+   - Sử dụng UDP cho các truy vấn thông tin nhanh chóng về địa chỉ IP từ tên miền.
+  
+- **DHCP (Dynamic Host Configuration Protocol):**
+   - Giao thức cấp phát địa chỉ IP động sử dụng UDP để trao đổi thông tin cấu hình mạng nhanh chóng.
+  
+- **SNMP (Simple Network Management Protocol):**
+   - Dùng UDP để giám sát và quản lý thiết bị mạng với lưu lượng thấp và yêu cầu độ trễ thấp.
+
+- **VoIP (Voice over Internet Protocol) và truyền phát video:**
+   - Các ứng dụng cần truyền tải dữ liệu âm thanh và video thời gian thực thường sử dụng UDP để giảm độ trễ.
+
+**Ưu và Nhược điểm của UDP**
+- **Ưu điểm:**
+   - **Tốc độ cao:** Việc không có cơ chế kiểm soát tạo điều kiện cho truyền tải dữ liệu nhanh chóng.
+   - **Đơn giản:** Cấu trúc gọn nhẹ, ít tốn tài nguyên hệ thống.
+
+- **Nhược điểm:**
+   - **Không đáng tin cậy:** Không có kiểm soát lỗi, không đảm bảo rằng dữ liệu gửi đi sẽ đến nơi nhận.
+   - **Thiếu kiểm soát luồng:** Dữ liệu có thể bị mất nếu phía nhận không kịp xử lý.
+  
+
+-----------
 
 - Là giao thức truyền tải dữ liệu không kết nối. Hoạt động ở Transport Layer trong OSI. UDP cho phép truyền tải dữ liệu dưới dạng các gói (datagrams), không yêu cầu kết nối giữa các máy gửi và nhận. Không đảm bảo tính toàn vẹn của dữ liệu, không kiểm tra lỗi và không xác nhận việc nhận gói dữ liệu.
 
@@ -620,7 +818,14 @@ Các giao thức....
 - **DNS (Domain Name System)**: Khi bạn yêu cầu dịch vụ DNS (tra cứu tên miền), giao thức UDP thường được sử dụng để nhanh chóng gửi và nhận yêu cầu tra cứu mà không cần thiết lập kết nối dài hạn.
 - **TFTP (Trivial File Transfer Protocol)**: Đây là một giao thức truyền tệp đơn giản, sử dụng UDP để truyền tệp mà không yêu cầu các tính năng như xác nhận hoặc kiểm tra lỗi.
 
+--------------
+
+
 ### **TCP (Transmission Control Protocol)
+
+
+
+---------
 
 **1. TCP là gì?**
 **TCP (Transmission Control Protocol)** là một giao thức truyền tải dữ liệu có kết nối, hoạt động tại tầng vận chuyển (Transport Layer) trong mô hình OSI. TCP đảm bảo rằng các gói dữ liệu được truyền một cách đáng tin cậy và theo thứ tự, bảo vệ tính toàn vẹn của dữ liệu. Khi một kết nối TCP được thiết lập, nó sẽ duy trì sự ổn định và bảo mật trong suốt quá trình truyền tải, sử dụng các cơ chế kiểm tra lỗi và xác nhận dữ liệu.
@@ -684,6 +889,8 @@ TCP được sử dụng trong các tình huống và ứng dụng cần:
 **g. SSH (Secure Shell)**
 - **Cách hoạt động**: **SSH (Secure Shell)** là một giao thức bảo mật cho phép người dùng kết nối từ xa vào hệ thống máy tính. SSH sử dụng TCP để mã hóa và bảo vệ các kết nối.
 - **Lý do dùng TCP**: SSH yêu cầu bảo mật và tính toàn vẹn cao, vì các kết nối này thường liên quan đến quyền truy cập hệ thống và điều khiển máy tính từ xa.
+
+----------------
 
 
 ### **IPv4**
