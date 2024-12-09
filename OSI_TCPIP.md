@@ -154,7 +154,7 @@ Lớp Mạng là lớp thứ ba trong mô hình OSI, có vai trò quan trọng t
    - Sử dụng các bảng định tuyến và thuật toán định tuyến để đưa ra quyết định về đường đi cho mỗi gói tin.
 
 2. **Phân đoạn và Tái lắp ráp (Fragmentation and Reassembly):**
-   - Chia gói tin lớn thành các phân đoạn nhỏ hơn phù hợp với kích thước tối đa mà mạng có thể xử lý (MTU) và tái lắp ráp chúng ở đầu cuối nhận.
+   - Chia gói tin lớn (packets) thành các phân đoạn nhỏ hơn phù hợp với kích thước tối đa mà mạng có thể xử lý (MTU) và tái lắp ráp chúng ở đầu cuối nhận.
 
 3. **Địa chỉ hóa logic (Logical Addressing):**
    - Sử dụng địa chỉ IP để xác định địa chỉ nguồn và đích cho mỗi gói tin.
