@@ -2,46 +2,104 @@
 
 - `iptables` là một công cụ dòng lệnh trong Linux dùng để cấu hình tường lửa (firewall) và lọc các gói tin trong hệ thống mạng. Nó cho phép bạn quản lý các quy tắc (rules) kiểm tra và điều khiển lưu lượng mạng, từ đó bảo vệ hệ thống của bạn khỏi các mối đe dọa từ bên ngoài và điều chỉnh cách dữ liệu được gửi qua mạng.
 
-### **Các thành phần của `iptables`**
-Các thành phần chính của `iptables` bao gồm:
+`iptables` là một công cụ mạnh mẽ dùng để kiểm soát lưu lượng mạng trong hệ thống Linux, cung cấp khả năng lọc gói tin, NAT, và kiểm tra các điều kiện kết nối. Các thành phần chính của `iptables` bao gồm **bảng** (tables), **chuỗi** (chains), **quy tắc** (rules), **mô-đun** (modules), và **hành động** (targets). Dưới đây là chi tiết về các thành phần này.
 
-1. **Bảng (Tables)**:
-Mỗi bảng chứa các chuỗi và quy tắc xử lý gói tin. Các bảng chính trong `iptables` là:
-- **filter**: Bảng mặc định dùng để lọc gói tin (cho phép hoặc từ chối). Đây là bảng chủ yếu khi bạn muốn kiểm tra và kiểm soát lưu lượng mạng.
-- **nat (Network Address Translation)**: Dùng để thay đổi địa chỉ IP của các gói tin (thường dùng cho NAT, ví dụ chuyển tiếp gói tin qua router, hay chia sẻ kết nối internet).
-- **mangle**: Dùng để thay đổi các thuộc tính của gói tin (như thay đổi TTL, QoS, v.v.).
-- **raw**: Thực hiện xử lý gói tin trước khi chúng được xử lý bởi các bảng khác, thường dùng để bỏ qua kiểm tra trạng thái kết nối.
-- **security**: Dùng trong SELinux (Security-Enhanced Linux) để áp dụng các chính sách bảo mật.
 
-2. **Chuỗi (Chains)**:
-Mỗi bảng có một hoặc nhiều chuỗi, mỗi chuỗi chứa các quy tắc để xử lý gói tin. Các chuỗi chính bao gồm:
-- **INPUT**: Dùng để kiểm tra các gói tin đi vào máy chủ.
-- **OUTPUT**: Dùng để kiểm tra các gói tin xuất phát từ máy chủ.
-- **FORWARD**: Dùng để kiểm tra các gói tin được chuyển tiếp qua máy chủ (dùng trong các thiết lập routing).
-- **PREROUTING**: Dùng trong bảng `nat` để xử lý gói tin ngay khi chúng vào hệ thống, trước khi được định tuyến.
-- **POSTROUTING**: Dùng trong bảng `nat` để xử lý gói tin sau khi chúng đã được định tuyến, trước khi rời khỏi hệ thống.
+### 1. **Bảng (Tables)**
 
-3. **Quy tắc (Rules)**:
-Mỗi quy tắc trong chuỗi kiểm tra một hoặc nhiều điều kiện của gói tin (như địa chỉ IP, cổng, giao thức, v.v.). Nếu gói tin khớp với quy tắc, hành động chỉ định sẽ được thực thi, ví dụ:
-- **ACCEPT**: Cho phép gói tin tiếp tục.
-- **DROP**: Từ chối gói tin mà không gửi thông báo.
-- **REJECT**: Từ chối gói tin và gửi một thông báo lỗi.
-- **LOG**: Ghi lại thông tin gói tin mà không thay đổi.
+Mỗi bảng trong `iptables` chứa một tập hợp các chuỗi và quy tắc dùng để xử lý các gói tin. Các bảng chính trong `iptables` là:
 
-4. **Mô-đun (Modules)**:
-`iptables` sử dụng các mô-đun để mở rộng khả năng lọc và xử lý gói tin. Các mô-đun này cho phép bạn kiểm tra các điều kiện bổ sung như địa chỉ IP, cổng, giao thức, trạng thái kết nối, v.v. Ví dụ:
-- **state**: Kiểm tra trạng thái của kết nối (new, established, related).
-- **tcp**: Kiểm tra các gói tin TCP, ví dụ như cổng hoặc flags của gói tin.
-- **limit**: Giới hạn số lượng gói tin trong một khoảng thời gian nhất định.
+#### a. **filter** (Mặc định)
+Bảng `filter` là bảng mặc định và chủ yếu dùng để lọc gói tin. Các quy tắc trong bảng này quyết định xem gói tin có được phép vào hệ thống hay không.
+- **Chuỗi chính trong bảng filter**:
+  - **INPUT**: Kiểm tra các gói tin đến hệ thống.
+  - **OUTPUT**: Kiểm tra các gói tin xuất phát từ hệ thống.
+  - **FORWARD**: Kiểm tra các gói tin được chuyển tiếp qua hệ thống (router).
   
-5. **Hành động (Targets)**:
-Mỗi quy tắc có thể có một hành động đi kèm, quyết định việc xử lý gói tin:
+  **Lưu ý**: Đây là bảng mặc định khi sử dụng `iptables` để lọc các kết nối mạng.
+
+#### b. **nat** (Network Address Translation)
+Bảng `nat` dùng để thực hiện NAT (Đổi địa chỉ mạng), chẳng hạn như chuyển tiếp cổng hoặc thay đổi địa chỉ IP của các gói tin. Bảng này đặc biệt hữu ích trong các cấu hình router hoặc gateway.
+- **Chuỗi trong bảng `nat`**:
+  - **PREROUTING**: Được sử dụng để thay đổi các gói tin ngay khi chúng đến hệ thống, trước khi định tuyến.
+  - **POSTROUTING**: Được sử dụng để thay đổi các gói tin sau khi chúng đã được định tuyến.
+  - **OUTPUT**: Kiểm tra các gói tin được tạo ra từ chính hệ thống (thường là gói tin ra ngoài internet).
+
+#### c. **mangle**
+Bảng `mangle` được sử dụng để thay đổi các thuộc tính của gói tin, như thay đổi TTL (Time To Live), QoS (Quality of Service), hoặc các đánh dấu khác.
+- **Chuỗi trong bảng `mangle`**:
+  - **PREROUTING**: Chỉnh sửa gói tin khi chúng vừa vào hệ thống.
+  - **POSTROUTING**: Chỉnh sửa gói tin sau khi định tuyến.
+  - **INPUT, OUTPUT, FORWARD**: Kiểm tra gói tin vào hoặc ra từ hệ thống.
+
+#### d. **raw**
+Bảng `raw` được sử dụng trước khi các gói tin đi qua các bảng khác. Nó chủ yếu dùng để bỏ qua việc theo dõi trạng thái kết nối, giúp tăng tốc độ xử lý đối với các ứng dụng không yêu cầu kiểm tra trạng thái.
+- **Chuỗi trong bảng `raw`**:
+  - **PREROUTING**: Xử lý gói tin khi chúng đến hệ thống.
+  - **POSTROUTING**: Xử lý gói tin trước khi chúng ra khỏi hệ thống.
+
+#### e. **security**
+Bảng `security` hỗ trợ các chính sách bảo mật, đặc biệt là trong môi trường SELinux (Security-Enhanced Linux). Nó cho phép xác định các chính sách bảo mật cho các gói tin đi qua hệ thống.
+
+
+### 2. **Chuỗi (Chains)**
+
+Mỗi bảng chứa các chuỗi. Một **chuỗi** là một tập hợp các quy tắc, nơi các gói tin sẽ được kiểm tra. Các chuỗi chính trong `iptables` gồm:
+
+#### a. **INPUT**:
+Dùng để xử lý các gói tin đi vào hệ thống. Quy tắc trong chuỗi này quyết định xem gói tin có được phép đến hệ thống hay không.
+
+#### b. **OUTPUT**:
+Dùng để xử lý các gói tin xuất phát từ hệ thống (ví dụ: kết nối HTTP, SSH). Quy tắc trong chuỗi này quyết định xem gói tin có được phép gửi ra ngoài hay không.
+
+#### c. **FORWARD**:
+Dùng trong các thiết lập router hoặc gateway, xử lý các gói tin được chuyển tiếp từ một giao diện mạng đến giao diện khác.
+
+#### d. **PREROUTING**:
+Chạy trước khi các gói tin được định tuyến đến các địa chỉ đích. Quy tắc trong chuỗi này có thể thay đổi hoặc chuyển hướng các gói tin trước khi định tuyến.
+
+#### e. **POSTROUTING**:
+Chạy sau khi các gói tin đã được định tuyến. Chuỗi này thường được sử dụng trong NAT để thay đổi địa chỉ IP hoặc port của gói tin khi ra ngoài hệ thống.
+
+
+### 3. **Quy Tắc (Rules)**
+
+Mỗi chuỗi chứa một hoặc nhiều **quy tắc** (rules), định nghĩa cách thức xử lý gói tin. Một quy tắc bao gồm:
+- **Điều kiện** (Conditions): Kiểm tra các đặc điểm của gói tin, ví dụ:
+  - **Địa chỉ IP nguồn (Source IP)**: Xác định địa chỉ IP của máy gửi.
+  - **Địa chỉ IP đích (Destination IP)**: Xác định địa chỉ IP của máy nhận.
+  - **Cổng (Port)**: Xác định cổng giao thức.
+  - **Giao thức (Protocol)**: TCP, UDP, ICMP, v.v.
+  - **Trạng thái kết nối (Connection State)**: (new, established, related, invalid).
+  
+- **Hành động (Action)**: Định nghĩa hành động thực hiện nếu gói tin khớp với quy tắc, ví dụ:
+  - **ACCEPT**: Cho phép gói tin tiếp tục.
+  - **DROP**: Từ chối gói tin mà không thông báo.
+  - **REJECT**: Từ chối gói tin và gửi một thông báo lỗi.
+  - **LOG**: Ghi lại thông tin gói tin vào hệ thống nhật ký.
+
+
+### 4. **Mô-đun (Modules)**
+
+`iptables` có thể sử dụng các mô-đun để mở rộng khả năng kiểm tra và xử lý gói tin. Mô-đun cho phép kiểm tra thêm các điều kiện hoặc thực hiện các chức năng cụ thể. Ví dụ:
+- **state**: Kiểm tra trạng thái của kết nối (new, established, related, invalid).
+- **limit**: Giới hạn tốc độ lưu lượng mạng (ví dụ: chỉ cho phép một số lượng gói tin nhất định trong một khoảng thời gian).
+- **tcp**: Kiểm tra các thuộc tính của giao thức TCP (ví dụ: cổng, flags, v.v.).
+- **icmp**: Kiểm tra các gói tin ICMP (ping, traceroute).
+- **multiport**: Kiểm tra nhiều cổng một lúc.
+
+
+### 5. **Hành Động (Targets)**
+
+Mỗi quy tắc có thể bao gồm một **hành động** (target), quyết định cách xử lý gói tin khi chúng khớp với quy tắc. Các hành động phổ biến bao gồm:
 - **ACCEPT**: Cho phép gói tin tiếp tục.
-- **DROP**: Từ chối gói tin mà không thông báo.
-- **REJECT**: Từ chối gói tin và gửi thông báo lỗi.
-- **LOG**: Ghi lại thông tin gói tin vào nhật ký.
-- **SNAT/DNAT**: Chuyển đổi địa chỉ nguồn hoặc đích của gói tin trong bảng `nat`.
-- **MASQUERADE**: Dùng trong NAT để tự động thay đổi địa chỉ nguồn của gói tin khi ra ngoài.
+- **DROP**: Từ chối gói tin mà không gửi thông báo (tiết kiệm tài nguyên).
+- **REJECT**: Từ chối gói tin và gửi một thông báo lỗi (thường là ICMP "Destination Unreachable").
+- **LOG**: Ghi lại thông tin gói tin vào nhật ký mà không thay đổi trạng thái của gói tin.
+- **SNAT**: Thực hiện Source NAT, thay đổi địa chỉ IP nguồn của gói tin.
+- **DNAT**: Thực hiện Destination NAT, thay đổi địa chỉ IP đích của gói tin.
+- **MASQUERADE**: Dùng cho Source NAT, tự động thay đổi địa chỉ nguồn khi địa chỉ IP của hệ thống thay đổi (thường dùng khi chia sẻ kết nối internet).
+  
 
 -------------------------------------
 
