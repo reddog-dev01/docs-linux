@@ -322,3 +322,423 @@ sudo iptables -F
 
 Lệnh này sẽ **xóa tất cả các quy tắc** hiện tại trong các chuỗi của `iptables`.
 
+
+-------------------------------------------------------
+
+### **Chặn 1 port**
+
+### 1. **Chặn một cổng TCP**
+
+Để chặn một cổng TCP cụ thể (ví dụ cổng 80 - HTTP):
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 80 -j DROP
+```
+**Giải thích:**
+- `-A INPUT`: Thêm quy tắc vào chuỗi `INPUT`, có nghĩa là xử lý các gói tin đến (inbound).
+- `-p tcp`: Chỉ định giao thức TCP.
+- `--dport 80`: Cổng đích là 80 (cổng HTTP).
+- `-j DROP`: Nếu gói tin khớp, nó sẽ bị từ chối và không được tiếp tục xử lý.
+
+**Ví dụ:**
+- Nếu muốn ngừng truy cập vào dịch vụ web (HTTP) trên cổng 80, sử dụng lệnh trên để chặn tất cả các yêu cầu đến cổng 80.
+
+---
+
+### 2. **Chặn một cổng UDP**
+
+Để chặn một cổng UDP (ví dụ cổng 123 - NTP), bạn sử dụng lệnh:
+
+```bash
+sudo iptables -A INPUT -p udp --dport 123 -j DROP
+```
+**Giải thích:**
+- `-p udp`: Chỉ định giao thức UDP.
+- `--dport 123`: Cổng đích là 123 (cổng NTP).
+- `-j DROP`: Từ chối tất cả các gói tin UDP đến cổng 123.
+
+**Ví dụ:**
+- Nếu hệ thống của bạn không sử dụng dịch vụ NTP (Network Time Protocol), bạn có thể chặn cổng 123 để ngừng các yêu cầu NTP từ các máy khác.
+
+---
+
+### 3. **Chặn một cổng TCP cho một địa chỉ IP cụ thể**
+
+Để chặn một cổng TCP từ một địa chỉ IP cụ thể (ví dụ cổng 22 - SSH từ IP `192.168.1.100`), bạn có thể sử dụng lệnh:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -s 192.168.1.100 -j DROP
+```
+**Giải thích:**
+- `-s 192.168.1.100`: Chỉ định địa chỉ IP nguồn là `192.168.1.100`.
+- `--dport 22`: Cổng đích là 22 (cổng SSH).
+- `-j DROP`: Từ chối kết nối từ địa chỉ IP `192.168.1.100` đến cổng 22.
+
+**Ví dụ:**
+- Nếu bạn muốn chặn kết nối SSH từ một địa chỉ IP cụ thể, chẳng hạn `192.168.1.100`, bạn có thể dùng lệnh trên để ngừng truy cập từ IP đó.
+
+---
+
+### 4. **Chặn cổng cho tất cả các giao diện mạng (Interface)**
+
+Để chặn tất cả các kết nối đến một cổng từ mọi giao diện mạng (ví dụ cổng 8080), bạn có thể sử dụng lệnh sau:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 8080 -j DROP
+```
+**Giải thích:**
+- `-p tcp`: Giao thức TCP.
+- `--dport 8080`: Cổng đích là 8080 (cổng HTTP alternative).
+- `-j DROP`: Từ chối tất cả các gói tin đến cổng 8080.
+
+**Ví dụ:**
+- Nếu bạn muốn chặn tất cả các kết nối đến cổng 8080 (thường dùng cho các ứng dụng web khác), bạn có thể dùng lệnh này.
+
+---
+
+### 5. **Chặn cổng từ tất cả các địa chỉ IP ngoại trừ một IP cụ thể**
+
+Để chặn một cổng (ví dụ cổng 443 - HTTPS) từ tất cả các địa chỉ IP ngoại trừ một địa chỉ IP cụ thể (ví dụ `192.168.1.10`), bạn có thể làm như sau:
+
+```bash
+# Chặn tất cả kết nối đến cổng 443
+sudo iptables -A INPUT -p tcp --dport 443 -j DROP
+
+# Cho phép kết nối từ IP cụ thể
+sudo iptables -A INPUT -p tcp --dport 443 -s 192.168.1.10 -j ACCEPT
+```
+**Giải thích:**
+- Quy tắc đầu tiên sẽ chặn tất cả các kết nối đến cổng 443.
+- Quy tắc thứ hai sẽ cho phép kết nối từ `192.168.1.10` đến cổng 443, ngay cả khi quy tắc đầu tiên đã chặn nó.
+
+**Ví dụ:**
+- Bạn muốn chặn tất cả các kết nối HTTPS từ bên ngoài, nhưng vẫn cho phép địa chỉ IP nội bộ (như `192.168.1.10`) kết nối vào cổng này.
+
+---
+
+### 6. **Chặn tất cả các kết nối đến cổng từ một địa chỉ IP**
+
+Nếu bạn muốn chặn tất cả các kết nối đến bất kỳ cổng nào từ một địa chỉ IP cụ thể, chẳng hạn `192.168.1.100`, sử dụng lệnh sau:
+
+```bash
+sudo iptables -A INPUT -s 192.168.1.100 -j DROP
+```
+**Giải thích:**
+- `-s 192.168.1.100`: Chỉ định địa chỉ IP nguồn.
+- `-j DROP`: Từ chối tất cả các kết nối từ IP `192.168.1.100` đến hệ thống của bạn.
+
+**Ví dụ:**
+- Nếu bạn muốn chặn tất cả các kết nối từ địa chỉ IP `192.168.1.100` vào hệ thống của bạn (bất kể cổng nào), bạn có thể dùng lệnh trên.
+
+---
+
+### 7. **Chặn một dải cổng TCP hoặc UDP**
+
+Để chặn một dải cổng (ví dụ cổng từ 1000 đến 2000), bạn có thể sử dụng lệnh:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 1000:2000 -j DROP
+```
+**Giải thích:**
+- `--dport 1000:2000`: Chặn tất cả các cổng trong dải từ 1000 đến 2000.
+- `-p tcp`: Giao thức TCP.
+
+**Ví dụ:**
+- Nếu bạn muốn ngừng tất cả các kết nối đến các cổng từ 1000 đến 2000, sử dụng lệnh này.
+
+---
+
+### 8. **Xóa Quy Tắc Chặn Cổng**
+
+Để xóa một quy tắc đã chặn cổng (ví dụ cổng 80 TCP), bạn có thể sử dụng lệnh sau:
+
+```bash
+sudo iptables -D INPUT -p tcp --dport 80 -j DROP
+```
+**Giải thích:**
+- `-D INPUT`: Xóa quy tắc khỏi chuỗi `INPUT`.
+- `-p tcp --dport 80`: Quy tắc chặn cổng 80 (HTTP).
+
+---
+
+### 9. **Lưu Quy Tắc iptables**
+Sau khi cấu hình các quy tắc, bạn cần lưu lại để chúng không bị mất khi hệ thống khởi động lại. Bạn có thể lưu các quy tắc với lệnh sau:
+
+```bash
+sudo iptables-save > /etc/iptables/rules.v4
+```
+Hoặc sử dụng công cụ `iptables-persistent` để lưu lại quy tắc tự động sau mỗi lần khởi động.
+
+---
+
+### 10. **Kiểm tra các Quy Tắc iptables**
+
+Để kiểm tra các quy tắc hiện tại trong `iptables`, sử dụng lệnh:
+
+```bash
+sudo iptables -L -n -v
+```
+**Giải thích:**
+- `-L`: Liệt kê tất cả các quy tắc.
+- `-n`: Hiển thị địa chỉ IP và cổng dưới dạng số, không phân giải tên.
+- `-v`: Hiển thị chi tiết về số lượng gói tin và byte bị tác động.
+
+------------------------------------
+
+### **Chặn hết chỉ mở 1 port**
+
+Để **chặn tất cả các kết nối** đến hệ thống của bạn và **chỉ mở một cổng duy nhất**, bạn có thể làm theo các bước dưới đây. Sau đó, tôi cũng sẽ hướng dẫn cách **mở lại các cổng đã chặn** khi cần thiết.
+
+### 1. **Chặn tất cả các kết nối chỉ mở một cổng duy nhất**
+
+Giả sử bạn muốn **chặn tất cả các kết nối** và chỉ mở cổng 80 (HTTP). Dưới đây là các lệnh cụ thể:
+
+#### 1.1. **Chặn tất cả các kết nối đến hệ thống**
+
+Lệnh này sẽ chặn tất cả các kết nối đến hệ thống của bạn:
+
+```bash
+sudo iptables -A INPUT -j DROP
+```
+
+- `-A INPUT`: Thêm quy tắc vào chuỗi `INPUT`, có nghĩa là xử lý các gói tin đến hệ thống.
+- `-j DROP`: Từ chối tất cả các gói tin, tức là không cho phép kết nối nào.
+
+#### 1.2. **Mở một cổng duy nhất (ví dụ cổng 80 - HTTP)**
+
+Tiếp theo, bạn mở cổng 80 để cho phép các kết nối đến dịch vụ HTTP:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+```
+
+- `-p tcp`: Giao thức TCP.
+- `--dport 80`: Cổng đích là 80 (HTTP).
+- `-j ACCEPT`: Cho phép các gói tin đến cổng 80.
+
+#### 1.3. **Mở thêm cổng khác nếu cần (Tùy chọn)**
+
+Nếu bạn muốn mở thêm các cổng khác (ví dụ như cổng 443 cho HTTPS), bạn có thể thực hiện thêm lệnh sau:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+```
+
+#### 1.4. **Lưu quy tắc iptables**
+
+Để lưu các quy tắc này và đảm bảo chúng không bị mất sau khi khởi động lại hệ thống, bạn cần sử dụng lệnh sau (tùy vào hệ thống của bạn):
+
+- Trên Ubuntu/Debian:
+  ```bash
+  sudo iptables-save > /etc/iptables/rules.v4
+  ```
+  
+- Hoặc sử dụng `iptables-persistent`:
+  ```bash
+  sudo apt-get install iptables-persistent
+  sudo netfilter-persistent save
+  ```
+
+#### 1.5. **Kiểm tra các quy tắc**
+
+Để kiểm tra các quy tắc hiện tại, bạn có thể dùng lệnh:
+
+```bash
+sudo iptables -L -n -v
+```
+
+### 2. **Cách mở lại tất cả các cổng đã chặn**
+
+Nếu bạn muốn **mở lại tất cả các cổng** (đặt lại cấu hình để không chặn nữa), bạn có thể thực hiện các bước sau:
+
+#### 2.1. **Xóa tất cả các quy tắc iptables**
+
+Để **xóa tất cả các quy tắc** trong iptables (kể cả quy tắc chặn và quy tắc mở cổng), bạn có thể sử dụng lệnh:
+
+```bash
+sudo iptables -F
+```
+
+- `-F`: Xóa tất cả các quy tắc trong iptables.
+
+#### 2.2. **Thiết lập lại chính sách mặc định**
+
+Sau khi xóa quy tắc, bạn có thể thiết lập lại **chính sách mặc định** của iptables để cho phép tất cả các kết nối (mở hết các cổng):
+
+```bash
+sudo iptables -P INPUT ACCEPT
+sudo iptables -P FORWARD ACCEPT
+sudo iptables -P OUTPUT ACCEPT
+```
+
+- `-P INPUT ACCEPT`: Cho phép tất cả các kết nối đến (INPUT).
+- `-P FORWARD ACCEPT`: Cho phép tất cả các kết nối chuyển tiếp (FORWARD).
+- `-P OUTPUT ACCEPT`: Cho phép tất cả các kết nối đi ra (OUTPUT).
+
+#### 2.3. **Lưu lại cấu hình mới**
+
+Sau khi mở lại tất cả các cổng và thay đổi chính sách, bạn cần **lưu lại** cấu hình để nó không bị mất khi khởi động lại:
+
+```bash
+sudo iptables-save > /etc/iptables/rules.v4
+```
+
+-------------------------------------
+
+Để **chặn kết nối SSH** từ các địa chỉ IP cụ thể sử dụng `iptables`, bạn có thể làm theo các bước sau:
+
+### 1. **Chặn kết nối SSH từ một địa chỉ IP cụ thể**
+
+Giả sử bạn muốn chặn kết nối SSH (cổng 22) từ một địa chỉ IP cụ thể (ví dụ `192.168.1.100`), bạn có thể sử dụng lệnh sau:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -s 192.168.1.100 -j DROP
+```
+
+**Giải thích:**
+- `-A INPUT`: Thêm quy tắc vào chuỗi `INPUT`, tức là xử lý các gói tin đến hệ thống.
+- `-p tcp`: Chỉ định giao thức TCP (SSH sử dụng TCP).
+- `--dport 22`: Cổng đích là 22 (cổng SSH).
+- `-s 192.168.1.100`: Địa chỉ IP nguồn là `192.168.1.100` (IP bạn muốn chặn).
+- `-j DROP`: Từ chối kết nối từ IP `192.168.1.100` đến cổng 22.
+
+### 2. **Chặn tất cả kết nối SSH từ một dải địa chỉ IP**
+
+Nếu bạn muốn chặn tất cả các kết nối SSH từ một dải IP cụ thể (ví dụ dải `192.168.1.0/24`), bạn có thể sử dụng lệnh sau:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -s 192.168.1.0/24 -j DROP
+```
+
+**Giải thích:**
+- `-s 192.168.1.0/24`: Dải địa chỉ IP từ `192.168.1.0` đến `192.168.1.255`.
+
+### 3. **Chặn kết nối SSH từ tất cả các địa chỉ IP ngoại trừ một địa chỉ IP cụ thể**
+
+Giả sử bạn muốn **chặn tất cả các kết nối SSH từ mọi địa chỉ IP**, nhưng chỉ cho phép một địa chỉ IP cụ thể (ví dụ `192.168.1.10`), bạn có thể thực hiện như sau:
+
+#### 3.1. **Chặn tất cả các kết nối SSH**
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+```
+
+#### 3.2. **Cho phép kết nối SSH từ địa chỉ IP cụ thể**
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -s 192.168.1.10 -j ACCEPT
+```
+
+**Giải thích:**
+- Quy tắc đầu tiên sẽ chặn tất cả các kết nối SSH.
+- Quy tắc thứ hai sẽ cho phép kết nối từ `192.168.1.10`.
+
+### 4. **Chặn kết nối SSH từ tất cả các địa chỉ IP (Hoàn toàn ngừng dịch vụ SSH)**
+
+Nếu bạn muốn **chặn hoàn toàn dịch vụ SSH**, tức là không cho phép bất kỳ kết nối SSH nào từ bất kỳ địa chỉ IP nào, sử dụng lệnh sau:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+```
+
+**Giải thích:**
+- Quy tắc này sẽ từ chối tất cả các kết nối đến cổng 22 (SSH).
+
+### 5. **Xóa các quy tắc đã thêm**
+
+Nếu bạn muốn **xóa** một quy tắc đã thêm vào iptables (ví dụ quy tắc chặn SSH từ `192.168.1.100`), bạn có thể sử dụng lệnh sau:
+
+```bash
+sudo iptables -D INPUT -p tcp --dport 22 -s 192.168.1.100 -j DROP
+```
+
+**Giải thích:**
+- `-D INPUT`: Xóa quy tắc từ chuỗi `INPUT`.
+
+### 6. **Lưu quy tắc iptables**
+
+Sau khi đã cấu hình xong các quy tắc iptables, để quy tắc có hiệu lực sau khi khởi động lại hệ thống, bạn cần lưu lại:
+
+- Trên Ubuntu/Debian, bạn có thể sử dụng lệnh sau:
+  ```bash
+  sudo iptables-save > /etc/iptables/rules.v4
+  ```
+
+- Hoặc sử dụng `iptables-persistent` để lưu quy tắc tự động:
+  ```bash
+  sudo apt-get install iptables-persistent
+  sudo netfilter-persistent save
+  ```
+
+### 7. **Kiểm tra các quy tắc iptables**
+
+Để kiểm tra các quy tắc đã thiết lập, bạn có thể sử dụng lệnh:
+
+```bash
+sudo iptables -L -n -v
+```
+
+------------------------------------------------------------------------
+
+Để **mở SSH** chỉ từ một số địa chỉ IP cụ thể và **chặn tất cả các kết nối SSH** từ các địa chỉ khác, bạn có thể thực hiện như sau:
+
+Giả sử bạn chỉ muốn **cho phép kết nối SSH từ các địa chỉ IP cụ thể** (ví dụ: `192.168.1.10`, `192.168.1.20`, và `192.168.1.30`), và **chặn tất cả các kết nối SSH từ các địa chỉ IP khác**.
+
+### 1. **Chặn tất cả các kết nối SSH**
+
+Trước tiên, bạn cần **chặn tất cả các kết nối SSH** (cổng 22) để đảm bảo rằng các kết nối từ IP không được phép sẽ bị từ chối:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+```
+
+**Giải thích:**
+- `-A INPUT`: Thêm quy tắc vào chuỗi `INPUT`, tức là xử lý các gói tin đến hệ thống.
+- `-p tcp`: Chỉ định giao thức TCP.
+- `--dport 22`: Cổng đích là 22 (cổng SSH).
+- `-j DROP`: Từ chối tất cả các kết nối đến cổng 22 (SSH).
+
+### 2. **Cho phép kết nối SSH từ các địa chỉ IP cụ thể**
+
+Tiếp theo, bạn cho phép kết nối SSH từ các địa chỉ IP cụ thể mà bạn muốn. Ví dụ, cho phép từ các IP `192.168.1.10`, `192.168.1.20`, và `192.168.1.30`:
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -s 192.168.1.10 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 22 -s 192.168.1.20 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 22 -s 192.168.1.30 -j ACCEPT
+```
+
+**Giải thích:**
+- `-s 192.168.1.10`: Địa chỉ IP nguồn mà bạn muốn cho phép kết nối.
+- `-j ACCEPT`: Cho phép các kết nối từ địa chỉ IP này đến cổng 22.
+
+### 3. **Lưu các quy tắc iptables**
+
+Để đảm bảo các quy tắc vẫn được áp dụng sau khi hệ thống khởi động lại, bạn cần lưu các quy tắc iptables. Đối với Ubuntu/Debian, sử dụng lệnh sau:
+
+```bash
+sudo iptables-save > /etc/iptables/rules.v4
+```
+
+Hoặc bạn có thể sử dụng `iptables-persistent`:
+
+```bash
+sudo apt-get install iptables-persistent
+sudo netfilter-persistent save
+```
+
+### 4. **Kiểm tra các quy tắc iptables**
+
+Để kiểm tra các quy tắc đã thiết lập, bạn có thể sử dụng lệnh sau:
+
+```bash
+sudo iptables -L -n -v
+```
+
+### 5. **Xóa các quy tắc nếu cần**
+
+Nếu bạn muốn xóa một quy tắc cụ thể (ví dụ, xóa quy tắc chặn SSH từ `192.168.1.10`), bạn có thể sử dụng lệnh:
+
+```bash
+sudo iptables -D INPUT -p tcp --dport 22 -s 192.168.1.10 -j ACCEPT
+```
+
+
