@@ -241,28 +241,47 @@ Khi chạy lệnh này, bạn sẽ thấy bảng định tuyến hiện tại c�
 **Ví dụ kết quả của `ip route` và giải thích:**
 
 ```bash
-default via 192.168.1.1 dev eth0
-192.168.1.0/24 dev eth0 scope link src 192.168.1.100
-10.0.0.0/8 via 192.168.2.1 dev eth1
+default via 192.168.21.2 dev ens33 proto dhcp src 192.168.21.131 metric 100
+192.168.21.0/24 dev ens33 proto kernel scope link src 192.168.21.131 metric 100
+192.168.21.2 dev ens33 proto dhcp scope link src 192.168.21.131 metric 100 
 ```
 
 Giải thích từng dòng:
 
-1. **`default via 192.168.1.1 dev eth0`**:
-   - **default**: Đây là tuyến đường mặc định (default route).
-   - **via 192.168.1.1**: Gói dữ liệu sẽ được gửi đến cổng 192.168.1.1 nếu không có tuyến đường cụ thể nào cho đích.
-   - **dev eth0**: Tuyến đường này sẽ được sử dụng qua giao diện `eth0`.
+**1. Default Route:**
+```
+default via 192.168.21.2 dev ens33 proto dhcp src 192.168.21.131 metric 100
+```
+- **default**: Đây là **default route**, tức là route mặc định. Khi một gói tin không khớp với bất kỳ route cụ thể nào trong bảng định tuyến, nó sẽ được gửi tới **gateway** ở địa chỉ `192.168.21.2`.
+- **via 192.168.21.2**: Gói tin sẽ đi qua gateway `192.168.21.2`.
+- **dev ens33**: Giao diện mạng được sử dụng là `ens33`.
+- **proto dhcp**: Đây là route được cấp phát thông qua **DHCP** (Dynamic Host Configuration Protocol), nghĩa là thông tin này được tự động cấu hình khi máy tính nhận IP từ server DHCP.
+- **src 192.168.21.131**: Địa chỉ IP nguồn được sử dụng là `192.168.21.131`.
+- **metric 100**: Chỉ số metric cho route này là `100`. **Metric** là giá trị ưu tiên của route. Route có **metric thấp hơn** sẽ được ưu tiên hơn khi có nhiều route đến cùng một đích.
 
-2. **`192.168.1.0/24 dev eth0 scope link src 192.168.1.100`**:
-   - **192.168.1.0/24**: Mạng đích là `192.168.1.0/24`.
-   - **dev eth0**: Tuyến đường này được áp dụng qua giao diện `eth0`.
-   - **scope link**: Tuyến đường này chỉ áp dụng cho mạng cục bộ (local network).
-   - **src 192.168.1.100**: Địa chỉ IP nguồn sẽ là `192.168.1.100` khi gửi gói tới mạng này.
+**2. Route cho mạng con `192.168.21.0/24`:**
+```
+192.168.21.0/24 dev ens33 proto kernel scope link src 192.168.21.131 metric 100
+```
+- **192.168.21.0/24**: Đây là một **route tĩnh** cho mạng con `192.168.21.0/24`, có địa chỉ IP bắt đầu từ `192.168.21.0` và subnet mask `/24` (mạng con này bao gồm các địa chỉ từ `192.168.21.1` đến `192.168.21.254`).
+- **dev ens33**: Giao diện mạng `ens33` được sử dụng cho route này.
+- **proto kernel**: Đây là route được tự động cấu hình bởi hệ điều hành khi giao diện `ens33` được khởi tạo và có địa chỉ IP `192.168.21.131`.
+- **scope link**: Route này chỉ áp dụng cho các địa chỉ trong mạng con cục bộ và không đi ra ngoài mạng nội bộ.
+- **src 192.168.21.131**: Địa chỉ IP nguồn cho mạng này là `192.168.21.131`.
+- **metric 100**: Chỉ số metric cho route này là `100`.
 
-3. **`10.0.0.0/8 via 192.168.2.1 dev eth1`**:
-   - **10.0.0.0/8**: Mạng đích là `10.0.0.0/8`.
-   - **via 192.168.2.1**: Các gói dữ liệu sẽ đi qua gateway `192.168.2.1`.
-   - **dev eth1**: Tuyến đường này sẽ được sử dụng qua giao diện `eth1`.
+ **3. Route trực tiếp đến `192.168.21.2`:**
+```
+192.168.21.2 dev ens33 proto dhcp scope link src 192.168.21.131 metric 100
+```
+- **192.168.21.2**: Đây là một **route trực tiếp** đến địa chỉ IP `192.168.21.2`, tức là mạng `192.168.21.2/32` (mạng có một địa chỉ duy nhất).
+- **dev ens33**: Giao diện mạng `ens33` được sử dụng.
+- **proto dhcp**: Route này cũng được cấu hình thông qua DHCP, có thể là địa chỉ của **gateway DHCP** mà bạn nhận được khi thiết bị kết nối với DHCP server.
+- **scope link**: Route này chỉ áp dụng cho mạng con cục bộ.
+- **src 192.168.21.131**: Địa chỉ IP nguồn là `192.168.21.131`.
+- **metric 100**: Chỉ số metric cho route này là `100`.
+
+
 
 ### Các tùy chọn phổ biến với `ip route`:
 
