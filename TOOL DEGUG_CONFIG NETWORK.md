@@ -29,7 +29,8 @@ ip link [OPTION] [INTERFACE]
 
 5. **Trạng Thái (State)**
    - **Ví dụ**: `state UP`
-   - Chỉ trạng thái hoạt động của giao diện: `UP` nghĩa là giao diện đang hoạt động và `DOWN` nghĩa là giao diện không hoạt động.
+   - Chỉ trạng thái hoạt động của giao diện: `UP` nghĩa là giao diện đang hoạt động và `DOWN` nghĩa là giao diện không hoạt động. `UNKNOWN` nghĩa là hệ điều hành không thể xác định chính xác trạng thái kết nối của giao diện.
+Điều này thường xảy ra khi giao diện không trực tiếp kết nối đến phần cứng vật lý (như cáp mạng Ethernet hoặc card mạng thực).
 
 6. **Địa Chỉ MAC (Media Access Control)**
    - **Ví dụ**: `link/ether 00:0c:29:5b:3d:94`
