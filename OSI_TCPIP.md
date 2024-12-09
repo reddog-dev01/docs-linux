@@ -430,7 +430,76 @@ Tầng Ứng dụng là lớp thứ bảy và cũng là lớp cao nhất trong m
 - Đảm bảo tính tương thích và định dạng dữ liệu: Chuyển đổi dữ liệu giữa các ứng dụng và hệ thống khác nhau.
 - Chạy các ứng dụng người dùng cuối: Gồm các ứng dụng như web browser, email client, FTP client.
 
--------------------------------------
+-------------------------------------------------------------------
+
+### **Quá trình nhận dữ liệu từ các tầng thấp (Decapsulation)**  
+
+**1. Tầng 1: Vật lý (Physical Layer)**  
+- **Dữ liệu nhận được**: Tín hiệu vật lý (sóng điện, ánh sáng, sóng vô tuyến).  
+- **Hoạt động**: 
+  - Tín hiệu vật lý được chuyển đổi thành chuỗi bit (0 và 1).  
+  - Chuỗi bit này được chuyển lên tầng 2 để xử lý.  
+
+**2. Tầng 2: Liên kết dữ liệu (Data Link Layer)**  
+- **Dữ liệu nhận được**: Chuỗi bit từ tầng Vật lý.  
+- **Hoạt động**:  
+  1. **Tổ chức lại các bit thành khung dữ liệu (frame)**:  
+     - Dựa trên cấu trúc frame để xác định ranh giới giữa các khung.
+  2. **Kiểm tra lỗi (Error Detection)**:  
+     - Sử dụng thông tin từ **trailer** (thường là CRC - Cyclic Redundancy Check) để kiểm tra tính toàn vẹn của dữ liệu.  
+     - Nếu phát hiện lỗi, khung sẽ bị loại bỏ hoặc yêu cầu gửi lại (tùy giao thức).  
+  3. **Phân tích Header của khung**:  
+     - Đọc địa chỉ MAC nguồn và MAC đích.  
+     - Kiểm tra địa chỉ MAC đích để xác định khung này có phải dành cho thiết bị nhận hay không.  
+  4. **Loại bỏ Header và Trailer của tầng 2**:  
+     - Chỉ giữ lại **payload** (gói tin) và chuyển lên tầng 3.  
+
+**3. Tầng 3: Mạng (Network Layer)**  
+- **Dữ liệu nhận được**: Gói tin (packet) từ tầng Liên kết dữ liệu.  
+- **Hoạt động**:  
+  1. **Phân tích Header của gói tin**:  
+     - Đọc địa chỉ IP nguồn và đích.  
+     - Kiểm tra địa chỉ IP đích để xác định gói tin này có thuộc về thiết bị nhận hay không.  
+  2. **Định tuyến nội bộ (Local Routing)**:  
+     - Nếu gói tin thuộc về thiết bị nhận, dữ liệu được xử lý tiếp.  
+     - Nếu không, gói tin sẽ bị bỏ qua hoặc chuyển tiếp (nếu là router).  
+  3. **Loại bỏ Header của tầng 3**:  
+     - Chuyển payload (phân đoạn) lên tầng 4.  
+
+**4. Tầng 4: Giao vận (Transport Layer)**  
+- **Dữ liệu nhận được**: Phân đoạn (segment) từ tầng Mạng.  
+- **Hoạt động**:  
+  1. **Phân tích Header của phân đoạn**:  
+     - Đọc số cổng (Port Number) để xác định ứng dụng nhận dữ liệu (ví dụ: HTTP, FTP).  
+  2. **Tái tạo dữ liệu**:  
+     - Nếu dữ liệu bị chia thành nhiều phân đoạn, tầng này sẽ tái tạo lại dữ liệu theo thứ tự đúng (dựa vào thông tin trong header, như số thứ tự).  
+  3. **Loại bỏ Header của tầng 4**:  
+     - Chuyển dữ liệu thô lên tầng 5.  
+
+**5-7. Tầng Phiên, Trình bày, Ứng dụng (Session, Presentation, Application Layers)**  
+- **Dữ liệu nhận được**: Dữ liệu thô từ tầng Giao vận.  
+- **Hoạt động**:  
+  1. **Tầng Phiên (Session Layer)**:  
+     - Quản lý phiên giao tiếp giữa các ứng dụng (nếu cần).  
+  2. **Tầng Trình bày (Presentation Layer)**:  
+     - Giải mã, giải nén, hoặc chuyển đổi dữ liệu về định dạng mà ứng dụng có thể hiểu được.  
+  3. **Tầng Ứng dụng (Application Layer)**:  
+     - Dữ liệu được chuyển đến ứng dụng cuối (ví dụ: trình duyệt hiển thị trang web, ứng dụng email tải tin nhắn).  
+
+**Tóm tắt Quá trình Decapsulation**  
+
+1. **Tầng 1**: Chuyển tín hiệu vật lý thành bit.  
+2. **Tầng 2**: Tổ chức bit thành khung, kiểm tra lỗi, phân tích địa chỉ MAC.  
+3. **Tầng 3**: Kiểm tra địa chỉ IP, định tuyến, loại bỏ header IP.  
+4. **Tầng 4**: Xác định ứng dụng đích qua số cổng, tái tạo dữ liệu từ các phân đoạn.  
+5. **Tầng 5-7**: Giải mã và chuyển dữ liệu đến ứng dụng cuối.  
+
+**Minh họa trực quan**
+- **Dữ liệu gốc (Data)** → **Phân đoạn (Segment)** → **Gói tin (Packet)** → **Khung (Frame)** → **Tín hiệu vật lý (Bits)** (Khi gửi đi).  
+- **Tín hiệu vật lý (Bits)** → **Khung (Frame)** → **Gói tin (Packet)** → **Phân đoạn (Segment)** → **Dữ liệu gốc (Data)** (Khi nhận về).  
+
+
+----------------------------------------------------------------------
 
 ### **TCP/IP (Transmission Control Protocol/Internet Protocol)**
 
