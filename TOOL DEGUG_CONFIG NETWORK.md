@@ -26,6 +26,8 @@ ip link [OPTION] [INTERFACE]
 4. **Discipline xếp hàng đợi (qdisc)**
    - **Ví dụ**: `qdisc fq_codel`
    - Là thuật toán điều khiển hàng đợi được sử dụng để quản lý cách các gói dữ liệu được xử lý và gửi đi trên giao diện. `fq_codel` là một trong những thuật toán nhằm giảm độ trễ và tránh tắc nghẽn mạng.
+   - `pfifo_fast` Là một `qdisc` FIFO (First In, First Out), các gói tin được xử lý theo thứ tự đến. Gói tin đến được xử lý theo hàng đợi và sẽ được truyền tải khi đến lượt.
+   - `netem` Là một `qdisc` được sử dụng để mô phỏng các điều kiện mạng như mất gói, độ trễ, jitter, v.v. Có thể sử dụng để kiểm tra cách ứng dụng hoạt động dưới các điều kiện mạng không ổn định.
 
 5. **Trạng Thái (State)**
    - **Ví dụ**: `state UP`
