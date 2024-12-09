@@ -168,6 +168,185 @@ Quá trình xử lý gói tin tiếp tục cho đến khi gói tin được xử
 
 -----------------------------------------------
 
+### **Cách dùng `iptables`**
+
+`iptables` là một công cụ quản lý firewall trên Linux, được sử dụng để kiểm soát luồng lưu lượng mạng (traffic) qua các quy tắc, giúp tăng cường bảo mật và cấu hình mạng. Dưới đây là hướng dẫn cách sử dụng `iptables` cơ bản:
+
+### 1. **Cấu trúc của iptables**
+Các lệnh `iptables` thường có cấu trúc như sau:
+
+```bash
+iptables -[A|I|D|L|F|P] [CHAIN] [options]
+```
+
+- `-A`: Thêm quy tắc vào chuỗi (append).
+- `-I`: Chèn quy tắc vào đầu chuỗi (insert).
+- `-D`: Xóa quy tắc (delete).
+- `-L`: Liệt kê các quy tắc hiện tại (list).
+- `-F`: Xóa tất cả các quy tắc (flush).
+- `-P`: Thiết lập chính sách mặc định cho chuỗi (policy).
+
+### 2. **Các chuỗi (Chains) trong iptables**
+iptables có 3 chuỗi mặc định:
+- **INPUT**: Chỉ định các gói tin đến hệ thống.
+- **OUTPUT**: Chỉ định các gói tin xuất phát từ hệ thống.
+- **FORWARD**: Chỉ định các gói tin đi qua hệ thống (nếu hệ thống làm gateway).
+
+### 3. **Các đối tượng thường dùng với iptables**
+- **-p [protocol]**: Chỉ định giao thức (TCP, UDP, ICMP, v.v.).
+- **--dport [port]**: Cổng đích.
+- **--sport [port]**: Cổng nguồn.
+- **-s [ip]**: Địa chỉ IP nguồn.
+- **-d [ip]**: Địa chỉ IP đích.
+- **-j [action]**: Hành động (ACCEPT, DROP, REJECT, v.v.).
+
+### 4. **Ví dụ các lệnh cơ bản**
+
+#### 4.1. **Xem các quy tắc hiện tại**
+Để xem các quy tắc hiện tại trong `iptables`, bạn dùng lệnh:
+
+```bash
+sudo iptables -L
+```
+
+Nếu muốn liệt kê chi tiết hơn, có thể thêm tham số `-v`:
+
+```bash
+sudo iptables -L -v
+```
+
+#### 4.2. **Thêm quy tắc (Add rules)**
+
+##### Cho phép một cổng cụ thể (ví dụ: cổng 80 cho HTTP)
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+```
+
+- `-A INPUT`: Thêm quy tắc vào chuỗi INPUT (gói tin đến hệ thống).
+- `-p tcp`: Sử dụng giao thức TCP.
+- `--dport 80`: Cổng đích là 80 (HTTP).
+- `-j ACCEPT`: Cho phép kết nối.
+
+##### Cho phép SSH từ một địa chỉ IP cụ thể
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -s 192.168.1.10 -j ACCEPT
+```
+
+- `--dport 22`: Cổng SSH.
+- `-s 192.168.1.10`: Chỉ cho phép kết nối SSH từ địa chỉ IP `192.168.1.10`.
+
+##### Chặn một cổng (ví dụ: cổng 23 cho Telnet)
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 23 -j DROP
+```
+
+- `-j DROP`: Từ chối tất cả các kết nối đến cổng 23 (Telnet).
+
+#### 4.3. **Xóa quy tắc (Delete rules)**
+
+Nếu bạn muốn xóa một quy tắc, bạn sử dụng `-D`. Ví dụ:
+
+```bash
+sudo iptables -D INPUT -p tcp --dport 80 -j ACCEPT
+```
+
+#### 4.4. **Xóa tất cả quy tắc (Flush rules)**
+
+Để xóa tất cả các quy tắc trong `iptables`, bạn sử dụng lệnh sau:
+
+```bash
+sudo iptables -F
+```
+
+#### 4.5. **Thiết lập chính sách mặc định (Default policy)**
+
+Chính sách mặc định của chuỗi là hành động được áp dụng cho các gói tin không khớp với bất kỳ quy tắc nào. Để đặt chính sách mặc định, bạn sử dụng `-P`.
+
+##### Ví dụ: Đặt chính sách mặc định là `DROP` cho chuỗi INPUT
+
+```bash
+sudo iptables -P INPUT DROP
+```
+
+Điều này có nghĩa là **chặn tất cả các gói tin** đến hệ thống trừ khi có quy tắc nào cho phép chúng.
+
+#### 4.6. **Tạo NAT (Network Address Translation)**
+
+Nếu bạn muốn sử dụng `iptables` như một **gateway** NAT, cho phép các máy trong mạng LAN truy cập Internet qua IP của máy chủ, bạn cần sử dụng bảng `nat`.
+
+##### Ví dụ: Thiết lập NAT để cho phép chia sẻ kết nối Internet từ `eth0` (cổng ngoài) sang `eth1` (cổng LAN)
+
+```bash
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+
+- `-t nat`: Chỉ định bảng `nat`.
+- `POSTROUTING`: Quy tắc xử lý gói tin sau khi ra khỏi hệ thống.
+- `-o eth0`: Sử dụng interface `eth0` (cổng ra Internet).
+- `MASQUERADE`: Áp dụng NAT để các gói tin sẽ mang địa chỉ IP của server.
+
+#### 4.7. **Cho phép chuyển tiếp gói tin (IP Forwarding)**
+
+Để hệ thống có thể chuyển tiếp gói tin giữa các mạng (chẳng hạn như một gateway), bạn cần bật **IP forwarding**.
+
+##### Để bật IP forwarding tạm thời:
+
+```bash
+sudo sysctl -w net.ipv4.ip_forward=1
+```
+
+##### Để bật IP forwarding vĩnh viễn:
+
+Chỉnh sửa file `/etc/sysctl.conf`:
+
+```bash
+sudo nano /etc/sysctl.conf
+```
+
+Tìm và bỏ comment dòng sau:
+
+```bash
+net.ipv4.ip_forward=1
+```
+
+Sau đó, áp dụng thay đổi:
+
+```bash
+sudo sysctl -p
+```
+
+#### 4.8. **Lưu các quy tắc iptables**
+
+Để đảm bảo các quy tắc sẽ không bị mất sau khi khởi động lại hệ thống, bạn có thể lưu chúng:
+
+Trên Ubuntu/Debian:
+
+```bash
+sudo iptables-save > /etc/iptables/rules.v4
+```
+
+Trên CentOS/Fedora:
+
+```bash
+sudo service iptables save
+```
+
+### 5. **Kiểm tra và xem lại quy tắc iptables**
+
+Để kiểm tra các quy tắc hiện tại trong `iptables`, bạn có thể sử dụng:
+
+```bash
+sudo iptables -L -n -v
+```
+
+Lệnh này sẽ hiển thị tất cả các quy tắc hiện tại, bao gồm cả thông tin về lượng lưu lượng mạng (số gói tin và byte) đã được xử lý bởi từng quy tắc.
+
+
+------------------------------------------------
+
 ### **Cách cấu hình `iptables`**
 
 Cấu hình `iptables` trên Linux có thể thực hiện qua dòng lệnh, thường xuyên sử dụng quyền root hoặc sudo. Dưới đây là một số bước cơ bản để cấu hình `iptables`:
