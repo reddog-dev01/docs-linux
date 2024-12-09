@@ -43,59 +43,86 @@ Switch hoạt động tại **Tầng Liên kết Dữ liệu (Data Link Layer)**
 
 --------------------------------
 
-**Layer 2 Switch (Switch Tầng 2)**
+### **Chi Tiết về Layer 2 Switch (Switch Tầng 2)**
 
-**Chức năng và Hoạt động:**
-- **Layer 2 Switch** hoạt động chủ yếu ở **Tầng Liên Kết Dữ Liệu (Data Link Layer)** của mô hình OSI.
-- Chức năng chính của switch tầng 2 là **chuyển tiếp khung dữ liệu (frame)** dựa trên địa chỉ MAC (Media Access Control).
-- Khi một thiết bị gửi một khung dữ liệu đến switch, switch sẽ kiểm tra địa chỉ MAC đích và chuyển khung dữ liệu đến cổng có thiết bị đích, **chỉ gửi đến cổng cần thiết**.
-- Switch sẽ học và duy trì bảng **địa chỉ MAC (MAC address table)** để nhớ các thiết bị kết nối và địa chỉ MAC tương ứng của chúng.
+#### **1. Chức năng chính của Layer 2 Switch:**
+- **Chuyển tiếp khung dữ liệu (Frame Switching):**
+  - Switch tầng 2 chủ yếu hoạt động ở **Tầng Liên Kết Dữ Liệu (Data Link Layer)** của mô hình OSI. Tầng này xử lý các khung dữ liệu (frame) và địa chỉ MAC (Media Access Control) của thiết bị trong mạng.
+  - Khi một thiết bị gửi dữ liệu (khung) đến switch, switch sẽ đọc địa chỉ MAC đích trong khung và chuyển tiếp dữ liệu đó tới thiết bị đích qua cổng tương ứng.
+  
+- **Học địa chỉ MAC (MAC Address Learning):**
+  - Switch tầng 2 có khả năng "học" các địa chỉ MAC của các thiết bị kết nối và lưu trữ chúng trong bảng địa chỉ MAC (MAC address table). Khi một khung dữ liệu đến, switch so sánh địa chỉ MAC đích với bảng địa chỉ MAC để quyết định cổng nào cần phải gửi khung đến.
+  
+- **Cấu trúc Bảng địa chỉ MAC (MAC Address Table):**
+  - Mỗi switch có một bảng địa chỉ MAC, trong đó liệt kê tất cả các địa chỉ MAC của các thiết bị đã kết nối và cổng tương ứng. Nếu switch chưa biết địa chỉ MAC đích, nó sẽ phát (broadcast) khung tới tất cả các cổng (ngoại trừ cổng nhận dữ liệu), và sau đó học địa chỉ MAC của thiết bị đó.
 
-**Ưu điểm:**
-- **Tăng băng thông**: Switch giúp giảm tắc nghẽn mạng so với hub, vì nó chỉ gửi dữ liệu đến thiết bị đích thay vì phát tín hiệu đến tất cả các thiết bị.
-- **Tối ưu hóa hiệu suất mạng**: Giảm thiểu va chạm (collision) và tăng khả năng xử lý đồng thời.
-- **Quản lý tốt**: Mỗi kết nối được xử lý độc lập, giúp duy trì tốc độ cao và tránh các sự cố mạng như va chạm dữ liệu.
+- **Quản lý Collision Domain:**
+  - Switch giúp chia nhỏ mạng thành các **collision domain** riêng biệt. Điều này có nghĩa là mỗi cổng trên switch tạo ra một collision domain riêng, giúp giảm xung đột dữ liệu (collision) và tăng băng thông mạng.
 
-**Nhược điểm:**
-- Không thể thực hiện **định tuyến** giữa các mạng con (subnet) vì chỉ hoạt động ở **tầng 2**.
-- Không hỗ trợ các tính năng của **mạng rộng (WAN)**, chẳng hạn như định tuyến hoặc xử lý giao thức IP.
+- **VLAN (Virtual LAN):**
+  - Switch tầng 2 hỗ trợ VLAN (mạng ảo) để phân chia mạng vật lý thành các mạng con ảo, giúp quản lý mạng tốt hơn và tăng cường bảo mật.
 
-**Ứng dụng:**
-- **Mạng LAN (Local Area Network)** nhỏ đến trung bình, nơi các thiết bị trong mạng cần kết nối với nhau mà không cần định tuyến giữa các mạng con.
+#### **2. Ưu điểm của Layer 2 Switch:**
+- **Tăng hiệu suất mạng:** Mỗi kết nối trên switch là một đường truyền riêng biệt, giúp giảm va chạm và tăng tốc độ truyền tải.
+- **Dễ dàng cấu hình:** Switch tầng 2 đơn giản và dễ cấu hình, phù hợp với mạng nhỏ và đơn giản.
+- **Hỗ trợ VLAN:** Giúp phân chia mạng thành các nhóm và tăng cường bảo mật bằng cách hạn chế lưu lượng chỉ trong VLAN của từng nhóm thiết bị.
 
-**Layer 3 Switch (Switch Tầng 3)**
+#### **3. Hạn chế của Layer 2 Switch:**
+- **Không có khả năng định tuyến:** Switch tầng 2 không thể định tuyến giữa các mạng con khác nhau. Để kết nối các mạng con, bạn cần một router hoặc switch tầng 3.
+- **Không hỗ trợ định tuyến IP:** Switch tầng 2 chỉ xử lý dữ liệu dựa trên địa chỉ MAC, không thể xử lý các gói dữ liệu dựa trên địa chỉ IP.
 
-**Chức năng và Hoạt động:**
-- **Layer 3 Switch** hoạt động chủ yếu ở **Tầng Mạng (Network Layer)** của mô hình OSI, ngoài các chức năng của switch tầng 2, nó còn có khả năng **định tuyến dữ liệu** dựa trên **địa chỉ IP**.
-- Một switch tầng 3 có thể chuyển tiếp dữ liệu giữa các **mạng con khác nhau** giống như một router. Nó sử dụng **địa chỉ IP** thay vì **địa chỉ MAC** để định tuyến các gói dữ liệu (packet).
-- Switch tầng 3 sử dụng **bảng định tuyến** để đưa ra quyết định định tuyến và có thể hỗ trợ các giao thức định tuyến như **RIP**, **OSPF**, hoặc **EIGRP**.
-
-**Ưu điểm:**
-- **Hiệu suất cao**: Vì switch tầng 3 kết hợp giữa chức năng chuyển mạch (Layer 2) và định tuyến (Layer 3) trong cùng một thiết bị, nó giảm thiểu độ trễ trong mạng.
-- **Quản lý lưu lượng mạng tốt**: Switch tầng 3 giúp quản lý việc truyền tải dữ liệu giữa các mạng con mà không cần phải thông qua router riêng biệt, giúp tối ưu hóa băng thông và giảm thiểu độ trễ.
-- **Tính linh hoạt**: Có thể định tuyến các mạng con, tạo VLANs (Virtual LANs), và xử lý lưu lượng giữa các subnet một cách hiệu quả.
-
-**Nhược điểm:**
-- **Chi phí cao**: Switch tầng 3 thường đắt hơn switch tầng 2 vì tính năng định tuyến và xử lý dữ liệu phức tạp hơn.
-- **Phức tạp trong cấu hình**: Việc cấu hình và quản lý một switch tầng 3 yêu cầu kiến thức về định tuyến và các giao thức mạng.
-
-**Ứng dụng:**
-- **Mạng LAN lớn và phức tạp**, nơi cần sự phân chia mạng con (subnet) và yêu cầu định tuyến giữa các mạng con.
-- **Data centers** hoặc các mạng doanh nghiệp lớn, nơi cần một thiết bị tích hợp khả năng chuyển mạch và định tuyến để giảm chi phí và đơn giản hóa cấu trúc mạng.
+#### **4. Ứng dụng của Layer 2 Switch:**
+- **Mạng LAN nhỏ và vừa:** Khi các thiết bị trong mạng cần kết nối nhanh chóng mà không cần phân chia mạng con (subnet) hay định tuyến.
+- **Cấu trúc mạng phẳng (flat network):** Mạng không yêu cầu phân chia mạng con hoặc định tuyến giữa các mạng con khác nhau.
 
 
-**So sánh giữa Layer 2 Switch và Layer 3 Switch**
+### **Chi Tiết về Layer 3 Switch (Switch Tầng 3)**
 
-| **Tiêu chí**                 | **Layer 2 Switch**                           | **Layer 3 Switch**                             |
-|------------------------------|----------------------------------------------|-----------------------------------------------|
-| **Tầng OSI**                  | Tầng 2 (Data Link Layer)                    | Tầng 3 (Network Layer)                       |
-| **Chức năng chính**           | Chuyển tiếp khung dữ liệu dựa trên địa chỉ MAC | Chuyển tiếp gói dữ liệu dựa trên địa chỉ IP và định tuyến giữa các subnet |
-| **Khả năng định tuyến**       | Không có khả năng định tuyến                | Có khả năng định tuyến giữa các mạng con (subnet) |
-| **Bảng học**                  | Bảng địa chỉ MAC (MAC address table)        | Bảng địa chỉ IP và bảng định tuyến           |
-| **Giá thành**                 | Rẻ hơn switch tầng 3                       | Đắt hơn vì tính năng định tuyến tích hợp     |
-| **Phức tạp trong cấu hình**   | Đơn giản, dễ cấu hình                       | Phức tạp hơn, cần cấu hình định tuyến và các giao thức mạng |
-| **Môi trường ứng dụng**       | Mạng LAN nhỏ và đơn giản                    | Mạng LAN lớn, mạng doanh nghiệp, hoặc Data Centers |
-| **Tính năng VLAN**            | Hỗ trợ VLAN nhưng không định tuyến giữa các VLAN | Hỗ trợ VLAN và định tuyến giữa các VLAN và mạng con khác nhau |
+#### **1. Chức năng chính của Layer 3 Switch:**
+- **Chuyển tiếp gói dữ liệu (Packet Switching):**
+  - Switch tầng 3 hoạt động ở **Tầng Mạng (Network Layer)** của mô hình OSI, tức là nó có khả năng định tuyến giữa các mạng con khác nhau (subnet). Nó sử dụng **địa chỉ IP** để định tuyến các gói dữ liệu tới đúng đích.
+  - Giống như router, switch tầng 3 có thể nhận, xử lý và chuyển tiếp các gói dữ liệu giữa các mạng con khác nhau dựa trên địa chỉ IP đích.
+
+- **Chức năng định tuyến:**
+  - Switch tầng 3 có khả năng thực hiện định tuyến tĩnh hoặc động giữa các VLAN hoặc các subnet khác nhau. Các giao thức định tuyến như **RIP**, **OSPF**, **EIGRP** có thể được sử dụng để tự động học và quản lý các tuyến đường.
+  - Bằng cách này, switch tầng 3 có thể thay thế các router trong một số trường hợp, giúp giảm độ trễ và tăng hiệu quả mạng.
+  
+- **Tạo và quản lý VLAN:**
+  - Mặc dù switch tầng 3 có thể định tuyến giữa các VLAN, nhưng nó vẫn hỗ trợ việc tạo và quản lý VLAN như switch tầng 2. Điều này giúp giảm thiểu sự phức tạp của mạng trong các mạng lớn.
+  
+- **Routing Between VLANs (Inter-VLAN Routing):**
+  - Một trong những ứng dụng chính của switch tầng 3 là khả năng thực hiện **định tuyến giữa các VLAN**. Điều này có nghĩa là nó có thể xử lý giao tiếp giữa các thiết bị ở các VLAN khác nhau mà không cần phải đi qua một router riêng biệt.
+
+#### **2. Ưu điểm của Layer 3 Switch:**
+- **Tiết kiệm chi phí:** Vì switch tầng 3 kết hợp cả tính năng chuyển mạch và định tuyến, nó giúp giảm bớt số lượng thiết bị cần thiết trong mạng (không cần router).
+- **Tăng hiệu suất:** Khi định tuyến được thực hiện trên cùng một thiết bị với chuyển mạch, việc chuyển tiếp dữ liệu giữa các VLAN và subnet sẽ nhanh hơn và giảm độ trễ so với việc sử dụng router.
+- **Quản lý VLAN và Định tuyến nội bộ:** Switch tầng 3 có thể thay thế router trong mạng LAN, giúp đơn giản hóa cấu trúc mạng, đặc biệt trong môi trường sử dụng VLAN nhiều.
+  
+#### **3. Hạn chế của Layer 3 Switch:**
+- **Chi phí cao:** Switch tầng 3 đắt hơn switch tầng 2 do tính năng định tuyến và quản lý băng thông phức tạp hơn.
+- **Cấu hình phức tạp:** Cấu hình định tuyến và các giao thức mạng có thể phức tạp hơn so với switch tầng 2, yêu cầu kiến thức về mạng và định tuyến.
+- **Hạn chế trong mạng WAN:** Mặc dù switch tầng 3 có thể xử lý định tuyến giữa các mạng LAN và VLAN, nhưng nó không thay thế hoàn toàn router trong các mạng WAN.
+
+#### **4. Ứng dụng của Layer 3 Switch:**
+- **Mạng doanh nghiệp lớn:** Khi cần quản lý lưu lượng mạng giữa các subnet hoặc VLAN khác nhau mà không muốn sử dụng router.
+- **Data Centers:** Trong các môi trường yêu cầu tính năng định tuyến giữa các VLAN và mạng con, giúp tăng hiệu suất và giảm chi phí.
+- **Mạng phức tạp:** Các mạng có cấu trúc phức tạp, với nhiều VLAN và yêu cầu định tuyến giữa các mạng con, nơi mà việc sử dụng router riêng biệt sẽ tạo ra độ trễ và phức tạp không cần thiết.
+
+**So Sánh Chi Tiết giữa Layer 2 Switch và Layer 3 Switch**
+
+| **Tiêu chí**                      | **Layer 2 Switch**                                          | **Layer 3 Switch**                                          |
+|------------------------------------|------------------------------------------------------------|------------------------------------------------------------|
+| **Chức năng chính**                | Chuyển tiếp khung dữ liệu (frame) dựa trên địa chỉ MAC    | Chuyển tiếp gói dữ liệu (packet) dựa trên địa chỉ IP và định tuyến giữa các subnet |
+| **Tầng OSI**                       | Tầng Liên Kết Dữ Liệu (Layer 2)                            | Tầng Mạng (Layer 3)                                        |
+| **Định tuyến**                     | Không hỗ trợ định tuyến                                    | Hỗ trợ định tuyến giữa các mạng con (Inter-VLAN Routing)    |
+| **Khả năng sử dụng IP**            | Không sử dụng địa chỉ IP                                   | Sử dụng địa chỉ IP để định tuyến và quản lý lưu lượng mạng  |
+| **Bảng địa chỉ**                   | Bảng địa chỉ MAC (MAC Address Table)                       | Bảng định tuyến IP và bảng địa chỉ MAC                     |
+| **Giá thành**                      | Rẻ hơn nhiều                                               | Đắt hơn nhiều vì có khả năng định tuyến                     |
+| **Ứng dụng**                       | Mạng LAN nhỏ và trung bình, không cần định tuyến giữa các mạng con | Mạng LAN lớn, Data Centers, yêu cầu định tuyến giữa các subnet và VLAN |
+| **Tính linh hoạt**                 | Hạn chế, chỉ chuyển tiếp dữ liệu giữa các thiết bị trong cùng một subnet | Linh hoạt hơn, có thể định tuyến giữa các mạng con khác nhau và tạo VLAN |
+| **VLAN**                           | Hỗ trợ VLAN, nhưng không định tuyến giữa các VLAN        | Hỗ trợ VLAN và định tuyến giữa các VLAN                    |
+
+---------------
 
 
 --------------
