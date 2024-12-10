@@ -193,7 +193,7 @@ Quy trình hoạt động của SSH (Secure Shell) có thể được mô tả q
    exit
    ```
 
-#### **SSH vào máy chủ sử dụng key**
+#### **1.4 SSH vào máy chủ sử dụng key**
 
 ##### **Bước 1: Tạo Cặp Khóa SSH trên Máy Cục Bộ (Client)**
 
@@ -328,4 +328,127 @@ Sau khi thay đổi này, máy chủ Ubuntu sẽ chỉ cho phép đăng nhập q
 - **Cập nhật Khóa**: Nếu bạn thay đổi máy tính hoặc thay đổi khóa SSH, nhớ cập nhật lại khóa công khai trên máy chủ.
 
 
+### **1.5 ssh-add**
+
+Lệnh `ssh-add` được sử dụng để thêm khóa SSH vào **SSH agent**, một chương trình giúp quản lý và lưu trữ các khóa SSH trong suốt phiên làm việc, giúp bạn không phải nhập passphrase mỗi khi sử dụng khóa SSH. SSH agent giữ các khóa đã được thêm vào bộ nhớ để tự động xác thực khi bạn kết nối tới máy chủ từ xa.
+
+#### **Cấu trúc Câu Lệnh**
+
+```
+ssh-add [options] [file]
+```
+
+#### **Các Tham Số Thường Dùng của `ssh-add`**
+
+- **Không tham số**: Nếu bạn không cung cấp tham số, lệnh `ssh-add` sẽ thêm khóa riêng mặc định (thường là `~/.ssh/id_rsa`) vào SSH agent.
+  
+  ```bash
+  ssh-add
+  ```
+
+- **Thêm khóa SSH cụ thể**: Bạn có thể chỉ định khóa riêng cụ thể cần thêm vào SSH agent.
+
+  ```bash
+  ssh-add ~/.ssh/my_private_key
+  ```
+
+- **Liệt kê các khóa đã được thêm**: Dùng `-l` để liệt kê các khóa đã được SSH agent lưu trữ.
+
+  ```bash
+  ssh-add -l
+  ```
+
+- **Xóa tất cả các khóa khỏi SSH agent**: Dùng `-D` để xóa tất cả các khóa đã được thêm vào SSH agent.
+
+  ```bash
+  ssh-add -D
+  ```
+
+- **Xóa khóa cụ thể**: Dùng `-d` để xóa một khóa cụ thể khỏi SSH agent.
+
+  ```bash
+  ssh-add -d ~/.ssh/my_private_key
+  ```
+
+- **Chạy lệnh trong nền (background)**: Dùng `-A` để yêu cầu `ssh-add` tự động tải tất cả các khóa từ các agent đã được lưu trữ.
+
+  ```bash
+  ssh-add -A
+  ```
+
+#### **Cách Sử Dụng `ssh-add`**
+
+##### **Bước 1: Kiểm Tra SSH Agent**
+Trước khi sử dụng lệnh `ssh-add`, bạn cần đảm bảo rằng SSH agent đã được chạy. Để kiểm tra xem SSH agent có đang chạy không, bạn có thể dùng lệnh sau:
+
+```bash
+eval $(ssh-agent -s)
+```
+
+Nếu SSH agent chưa chạy, lệnh trên sẽ khởi động nó. Câu lệnh `ssh-agent` tạo ra một tiến trình và xuất ra các biến môi trường cần thiết cho các lệnh SSH.
+
+##### **Bước 2: Thêm Khóa vào SSH Agent**
+Sau khi SSH agent đang chạy, bạn có thể thêm khóa riêng vào SSH agent bằng lệnh `ssh-add`.
+
+Ví dụ, để thêm khóa mặc định `id_rsa` vào SSH agent:
+
+```bash
+ssh-add ~/.ssh/id_rsa
+```
+
+Nếu khóa có passphrase, bạn sẽ được yêu cầu nhập passphrase cho khóa đó.
+
+##### **Bước 3: Kiểm Tra Khóa Đã Được Thêm**
+Để kiểm tra các khóa hiện tại trong SSH agent, bạn có thể sử dụng lệnh sau:
+
+```bash
+ssh-add -l
+```
+
+Lệnh này sẽ hiển thị danh sách các khóa đã được thêm vào SSH agent.
+
+##### **Bước 4: Xóa Khóa**
+Nếu bạn muốn xóa khóa ra khỏi SSH agent, bạn có thể dùng lệnh:
+
+```bash
+ssh-add -d ~/.ssh/id_rsa
+```
+
+Hoặc để xóa tất cả các khóa khỏi agent:
+
+```bash
+ssh-add -D
+```
+
+##### **Ví Dụ Cụ Thể**
+
+1. **Khởi động SSH agent và thêm khóa**:
+
+   ```bash
+   eval $(ssh-agent -s)
+   ssh-add ~/.ssh/id_rsa
+   ```
+
+2. **Liệt kê các khóa đã được thêm vào SSH agent**:
+
+   ```bash
+   ssh-add -l
+   ```
+
+3. **Xóa tất cả các khóa khỏi SSH agent**:
+
+   ```bash
+   ssh-add -D
+   ```
+
+4. **Xóa một khóa cụ thể khỏi SSH agent**:
+
+   ```bash
+   ssh-add -d ~/.ssh/my_private_key
+   ```
+
+##### **Tại sao Sử Dụng `ssh-add`?**
+- **Tiết kiệm thời gian**: Khi bạn sử dụng `ssh-add`, SSH agent sẽ nhớ và tự động cung cấp khóa khi kết nối tới máy chủ SSH mà không yêu cầu bạn phải nhập passphrase mỗi lần.
+- **Bảo mật**: Nếu bạn có nhiều khóa SSH, việc sử dụng `ssh-add` giúp bạn quản lý các khóa một cách hiệu quả, không phải nhập passphrase nhiều lần.
+- **Dễ dàng khi làm việc với nhiều server**: Nếu bạn cần kết nối đến nhiều máy chủ khác nhau, `ssh-add` sẽ giúp bạn quản lý các khóa SSH mà không phải nhập passphrase nhiều lần trong phiên làm việc.
 
