@@ -600,3 +600,9 @@ curl -s https://api64.ipify.org?domain=example.com
 - **High Availability**: Gateway có thể cấu hình để đảm bảo tính sẵn sàng cao, nghĩa là khi một gateway gặp sự cố, các gateway dự phòng sẽ tự động thay thế để duy trì kết nối mạng liên tục.
 
 
+-------------------------------------------
+------------------------------------------
+
+### **4.HDCP** 
+
+
