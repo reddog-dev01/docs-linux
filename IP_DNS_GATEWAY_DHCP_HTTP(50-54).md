@@ -604,6 +604,140 @@ curl -s https://api64.ipify.org?domain=example.com
 -------------------------------------------
 ------------------------------------------
 
-### **4.HDCP** 
+### **4.DHCP** 
+
+- DHCP (Dynamic Host Configuration Protocol) là một giao thức mạng được sử dụng để tự động cấp phát địa chỉ IP và các thông tin cấu hình mạng khác cho các thiết bị (hệ thống) trong một mạng máy tính. Giao thức này giúp các thiết bị kết nối vào mạng mà không cần phải cấu hình thủ công các tham số mạng như địa chỉ IP, gateway, DNS, v.v.
+
+#### **Phân Biệt Giao Thức DHCP và Máy Chủ DHCP**
+
+Mặc dù **giao thức DHCP** và **máy chủ DHCP** có mối liên quan chặt chẽ, nhưng chúng là hai khái niệm khác nhau. Dưới đây là sự phân biệt giữa hai yếu tố này:
+
+##### 1. **Giao Thức DHCP (Dynamic Host Configuration Protocol)**
+   - **Định nghĩa**: DHCP là một **giao thức mạng** được sử dụng để tự động cấp phát địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị trong mạng mà không cần người dùng phải cấu hình thủ công.
+   - **Chức năng chính**:
+     - Giao thức này xác định cách các thiết bị trong mạng (máy tính, điện thoại, máy in, v.v.) có thể nhận được địa chỉ IP và các thông tin cấu hình mạng khác như subnet mask, gateway, DNS server từ một máy chủ DHCP.
+     - DHCP cung cấp phương thức giao tiếp giữa thiết bị và máy chủ DHCP để cấp phát và quản lý địa chỉ IP động trong mạng.
+   - **Quá trình hoạt động**: Giao thức này quy định các bước cụ thể để trao đổi giữa các thiết bị (khách hàng DHCP) và máy chủ DHCP, bao gồm các bước như:
+     1. **DHCP Discover** (yêu cầu từ thiết bị).
+     2. **DHCP Offer** (phản hồi từ máy chủ).
+     3. **DHCP Request** (yêu cầu xác nhận từ thiết bị).
+     4. **DHCP Acknowledge** (xác nhận từ máy chủ).
+   - **Vai trò**: Giao thức DHCP quy định cách thức cấp phát và quản lý địa chỉ IP động trong mạng.
+
+##### 2. **Máy Chủ DHCP (DHCP Server)**
+   - **Định nghĩa**: Máy chủ DHCP là một **thiết bị hoặc phần mềm** chịu trách nhiệm **cung cấp và quản lý** địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị trong mạng theo yêu cầu của giao thức DHCP.
+   - **Chức năng chính**:
+     - Máy chủ DHCP quản lý một **dãy địa chỉ IP** (gọi là **IP Pool**) và cấp phát các địa chỉ này cho các thiết bị yêu cầu kết nối mạng.
+     - Ngoài việc cấp phát địa chỉ IP, máy chủ DHCP còn cung cấp các thông tin khác như subnet mask, default gateway, DNS server, và thời gian thuê địa chỉ IP (lease time).
+     - Máy chủ DHCP có thể **gia hạn hoặc thu hồi** địa chỉ IP mà nó đã cấp phát cho các thiết bị.
+   - **Vai trò**: Máy chủ DHCP là "nguồn cung cấp" địa chỉ IP cho các thiết bị trong mạng, đảm bảo rằng các thiết bị có thể tự động nhận các thông tin cấu hình mạng mà không cần sự can thiệp thủ công.
+   - **Cấu hình**: Máy chủ DHCP có thể được cấu hình trên một máy tính, router hoặc thiết bị mạng chuyên dụng. Thông qua đó, người quản trị có thể chỉ định phạm vi địa chỉ IP có thể được cấp phát, thời gian thuê địa chỉ IP và các thông số khác.
+
+##### **So Sánh Giao Thức DHCP và Máy Chủ DHCP**
+
+| **Tiêu chí**              | **Giao Thức DHCP**                                            | **Máy Chủ DHCP**                                               |
+|---------------------------|--------------------------------------------------------------|---------------------------------------------------------------|
+| **Định nghĩa**             | Là giao thức mạng dùng để cấp phát và quản lý địa chỉ IP động cho các thiết bị trong mạng. | Là phần mềm hoặc thiết bị cung cấp địa chỉ IP và các thông tin mạng cho các thiết bị. |
+| **Chức năng chính**        | Xác định cách thức cấp phát địa chỉ IP và các thông tin cấu hình mạng. | Cung cấp địa chỉ IP, subnet mask, gateway, DNS server, v.v. cho các thiết bị. |
+| **Quá trình hoạt động**    | Đảm nhiệm việc thiết lập quy trình cấp phát địa chỉ IP qua các gói DHCP Discover, Offer, Request, và Acknowledge. | Thực hiện các chức năng cấp phát và quản lý địa chỉ IP động dựa trên giao thức DHCP. |
+| **Vai trò**                | Giao thức xác định cách thức trao đổi thông tin giữa các thiết bị và máy chủ DHCP. | Máy chủ cấp phát địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị yêu cầu. |
+| **Cài đặt và cấu hình**    | Không cần cấu hình cụ thể trên thiết bị (chỉ cần bật tính năng DHCP trên thiết bị). | Cần được cài đặt và cấu hình để quản lý phạm vi IP và các thông số mạng. |
 
 
+#### **4.1 Chức năng chính DHCP**
+
+**Chức năng chính của DHCP (Dynamic Host Configuration Protocol)** là tự động cấp phát địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị trong một mạng máy tính. Điều này giúp thiết bị có thể kết nối vào mạng mà không cần phải cấu hình thủ công các tham số mạng. Cụ thể, các chức năng chính của DHCP bao gồm:
+
+##### 1. **Cấp Phát Địa Chỉ IP**
+   - DHCP cấp phát địa chỉ IP cho các thiết bị (máy tính, điện thoại, máy in, v.v.) khi chúng kết nối vào mạng. Điều này giúp các thiết bị có địa chỉ IP hợp lệ để có thể giao tiếp trong mạng và với các thiết bị khác.
+   - Địa chỉ IP có thể là **tĩnh** (được chỉ định cho thiết bị cụ thể) hoặc **động** (cấp phát từ phạm vi các địa chỉ IP có sẵn của máy chủ DHCP).
+
+##### 2. **Cung Cấp Thông Tin Cấu Hình Mạng**
+   Ngoài địa chỉ IP, DHCP còn cấp phát các thông tin mạng quan trọng khác như:
+   - **Subnet Mask**: Giúp thiết bị xác định phạm vi mạng con.
+   - **Default Gateway**: Địa chỉ của router hoặc thiết bị dùng để kết nối mạng nội bộ với mạng ngoài (ví dụ: Internet).
+   - **DNS Server**: Địa chỉ của máy chủ DNS để chuyển đổi tên miền thành địa chỉ IP (ví dụ: `www.google.com` thành `172.217.5.68`).
+
+##### 3. **Quản Lý Lease Time (Thời Gian Cấp Phát)**
+   - Mỗi địa chỉ IP cấp phát cho thiết bị sẽ có một thời gian sử dụng gọi là **lease time** (thời gian thuê). Khi hết thời gian này, thiết bị sẽ phải yêu cầu cấp phát lại địa chỉ IP.
+   - Nếu thiết bị vẫn đang sử dụng mạng, nó có thể yêu cầu gia hạn thời gian thuê mà không cần thay đổi địa chỉ IP.
+
+##### 4. **Cung Cấp Địa Chỉ IP Động**
+   - DHCP cấp phát **địa chỉ IP động** cho các thiết bị, nghĩa là mỗi khi thiết bị kết nối vào mạng, nó có thể nhận được một địa chỉ IP khác, miễn là trong phạm vi được cấu hình sẵn của máy chủ DHCP.
+   - Điều này giúp tối ưu hóa việc sử dụng tài nguyên IP, đặc biệt trong các mạng có số lượng thiết bị thay đổi thường xuyên.
+
+##### 5. **Hỗ Trợ DHCP Relay**
+   - DHCP Relay là tính năng cho phép yêu cầu DHCP từ các thiết bị trong các mạng con khác nhau (subnets) được chuyển tiếp đến một máy chủ DHCP duy nhất, thay vì phải có một máy chủ DHCP trong mỗi mạng con.
+   - Tính năng này hữu ích trong các mạng lớn, giúp giảm chi phí và dễ dàng quản lý cấu hình IP.
+
+##### 6. **Cấu Hình Tự Động**
+   - DHCP giúp tự động cấu hình các thiết bị trong mạng mà không cần can thiệp thủ công, đặc biệt trong các môi trường mạng lớn, giúp tiết kiệm thời gian và giảm thiểu sai sót.
+
+#### **4.2 Cơ chế hoạt động của giao thức DHCP và máy chủ DHCP**
+
+##### **Các Bước Hoạt Động Cơ Bản của Giao Thức DHCP**
+
+Khi một thiết bị (máy khách DHCP) muốn kết nối vào mạng, nó sẽ thực hiện một quá trình gọi là **DHCP Lease Process** (Quá trình cấp phát địa chỉ IP). Các bước của quá trình này như sau:
+
+1. **DHCP Discover** (Khách hàng tìm kiếm máy chủ DHCP):
+   - Khi thiết bị mới kết nối vào mạng và chưa có địa chỉ IP, nó sẽ gửi một **gói DHCP Discover** ra mạng (thường là một thông điệp quảng bá).
+   - Gói tin này được gửi đi với địa chỉ đích là **255.255.255.255** (địa chỉ broadcast) để tất cả các thiết bị trên mạng có thể nhận được, bao gồm cả máy chủ DHCP.
+
+2. **DHCP Offer** (Máy chủ DHCP đưa ra đề nghị):
+   - Máy chủ DHCP nhận được yêu cầu DHCP Discover và sẽ phản hồi bằng một **gói DHCP Offer**.
+   - Trong gói DHCP Offer, máy chủ DHCP cung cấp cho thiết bị một địa chỉ IP khả dụng từ phạm vi (IP Pool) của nó, cùng với các thông tin cấu hình khác như:
+     - Subnet mask
+     - Default gateway (router)
+     - DNS server
+     - Lease time (Thời gian thuê địa chỉ IP)
+   - Gói **DHCP Offer** sẽ được gửi đến máy khách qua mạng.
+
+3. **DHCP Request** (Khách hàng yêu cầu cấp phát địa chỉ IP):
+   - Sau khi nhận được một hoặc nhiều gói DHCP Offer từ các máy chủ DHCP (nếu có nhiều máy chủ DHCP), thiết bị (máy khách DHCP) sẽ chọn một địa chỉ IP từ gói offer và gửi một **gói DHCP Request** về phía máy chủ DHCP.
+   - Gói DHCP Request yêu cầu xác nhận và yêu cầu máy chủ DHCP cấp phát địa chỉ IP cho thiết bị.
+
+4. **DHCP Acknowledge** (Máy chủ DHCP xác nhận):
+   - Máy chủ DHCP nhận được yêu cầu DHCP Request từ thiết bị và sẽ gửi một **gói DHCP Acknowledge** để xác nhận rằng địa chỉ IP đã được cấp phát thành công.
+   - Từ đó, thiết bị sẽ được cấp phát địa chỉ IP và các thông tin cấu hình mạng để sử dụng.
+
+5. **Renewal (Gia hạn Lease Time)**:
+   - Sau một khoảng thời gian nhất định (lease time), thiết bị sẽ phải gia hạn địa chỉ IP. Khi lease time còn một nửa, thiết bị sẽ tự động gửi một yêu cầu **DHCP Request** để gia hạn địa chỉ IP. Máy chủ DHCP sẽ gửi lại một gói **DHCP Acknowledge** để xác nhận gia hạn.
+
+6. **Releasing IP**:
+   - Khi thiết bị không còn sử dụng mạng hoặc ngắt kết nối, nó có thể gửi một gói **DHCP Release** để thông báo cho máy chủ DHCP rằng nó không còn cần địa chỉ IP nữa. Máy chủ DHCP sau đó sẽ giải phóng địa chỉ IP và đưa vào kho địa chỉ IP có thể sử dụng lại.
+
+##### **Chi Tiết về Máy Chủ DHCP**
+Máy chủ DHCP đóng vai trò là **trung tâm cấp phát địa chỉ IP và thông tin mạng** cho các thiết bị trong mạng. Cơ chế hoạt động của máy chủ DHCP có thể được mô tả qua các chức năng chính sau:
+
+1. **Quản Lý Phạm Vi Địa Chỉ IP (IP Pool)**
+   - Máy chủ DHCP có một **danh sách các địa chỉ IP khả dụng** (gọi là IP Pool). Các địa chỉ này được cấp phát cho các thiết bị yêu cầu kết nối mạng.
+   - Máy chủ DHCP sẽ **cấp phát địa chỉ IP từ dải này** cho các thiết bị, đảm bảo rằng không có sự trùng lặp địa chỉ IP trong mạng.
+
+2. **Thời Gian Thuê Địa Chỉ IP (Lease Time)**
+   - Mỗi địa chỉ IP được cấp phát cho thiết bị trong một khoảng thời gian xác định, gọi là **lease time**.
+   - Sau khi hết thời gian thuê, địa chỉ IP này sẽ bị thu hồi và có thể được cấp phát lại cho các thiết bị khác.
+   - Máy chủ DHCP có thể gia hạn thời gian thuê nếu thiết bị yêu cầu và vẫn đang sử dụng mạng.
+
+3. **Cấu Hình Thông Tin Mạng**
+   - Máy chủ DHCP không chỉ cấp phát địa chỉ IP, mà còn cung cấp các thông tin quan trọng khác cho thiết bị, bao gồm:
+     - **Subnet mask**: Để thiết bị xác định phạm vi mạng con.
+     - **Default gateway**: Địa chỉ của router để thiết bị có thể kết nối với các mạng khác (ví dụ: Internet).
+     - **DNS server**: Để thiết bị có thể phân giải tên miền.
+     - Các thông tin khác như **NTP server** (máy chủ thời gian), **WINS server** (máy chủ tên NetBIOS), v.v.
+
+4. **Chức Năng Gia Hạn (Renewal)**
+   - Khi một thiết bị đang sử dụng địa chỉ IP, nó sẽ liên tục gia hạn **lease time** trước khi hết hạn, thường là một nửa thời gian thuê. Nếu máy chủ DHCP vẫn còn địa chỉ IP trong phạm vi của nó và thiết bị yêu cầu gia hạn, máy chủ sẽ tiếp tục cấp phát địa chỉ này.
+
+5. **Cơ Chế Quản Lý IP**
+   - Máy chủ DHCP có thể **phân loại và phân bổ địa chỉ IP** cho các nhóm thiết bị khác nhau trong mạng. Ví dụ, máy chủ có thể cấp phát một dải địa chỉ IP cho các máy tính trong văn phòng và một dải khác cho các thiết bị di động.
+
+##### **Tóm Tắt Các Bước Hoạt Động**
+
+| **Bước**              | **Mô Tả**                                                    |
+|-----------------------|--------------------------------------------------------------|
+| **1. DHCP Discover**   | Thiết bị gửi yêu cầu DHCP để tìm máy chủ DHCP.               |
+| **2. DHCP Offer**      | Máy chủ DHCP gửi thông tin cấp phát địa chỉ IP và cấu hình mạng cho thiết bị. |
+| **3. DHCP Request**    | Thiết bị yêu cầu cấp phát địa chỉ IP từ máy chủ DHCP.        |
+| **4. DHCP Acknowledge**| Máy chủ DHCP xác nhận và cấp phát địa chỉ IP cho thiết bị.    |
+| **5. Renewal**         | Sau khi hết thời gian thuê, thiết bị yêu cầu gia hạn địa chỉ IP. |
+| **6. Release**         | Thiết bị gửi thông báo giải phóng địa chỉ IP khi không còn sử dụng. |
