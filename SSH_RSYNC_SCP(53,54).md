@@ -561,3 +561,15 @@ ssh-add -D
 - **Bảo mật**: Nếu bạn có nhiều khóa SSH, việc sử dụng `ssh-add` giúp bạn quản lý các khóa một cách hiệu quả, không phải nhập passphrase nhiều lần.
 - **Dễ dàng khi làm việc với nhiều server**: Nếu bạn cần kết nối đến nhiều máy chủ khác nhau, `ssh-add` sẽ giúp bạn quản lý các khóa SSH mà không phải nhập passphrase nhiều lần trong phiên làm việc.
 
+
+#### **1.6 Public key và Private key**
+
+
+
+--------------------------------------------------
+
+
+
+### **2. rsync và scp**
+
+
