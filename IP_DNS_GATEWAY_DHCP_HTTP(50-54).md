@@ -173,11 +173,45 @@ network:
           - 8.8.8.8
           - 8.8.4.4
 ```
-**1.4 Khi nào cấu hình IP động, khi nào cấu hình IP tĩnh**
+### **1.4 Khi nào cấu hình IP động, khi nào cấu hình IP tĩnh**
 
-**a. Khi nào cấu hình IP động**
+### a. **Khi nào cấu hình IP động (DHCP)?**
+IP động được cấp phát tự động bởi **DHCP server** mỗi khi thiết bị kết nối mạng. Điều này rất tiện lợi và phổ biến trong nhiều tình huống, đặc biệt là trong các mạng không yêu cầu địa chỉ IP cố định.
 
--
+#### Sử dụng IP động khi:
+- **Mạng nhỏ hoặc môi trường thay đổi thường xuyên**: Nếu bạn có một mạng trong nhà, văn phòng nhỏ, hoặc môi trường mà các thiết bị thường xuyên kết nối và rời đi (ví dụ: laptop, điện thoại), thì việc sử dụng DHCP sẽ rất thuận tiện. DHCP sẽ tự động cấp phát IP cho các thiết bị mà không cần cấu hình thủ công.
+  
+- **Sử dụng cho các thiết bị không yêu cầu IP cố định**: Nếu các thiết bị như điện thoại, laptop, hoặc máy tính bảng không cần kết nối cố định với các thiết bị khác trong mạng (như máy in hoặc máy chủ), IP động là lựa chọn hợp lý. Mỗi lần thiết bị kết nối lại với mạng, một địa chỉ IP mới sẽ được cấp phát.
+
+- **Mạng với số lượng thiết bị thay đổi thường xuyên**: Trong các văn phòng lớn hoặc nhà với nhiều thiết bị di động, bạn sẽ không muốn phải quản lý thủ công từng địa chỉ IP cho từng thiết bị. DHCP sẽ giúp bạn tự động cấp phát IP mà không cần phải lo lắng về việc phân bổ và quản lý địa chỉ IP.
+
+- **Tiết kiệm thời gian và công sức**: Với DHCP, bạn không cần phải thủ công cấu hình IP cho mỗi thiết bị. Đây là lựa chọn lý tưởng khi bạn không có yêu cầu đặc biệt về việc gắn địa chỉ IP cố định cho các thiết bị.
+
+### b. **Khi nào cấu hình IP tĩnh?**
+IP tĩnh là một địa chỉ IP được chỉ định cố định cho một thiết bị cụ thể và không thay đổi trừ khi bạn thay đổi cấu hình. Việc cấu hình IP tĩnh thường được sử dụng cho các thiết bị cần một địa chỉ IP cố định để các thiết bị khác có thể kết nối ổn định.
+
+#### Sử dụng IP tĩnh khi:
+- **Cần kết nối ổn định hoặc liên tục**: Nếu bạn đang chạy các dịch vụ cần các thiết bị khác kết nối với chúng qua một địa chỉ IP cố định (ví dụ: máy chủ web, máy chủ DNS, máy chủ cơ sở dữ liệu), bạn nên sử dụng IP tĩnh. Điều này đảm bảo rằng các thiết bị khác luôn có thể tìm thấy và kết nối với các dịch vụ của bạn mà không bị gián đoạn vì sự thay đổi IP.
+
+- **Chạy dịch vụ mạng như máy chủ**: Các thiết bị như máy chủ, máy in mạng, hoặc thiết bị lưu trữ NAS cần có một địa chỉ IP cố định để các thiết bị khác trong mạng có thể kết nối ổn định. Ví dụ, nếu bạn muốn mọi người trong công ty truy cập vào một máy chủ web hoặc cơ sở dữ liệu, việc có một IP tĩnh là cần thiết.
+
+- **Cấu hình mạng trong các doanh nghiệp lớn hoặc mạng phức tạp**: Nếu bạn quản lý một mạng phức tạp trong môi trường doanh nghiệp hoặc trường học, việc sử dụng IP tĩnh giúp bạn dễ dàng quản lý và theo dõi các thiết bị trong mạng. Các thiết bị như máy tính bàn, máy chủ, hoặc thiết bị giám sát có thể yêu cầu IP tĩnh để đảm bảo tính ổn định và kiểm soát.
+
+- **Cần cấu hình cổng chuyển tiếp (Port Forwarding)**: Nếu bạn cần mở các cổng trên router để cho phép các kết nối đến máy tính hoặc thiết bị từ bên ngoài (ví dụ: chơi game, truy cập vào các dịch vụ từ xa), IP tĩnh là rất quan trọng. Bởi vì khi sử dụng IP động, cổng chuyển tiếp có thể không hoạt động đúng nếu IP của thiết bị thay đổi.
+
+- **Tránh xung đột IP**: Khi cấu hình IP tĩnh, bạn có thể tránh được tình trạng xung đột địa chỉ IP trong mạng. DHCP có thể cấp phát lại các IP đã được sử dụng trước đó, gây ra sự cố khi các thiết bị kết nối cùng một IP. Với IP tĩnh, bạn có thể đảm bảo rằng mỗi thiết bị sẽ có một địa chỉ IP duy nhất trong mạng.
+
+### c. **So Sánh giữa IP động và IP tĩnh**
+
+| **Yếu tố**                | **IP động (DHCP)**                | **IP tĩnh**                       |
+|---------------------------|-----------------------------------|-----------------------------------|
+| **Cấu hình**               | Tự động cấp phát qua DHCP         | Cấu hình thủ công                 |
+| **Thích hợp cho**          | Mạng nhỏ, thiết bị di động, mạng không yêu cầu IP cố định | Máy chủ, thiết bị cần kết nối ổn định |
+| **Độ thay đổi**            | Địa chỉ IP có thể thay đổi khi kết nối lại | Địa chỉ IP không thay đổi         |
+| **Dễ quản lý**             | Dễ dàng, không cần quản lý IP thủ công | Phải quản lý và theo dõi thủ công |
+| **Tính ổn định**           | Ít ổn định đối với các thiết bị cần kết nối lâu dài | Ổn định và đáng tin cậy cho các thiết bị cần IP cố định |
+
+
 
 ### **2. DNS System**
 
