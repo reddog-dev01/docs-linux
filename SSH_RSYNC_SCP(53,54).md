@@ -327,6 +327,115 @@ Sau khi thay đổi này, máy chủ Ubuntu sẽ chỉ cho phép đăng nhập q
 - **Sao lưu**: Hãy sao lưu khóa riêng của bạn để tránh mất khả năng truy cập vào máy chủ nếu khóa bị mất.
 - **Cập nhật Khóa**: Nếu bạn thay đổi máy tính hoặc thay đổi khóa SSH, nhớ cập nhật lại khóa công khai trên máy chủ.
 
+**Ví dụ**
+
+**Bước 1: Tạo SSH Key trên Máy Khách (Máy thật Ubuntu)**
+
+1. **Tạo SSH Key Pair trên máy khách**:
+   Nếu bạn chưa có SSH key trên máy khách (máy thật), bạn cần tạo một cặp key mới. Sử dụng lệnh sau trên máy thật:
+
+   ```bash
+   ssh-keygen -t rsa -b 4096
+   ```
+
+   - **`-t rsa`**: Chỉ định loại key (RSA).
+   - **`-b 4096`**: Chỉ định chiều dài của key (4096 bit).
+   
+   Lệnh trên sẽ yêu cầu bạn nhập **đường dẫn** để lưu file key và **passphrase** (nếu bạn muốn bảo vệ key của mình bằng mật khẩu). Mặc định, key sẽ được lưu tại `~/.ssh/id_rsa`.
+
+2. **Kiểm tra các files key đã tạo**:
+   Sau khi tạo, bạn sẽ có hai file trong thư mục `~/.ssh/`:
+   - **`id_rsa`**: Đây là private key (khóa riêng) của bạn.
+   - **`id_rsa.pub`**: Đây là public key (khóa công khai) của bạn.
+
+**Bước 2: Cấu hình SSH Key trên Máy Chủ (Máy ảo Ubuntu Server)**
+
+1. **Sao chép Public Key vào Máy Chủ**:
+   Để cấu hình SSH key cho phép đăng nhập vào máy ảo Ubuntu Server, bạn cần sao chép public key từ máy thật vào máy ảo. Bạn có thể sử dụng lệnh `ssh-copy-id` hoặc sao chép thủ công.
+
+   **Sử dụng `ssh-copy-id`:**
+   
+   ```bash
+   ssh-copy-id user@IP_of_VM
+   ```
+
+   Trong đó:
+   - `user` là tên người dùng trên máy ảo Ubuntu Server.
+   - `IP_of_VM` là địa chỉ IP của máy ảo.
+
+   Lệnh trên sẽ yêu cầu bạn nhập mật khẩu của người dùng trên máy ảo để sao chép public key vào máy ảo.
+
+2. **Sao chép thủ công (nếu không sử dụng `ssh-copy-id`)**:
+   Nếu bạn không thể sử dụng `ssh-copy-id`, bạn có thể sao chép thủ công public key vào máy ảo. Làm như sau:
+
+   - Mở file `id_rsa.pub` trên máy thật:
+
+     ```bash
+     cat ~/.ssh/id_rsa.pub
+     ```
+
+   - Đăng nhập vào máy ảo Ubuntu Server (bằng mật khẩu) và mở file `~/.ssh/authorized_keys` (nếu thư mục `~/.ssh` chưa tồn tại, bạn có thể tạo mới nó):
+
+     ```bash
+     mkdir -p ~/.ssh
+     nano ~/.ssh/authorized_keys
+     ```
+
+   - Dán nội dung của `id_rsa.pub` vào file `authorized_keys` và lưu lại.
+
+   - Đảm bảo rằng file `authorized_keys` có quyền truy cập đúng:
+
+     ```bash
+     chmod 600 ~/.ssh/authorized_keys
+     chmod 700 ~/.ssh
+     ```
+
+**Bước 3: Cấu hình SSH Server (Trên Máy Ảo Ubuntu Server)**
+
+1. **Kiểm tra SSH server trên máy ảo**:
+   Đảm bảo rằng SSH server đang chạy trên máy ảo Ubuntu. Bạn có thể kiểm tra và khởi động dịch vụ SSH nếu cần:
+
+   ```bash
+   sudo systemctl status ssh
+   ```
+
+   Nếu dịch vụ chưa chạy, bạn có thể khởi động nó bằng:
+
+   ```bash
+   sudo systemctl start ssh
+   ```
+
+2. **Cấu hình để chỉ sử dụng key (tùy chọn)**:
+   Để đảm bảo rằng SSH chỉ cho phép đăng nhập qua SSH key (và không qua mật khẩu), bạn có thể sửa cấu hình trong file `/etc/ssh/sshd_config`:
+
+   Mở file cấu hình SSH:
+
+   ```bash
+   sudo nano /etc/ssh/sshd_config
+   ```
+
+   Tìm các dòng sau và đảm bảo chúng được cấu hình như sau:
+
+   ```bash
+   PasswordAuthentication no
+   PubkeyAuthentication yes
+   ```
+
+   Sau đó, khởi động lại dịch vụ SSH để áp dụng thay đổi:
+
+   ```bash
+   sudo systemctl restart ssh
+   ```
+
+**Bước 4: SSH vào Máy Ảo từ Máy Khách**
+
+1. **Kiểm tra kết nối SSH**:
+   Bây giờ, từ máy thật, bạn có thể sử dụng SSH để đăng nhập vào máy ảo Ubuntu Server mà không cần mật khẩu:
+
+   ```bash
+   ssh user@IP_of_VM
+   ```
+
 
 ### **1.5 ssh-add**
 
