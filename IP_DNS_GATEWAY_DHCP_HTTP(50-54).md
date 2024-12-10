@@ -213,6 +213,11 @@ IP tĩnh là một địa chỉ IP được chỉ định cố định cho một
 
 
 
+--------------------------------------------------------
+--------------------------------------------------------
+
+
+
 ### **2. DNS System**
 
 - DNS là một hệ thống phân dải giúp chuyển đổi tên miền (domain name) thành địa chỉ IP (IP address) và ngược lại.
@@ -546,3 +551,52 @@ ping -c 1 example.com
 ```
 curl -s https://api64.ipify.org?domain=example.com
 ```
+
+----------------------------------------------
+
+### **3. GATEWAY**
+
+- Gateway (cổng mạng) là một thiết bị mạng hoặc phần mềm được sử dụng để kết nối hai mạng khác nhau, hoặc một mạng nội bộ và mạng bên ngoài (ví dụ: Internet). Gateway hoạt động như một "cổng" cho phép các thiết bị trong mạng của bạn giao tiếp với các thiết bị trong mạng khác. Nó cũng có thể thực hiện các chức năng như định tuyến, chuyển tiếp gói tin và dịch địa chỉ IP giữa các mạng khác nhau.
+
+**Gateway** (Cổng mạng) có một số chức năng quan trọng trong việc kết nối các mạng khác nhau. Dưới đây là các chức năng chính của một gateway:
+
+
+### **Chức năng của Gateway**
+
+
+#### 1. **Kết nối các mạng khác nhau**
+- **Gateway** giúp kết nối hai mạng khác nhau, có thể là mạng nội bộ (LAN) và mạng ngoài (Internet) hoặc giữa các mạng sử dụng các giao thức khác nhau. Nó hoạt động như một "cổng" giữa các mạng này, giúp dữ liệu di chuyển từ mạng này sang mạng khác.
+
+#### 2. **Định tuyến gói tin**
+- **Định tuyến (Routing)** là một trong những chức năng chính của gateway. Gateway quyết định **đường đi** của các gói dữ liệu khi chúng rời mạng nội bộ và đi ra ngoài (hoặc ngược lại). Khi thiết bị trong mạng nội bộ muốn truy cập vào tài nguyên bên ngoài mạng, nó sẽ gửi yêu cầu tới gateway, và gateway sẽ định tuyến yêu cầu này tới đích đúng.
+
+#### 3. **Dịch và chuyển đổi giao thức**
+- Gateway có thể chuyển đổi **giao thức mạng** giữa các mạng sử dụng các giao thức khác nhau. Ví dụ, nếu một mạng sử dụng giao thức IPv4 và một mạng khác sử dụng IPv6, gateway có thể chuyển đổi giữa các giao thức này.
+- Ngoài ra, gateway có thể chuyển đổi giữa các giao thức truyền thông khác nhau như **TCP/IP**, **DECnet**, **IPX**, **AppleTalk**, v.v., cho phép các thiết bị từ các mạng khác nhau giao tiếp với nhau.
+
+#### 4. **Chuyển tiếp dữ liệu**
+- **Gateway** chuyển tiếp các gói dữ liệu từ một mạng vào một mạng khác, giúp các thiết bị trong mạng nội bộ (LAN) giao tiếp với các thiết bị ngoài mạng (ví dụ: Internet).
+- Khi bạn truy cập một trang web, các gói dữ liệu từ máy tính của bạn sẽ được gửi tới gateway, gateway sẽ chuyển tiếp chúng ra ngoài Internet và nhận phản hồi về lại mạng nội bộ của bạn.
+
+#### 5. **Chức năng bảo mật**
+- **Firewall (Tường lửa)**: Gateway có thể được cấu hình để kiểm tra và bảo vệ mạng khỏi các mối đe dọa từ bên ngoài. Tường lửa có thể lọc các gói dữ liệu vào và ra khỏi mạng dựa trên các quy tắc bảo mật.
+- **Mã hóa**: Gateway có thể mã hóa và giải mã các gói dữ liệu để đảm bảo an toàn khi truyền qua các mạng không an toàn (như Internet).
+
+#### 6. **Chuyển đổi địa chỉ mạng (NAT)**
+- **NAT (Network Address Translation)**: Một chức năng phổ biến của gateway là thực hiện NAT, tức là chuyển đổi địa chỉ IP của các thiết bị trong mạng nội bộ thành một địa chỉ IP công cộng khi truy cập Internet, và ngược lại. Điều này giúp tiết kiệm địa chỉ IP và bảo mật mạng nội bộ.
+  - Ví dụ: Các thiết bị trong mạng LAN có thể có địa chỉ IP riêng tư như `192.168.1.x`, và khi các thiết bị này truy cập Internet, gateway sẽ thay đổi địa chỉ IP thành địa chỉ công cộng của router (ví dụ: `203.0.113.x`).
+
+#### 7. **Chức năng DHCP (Dynamic Host Configuration Protocol)**
+- **DHCP**: Gateway có thể hoạt động như một **DHCP server**, cấp phát địa chỉ IP động cho các thiết bị trong mạng nội bộ. Thay vì phải cấu hình thủ công mỗi địa chỉ IP cho từng thiết bị, gateway sẽ tự động cấp phát địa chỉ IP cho các thiết bị khi chúng kết nối vào mạng.
+
+#### 8. **Chức năng VPN (Virtual Private Network)**
+- **VPN Gateway**: Gateway có thể hỗ trợ kết nối VPN, cho phép các thiết bị trong mạng nội bộ kết nối với mạng bên ngoài một cách an toàn qua một kênh mã hóa. Ví dụ, nhân viên làm việc từ xa có thể kết nối với mạng công ty thông qua VPN để truy cập các tài nguyên nội bộ.
+
+#### 9. **Quản lý lưu lượng (Traffic Management)**
+- **QoS (Quality of Service)**: Một số gateway cung cấp tính năng QoS để quản lý băng thông và đảm bảo các ứng dụng quan trọng (như video call, game trực tuyến) có đủ băng thông, giúp tối ưu hóa hiệu suất mạng.
+
+#### 10. **Chuyển tiếp dự phòng và Load Balancing**
+- **Load Balancing**: Trong các mạng phức tạp, gateway có thể thực hiện cân bằng tải (load balancing), giúp phân phối đều lưu lượng mạng tới các đường truyền khác nhau, tối ưu hóa hiệu suất và đảm bảo tính sẵn sàng cao.
+- **High Availability**: Gateway có thể cấu hình để đảm bảo tính sẵn sàng cao, nghĩa là khi một gateway gặp sự cố, các gateway dự phòng sẽ tự động thay thế để duy trì kết nối mạng liên tục.
+
+
