@@ -222,7 +222,7 @@ IP tĩnh là một địa chỉ IP được chỉ định cố định cho một
 
 - DNS là một hệ thống phân dải giúp chuyển đổi tên miền (domain name) thành địa chỉ IP (IP address) và ngược lại.
 
-**2.1 Các khái niệm và cơ chế hoạt động của DNS**
+#### **2.1 Các khái niệm và cơ chế hoạt động của DNS**
 
 **a. Tên miền (Domain name)**
 
@@ -261,7 +261,7 @@ Các loại thông tin ánh xạ trong DNS:
 - MX Record: Máy chủ email.
 - TXT Record: Chứa dữ liệu văn bản, dùng để xác thực bảo mật (SPF, DKIM).
 
-**2.2 Cơ chế hoạt động của hệ thống DNS**
+#### **2.2 Cơ chế hoạt động của hệ thống DNS**
 
 Khi người dùng nhập một tên miền vào trình duyệt, DNS sẽ phân giải thành địa chỉ IP qua các bước sau:
 
@@ -295,9 +295,9 @@ Máy chủ ủy quyền trả về địa chỉ IP chính xác của tên miền
 
 Trình duyệt sử dụng địa chỉ IP này để kết nối đến máy chủ đích. 
 
-**2.3 Các loại máy chủ DNS, các loại query DNS**
+#### **2.3 Các loại máy chủ DNS, các loại query DNS**
 
-**2.3.1 Các loại máy chủ DNS**
+##### **2.3.1 Các loại máy chủ DNS**
 
 **a. Recursive Resolver (Máy chủ phân giải đệ quy):**
 
@@ -347,7 +347,7 @@ Ví dụ:
 
 Tên miền example.com được quản lý bởi một máy chủ DNS cụ thể (của nhà cung cấp hosting hoặc tổ chức sở hữu tên miền).
 
-**2.3.2 Các loại Query DNS**
+##### **2.3.2 Các loại Query DNS**
 
 **1. Recursive Query (Truy vấn đệ quy):**
 
@@ -385,7 +385,7 @@ Ví dụ:
 
 Kết quả: example.com.
 
-**2.4 các loại DNS bản ghi DNS thường sử dụng**
+#### **2.4 các loại DNS bản ghi DNS thường sử dụng**
 
 - Lưu trữ thông tin ánh xạ giữa tên miền và tài nguyên mạng
 
@@ -535,7 +535,7 @@ Tên miền: example.com
 
 Chữ ký: 12345abcde...
 
-**2.5 Cách tìm IP domain**
+### **2.5 Cách tìm IP domain**
 ```
 nslookup example.com
 ```
