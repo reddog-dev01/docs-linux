@@ -51,3 +51,281 @@ Các thành phần cơ bản của SSH (Secure Shell) bao gồm các yếu tố 
 
 ##### 10. **Chuyển tiếp X (X11 Forwarding)**
    - SSH hỗ trợ chuyển tiếp giao diện đồ họa, cho phép bạn chạy các ứng dụng đồ họa từ một máy chủ từ xa và hiển thị chúng trên máy tính của bạn. Điều này rất hữu ích khi bạn cần truy cập và sử dụng ứng dụng GUI trên một máy chủ Linux từ xa thông qua kết nối SSH.
+
+#### **1.2 Quy trình hoạt động SSH**
+
+Quy trình hoạt động của SSH (Secure Shell) có thể được mô tả qua các bước sau đây, từ khi kết nối bắt đầu cho đến khi người dùng có thể thực hiện các lệnh từ xa trên máy chủ.
+
+##### 1. **Kết nối và Thiết lập**
+   - **Máy khách SSH (Client)** gửi một yêu cầu kết nối tới **Máy chủ SSH (Server)**. Khi kết nối được thiết lập, máy chủ sẽ bắt đầu quá trình xác thực và bảo mật.
+
+##### 2. **Xác thực Máy chủ (Server Authentication)**
+   - Máy khách kiểm tra khóa công khai của máy chủ để đảm bảo rằng nó đang kết nối với đúng máy chủ (tránh các cuộc tấn công Man-in-the-Middle).
+   - Nếu đây là lần đầu tiên máy khách kết nối, máy khách sẽ hỏi người dùng có muốn tiếp tục kết nối hay không (vì máy khách chưa có bản sao của khóa máy chủ).
+   - Sau khi xác thực, máy khách sẽ lưu khóa công khai của máy chủ vào một tệp (thường là `known_hosts` trên máy khách) để sử dụng trong các lần kết nối tiếp theo.
+
+##### 3. **Đàm phán Thuật toán Mã hóa**
+   - Máy khách và máy chủ đàm phán để chọn các thuật toán mã hóa mà họ sẽ sử dụng trong suốt phiên làm việc. Các thuật toán này có thể bao gồm:
+     - **Mã hóa dữ liệu (Encryption)**: Đảm bảo tính bảo mật của dữ liệu.
+     - **Hàm băm (Hashing)**: Đảm bảo tính toàn vẹn của dữ liệu.
+     - **Xác thực (Authentication)**: Đảm bảo rằng hai bên là những người hợp lệ.
+
+##### 4. **Xác thực Người Dùng (User Authentication)**
+   - Máy chủ yêu cầu xác thực người dùng để đảm bảo rằng người dùng có quyền truy cập.
+   - Có hai phương thức xác thực chính:
+     - **Xác thực bằng mật khẩu (Password Authentication)**: Máy khách gửi mật khẩu của người dùng đến máy chủ để xác thực.
+     - **Xác thực bằng khóa công khai (Public Key Authentication)**: Máy khách gửi khóa công khai của mình đến máy chủ, và máy chủ sử dụng khóa công khai để xác thực khóa riêng của máy khách (cặp khóa đã được tạo trước).
+
+   - **Quá trình xác thực bằng khóa công khai**:
+     - Máy khách tạo cặp khóa công khai và khóa riêng (private key). Khóa công khai được lưu trữ trên máy chủ.
+     - Khi kết nối, máy khách sẽ tạo ra một thông điệp ký bằng khóa riêng của mình và gửi nó đến máy chủ.
+     - Máy chủ sử dụng khóa công khai đã lưu để kiểm tra xem thông điệp có khớp với khóa riêng của máy khách hay không. Nếu đúng, máy chủ cho phép kết nối.
+
+##### 5. **Mã hóa và Truyền Dữ liệu**
+   - Sau khi xác thực, một kênh mã hóa an toàn giữa máy khách và máy chủ được thiết lập.
+   - Dữ liệu giữa máy khách và máy chủ được mã hóa bằng thuật toán mà hai bên đã thỏa thuận trước đó. Việc mã hóa giúp bảo mật các thông tin nhạy cảm, tránh bị nghe lén trong quá trình truyền tải.
+
+##### 6. **Chạy Lệnh từ Xa (Remote Command Execution)**
+   - Sau khi kết nối được thiết lập và xác thực hoàn tất, người dùng có thể bắt đầu gửi các lệnh từ máy khách đến máy chủ.
+   - SSH cho phép người dùng thực thi các lệnh shell trên máy chủ từ xa, điều khiển máy chủ giống như khi người dùng đang làm việc trực tiếp trên đó.
+   - Các lệnh này có thể bao gồm thao tác với tệp, quản lý hệ thống, hoặc các tác vụ khác mà người dùng có quyền truy cập.
+
+##### 7. **Chuyển Tiếp Cổng (Port Forwarding)**
+   - SSH cũng hỗ trợ tính năng **Chuyển Tiến Cổng (Port Forwarding)**, cho phép chuyển tiếp các kết nối mạng từ cổng này đến cổng khác thông qua kênh SSH mã hóa.
+   - Có ba loại chuyển tiếp cổng:
+     - **Local Port Forwarding**: Chuyển tiếp cổng từ máy khách đến máy chủ.
+     - **Remote Port Forwarding**: Chuyển tiếp cổng từ máy chủ đến máy khách.
+     - **Dynamic Port Forwarding**: Sử dụng máy khách SSH như một proxy để truyền tải dữ liệu.
+
+##### 8. **Sao chép và Truyền Tải Tệp (SCP/SFTP)**
+   - **SCP (Secure Copy Protocol)** và **SFTP (SSH File Transfer Protocol)** là các giao thức được sử dụng để sao chép và truyền tải tệp an toàn qua kết nối SSH.
+   - Máy khách có thể sao chép tệp từ máy chủ sang máy tính cục bộ và ngược lại, hoặc điều hướng và làm việc với các tệp trên máy chủ từ xa một cách an toàn.
+
+##### 9. **Kết Thúc Phiên**
+   - Khi công việc hoàn tất, người dùng có thể đóng phiên SSH bằng cách nhập lệnh `exit` hoặc đóng cửa sổ terminal.
+   - Kết nối SSH sẽ bị ngắt và mọi thông tin giao tiếp sẽ bị xóa.
+
+#### **1.3 Thực hành vào máy chủ sử dụng password**
+
+Để **SSH vào máy chủ sử dụng mật khẩu**, bạn có thể thực hiện các bước sau, kèm theo ví dụ cụ thể.
+
+##### **Các Bước Kết Nối SSH Sử Dụng Mật Khẩu**
+
+1. **Mở Terminal**
+   - Mở ứng dụng Terminal.
+
+2. **Nhập Lệnh SSH**
+   Sử dụng lệnh sau để kết nối với máy chủ qua SSH. Bạn cần thay `username` bằng tên người dùng trên máy chủ và `hostname` (hoặc địa chỉ IP của máy chủ) bằng địa chỉ máy chủ mà bạn muốn kết nối.
+
+   Cú pháp:
+
+   ```
+   ssh username@hostname
+   ```
+
+   Ví dụ, nếu bạn có một máy chủ với địa chỉ IP là `192.168.1.100` và tên người dùng là `root`, lệnh sẽ như sau:
+
+   ```
+   ssh root@192.168.1.100
+   ```
+
+   Nếu bạn muốn kết nối đến máy chủ qua một cổng khác (ví dụ: cổng 2222 thay vì cổng mặc định 22), bạn có thể chỉ định cổng với tham số `-p`:
+
+   ```
+   ssh root@192.168.1.100 -p 2222
+   ```
+
+3. **Nhập Mật Khẩu**
+   Sau khi bạn gõ lệnh trên và nhấn **Enter**, hệ thống sẽ yêu cầu bạn nhập mật khẩu của người dùng trên máy chủ. Lúc này, bạn chỉ cần nhập mật khẩu và nhấn **Enter**.
+
+   Ví dụ:
+
+   ```
+   root@192.168.1.100's password: ********
+   ```
+
+   **Lưu ý**: Khi bạn nhập mật khẩu, **không có dấu hiệu gì xuất hiện** (không có dấu asterisk `*` hoặc dấu chấm). Đây là một biện pháp bảo mật để không lộ mật khẩu.
+
+4. **Kết Nối Thành Công**
+   Nếu mật khẩu đúng, bạn sẽ được đăng nhập vào máy chủ từ xa và thấy dấu nhắc lệnh (prompt) của máy chủ, ví dụ:
+
+   ```
+   root@hostname:~#
+   ```
+
+   Bây giờ, bạn có thể thực hiện các lệnh trên máy chủ từ xa như thể bạn đang sử dụng máy tính đó.
+
+5. **Thoát Khỏi SSH**
+   Khi bạn làm xong, bạn có thể thoát khỏi phiên SSH bằng lệnh:
+
+   ```
+   exit
+   ```
+
+
+##### **Ví Dụ Cụ Thể**
+
+1. Mở **Terminal** (hoặc PowerShell nếu bạn dùng Windows).
+2. Nhập lệnh:
+
+   ```
+   ssh admin@192.168.1.10
+   ```
+
+3. Nhập mật khẩu khi được yêu cầu, ví dụ mật khẩu là `password123`.
+
+4. Sau khi nhập mật khẩu đúng, bạn sẽ thấy dấu nhắc lệnh của máy chủ:
+
+   ```
+   admin@192.168.1.10's password: ********
+   admin@hostname:~$
+   ```
+
+5. Bạn có thể thực hiện các lệnh trên máy chủ từ xa. Ví dụ, kiểm tra danh sách các file:
+
+   ```
+   ls -l
+   ```
+
+6. Để thoát khỏi phiên SSH, gõ lệnh:
+
+   ```
+   exit
+   ```
+
+#### **SSH vào máy chủ sử dụng key**
+
+##### **Bước 1: Tạo Cặp Khóa SSH trên Máy Cục Bộ (Client)**
+
+Trước khi kết nối, bạn cần tạo một cặp khóa SSH (khóa công khai và khóa riêng). Bạn có thể tạo cặp khóa SSH trên máy của mình (máy tính cục bộ) bằng lệnh sau:
+
+1. Mở **Terminal** trên máy của bạn.
+
+2. Chạy lệnh sau để tạo cặp khóa:
+
+   ```
+   ssh-keygen -t rsa -b 2048
+   ```
+
+   - `-t rsa`: Chọn thuật toán RSA.
+   - `-b 2048`: Đặt độ dài khóa là 2048 bit (mức độ bảo mật hợp lý).
+
+3. Sau khi chạy lệnh, bạn sẽ được yêu cầu chỉ định vị trí lưu trữ khóa (mặc định là `~/.ssh/id_rsa`):
+
+   ```
+   Enter file in which to save the key (/home/username/.ssh/id_rsa):
+   ```
+
+   Nếu bạn nhấn **Enter**, khóa sẽ được lưu tại vị trí mặc định (`~/.ssh/id_rsa`).
+
+4. Bạn cũng có thể chọn nhập **passphrase** để bảo vệ khóa riêng. Đây là một lớp bảo mật bổ sung, nhưng bạn cũng có thể bỏ qua nếu không muốn sử dụng passphrase.
+
+
+##### **Bước 2: Sao Chép Khóa Công Khai lên Máy Chủ Ubuntu**
+
+Sau khi tạo cặp khóa SSH, bạn cần sao chép **khóa công khai** lên máy chủ Ubuntu để cho phép xác thực mà không cần mật khẩu. Để sao chép khóa công khai, bạn có thể làm theo cách sau:
+
+1. **Sử dụng lệnh `ssh-copy-id`** (đơn giản và tiện lợi):
+
+   Chạy lệnh sau để sao chép khóa công khai lên máy chủ Ubuntu:
+
+   ```
+   ssh-copy-id username@hostname
+   ```
+
+   Ví dụ: Nếu tài khoản người dùng trên máy chủ Ubuntu của bạn là `ubuntu` và địa chỉ IP của máy chủ là `192.168.1.100`, lệnh sẽ như sau:
+
+   ```
+   ssh-copy-id ubuntu@192.168.1.100
+   ```
+
+2. **Nếu `ssh-copy-id` không có sẵn** (hoặc bạn đang sử dụng Windows mà không có công cụ này), bạn có thể sao chép khóa thủ công:
+
+   1. **Mở file khóa công khai** trên máy tính của bạn:
+
+      ```
+      cat ~/.ssh/id_rsa.pub
+      ```
+
+   2. **Đăng nhập vào máy chủ Ubuntu** bằng mật khẩu:
+
+      ```
+      ssh ubuntu@192.168.1.100
+      ```
+
+   3. **Tạo thư mục `.ssh` (nếu chưa có)** trên máy chủ và thay đổi quyền truy cập:
+
+      ```
+      mkdir -p ~/.ssh
+      chmod 700 ~/.ssh
+      ```
+
+   4. **Mở file `authorized_keys`** và dán nội dung khóa công khai vào:
+
+      ```
+      nano ~/.ssh/authorized_keys
+      ```
+
+   5. **Dán khóa công khai** (dán nội dung từ file `id_rsa.pub` vào đây).
+
+   6. **Lưu và thoát**: Nhấn **Ctrl + X**, rồi nhấn **Y** để lưu và **Enter** để thoát.
+
+   7. **Cập nhật quyền truy cập**:
+
+      ```
+      chmod 600 ~/.ssh/authorized_keys
+      ```
+
+##### **Bước 3: Kết Nối vào Máy Chủ Ubuntu Sử Dụng SSH Key**
+
+Khi khóa công khai đã được sao chép lên máy chủ, bạn có thể kết nối từ máy cục bộ vào máy chủ Ubuntu mà không cần sử dụng mật khẩu nữa. Để kết nối, bạn chỉ cần chạy lệnh SSH sau:
+
+```
+ssh username@hostname
+```
+
+Ví dụ:
+
+```
+ssh ubuntu@192.168.1.100
+```
+
+Hệ thống sẽ tự động sử dụng khóa SSH (khóa công khai trên máy chủ và khóa riêng trên máy cục bộ) để xác thực mà không yêu cầu mật khẩu.
+
+
+##### **Bước 4: (Tùy Chọn) Vô Hiệu Hóa Đăng Nhập Bằng Mật Khẩu trên Máy Chủ Ubuntu**
+
+Để tăng cường bảo mật, bạn có thể vô hiệu hóa đăng nhập bằng mật khẩu và chỉ cho phép đăng nhập qua khóa SSH.
+
+1. **Mở file cấu hình SSH** trên máy chủ Ubuntu:
+
+   ```
+   sudo nano /etc/ssh/sshd_config
+   ```
+
+2. **Tìm và thay đổi các dòng sau**:
+
+   ```
+   PasswordAuthentication no
+   ChallengeResponseAuthentication no
+   ```
+
+3. **Lưu và thoát**: Nhấn **Ctrl + X**, rồi nhấn **Y** và **Enter** để lưu.
+
+4. **Khởi động lại dịch vụ SSH** để áp dụng thay đổi:
+
+   ```
+   sudo systemctl restart sshd
+   ```
+
+Sau khi thay đổi này, máy chủ Ubuntu sẽ chỉ cho phép đăng nhập qua SSH key và sẽ không yêu cầu mật khẩu nữa.
+
+
+##### **Lưu Ý Quan Trọng**
+
+- **Bảo mật**: Luôn bảo vệ khóa riêng của bạn, vì ai có được khóa riêng có thể truy cập vào máy chủ. Nếu bạn sử dụng passphrase để bảo vệ khóa riêng, nó sẽ cung cấp một lớp bảo mật bổ sung.
+- **Sao lưu**: Hãy sao lưu khóa riêng của bạn để tránh mất khả năng truy cập vào máy chủ nếu khóa bị mất.
+- **Cập nhật Khóa**: Nếu bạn thay đổi máy tính hoặc thay đổi khóa SSH, nhớ cập nhật lại khóa công khai trên máy chủ.
+
+
+
