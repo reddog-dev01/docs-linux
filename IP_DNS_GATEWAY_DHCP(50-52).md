@@ -1,3 +1,89 @@
+### **Subnet Mask**
+
+**Subnet Mask** là một chuỗi số được sử dụng trong các mạng IP để xác định phạm vi của mạng con và giúp phân biệt giữa phần **Network (mạng)** và phần **Host (thiết bị)** của một địa chỉ IP. Subnet mask có vai trò quan trọng trong việc xác định có bao nhiêu thiết bị có thể tồn tại trong một mạng con và cách mà các địa chỉ IP được phân chia.
+
+#### Cấu trúc của Subnet Mask
+
+Một **Subnet Mask** có cùng độ dài với một **địa chỉ IP** (32 bit đối với IPv4), và nó gồm hai phần:
+
+1. **Phần mạng (Network)**: Các bit `1` trong subnet mask xác định phần mạng, tức là các bit của địa chỉ IP mà tất cả các thiết bị trong cùng một mạng con phải giống nhau.
+2. **Phần host**: Các bit `0` trong subnet mask xác định phần host, tức là các bit của địa chỉ IP mà mỗi thiết bị trong mạng con có thể có giá trị khác nhau.
+
+#### Ví dụ về Subnet Mask
+
+1. **Subnet Mask 255.255.255.0**
+   - Địa chỉ IP: `192.168.1.1`
+   - Subnet Mask: `255.255.255.0`
+   
+   Địa chỉ `255.255.255.0` có nghĩa là 24 bit đầu tiên là phần **Network** và 8 bit còn lại là phần **Host**. Điều này có nghĩa là:
+   - Mạng: `192.168.1.0/24`
+   - Các địa chỉ IP trong mạng này có thể từ `192.168.1.1` đến `192.168.1.254`, vì phần host có 8 bit có thể thay đổi (2^8 - 2 = 254 host).
+
+2. **Subnet Mask 255.255.0.0**
+   - Địa chỉ IP: `172.16.0.1`
+   - Subnet Mask: `255.255.0.0`
+   
+   Subnet mask `255.255.0.0` có nghĩa là 16 bit đầu tiên là phần **Network** và 16 bit còn lại là phần **Host**. Mạng này có thể chứa nhiều thiết bị hơn.
+   - Mạng: `172.16.0.0/16`
+   - Các địa chỉ IP trong mạng này có thể từ `172.16.0.1` đến `172.16.255.254`, với khả năng có 65,534 host (2^16 - 2).
+
+#### Định dạng của Subnet Mask trong Địa Chỉ IP
+
+Thông thường, subnet mask được viết dưới dạng **dấu chấm phân cách** (dotted-decimal), tương tự như địa chỉ IP. Các số trong subnet mask có thể là:
+
+- **255.0.0.0**: Tương đương với **/8** (8 bit đầu tiên cho mạng)
+- **255.255.0.0**: Tương đương với **/16** (16 bit đầu tiên cho mạng)
+- **255.255.255.0**: Tương đương với **/24** (24 bit đầu tiên cho mạng)
+- **255.255.255.255**: Tương đương với **/32** (mạng chỉ có 1 địa chỉ IP duy nhất)
+
+#### Cách tính Subnet Mask
+
+Một số **Subnet Mask** thông dụng và cách viết dạng **CIDR** (Classless Inter-Domain Routing):
+
+- **/8**: Subnet mask `255.0.0.0`
+- **/16**: Subnet mask `255.255.0.0`
+- **/24**: Subnet mask `255.255.255.0`
+- **/32**: Subnet mask `255.255.255.255`
+
+Mỗi số sau dấu gạch chéo (/) cho biết số bit đầu tiên được dùng để chỉ mạng (network bits).
+
+#### Cách hoạt động của Subnet Mask
+
+Subnet mask giúp phân tách phần mạng và phần host của địa chỉ IP. Ví dụ, với một địa chỉ IP `192.168.1.10` và subnet mask `255.255.255.0`:
+
+1. Địa chỉ IP dưới dạng nhị phân:
+   - `192.168.1.10` = `11000000.10101000.00000001.00001010`
+
+2. Subnet Mask dưới dạng nhị phân:
+   - `255.255.255.0` = `11111111.11111111.11111111.00000000`
+
+Khi áp dụng phép AND giữa địa chỉ IP và subnet mask, bạn sẽ có phần **mạng**:
+
+- **Mạng**: `192.168.1.0`
+
+Phần còn lại là phần **host** của địa chỉ:
+
+- **Host**: `0.0.0.10` (tức là thiết bị có địa chỉ IP là `192.168.1.10`)
+
+#### Ví dụ về cách sử dụng Subnet Mask
+
+1. **Mạng con 255.255.255.0** (`/24`):
+   - Mạng: `192.168.1.0/24`
+   - Các IP có thể từ `192.168.1.1` đến `192.168.1.254` (254 host)
+   
+2. **Mạng con 255.255.0.0** (`/16`):
+   - Mạng: `172.16.0.0/16`
+   - Các IP có thể từ `172.16.0.1` đến `172.16.255.254` (65,534 host)
+   
+3. **Mạng con 255.255.255.0** (`/24`):
+   - Mạng: `10.0.0.0/24`
+   - Các IP có thể từ `10.0.0.1` đến `10.0.0.254` (254 host)
+
+
+
+--------------------------------------------------------------------------------
+
+
 ### **1. Set static IP, DNS, GATEWAY**
 
 #### **1.1 IP**
