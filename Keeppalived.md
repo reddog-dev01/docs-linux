@@ -97,11 +97,19 @@ Keepalived chủ yếu sử dụng tệp cấu hình **/etc/keepalived/keepalive
 
 ##### **Cấu Hình VRRP (Virtual Router Redundancy Protocol)**
 
-**VRRP** cho phép nhiều router cùng chia sẻ một địa chỉ IP ảo (VIP). Nếu máy chủ chính gặp sự cố, máy chủ dự phòng sẽ tiếp nhận và duy trì VIP, giúp dịch vụ không bị gián đoạn.
+Để cấu hình **VRRP (Virtual Router Redundancy Protocol)** trong **Keepalived** trên Ubuntu, bạn sẽ thực hiện theo các bước sau. **VRRP** giúp bạn thiết lập một hệ thống router dự phòng, trong đó các router chia sẻ một địa chỉ IP ảo (VIP). Nếu một router chính gặp sự cố, router phụ sẽ thay thế và tiếp tục cung cấp dịch vụ mà không làm gián đoạn kết nối.
 
-###### **Cấu Hình Keepalived trên Máy Chủ Master**
+###### 1. **Cài Đặt Keepalived**
+Trước tiên, bạn cần cài đặt **Keepalived** trên cả máy chủ chính và máy chủ phụ.
 
-Đây là máy chủ sẽ có địa chỉ IP ảo (VIP) khi hệ thống hoạt động bình thường.
+```bash
+sudo apt update
+sudo apt install keepalived
+```
+
+###### A. **Cấu Hình Keepalived với VRRP**
+
+**Cấu Hình VRRP trên Máy Chủ Chính (Master)**
 
 1. Mở tệp cấu hình Keepalived:
 
@@ -109,95 +117,57 @@ Keepalived chủ yếu sử dụng tệp cấu hình **/etc/keepalived/keepalive
 sudo nano /etc/keepalived/keepalived.conf
 ```
 
-2. Cấu hình VRRP cho máy chủ Master:
+2. Thêm cấu hình sau vào tệp để cấu hình VRRP cho máy chủ chính:
 
 ```bash
 vrrp_instance VI_1 {
-    state MASTER                  # Trạng thái MASTER cho máy chủ chính
-    interface eth0                # Giao diện mạng mà VIP sẽ được gán (thay eth0 nếu cần)
-    virtual_router_id 51          # ID của Virtual Router (phải giống trên tất cả các máy chủ)
-    priority 101                  # Mức độ ưu tiên (máy chủ có priority cao hơn sẽ là Master)
-    advert_int 1                  # Thời gian quảng bá trạng thái của router (đơn vị giây)
+    state MASTER                      # Trạng thái MASTER cho máy chủ chính
+    interface eth0                    # Giao diện mạng mà VIP sẽ được gán (thay eth0 nếu cần)
+    virtual_router_id 51              # ID của Virtual Router (phải giống trên máy chủ Backup)
+    priority 101                      # Mức độ ưu tiên (máy chủ có priority cao hơn sẽ là MASTER)
+    advert_int 1                      # Thời gian quảng bá trạng thái của router (đơn vị giây)
     virtual_ipaddress {
-        192.168.1.100             # Địa chỉ IP ảo (VIP)
+        192.168.1.100                 # Địa chỉ IP ảo (VIP)
     }
     authentication {
-        auth_type PASS            # Loại xác thực (có thể là PASS hoặc AH)
-        auth_pass 1234            # Mật khẩu xác thực (phải giống trên máy chủ Backup)
+        auth_type PASS                # Loại xác thực (có thể là PASS hoặc AH)
+        auth_pass 1234                # Mật khẩu xác thực (phải giống trên máy chủ Backup)
     }
 }
 ```
 
-###### **Cấu Hình Keepalived trên Máy Chủ Backup**
+**Cấu Hình VRRP trên Máy Chủ Dự Phòng (Backup)**
 
-Máy chủ Backup sẽ lấy VIP nếu máy chủ Master gặp sự cố.
-
-1. Mở tệp cấu hình Keepalived:
+1. Mở tệp cấu hình Keepalived trên máy chủ Backup:
 
 ```bash
 sudo nano /etc/keepalived/keepalived.conf
 ```
 
-2. Cấu hình VRRP cho máy chủ Backup:
+2. Thêm cấu hình sau vào tệp để cấu hình VRRP cho máy chủ Backup:
 
 ```bash
 vrrp_instance VI_1 {
-    state BACKUP                 # Trạng thái BACKUP cho máy chủ dự phòng
-    interface eth0               # Giao diện mạng mà VIP sẽ được gán (thay eth0 nếu cần)
-    virtual_router_id 51         # ID của Virtual Router (phải giống trên máy chủ Master)
-    priority 90                  # Mức độ ưu tiên thấp hơn máy chủ chính
-    advert_int 1                 # Thời gian quảng bá trạng thái của router (đơn vị giây)
+    state BACKUP                     # Trạng thái BACKUP cho máy chủ dự phòng
+    interface eth0                   # Giao diện mạng mà VIP sẽ được gán (thay eth0 nếu cần)
+    virtual_router_id 51             # ID của Virtual Router (phải giống trên máy chủ Master)
+    priority 90                      # Mức độ ưu tiên thấp hơn máy chủ chính
+    advert_int 1                     # Thời gian quảng bá trạng thái của router (đơn vị giây)
     virtual_ipaddress {
-        192.168.1.100            # Địa chỉ IP ảo (VIP)
+        192.168.1.100                # Địa chỉ IP ảo (VIP)
     }
     authentication {
-        auth_type PASS           # Loại xác thực (phải giống trên máy chủ Master)
-        auth_pass 1234           # Mật khẩu xác thực (phải giống trên máy chủ Master)
+        auth_type PASS               # Loại xác thực (phải giống trên máy chủ Master)
+        auth_pass 1234               # Mật khẩu xác thực (phải giống trên máy chủ Master)
     }
 }
 ```
 
-#### 3. **Cấu Hình Health Check cho Load Balancing (Optional)**
+###### 3. **Khởi Động Dịch Vụ Keepalived**
 
-Nếu bạn muốn thực hiện **Load Balancing** và kiểm tra sức khỏe của các máy chủ thực, bạn cần cấu hình thêm phần này.
+Sau khi cấu hình xong, bạn cần khởi động lại dịch vụ **Keepalived** trên cả hai máy chủ:
 
-Ví dụ, cấu hình để sử dụng **HTTP Health Checks**:
-
-```bash
-virtual_server 192.168.1.100 80 {
-    delay_loop 6                # Thời gian chờ giữa các lần kiểm tra
-    lb_algo rr                  # Thuật toán cân bằng tải (Round Robin)
-    lb_kind NAT                 # Loại cân bằng tải (NAT)
-    persistence_timeout 50      # Thời gian duy trì phiên làm việc cho client
-    protocol TCP                # Giao thức (TCP hoặc UDP)
-
-    real_server 192.168.1.101 80 {
-        weight 1                 # Trọng số của máy chủ thực
-        HTTP_GET {
-            url {
-                path /health_check
-                digest 123456    # Kiểm tra sức khỏe qua mã băm
-            }
-        }
-    }
-
-    real_server 192.168.1.102 80 {
-        weight 1
-        HTTP_GET {
-            url {
-                path /health_check
-                digest 654321
-            }
-        }
-    }
-}
-```
-
-#### 4. **Khởi Động Dịch Vụ Keepalived**
-
-Sau khi đã cấu hình xong **keepalived.conf**, bạn cần khởi động lại dịch vụ **Keepalived** trên các máy chủ.
-
-- **Khởi động Keepalived**:
+- **Khởi động dịch vụ Keepalived**:
 
 ```bash
 sudo systemctl start keepalived
@@ -209,33 +179,218 @@ sudo systemctl start keepalived
 sudo systemctl enable keepalived
 ```
 
-- **Kiểm tra trạng thái Keepalived**:
+- **Kiểm tra trạng thái dịch vụ Keepalived**:
 
 ```bash
 sudo systemctl status keepalived
 ```
 
-#### 5. **Kiểm Tra Tính Năng Failover và Load Balancing**
+###### 4. **Kiểm Tra VRRP và Tính Năng Failover**
 
-- **Kiểm tra Failover**: Bạn có thể tắt máy chủ **Master** và kiểm tra xem liệu máy chủ **Backup** có tự động tiếp nhận VIP và trở thành máy chủ chính hay không.
+**Kiểm Tra VIP**
 
-  - **Tắt máy chủ Master**: Bạn có thể tắt dịch vụ Keepalived hoặc ngắt kết nối mạng trên máy chủ Master.
-  - **Kiểm tra máy chủ Backup**: Xác nhận rằng máy chủ Backup đã trở thành Master và tiếp nhận VIP.
+1. **Kiểm tra trên máy chủ Master**: Bạn có thể kiểm tra nếu địa chỉ VIP (ví dụ: `192.168.1.100`) đã được gán cho máy chủ Master.
 
-- **Kiểm tra Load Balancing**: Bạn có thể gửi yêu cầu đến VIP và kiểm tra xem các máy chủ thực có nhận yêu cầu phân phối đều hay không.
+```bash
+ip a show eth0
+```
 
-#### 6. **Xem Log để Kiểm Tra Tình Trạng**
+2. **Kiểm tra trên máy chủ Backup**: Nếu máy chủ Master bị tắt, máy chủ Backup sẽ tiếp nhận VIP.
 
-Nếu có bất kỳ vấn đề nào xảy ra trong quá trình cấu hình, bạn có thể xem log của Keepalived để kiểm tra.
+```bash
+ip a show eth0
+```
+
+**Kiểm Tra Failover**
+
+1. **Tắt dịch vụ Keepalived trên máy chủ Master**:
+
+```bash
+sudo systemctl stop keepalived
+```
+
+2. **Kiểm tra trên máy chủ Backup**: Máy chủ Backup sẽ tự động tiếp nhận VIP và trở thành **MASTER**.
+
+3. **Bật lại dịch vụ Keepalived trên máy chủ Master**:
+
+```bash
+sudo systemctl start keepalived
+```
+
+###### 5. **Xem Log và Kiểm Tra Lỗi**
+
+Nếu có vấn đề xảy ra, bạn có thể xem log của Keepalived để xác định lỗi.
 
 ```bash
 sudo journalctl -u keepalived
 ```
 
-Hoặc xem log chi tiết trong tệp **/var/log/syslog**.
+Hoặc xem trong tệp log hệ thống:
 
 ```bash
 sudo tail -f /var/log/syslog
 ```
 
+###### 6. **Tùy Chỉnh Thêm Các Tùy Chọn**
 
+Bạn có thể thêm nhiều tùy chọn vào cấu hình VRRP tùy vào yêu cầu của hệ thống, chẳng hạn như:
+
+- **Track Interface**: Để theo dõi trạng thái của các giao diện mạng. Nếu giao diện mạng bị lỗi, Keepalived sẽ thay đổi trạng thái của router.
+  
+  ```bash
+  track_interface {
+      eth0
+  }
+  ```
+-------------------------------
+
+
+#### **B. Cấu hình Load Balancing**
+
+
+Cấu hình **Load Balancing** với **Keepalived** giúp phân phối tải đến các máy chủ backend một cách hiệu quả. Keepalived cung cấp khả năng cân bằng tải (load balancing) thông qua các thuật toán như **Round Robin**, **Weighted Round Robin**, và **Least Connections**. Dưới đây là hướng dẫn chi tiết về cách cấu hình **Load Balancing** trong **Keepalived**.
+
+##### 1. **Cài Đặt Keepalived**
+
+Trước tiên, hãy chắc chắn rằng **Keepalived** đã được cài đặt trên hệ thống của bạn:
+
+```bash
+sudo apt update
+sudo apt install keepalived
+```
+
+##### 2. **Cấu Hình Load Balancing với Keepalived**
+
+###### Cấu hình cơ bản cho Keepalived
+
+Giả sử bạn có một địa chỉ IP ảo (VIP) là `172.16.1.100` và bạn có 2 máy chủ backend (real servers) có địa chỉ IP lần lượt là `172.16.1.200` và `172.16.1.201`. Bạn muốn sử dụng **Keepalived** để cân bằng tải HTTP trên cổng `80`.
+
+**Cấu hình Keepalived (keepalived.conf)**:
+
+```bash
+vrrp_instance VI_1 {
+    state MASTER                          # Trạng thái MASTER cho máy chủ chính
+    interface ens33                        # Giao diện mạng
+    virtual_router_id 51                   # ID của Virtual Router (phải giống trên máy chủ BACKUP)
+    priority 101                           # Mức độ ưu tiên
+    advert_int 1                           # Thời gian quảng bá trạng thái của router
+    virtual_ipaddress {
+        172.16.1.100                       # Địa chỉ VIP (Virtual IP)
+    }
+    authentication {
+        auth_type PASS                     # Loại xác thực
+        auth_pass 1234                     # Mật khẩu xác thực
+    }
+
+    # Cấu hình Load Balancing
+    virtual_server 172.16.1.100 80 {
+        delay_loop 6                       # Thời gian kiểm tra sức khỏe giữa các lần (6 giây)
+        lb_algo rr                         # Thuật toán cân bằng tải (Round Robin)
+        lb_kind NAT                         # Loại cân bằng tải (NAT)
+        persistence_timeout 50             # Thời gian duy trì kết nối
+        protocol TCP                        # Giao thức kết nối
+
+        # Cấu hình các máy chủ backend (real servers)
+        real_server 172.16.1.200 80 {
+            weight 1                        # Trọng số cho máy chủ backend
+            HTTP_GET {
+                url {
+                    path /health_check     # Đường dẫn kiểm tra tình trạng sức khỏe
+                }
+                status_code 200           # Mã trạng thái HTTP hợp lệ khi máy chủ hoạt động bình thường
+                connect_timeout 10        # Thời gian chờ kết nối
+                nb_get_retry 3            # Số lần thử lại khi không nhận được phản hồi
+                delay_before_retry 3      # Thời gian delay trước khi thử lại
+            }
+        }
+
+        real_server 172.16.1.201 80 {
+            weight 1                        # Trọng số cho máy chủ backend
+            HTTP_GET {
+                url {
+                    path /health_check     # Đường dẫn kiểm tra tình trạng sức khỏe
+                }
+                status_code 200           # Mã trạng thái HTTP hợp lệ khi máy chủ hoạt động bình thường
+                connect_timeout 10        # Thời gian chờ kết nối
+                nb_get_retry 3            # Số lần thử lại khi không nhận được phản hồi
+                delay_before_retry 3      # Thời gian delay trước khi thử lại
+            }
+        }
+    }
+}
+```
+
+##### 3. **Giải Thích Cấu Hình:**
+
+- **`virtual_server 172.16.1.100 80`**:
+  - Đây là địa chỉ IP ảo (VIP) mà các client sẽ kết nối vào (trong trường hợp này là `172.16.1.100`).
+  - Cổng `80` là cổng mà dịch vụ web (HTTP) đang chạy.
+
+- **`lb_algo rr`**:
+  - Thuật toán cân bằng tải **Round Robin** (RR): Các yêu cầu sẽ được phân phối đều giữa các máy chủ backend theo vòng tròn.
+
+- **`lb_kind NAT`**:
+  - Sử dụng NAT (Network Address Translation) để điều hướng lưu lượng đến các máy chủ backend.
+
+- **`persistence_timeout 50`**:
+  - Thiết lập thời gian lưu kết nối (session persistence) trong 50 giây.
+
+- **`real_server 172.16.1.200 80`**:
+  - Cấu hình cho máy chủ backend đầu tiên (IP là `172.16.1.200` và cổng là `80`).
+  - `weight 1`: Trọng số của máy chủ này. Các máy chủ có trọng số cao sẽ nhận được nhiều yêu cầu hơn.
+
+- **`HTTP_GET`**:
+  - **Health Check** cho máy chủ backend. Keepalived sẽ gửi một yêu cầu HTTP GET đến đường dẫn `/health_check` để kiểm tra tình trạng của máy chủ.
+  - **`status_code 200`**: Mã trạng thái HTTP hợp lệ khi máy chủ hoạt động bình thường.
+  - **`connect_timeout 10`**: Thời gian tối đa để kết nối với máy chủ backend.
+  - **`nb_get_retry 3`**: Số lần thử lại nếu không nhận được phản hồi từ máy chủ backend.
+
+##### 4. **Kiểm Tra Trạng Thái của Keepalived:**
+
+Sau khi cấu hình xong, bạn cần kiểm tra trạng thái của **Keepalived** để đảm bảo dịch vụ đang chạy.
+
+```bash
+sudo systemctl status keepalived
+```
+
+##### 5. **Kiểm Tra IP Ảo (VIP) trên Giao Diện Mạng:**
+
+Kiểm tra xem VIP đã được gán thành công trên giao diện mạng chưa:
+
+```bash
+ip a show ens33
+```
+
+Bạn sẽ thấy địa chỉ VIP (`172.16.1.100`) được gán vào giao diện mạng của máy chủ.
+
+##### 6. **Kiểm Tra Cân Bằng Tải:**
+
+Sau khi Keepalived đã được cấu hình và chạy, bạn có thể kiểm tra hoạt động của load balancing bằng cách sử dụng **curl** hoặc **wget** từ một máy khác để gửi yêu cầu đến VIP và kiểm tra các phản hồi từ các máy chủ backend.
+
+```bash
+curl http://172.16.1.100/health_check
+```
+
+Các yêu cầu sẽ được phân phối qua các máy chủ backend (real servers) theo thuật toán **Round Robin**.
+
+##### 7. **Kiểm Tra Failover và Redundancy:**
+
+Nếu bạn muốn kiểm tra tính năng **failover**, bạn có thể tắt dịch vụ **Keepalived** trên máy chủ **Master**:
+
+```bash
+sudo systemctl stop keepalived
+```
+
+Sau khi dịch vụ trên máy chủ **Master** bị tắt, **Keepalived** sẽ chuyển VIP sang máy chủ **Backup**.
+
+- Kiểm tra lại VIP và khả năng truy cập.
+- Bật lại dịch vụ Keepalived trên máy chủ **Master** để xác nhận rằng VIP sẽ quay lại máy chủ **Master**.
+
+##### 8. **Tóm Tắt Các Tham Số Quan Trọng:**
+
+- **`virtual_server <VIP> <port>`**: Địa chỉ IP ảo và cổng dịch vụ cần cân bằng tải.
+- **`real_server <IP> <port>`**: Các máy chủ backend.
+- **`weight`**: Trọng số của các máy chủ backend.
+- **`HTTP_GET`**: Cấu hình kiểm tra tình trạng sức khỏe (health check) của các máy chủ backend.
+- **`lb_algo`**: Thuật toán cân bằng tải, ví dụ: `rr` (Round Robin), `wrr` (Weighted Round Robin), `lc` (Least Connections).
+- **`lb_kind`**: Loại cân bằng tải, ví dụ: `NAT`, `DR` (Direct Routing).
