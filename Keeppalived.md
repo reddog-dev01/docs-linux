@@ -373,6 +373,8 @@ curl http://172.16.1.100/health_check
 
 Các yêu cầu sẽ được phân phối qua các máy chủ backend (real servers) theo thuật toán **Round Robin**.
 
+**Lưu ý**: phải cài nginx
+
 ##### 7. **Kiểm Tra Failover và Redundancy:**
 
 Nếu bạn muốn kiểm tra tính năng **failover**, bạn có thể tắt dịch vụ **Keepalived** trên máy chủ **Master**:
