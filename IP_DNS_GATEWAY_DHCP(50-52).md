@@ -1,6 +1,8 @@
 ### **1. Set static IP, DNS, GATEWAY**
 
-#### **1.1 Các khái niệm**
+#### **1.1 IP**
+
+bổ sung IP private và IP public
 
 **a. DHCP**
 
