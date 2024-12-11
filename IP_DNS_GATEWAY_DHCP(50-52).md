@@ -125,6 +125,57 @@ Dưới đây là các dải địa chỉ IP được phân bổ cho **IP Privat
 
 ----------------------------------
 
+##### **IP Public**
+
+**IP Public** (địa chỉ IP công cộng) là một địa chỉ IP được cấp phát bởi nhà cung cấp dịch vụ Internet (ISP) và có thể được truy cập từ mọi nơi trên Internet. Đây là địa chỉ mà các thiết bị sử dụng để giao tiếp với các máy chủ, dịch vụ, và các thiết bị khác trên mạng Internet.
+
+Đặc điểm của **IP Public**:
+
+1. **Có thể truy cập từ bất kỳ đâu**: Địa chỉ IP công cộng có thể được truy cập từ bất kỳ thiết bị nào trên Internet. Điều này giúp cho các máy chủ web, dịch vụ lưu trữ đám mây, hoặc các dịch vụ trực tuyến có thể giao tiếp với người dùng từ xa.
+
+2. **Được cấp phát công khai**: IP công cộng được cấp phát bởi các tổ chức quản lý Internet như **IANA (Internet Assigned Numbers Authority)** và các nhà cung cấp dịch vụ Internet (ISP). Mỗi địa chỉ IP công cộng là duy nhất và không trùng lặp trên toàn bộ Internet.
+
+3. **Khác với IP Private**: Địa chỉ IP công cộng khác với địa chỉ **IP Private** (địa chỉ IP nội bộ), được sử dụng trong các mạng LAN và không thể được truy cập từ Internet. Địa chỉ IP private nằm trong các dải địa chỉ sau:
+   - **10.0.0.0 - 10.255.255.255**
+   - **172.16.0.0 - 172.31.255.255**
+   - **192.168.0.0 - 192.168.255.255**
+
+4. **Dùng cho các dịch vụ trực tuyến**: Các dịch vụ như **web hosting**, **email server**, **VPN**, **VoIP**, hoặc các dịch vụ trò chuyện trực tuyến cần có địa chỉ IP công cộng để người dùng từ bên ngoài có thể truy cập vào.
+
+**Cấu trúc và định dạng của IP Public:**
+
+IP công cộng có thể có dạng **IPv4** hoặc **IPv6**.
+
+**1. IPv4 Public IP**:
+- Địa chỉ IPv4 công cộng có dạng: `x.x.x.x`, trong đó mỗi `x` là một số từ 0 đến 255.
+- Ví dụ: `8.8.8.8` (Google DNS), `203.0.113.5`.
+
+**2. IPv6 Public IP**:
+- Địa chỉ IPv6 công cộng dài hơn, có dạng: `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`.
+- Ví dụ: `2001:0db8:85a3:0000:0000:8a2e:0370:7334`.
+
+**Cách để xác định IP Public của bạn**:
+Nếu bạn muốn biết **IP Public** của thiết bị (như router hoặc máy chủ), bạn có thể vào các trang web sau để kiểm tra:
+- [WhatIsMyIP](https://www.whatismyip.com/)
+- [IPinfo](https://ipinfo.io/)
+- [WhatIsMyIPaddress](https://whatismyipaddress.com/)
+
+**Ví dụ về sử dụng IP Public**:
+- **Web server**: Khi bạn mở một trang web, bạn sẽ truy cập vào máy chủ web thông qua một **IP Public**. Ví dụ: một trang web có thể có địa chỉ IP công cộng `203.0.113.5`.
+- **SSH remote login**: Khi bạn kết nối từ xa đến một máy chủ thông qua **SSH**, bạn sẽ dùng địa chỉ IP công cộng của máy chủ đó.
+  
+**Tại sao IP Public quan trọng?**
+- **Truy cập từ xa**: Các dịch vụ yêu cầu truy cập từ xa qua Internet, chẳng hạn như web hosting, VPN, hoặc truy cập SSH, cần có một **IP Public**.
+- **Dịch vụ trực tuyến**: Các dịch vụ như email, game online, hoặc các ứng dụng IoT cũng cần IP Public để tương tác qua Internet.
+
+**Kết luận:**
+- **IP Public** là địa chỉ duy nhất trên Internet, có thể được truy cập từ bất kỳ nơi nào trên toàn cầu.
+- Đây là địa chỉ không thay đổi và thường được cấp phát bởi nhà cung cấp dịch vụ Internet (ISP).
+- Địa chỉ IP công cộng rất quan trọng cho các dịch vụ yêu cầu kết nối từ Internet, ví dụ như web hosting, VPN, hoặc các máy chủ dịch vụ.
+
+
+--------------------------------------------------------------
+
 
 **a. DHCP**
 
