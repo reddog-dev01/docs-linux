@@ -2,7 +2,43 @@
 
 #### **1.1 IP**
 
-bổ sung IP private và IP public
+##### **IP private**
+
+**IP Private** là địa chỉ IP được sử dụng trong **mạng nội bộ** (LAN - Local Area Network) và không thể truy cập trực tiếp từ internet. Những địa chỉ IP này nằm trong các dải địa chỉ được đặc biệt dành cho mạng riêng, không thể được định tuyến trên internet. Thông thường, **IP Private** được sử dụng trong các mạng gia đình, công ty, hoặc các mạng nội bộ khác để phân phối địa chỉ cho các thiết bị kết nối trong mạng đó.
+
+**Các dải địa chỉ IP Private:**
+
+Dưới đây là các dải địa chỉ IP được phân bổ cho **IP Private** theo chuẩn của **IETF (Internet Engineering Task Force)** trong **RFC 1918**:
+
+1. **Dải 10.0.0.0 - 10.255.255.255** (IP Private)
+   - Địa chỉ từ **10.0.0.0** đến **10.255.255.255**
+   - Subnet mask: **255.0.0.0**
+
+2. **Dải 172.16.0.0 - 172.31.255.255** (IP Private)
+   - Địa chỉ từ **172.16.0.0** đến **172.31.255.255**
+   - Subnet mask: **255.240.0.0**
+
+3. **Dải 192.168.0.0 - 192.168.255.255** (IP Private)
+   - Địa chỉ từ **192.168.0.0** đến **192.168.255.255**
+   - Subnet mask: **255.255.0.0**
+
+**Tại sao sử dụng IP Private?**
+- **Tiết kiệm địa chỉ IP**: Số lượng địa chỉ IPv4 có hạn, vì vậy sử dụng **IP Private** giúp tiết kiệm tài nguyên địa chỉ.
+- **Bảo mật**: Các địa chỉ **IP Private** không thể truy cập trực tiếp từ internet, giúp bảo vệ các thiết bị trong mạng nội bộ khỏi các cuộc tấn công từ bên ngoài.
+- **Sử dụng NAT (Network Address Translation)**: Để các thiết bị trong mạng sử dụng **IP Private** có thể truy cập internet, một hệ thống **NAT** sẽ chuyển đổi địa chỉ **IP Private** thành **IP Public** khi kết nối ra ngoài.
+
+**Cách hoạt động của IP Private:**
+1. **Mạng Nội Bộ**: Trong mạng gia đình hoặc công ty, mỗi thiết bị (máy tính, điện thoại, máy in, v.v.) sẽ được cấp một **IP Private** từ router hoặc máy chủ DHCP.
+2. **Địa chỉ IP Public**: Để các thiết bị trong mạng nội bộ có thể kết nối ra ngoài internet, **router** hoặc **gateway** sẽ sử dụng **NAT** (Network Address Translation) để chuyển đổi **IP Private** thành **IP Public** khi gửi yêu cầu internet.
+3. **Không thể truy cập từ ngoài**: Các thiết bị có **IP Private** không thể được truy cập trực tiếp từ internet. Nếu muốn truy cập một thiết bị trong mạng có **IP Private** từ bên ngoài, bạn cần sử dụng phương thức như **VPN**, **Port Forwarding**, hoặc **Reverse SSH**.
+
+**Ví dụ:**
+- **Máy tính tại nhà**: Trong mạng gia đình, router của bạn có thể cấp địa chỉ **IP Private** cho các thiết bị như máy tính, điện thoại. Ví dụ, một máy tính có thể có địa chỉ **192.168.1.10**, trong khi router của bạn có địa chỉ **192.168.1.1**.
+- **Máy chủ công ty**: Trong môi trường công ty, các máy chủ hoặc thiết bị mạng có thể sử dụng **IP Private** (ví dụ, **10.0.1.100** hoặc **192.168.0.20**) để giao tiếp với các thiết bị trong cùng mạng nội bộ.
+
+
+----------------------------------
+
 
 **a. DHCP**
 
