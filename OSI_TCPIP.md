@@ -84,7 +84,7 @@
 4. **USB (Universal Serial Bus)**:
    - Truyền dữ liệu giữa các thiết bị thông qua cáp vật lý.
 
----
+--------------------------
 
 
 ##### **Tầng 2 - Data Link Layer ( Tầng liên kết dữ liệu)**
@@ -231,6 +231,36 @@ Lớp Mạng là lớp thứ ba trong mô hình OSI, có vai trò quan trọng t
 
 5. **Kiểm soát lỗi:**
    - Phát hiện và xử lý lỗi trong các gói dữ liệu như lỗi định tuyến hoặc địa chỉ không hợp lệ.
+
+**Quy trình hoạt động**
+
+
+1. **Nhận Dữ Liệu từ Tầng Liên Kết Dữ Liệu**:  
+   - Tầng Mạng nhận khung (frame) từ Tầng Liên Kết Dữ Liệu, trong đó có dữ liệu gói (packet) được Tầng Mạng xử lý tiếp.
+   
+2. **Thêm Địa Chỉ IP (Logical Addressing)**:  
+   - Tầng Mạng thêm **địa chỉ IP nguồn** và **địa chỉ IP đích** vào gói dữ liệu. Địa chỉ IP của thiết bị nguồn và thiết bị đích sẽ được đặt vào phần Header của gói dữ liệu (Packet).
+   - Tầng này có thể xử lý các giao thức khác nhau như IPv4 và IPv6.
+
+3. **Xử Lý Định Tuyến (Routing)**:  
+   - Tầng Mạng sử dụng các thông tin về địa chỉ IP và **bảng định tuyến** (routing table) để xác định đường đi tốt nhất cho gói dữ liệu từ nguồn đến đích. 
+   - Nếu gói dữ liệu cần đi qua nhiều mạng, Tầng Mạng sẽ gửi gói đến router phù hợp (thường là router gần nhất), sau đó router tiếp theo sẽ tiếp tục xử lý.
+
+4. **Phân Mảnh Gói Dữ Liệu (Fragmentation)**:  
+   - Nếu kích thước của gói dữ liệu lớn hơn MTU (Maximum Transmission Unit) của một mạng, Tầng Mạng sẽ **phân mảnh** gói thành các phần nhỏ hơn để có thể truyền tải qua mạng đó. 
+   - Mỗi mảnh sẽ có thông tin về thứ tự để có thể được ghép lại ở phía nhận. Các phần nhỏ này sẽ được ghép lại ở đích sau khi truyền xong.
+6. **Xử Lý Địa Chỉ Đích và Đưa Dữ Liệu Đến Router Tiếp Theo**
+   - Tầng Mạng sẽ sử dụng địa chỉ IP đích để xác định router tiếp theo mà gói dữ liệu cần phải đi qua.   
+   - Nếu đích nằm trong cùng một mạng, gói sẽ được gửi trực tiếp đến đích.   
+   - Nếu đích nằm ngoài mạng hiện tại, gói sẽ được gửi đến router để tiếp tục quá trình định tuyến.
+
+7. **Truyền Dữ Liệu qua Mạng (Forwarding)**:  
+   - Sau khi gói dữ liệu được xử lý (định tuyến, phân mảnh nếu cần), Tầng Mạng gửi gói dữ liệu xuống Tầng Liên Kết Dữ Liệu của thiết bị tiếp theo (router hoặc thiết bị đích) để tiếp tục quá trình truyền tải.
+   - Mỗi thiết bị trên đường đi sẽ xử lý gói dữ liệu, kiểm tra địa chỉ và chuyển tiếp nó đến thiết bị tiếp theo.
+
+8. **Khi Đến Đích Cuối Cùng**:  
+   - Khi gói dữ liệu đến đích cuối cùng, Tầng Mạng sẽ giao gói cho Tầng Liên Kết Dữ Liệu của thiết bị đích. Sau đó, dữ liệu sẽ được chuyển tiếp lên Tầng Vận Chuyển (Transport Layer) để tiếp tục xử lý theo giao thức ứng dụng (ví dụ TCP, UDP).
+
 
 **Giao thức phổ biến của Lớp Mạng**
 1. **IP (Internet Protocol):**
