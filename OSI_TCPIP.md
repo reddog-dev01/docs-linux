@@ -804,24 +804,6 @@ Tóm tắt các chức năng chính của **Application Layer**:
 - **Giao tiếp người dùng cuối:** Là tầng mà người dùng tương tác trực tiếp thông qua các ứng dụng, làm điểm truy cập cho các tài nguyên và dịch vụ mạng.
 - **Hỗ trợ đa dạng các ứng dụng:** Từ duyệt web, email, truyền file, và truyền thông điện tử, tầng Ứng dụng hỗ trợ một loạt các ứng dụng khác nhau, giúp đáp ứng nhu cầu ngày càng cao của người dùng và doanh nghiệp.
 
-------------
-
-- Các giao thức trong tầng ứng dụng: HTTP, HTTPS, FTP, DNS, SSH, DHCP...
-
-a. Cung cấp các dịch vụ và giao diện cho người dùng hoặc các ứng dụng
-
-  - Chịu trách nhiệm trực tiếp xử lý các yêu cầu và phản hồi của người dùng. VD tải trang web, gửi email, truyền tải dữ liệu.
-  - Application Layer định nghĩa các giao thức ứng dụng để các ứng dụng có thể giao tiếp qua mạng.
-
-b. Quản lý các giao thức mạng
-
-  - Chứa các giao thức mạng cần thiết cho việc trao đổi thông tin giữa các thiết bị và ứng dụng trong mạng.
-  - Các giao thức này hoạt động như 1 cầu nối giữa các ứng dụng và tầng vận chuyển (TCP/UDP)
-
-c. Chuyển đổi dữ liệu giữa các ứng dụng
-
-  - Chuyển đổi dữ liệu giữa các ứng dụng người dùng và các tầng thấp hơn trong mô hình mạng
-  - Application Layer cũng có thể chuyển đổi định dạng dữ liệu, mã hóa, giải mã, nén và giải nén dữ liệu khi cần thiết.
 
 ------------------------------
 
@@ -831,23 +813,112 @@ c. Chuyển đổi dữ liệu giữa các ứng dụng
 
 Tầng Giao vận, hay còn gọi là Transport Layer, là lớp thứ tư trong mô hình TCP/IP, có nhiệm vụ quan trọng trong việc đảm bảo dữ liệu được truyền đi một cách tin cậy giữa các ứng dụng trên các thiết bị mạng. Tầng này cung cấp các dịch vụ kết nối từ điểm đến điểm, điều khiển lỗi, và quản lý luồng dữ liệu để giảm thiểu tình trạng mất mát và đảm bảo tính toàn vẹn của dữ liệu.
 
-**Chức năng chính của Tầng Giao vận**
-1. **Đa hóa kết nối (Multiplexing):**
-   - Cho phép nhiều ứng dụng trên một thiết bị sử dụng cùng một kết nối mạng mà không gây xung đột, bằng cách gán các cổng riêng biệt cho từng phiên ứng dụng.
+##### **Chức năng chính của Tầng Giao vận**
 
-2. **Điều khiển phiên (Session Control):**
-   - Quản lý phiên làm việc giữa các ứng dụng, đảm bảo rằng dữ liệu gửi đến là liên tục và đúng thứ tự.
+1. **Cung cấp giao thức truyền tải đáng tin cậy**
+   - **Transport Layer** chịu trách nhiệm bảo đảm rằng dữ liệu được truyền từ ứng dụng này đến ứng dụng khác một cách chính xác và đáng tin cậy. Điều này bao gồm việc kiểm tra lỗi, xác nhận và đảm bảo các gói tin không bị mất.
+   - Giao thức **TCP (Transmission Control Protocol)** là giao thức chính cung cấp tính năng này, đảm bảo rằng dữ liệu được gửi đến đúng thứ tự và không bị mất.
+   
+2. **Phân chia và tái hợp dữ liệu**
+   - Lớp Transport chịu trách nhiệm phân chia dữ liệu từ **Application Layer** thành các đơn vị nhỏ gọi là **segments** (đối với TCP) hoặc **datagrams** (đối với UDP). Các segment này sẽ được chuyển đến lớp **Network Layer**.
+   - Khi các segment được nhận từ lớp **Network Layer** ở máy đích, lớp **Transport Layer** sẽ tái hợp chúng lại thành dữ liệu gốc trước khi chuyển đến lớp **Application Layer**.
 
-3. **Kiểm soát lỗi (Error Control):**
-   - Sử dụng các kỹ thuật như kiểm tra checksum và báo cáo xác nhận để phát hiện và sửa lỗi trong quá trình truyền dữ liệu.
+3. **Quản lý kết nối và thiết lập (Connection Management)**
+   - **Transport Layer** quản lý việc thiết lập và ngắt kết nối giữa các ứng dụng trên các máy khác nhau. Nó đảm bảo rằng khi cần thiết, kết nối được thiết lập (ví dụ, qua TCP's three-way handshake) và khi không còn cần thiết nữa, kết nối sẽ được đóng lại.
+   - Với **TCP**, khi thiết lập kết nối, lớp này sử dụng quy trình **three-way handshake** để đảm bảo rằng cả hai bên sẵn sàng cho việc truyền tải dữ liệu. Khi hoàn thành, kết nối có thể được đóng qua **four-way handshake**.
 
-4. **Kiểm soát luồng (Flow Control):**
-   - Điều chỉnh tốc độ truyền dữ liệu giữa người gửi và người nhận để tránh làm quá tải bộ đệm của người nhận.
+4. **Điều khiển lưu lượng (Flow Control)**
+   - Lớp **Transport Layer** cung cấp cơ chế điều khiển lưu lượng để tránh tình trạng tắc nghẽn mạng. Điều này có nghĩa là lớp này có thể điều chỉnh tốc độ gửi dữ liệu giữa hai bên để tránh làm nghẽn hệ thống.
+   - **TCP** sử dụng cơ chế **windowing** (cửa sổ điều khiển) để quản lý tốc độ truyền tải dữ liệu, cho phép người gửi điều chỉnh số lượng dữ liệu có thể gửi đi trước khi nhận được xác nhận từ người nhận.
 
-5. **Kiểm soát tắc nghẽn (Congestion Control):**
-   - Giảm tốc độ truyền khi mạng bị tắc nghẽn để ngăn chặn mất dữ liệu và cải thiện hiệu suất mạng.
+5. **Điều khiển lỗi (Error Control)**
+   - **Transport Layer** cung cấp cơ chế kiểm tra lỗi để đảm bảo rằng dữ liệu được truyền đi không bị sai sót. Điều này bao gồm việc sử dụng các mã kiểm tra (checksum) để kiểm tra sự toàn vẹn của dữ liệu.
+   - Nếu một segment bị mất hoặc lỗi trong quá trình truyền tải, **TCP** sẽ yêu cầu gửi lại dữ liệu đó. Điều này không áp dụng cho **UDP**, vì UDP là một giao thức không tin cậy (connectionless) và không yêu cầu việc kiểm tra lỗi.
 
-**Giao thức phổ biến của Tầng Giao vận**
+6. **Định danh ứng dụng qua cổng (Port Identification)**
+   - Lớp Transport sử dụng cổng (ports) để phân biệt các ứng dụng khác nhau đang chạy trên một hệ thống. Mỗi ứng dụng sử dụng một **port number** cụ thể để giao tiếp với các ứng dụng trên các hệ thống khác. Ví dụ:
+     - **Port 80** cho HTTP.
+     - **Port 443** cho HTTPS.
+     - **Port 25** cho SMTP.
+   - Các port này giúp lớp Transport xác định và chuyển giao dữ liệu đúng đến ứng dụng nhận.
+
+7. **Giao thức có kết nối và không có kết nối**
+   - **Transport Layer** cung cấp cả giao thức có kết nối (connection-oriented) và không có kết nối (connectionless).
+     - **TCP** là giao thức có kết nối, nghĩa là nó thiết lập và duy trì một kết nối giữa các hệ thống trước khi truyền tải dữ liệu.
+     - **UDP (User Datagram Protocol)** là giao thức không có kết nối, nghĩa là nó gửi dữ liệu mà không thiết lập kết nối, phù hợp cho các ứng dụng cần tốc độ cao mà không yêu cầu độ tin cậy tuyệt đối (ví dụ, video streaming, game trực tuyến).
+
+8. **Quản lý phân phối dữ liệu (Multiplexing)**
+   - Transport Layer thực hiện **multiplexing**, cho phép nhiều ứng dụng trên cùng một hệ thống có thể sử dụng mạng đồng thời. Nó phân phối các segment (hoặc datagrams) đến đúng ứng dụng bằng cách sử dụng cổng mạng (port numbers).
+
+Tóm tắt các chức năng chính của **Transport Layer**:
+
+1. **Cung cấp dịch vụ truyền tải tin cậy** (cho TCP) hoặc không tin cậy (cho UDP).
+2. **Phân chia và tái hợp dữ liệu** giữa lớp ứng dụng và lớp mạng.
+3. **Quản lý kết nối** giữa các ứng dụng, thiết lập và ngắt kết nối.
+4. **Điều khiển lưu lượng** để tránh tắc nghẽn.
+5. **Điều khiển lỗi** để đảm bảo tính toàn vẹn của dữ liệu.
+6. **Định danh ứng dụng qua cổng** để phân biệt các ứng dụng khác nhau.
+7. **Hỗ trợ giao thức có kết nối (TCP) và không có kết nối (UDP)**.
+8. **Multiplexing** để nhiều ứng dụng có thể chia sẻ mạng cùng một lúc.
+
+
+##### **Quy trình hoạt động**
+
+
+1. **Nhận dữ liệu từ lớp ứng dụng (Application Layer)**
+   - Khi một ứng dụng (ví dụ: trình duyệt web, phần mềm email) muốn gửi dữ liệu, dữ liệu này sẽ được truyền từ lớp **Application Layer** đến lớp **Transport Layer**.
+   - Dữ liệu có thể là bất kỳ loại thông tin nào cần truyền tải, như một yêu cầu HTTP, email, tệp tin FTP, v.v.
+
+2. **Đóng gói dữ liệu vào các đơn vị truyền tải**
+   - **Transport Layer** sẽ đóng gói dữ liệu nhận được từ **Application Layer** thành các **segments** (hoặc **datagrams** nếu sử dụng UDP).
+     - **TCP** sẽ thêm các thông tin điều khiển như số hiệu seq (sequence number), ack (acknowledgment number), checksum, cổng nguồn và cổng đích, cửa sổ (window size) vào header của segment.
+     - **UDP** sẽ thêm các thông tin như cổng nguồn và cổng đích, chiều dài của datagram, và checksum vào header của datagram.
+
+3. **Chọn giao thức truyền tải (TCP hoặc UDP)**
+   - Lớp Transport sẽ quyết định sử dụng **TCP (Transmission Control Protocol)** hoặc **UDP (User Datagram Protocol)** dựa trên yêu cầu của ứng dụng:
+     - **TCP** là giao thức có kết nối, cung cấp các tính năng bảo mật, kiểm tra lỗi, điều khiển lưu lượng và đảm bảo dữ liệu được truyền chính xác.
+     - **UDP** là giao thức không có kết nối, nhanh hơn nhưng không đảm bảo tính toàn vẹn hoặc thứ tự của dữ liệu.
+
+4. **Chuyển dữ liệu xuống lớp mạng (Network Layer)**
+   - Sau khi dữ liệu đã được đóng gói vào các segment (hoặc datagrams), lớp **Transport Layer** sẽ chuyển các đơn vị này xuống lớp **Network Layer** (IP layer) để xử lý việc định tuyến và chuyển tiếp qua mạng.
+   - Lớp **Network Layer** sẽ đóng gói dữ liệu thành các **packets** và xác định đường đi của dữ liệu đến máy đích.
+
+5. **Thiết lập kết nối (cho TCP)**
+   - Nếu giao thức TCP được chọn, trước khi truyền dữ liệu, lớp **Transport Layer** sẽ thiết lập một kết nối giữa hai hệ thống thông qua quá trình **three-way handshake**:
+     1. **SYN**: Máy gửi gửi một gói tin SYN để yêu cầu thiết lập kết nối.
+     2. **SYN-ACK**: Máy nhận trả lời với một gói tin SYN-ACK, xác nhận rằng kết nối có thể thiết lập.
+     3. **ACK**: Máy gửi cuối cùng gửi một gói tin ACK để hoàn tất quá trình thiết lập kết nối.
+   - Sau khi kết nối được thiết lập, dữ liệu có thể bắt đầu được truyền.
+
+6. **Truyền dữ liệu (Data Transfer)**
+   - **TCP**: Khi kết nối đã được thiết lập, dữ liệu sẽ được chia thành các segment nhỏ hơn và truyền qua mạng. Mỗi segment sẽ có số hiệu chuỗi (sequence number) để đảm bảo các segment được ghép lại đúng thứ tự khi đến đích.
+   - **UDP**: Dữ liệu sẽ được gửi đi ngay lập tức mà không cần xác nhận, giúp tiết kiệm thời gian truyền tải nhưng không có đảm bảo về thứ tự hoặc độ tin cậy.
+
+7. **Điều khiển lưu lượng (Flow Control)**
+   - **TCP** sử dụng cơ chế **windowing** để điều khiển lưu lượng, điều này cho phép người gửi chỉ có thể gửi một số lượng dữ liệu xác định mà không cần chờ phản hồi từ người nhận.
+     - **TCP** điều chỉnh kích thước cửa sổ (window size) dựa trên khả năng xử lý của máy nhận và tránh tình trạng nghẽn mạng.
+     - Nếu quá nhiều dữ liệu được gửi mà không có phản hồi, sẽ dẫn đến tình trạng quá tải.
+
+8. **Điều khiển lỗi và xác nhận (Error Control and Acknowledgment)**
+   - **TCP** sử dụng **checksum** để kiểm tra lỗi trong quá trình truyền tải dữ liệu. Nếu một segment bị lỗi (dữ liệu bị thay đổi hoặc mất), máy nhận sẽ gửi yêu cầu gửi lại (retransmission).
+   - Mỗi khi một segment được nhận thành công, máy nhận sẽ gửi lại một gói tin **ACK** (Acknowledge), xác nhận rằng dữ liệu đã được nhận đúng.
+   - Nếu gói tin không được xác nhận trong một khoảng thời gian, máy gửi sẽ gửi lại gói tin đó.
+
+9. **Ngắt kết nối (Connection Termination)**
+   - Khi quá trình truyền tải dữ liệu hoàn tất, lớp **Transport Layer** sẽ thực hiện quá trình ngắt kết nối:
+     - **TCP** sử dụng quy trình **four-way handshake** để ngắt kết nối:
+       1. Máy gửi gửi một gói tin **FIN** yêu cầu đóng kết nối.
+       2. Máy nhận xác nhận với một gói tin **ACK**.
+       3. Máy nhận gửi một gói tin **FIN** cho biết nó cũng muốn ngắt kết nối.
+       4. Máy gửi cuối cùng gửi lại một gói tin **ACK** để xác nhận quá trình ngắt kết nối.
+   - Sau khi kết nối bị ngắt, không có dữ liệu nào sẽ được truyền.
+
+10. **Truyền dữ liệu đến lớp ứng dụng đích**
+   - Sau khi dữ liệu đã được truyền qua mạng và đến hệ thống đích, lớp **Transport Layer** trên máy đích sẽ xử lý và chuyển dữ liệu đến lớp **Application Layer** tương ứng.
+   - Dữ liệu này sẽ được tái hợp lại từ các segment (cho TCP) hoặc datagrams (cho UDP) và chuyển giao cho ứng dụng nhận.
+
+
+##### **Giao thức phổ biến của Tầng Giao vận**
 1. **TCP (Transmission Control Protocol):**
    - Giao thức định hướng kết nối, cung cấp dịch vụ truyền dữ liệu đáng tin cậy. TCP đảm bảo rằng mọi gói tin đều được gửi tới điểm đích một cách chính xác và theo đúng thứ tự.
 
@@ -859,57 +930,97 @@ Tầng Giao vận, hay còn gọi là Transport Layer, là lớp thứ tư trong
 - **Hỗ trợ đa dạng các ứng dụng:** Từ duyệt web, gửi email, chơi game đến truyền phát video, tầng Giao vận cung cấp các giao thức hỗ trợ cho nhiều loại hình ứng dụng trên Internet.
 
 
-----------
-
-- Chịu trách nhiệm về việc truyền tải dữ liệu giữa các thiết bị đầu cuối qua mạng.
-
-Chức năng chính của Transport Layer
-
-a. Chia nhỏ và tái hợp dữ liệu
-
-- Tầng vận chuyển chia dữ liệu từ ứng dụng thành các segments được đánh số thứ tự. Các segments này sau đó được truyền qua mạng và sẽ được tái hợp tại thiết bị nhận.
-
-b. Quản lý kết nối
-
-- Quyết định có nên tạo kết nối giữa các thiết bị hay không (VD TCP) và đảm bảo sự ổn định của kết nối trong suốt quá trình truyền tải.
-- Các giao thức trong transport layer hỗ trợ 2 phương thức kết nối chính: TCP và UDP
-
-c. Đảm bảo tính toàn vẹn của dữ liệu
-
-- Sử dụng checksum để kiểm tra tính toàn vẹn của dữ liệu
-
-d. Kiểm soát lưu lượng
-
-- Tránh tình trạng tắc nghẽn mạng
-
-e. Quản lý lỗi
-
-- TCP có khả năng phát hiện lỗi và y/c gửi lại dữ liệu nếu phát hiện lỗi
-- UDP không có
-
 --------------------------------------------------------
 
 
-**Tầng 2 - Internet Layer (Tầng Mạng)**
+#### **Tầng 2 - Internet Layer (Tầng Mạng)**
 
 **Tầng Internet (Internet Layer) trong Mô hình TCP/IP**
 
 Tầng Internet, còn được gọi là Network Layer trong một số tài liệu, là lớp thứ ba trong mô hình TCP/IP. Nó chịu trách nhiệm chính trong việc định tuyến gói tin qua các mạng khác nhau để đảm bảo chúng đến được đích cuối cùng. Lớp này giúp xác định lộ trình tốt nhất cho dữ liệu di chuyển qua mạng Internet phức tạp.
 
-**Chức năng chính của Tầng Internet**
-1. **Định tuyến (Routing):**
-   - Chọn lộ trình tối ưu cho gói tin từ nguồn đến đích, dựa trên thông tin định tuyến có sẵn và thuật toán định tuyến. Gói tin có thể đi qua nhiều mạng khác nhau để đến đích.
+##### **Chức năng chính của Tầng Internet**
 
-2. **Địa chỉ hóa logic:**
-   - Sử dụng địa chỉ IP để xác định mỗi thiết bị trên mạng. Địa chỉ này giúp xác định vị trí của nguồn và đích trên mạng rộng lớn.
 
-3. **Phân mảnh và tái lắp ráp gói tin:**
-   - Chia nhỏ gói tin lớn thành các phân đoạn nhỏ hơn nếu kích thước gói tin vượt quá Maximum Transmission Unit (MTU) của mạng mà chúng đi qua. Các phân đoạn này được tái lắp ráp khi đến nơi nhận.
+1. **Định tuyến (Routing)**
+   - **Internet Layer** chịu trách nhiệm chọn đường đi thích hợp cho dữ liệu để có thể di chuyển từ máy tính này đến máy tính khác qua các mạng khác nhau. 
+   - Các **router** (bộ định tuyến) sử dụng các bảng định tuyến để quyết định hướng đi của các gói tin dựa trên địa chỉ IP đích.
+   - **Internet Protocol (IP)** là giao thức chính trong lớp này, giúp định tuyến các gói tin từ nguồn đến đích qua các mạng khác nhau, bất kể mạng vật lý của chúng.
 
-4. **Xử lý lỗi và thông điệp điều khiển:**
-   - Sử dụng các giao thức như ICMP (Internet Control Message Protocol) để xử lý thông báo lỗi và cung cấp thông tin về tình trạng mạng, như thông báo lỗi truyền tải, thời gian sống của gói tin (TTL) đã hết, và các vấn đề khác.
+2. **Địa chỉ IP (IP Addressing)**
+   - **Internet Layer** sử dụng **địa chỉ IP** để xác định các thiết bị trên mạng. Địa chỉ IP là một địa chỉ duy nhất được cấp cho mỗi thiết bị kết nối với Internet hoặc mạng nội bộ.
+     - **IPv4** sử dụng địa chỉ 32 bit (ví dụ: `192.168.1.1`).
+     - **IPv6** sử dụng địa chỉ 128 bit (ví dụ: `2001:0db8:85a3:0000:0000:8a2e:0370:7334`).
+   - Địa chỉ IP được sử dụng để phân biệt các thiết bị và định tuyến các gói tin đến đúng nơi cần đến.
 
-**Giao thức phổ biến của Tầng Internet**
+3. **Đóng gói và phân mảnh dữ liệu (Packetizing and Fragmentation)**
+   - **Internet Layer** đóng gói dữ liệu nhận được từ lớp **Transport Layer** thành các **gói tin (packets)**, bao gồm thông tin về nguồn và đích (địa chỉ IP), cùng với dữ liệu thực tế.
+   - Nếu kích thước của một gói tin quá lớn để truyền qua mạng, lớp Internet sẽ **phân mảnh** gói tin thành các phần nhỏ hơn và gửi từng phần qua mạng. Mỗi phần sẽ có thông tin phân mảnh để giúp máy đích ghép lại dữ liệu chính xác.
+   
+4. **Xử lý lỗi (Error Handling)**
+   - Mặc dù **Internet Layer** không kiểm tra tính toàn vẹn dữ liệu như lớp **Transport Layer** (với các giao thức như TCP), nhưng IP vẫn sử dụng **checksum** để đảm bảo tính toàn vẹn của tiêu đề gói tin trong quá trình truyền tải.
+   - Nếu phát hiện lỗi trong tiêu đề của gói tin (như lỗi trong địa chỉ IP hoặc các thông tin điều khiển khác), gói tin sẽ bị loại bỏ và yêu cầu gửi lại sẽ không được thực hiện.
+
+5. **Chuyển tiếp gói tin (Packet Forwarding)**
+   - **Router** tại **Internet Layer** sẽ chuyển tiếp các gói tin đến máy đích qua các mạng trung gian. Quy trình này dựa trên địa chỉ IP đích và bảng định tuyến, giúp các gói tin đi qua nhiều router và các mạng khác nhau cho đến khi chúng đến đích cuối cùng.
+   - Quá trình chuyển tiếp gói tin này diễn ra nhanh chóng và hiệu quả, giúp dữ liệu được truyền tải qua mạng Internet.
+
+6. **Quản lý các giao thức mạng (Protocol Handling)**
+   - **Internet Layer** cũng hỗ trợ các giao thức mạng khác như **ICMP (Internet Control Message Protocol)** và **ARP (Address Resolution Protocol)**:
+     - **ICMP** là giao thức kiểm tra trạng thái mạng và giúp gửi các thông báo lỗi, chẳng hạn như thông báo khi một máy không thể truy cập được (ping và các thông báo lỗi).
+     - **ARP** là giao thức giúp ánh xạ địa chỉ IP thành địa chỉ MAC (địa chỉ phần cứng) trong một mạng LAN nội bộ.
+
+7. **Hỗ trợ cho việc kết nối mạng giữa các mạng (Internetworking)**
+   - **Internet Layer** cho phép kết nối các mạng với nhau, tạo thành một mạng rộng lớn như **Internet**. Điều này là nhờ vào việc sử dụng giao thức **IP**, cho phép các thiết bị trong các mạng khác nhau có thể giao tiếp với nhau.
+   - Lớp này hoạt động như một cầu nối giữa các mạng LAN, MAN (Metropolitan Area Network) và WAN (Wide Area Network).
+
+
+##### **Quy trình hoạt động**
+
+
+1. **Nhận dữ liệu từ Transport Layer**
+   - Khi **Transport Layer** (như TCP hoặc UDP) chuẩn bị dữ liệu để gửi, lớp này đóng gói dữ liệu thành các đơn vị gọi là **segments** (với TCP) hoặc **datagrams** (với UDP).
+   - Dữ liệu này sau đó được chuyển đến lớp **Internet Layer** để tiếp tục xử lý và truyền tải qua mạng.
+
+2. **Đóng gói dữ liệu thành gói tin (Packet)**
+   - **Internet Layer** sẽ đóng gói dữ liệu từ lớp trên thành các **gói tin (packets)**, trong đó mỗi gói tin sẽ có:
+     - **Tiêu đề (Header)**: Bao gồm các thông tin quan trọng như địa chỉ IP nguồn và đích, thông tin phân mảnh (nếu cần), và thông tin điều khiển.
+     - **Dữ liệu (Payload)**: Là phần dữ liệu được truyền từ lớp trên (Transport Layer).
+   - **Địa chỉ IP**: Mỗi gói tin sẽ được gắn địa chỉ IP của máy gửi và máy nhận để có thể định tuyến gói tin qua các mạng.
+
+3. **Định tuyến gói tin (Routing)**
+   - Sau khi gói tin được đóng gói với địa chỉ IP, lớp **Internet Layer** sẽ quyết định đường đi của gói tin thông qua quá trình **định tuyến**. Quá trình này bao gồm việc lựa chọn các router trung gian và các mạng phù hợp để gói tin có thể tới đích.
+   - **Router** sẽ kiểm tra địa chỉ IP đích trong mỗi gói tin và sử dụng **bảng định tuyến** (routing table) để quyết định gói tin sẽ đi đâu tiếp theo.
+     - Các router giữa các mạng sẽ chuyển tiếp gói tin cho đến khi nó đến mạng đích.
+
+4. **Phân mảnh gói tin (Fragmentation)**
+   - Nếu gói tin quá lớn để truyền qua một mạng cụ thể, lớp **Internet Layer** sẽ thực hiện **phân mảnh** gói tin thành các phần nhỏ hơn để chúng có thể được truyền qua các mạng có kích thước MTU (Maximum Transmission Unit) nhỏ hơn.
+   - Mỗi mảnh sẽ có một **header riêng** chứa thông tin về gói tin gốc, giúp các mảnh này có thể được ghép lại đúng thứ tự khi đến đích.
+
+5. **Chuyển tiếp gói tin (Packet Forwarding)**
+   - Sau khi định tuyến, các **router** sẽ **chuyển tiếp** các gói tin qua các mạng trung gian cho đến khi gói tin đến được mạng đích.
+   - Quá trình này được gọi là **chuyển tiếp (forwarding)**, và các router sử dụng địa chỉ IP đích để xác định đường đi tiếp theo của gói tin.
+
+6. **Kiểm tra lỗi (Error Checking)**
+   - **Checksum** là một phần của tiêu đề gói tin để kiểm tra tính toàn vẹn của dữ liệu trong quá trình truyền tải.
+   - **Internet Layer** không có cơ chế sửa lỗi (như TCP có retransmission), nhưng nếu có lỗi trong tiêu đề gói tin (do nhiễu hoặc mất gói), gói tin sẽ bị loại bỏ và không được chuyển tiếp.
+
+7. **Nhận và xử lý gói tin tại đích**
+   - Khi gói tin đến được hệ thống đích (máy nhận), lớp **Internet Layer** trên máy đích sẽ kiểm tra tiêu đề gói tin để xác định xem nó có đích đến là máy của mình không.
+   - Nếu đúng, gói tin sẽ được chuyển lên **Transport Layer** để xử lý (ví dụ, chuyển đến TCP hoặc UDP, tùy vào giao thức đã chọn).
+   - Nếu địa chỉ IP đích không khớp, gói tin sẽ bị loại bỏ.
+
+8. **Ghép các mảnh lại (Reassembly)**
+   - Nếu gói tin đã bị phân mảnh trước khi truyền, khi đến máy đích, lớp **Internet Layer** sẽ thực hiện **ghép các mảnh lại** thành gói tin hoàn chỉnh.
+   - Sau khi các mảnh được ghép lại, gói tin sẽ được chuyển lên lớp **Transport Layer** để tiếp tục xử lý.
+
+9. **Truyền tải lên lớp Application Layer**
+   - Sau khi gói tin đã được xử lý xong ở lớp **Internet Layer** (bao gồm ghép các mảnh, kiểm tra lỗi, và xác nhận đích), dữ liệu sẽ được chuyển đến lớp **Transport Layer** hoặc **Application Layer** tùy vào quá trình xử lý.
+   - Lớp **Transport Layer** sẽ xác định liệu dữ liệu có cần phải được xác nhận (cho TCP) hay không và tiếp tục chuyển dữ liệu lên lớp **Application Layer** nơi ứng dụng thực sự sử dụng.
+
+
+
+##### **Giao thức phổ biến của Tầng Internet**
 1. **IP (Internet Protocol):**
    - Là giao thức chính tại tầng này, định dạng gói tin và định tuyến chúng trong mạng.
 
@@ -928,54 +1039,91 @@ Tầng Internet, còn được gọi là Network Layer trong một số tài li�
 - **Độc lập với phần cứng:** Các giao thức hoạt động ở tầng Internet tương thích với nhiều loại phần cứng và mạng, giúp Internet hoạt động liền mạch giữa các môi trường khác nhau.
 
 
--------------
-
- - Cung cấp phương thức định tuyến và chuyển tiếp dữ liệu giữa các thiết bị qua các mạng khác nhau.
-
-Chức năng
-
-a. Định tuyến dữ liệu (Routing)
-
-- Lớp mạng xác định đường đi (route) mà dữ liệu phải đi qua giữa các mạng. Các router trong Internet Layer sẽ quyết định đường đi tốt nhất cho dữ liệu. Đảm bảo dữ liệu có thể vượt qua nhiều mạng khác nhau, từ mạng nội bộ đén mạng công cộng.
-
-b. Addressing
-
-- Sử dụng các địa chỉ IP để xác định và phân biệt các thiết bị trong mạng. Mỗi thiết bị kết nối vào mạng sẽ có 1 địa chỉ IP duy nhất
-
-c. Phân mảnh và tái hợp dữ liệu (Fragmantation and Reassembly)
-
-- Dữ liệu có thể bị phân mảnh tròng quá trình truyền tải qua mạng. Nếu dữ liệu quá lớn để truyền qua 1 mạng với kích thước gói tin tối đa (MTU - Maximum Transmission Unit), lớp mạng sẽ phân dữ liệu thành các gói tin nhỏ hơn
-- Các gói tin này sau đó sẽ được tái hợp tại đích để thành dữ liệu đầy đủ.
-
-d. Truyền thông giữa các mạng.
-
-Các giao thức IP, ARP, ICMP, IGMP....
-
 ------------------------------
 
-**Tầng 1 - Link Layer (Tầng vật lý)**
+#### **Tầng 1 - Link Layer (Tầng vật lý)**
 
 **Tầng Liên kết (Link Layer) trong Mô hình TCP/IP**
 
 Tầng Liên kết, còn được gọi là Link Layer hoặc Network Interface Layer trong mô hình TCP/IP, là lớp thấp nhất và đóng vai trò cơ bản trong việc truyền thông dữ liệu trực tiếp giữa các thiết bị trên một mạng cục bộ. Lớp này xử lý các chi tiết về phần cứng và truyền thông vật lý, từ việc đóng gói dữ liệu vào các khung (frames) cho đến việc xử lý truyền nhận tín hiệu.
 
-**Chức năng chính của Tầng Liên kết**
-1. **Đóng khung (Framing):**
-   - Tầng này đóng gói dữ liệu từ tầng trên (Internet Layer) vào trong các khung, bao gồm cả địa chỉ vật lý và thông tin kiểm tra lỗi, để chuẩn bị truyền qua mạng.
+#### **Chức năng chính của Tầng Liên kết**
 
-2. **Địa chỉ vật lý (Physical Addressing):**
-   - Sử dụng địa chỉ MAC (Media Access Control) để xác định nguồn và đích của các khung dữ liệu trên một mạng cục bộ.
 
-3. **Kiểm soát truy cập môi trường (Media Access Control):**
-   - Quản lý việc truy cập vào môi trường truyền dẫn chung, đặc biệt là trong mạng nơi mà nhiều thiết bị cùng chia sẻ một kênh vật lý.
+1. **Đóng gói dữ liệu thành khung (Frame)**
+   - **Link Layer** đóng gói dữ liệu từ **Internet Layer** (gói tin IP) thành các **khung (frame)**. Khung bao gồm một tiêu đề và phần dữ liệu (payload). 
+   - Tiêu đề khung chứa thông tin cần thiết để định vị địa chỉ của các thiết bị trong mạng vật lý, như địa chỉ MAC của máy gửi và máy nhận.
+   
+2. **Địa chỉ hóa thiết bị (MAC Addressing)**
+   - **Link Layer** sử dụng **địa chỉ MAC (Media Access Control)** để xác định và định vị các thiết bị trong mạng vật lý. Mỗi thiết bị trên mạng (như máy tính, router, switch) đều có một địa chỉ MAC duy nhất gắn liền với phần cứng của nó.
+   - Địa chỉ MAC giúp các thiết bị trong một mạng LAN (Local Area Network) nhận diện và giao tiếp với nhau.
 
-4. **Phát hiện và xử lý lỗi (Error Detection and Handling):**
-   - Phát hiện lỗi xảy ra trong quá trình truyền dữ liệu (thường thông qua CRC - Cyclic Redundancy Check) và đôi khi sửa chữa các lỗi đó.
+3. **Quản lý truy cập vào môi trường truyền tải (Media Access Control)**
+   - **Link Layer** quản lý cách thức các thiết bị trên cùng một mạng có thể truy cập vào môi trường truyền tải vật lý (ví dụ, cáp đồng trục, cáp quang, sóng radio trong Wi-Fi).
+   - Các giao thức như **Ethernet** và **Wi-Fi** quyết định cách thức chia sẻ môi trường truyền tải này giữa các thiết bị, nhằm tránh xung đột dữ liệu (collision).
+     - Ví dụ: Giao thức **CSMA/CD** (Carrier Sense Multiple Access with Collision Detection) trong Ethernet giúp các thiết bị tránh việc truyền dữ liệu đồng thời trên cùng một kênh.
 
-5. **Phản hồi tình trạng (Status Reporting):**
-   - Báo cáo trạng thái của kết nối và truyền thông về cho tầng trên, bao gồm cả thông tin về lỗi và các vấn đề khác.
+4. **Chuyển tiếp khung (Frame Forwarding)**
+   - **Link Layer** chuyển tiếp các khung dữ liệu từ một thiết bị này đến thiết bị khác trong mạng nội bộ hoặc giữa các mạng vật lý. Khi một khung được nhận, nó sẽ được kiểm tra và chuyển tiếp nếu cần thiết đến đúng địa chỉ MAC đích.
 
-**Giao thức phổ biến của Tầng Liên kết**
+5. **Kiểm tra lỗi và phát hiện lỗi (Error Detection)**
+   - **Link Layer** sử dụng **checksum** hoặc **CRC (Cyclic Redundancy Check)** để kiểm tra tính toàn vẹn của dữ liệu trong khung. Nếu có lỗi trong quá trình truyền (do nhiễu, lỗi vật lý, v.v.), khung có thể bị loại bỏ hoặc yêu cầu gửi lại.
+   - Các phương pháp này giúp đảm bảo rằng dữ liệu truyền qua các mạng vật lý không bị lỗi hoặc thay đổi.
+
+6. **Chuyển mạch (Switching)**
+   - **Link Layer** trong các thiết bị như **switches** có thể thực hiện chức năng chuyển mạch, giúp các gói dữ liệu được gửi từ thiết bị nguồn đến thiết bị đích trong cùng một mạng LAN.
+   - Các switch sử dụng **địa chỉ MAC** để định tuyến các khung tới đúng cổng của thiết bị đích.
+
+7. **Tạo giao tiếp trong mạng nội bộ (Local Area Network - LAN)**
+   - **Link Layer** là lớp kết nối trực tiếp các thiết bị trong mạng LAN, cho phép các thiết bị như máy tính, máy in, hoặc các router giao tiếp với nhau thông qua các phương tiện vật lý (cáp mạng, sóng Wi-Fi, v.v.).
+
+
+#### **Quy trình hoạt động**
+
+
+1. **Nhận dữ liệu từ lớp Internet Layer**
+   - **Link Layer** nhận dữ liệu từ **Internet Layer** (lớp trước đó trong mô hình TCP/IP). Dữ liệu này đến dưới dạng **gói tin (packet)** có chứa các thông tin như địa chỉ IP nguồn và đích.
+   - Mỗi gói tin IP từ lớp Internet Layer sẽ được **Link Layer** đóng gói lại thành một **khung (frame)**. Khung này có thêm các thông tin cần thiết để truyền tải qua môi trường vật lý, chẳng hạn như địa chỉ MAC của thiết bị nguồn và đích.
+
+2. **Đóng gói dữ liệu thành khung (Frame)**
+   - **Link Layer** đóng gói dữ liệu từ lớp Internet Layer vào một khung (frame). Khung bao gồm hai phần chính:
+     - **Tiêu đề khung (Frame Header)**: Chứa các thông tin cần thiết cho việc truyền tải trong mạng vật lý, bao gồm:
+       - Địa chỉ **MAC nguồn**: Địa chỉ MAC của thiết bị gửi.
+       - Địa chỉ **MAC đích**: Địa chỉ MAC của thiết bị nhận.
+       - Các thông tin điều khiển, như loại khung (trong trường hợp Ethernet, loại này có thể là "EtherType").
+     - **Dữ liệu (Payload)**: Là dữ liệu thực tế từ lớp trên (dữ liệu gói tin của lớp Internet Layer).
+     - **Cuối khung (Frame Trailer)**: Chứa thông tin kiểm tra lỗi (thường là **CRC** hoặc **checksum**) để đảm bảo tính toàn vẹn của dữ liệu trong khung.
+
+3. **Quản lý truy cập vào môi trường truyền tải (Media Access Control)**
+   - **Link Layer** xác định cách thức thiết bị có thể truy cập vào môi trường truyền tải vật lý mà không gây xung đột (collision) khi nhiều thiết bị cùng truyền tải dữ liệu. Đây là bước quan trọng trong việc duy trì hiệu quả trong mạng.
+   - **Giao thức MAC** (Media Access Control) quyết định cách thức truy cập vào mạng vật lý. Ví dụ:
+     - **Ethernet** sử dụng **CSMA/CD** (Carrier Sense Multiple Access with Collision Detection) để kiểm tra xem kênh truyền có bận không trước khi truyền.
+     - **Wi-Fi** sử dụng **CSMA/CA** (Collision Avoidance) để tránh xung đột trong môi trường không dây.
+   
+4. **Chuyển tiếp khung (Frame Forwarding)**
+   - Sau khi khung được đóng gói, **Link Layer** sẽ gửi khung tới thiết bị đích qua các phương tiện vật lý, như cáp mạng, sóng Wi-Fi, v.v.
+   - **Switches** hoặc các thiết bị tương tự sẽ chuyển tiếp các khung trong mạng LAN dựa trên địa chỉ **MAC đích**. Nếu thiết bị đích nằm trong cùng một mạng LAN, khung sẽ được chuyển trực tiếp đến thiết bị đó.
+   
+5. **Kiểm tra lỗi (Error Checking)**
+   - **Link Layer** sử dụng các phương pháp kiểm tra lỗi để xác định xem dữ liệu trong khung có bị lỗi trong quá trình truyền không. Phương pháp phổ biến là **CRC** (Cyclic Redundancy Check), một kỹ thuật phát hiện lỗi mạnh mẽ.
+   - Sau khi nhận khung, thiết bị đích sẽ kiểm tra giá trị CRC hoặc checksum trong phần trailer của khung. Nếu có lỗi, khung sẽ bị loại bỏ và yêu cầu truyền lại có thể được đưa ra (tùy thuộc vào giao thức).
+
+6. **Chuyển tiếp qua các thiết bị chuyển mạch (Switching)**
+   - Trong mạng LAN, các **switch** (bộ chuyển mạch) đóng vai trò quan trọng trong việc chuyển tiếp các khung giữa các thiết bị. Switch sử dụng **địa chỉ MAC** trong tiêu đề khung để xác định thiết bị đích và gửi khung đến cổng tương ứng.
+   - **Switches** xây dựng một bảng ánh xạ các địa chỉ MAC tới các cổng tương ứng. Khi nhận khung, switch tra bảng để xác định cổng ra cho khung.
+
+7. **Đến đích - Giải mã và gửi lên lớp trên**
+   - Khi khung đến thiết bị đích, **Link Layer** trên thiết bị này sẽ kiểm tra xem địa chỉ **MAC đích** có khớp với địa chỉ MAC của nó không.
+     - Nếu có, khung sẽ được **giải mã** và **chuyển lên lớp Internet Layer** để xử lý tiếp.
+     - Nếu không khớp, khung sẽ bị loại bỏ, vì đây là khung không dành cho thiết bị đó.
+
+8. **Phát hiện và xử lý phân mảnh (Fragmentation and Reassembly)**
+   - **Link Layer** có thể thực hiện phân mảnh dữ liệu trong trường hợp môi trường vật lý yêu cầu kích thước gói tin nhỏ hơn (ví dụ, MTU - Maximum Transmission Unit).
+   - **Link Layer** sẽ chia nhỏ các khung khi cần thiết (ở các giao thức như Ethernet hoặc PPP) và gửi chúng một cách độc lập. Sau đó, khi các mảnh đến đích, chúng sẽ được **ghép lại** thành một khung hoàn chỉnh.
+
+
+
+#### **Giao thức phổ biến của Tầng Liên kết**
 - **Ethernet (IEEE 802.3):**
    - Phổ biến nhất cho mạng LAN, quy định cách đóng khung dữ liệu và quản lý truy cập vào môi trường vật lý.
 - **Wi-Fi (IEEE 802.11):**
@@ -990,39 +1138,11 @@ Tầng Liên kết, còn được gọi là Link Layer hoặc Network Interface 
 - **Cung cấp cơ sở cho các lớp cao hơn:** Làm nền tảng cho tầng Internet để thực hiện định tuyến dữ liệu giữa các mạng khác nhau.
 - **Độc lập với phương tiện truyền dẫn:** Có thể hoạt động trên nhiều loại phương tiện truyền dẫn khác nhau, từ cáp đồng trục, cáp quang đến không gian không dây.
 
+------------------------------------------------
 
------------------------
+### **Phân biệt ý nghĩa, mối tương quan OSI và TCP/IP
 
-- Tương đương với Tầng Liên Kết Dữ Liệu (Data Link Layer) trong mô hình OSI.
 
-Chức năng
-
-a. Đóng gói dữ liệu thành frame
-
-- Dữ liệu được truyền từ Network Layer sẽ được đóng gói thành các frame trong Link Layer
-- frame chứa nhiều thành phần như địa chỉ MAC nguồn và đích, dữ liệu, thông tin kiểm tra lỗi (CRC)
-- frame giúp truyền dữ liệu qua mạng vật lý từ thiết bị này sang thiết bị khác.
-
-b. Địa chỉ MAC
-
-- Link Layer sử dụng địa chỉ MAC để xác định thiết bị trong mạng LAN. Các địa chỉ MAC giúp các thiết bị trong mạng LAN giao tiếp và xác định thiết bị đích khi gửi dữ liệu.
-
-c. Kiểm tra lỗi
-
-- Lớp này cung cấp cơ chế kiểm tra lỗi để đảm bảo rằng dữ liệu truyền qua mạng không bị hỏng. Các phương pháp phổ biến như CRC (Cyclic Redundancy Check) được sử dụng để kiểm tra tính toàn vẹn của dữ liệu.
-- Nếu phát hiện lỗi, các frame bị lỗi sẽ bị loại bỏ, và yêu cầu gửi lại có thể được đưa ra (tùy thuộc vào giao thức).
-
-d. Điều khiển truy cập phương tiện (Media Access Control - MAC)
-
-- Lớp Liên Kết Dữ Liệu kiểm soát việc các thiết bị trong mạng LAN truy cập phương tiện truyền dẫn (như cáp đồng, cáp quang, sóng vô tuyến) để tránh xung đột khi nhiều thiết bị truyền tải đồng thời.
-- Một số giao thức như CSMA/CD trong Ethernet hoặc CSMA/CA trong Wi-Fi được sử dụng để điều khiển quyền truy cập vào phương tiện.
-
-e. Quản lý luồng (Flow Control)
-
-- Kiểm soát tốc độ truyền tải dữ liệu giữa các thiết bị để tránh tình trạng tắc nghẽn hoặc mất mát dữ liệu.
-- Điều này đặc biệt quan trọng trong các mạng có băng thông hạn chế.
-
-Các giao thức....
 
 ------------------------
 
@@ -1031,20 +1151,52 @@ Các giao thức....
 
 UDP, viết tắt của User Datagram Protocol, là một trong những giao thức cơ bản trong bộ giao thức TCP/IP, hoạt động ở tầng Giao vận (Transport Layer). Đây là giao thức không định hướng kết nối, nghĩa là nó không thiết lập một kết nối ổn định trước khi truyền dữ liệu, và cũng không đảm bảo rằng dữ liệu gửi đi sẽ được nhận chính xác tại điểm đích. Do tính chất nhanh và hiệu quả của nó, UDP thường được sử dụng trong các ứng dụng đòi hỏi truyền dữ liệu thời gian thực như video, âm thanh trong cuộc gọi VoIP, trò chơi trực tuyến và nhiều hệ thống phát sóng trực tiếp.
 
-**Chức năng chính của UDP**
-1. **Truyền dữ liệu nhanh và hiệu quả:**
-   - UDP bỏ qua các bước thiết lập kết nối, kiểm soát luồng và sửa lỗi, cho phép dữ liệu được truyền nhanh chóng mà không cần chờ đợi xác nhận từ đầu nhận.
+#### **Chức năng chính của UDP**
 
-2. **Không đảm bảo truyền tin:**
-   - Không đảm bảo dữ liệu gửi đi sẽ đến được nơi nhận hay đến trong trạng thái nguyên vẹn. Dữ liệu có thể bị mất hoặc sai lệch mà không được phát hiện hoặc sửa chữa.
 
-3. **Không duy trì trạng thái:**
-   - UDP không duy trì trạng thái kết nối giữa các lần trao đổi thông tin, giúp giảm tải cho máy chủ vì không cần theo dõi trạng thái của các kết nối.
+1. **Truyền tải dữ liệu nhanh chóng (Unreliable Transmission)**
+   - UDP cung cấp cơ chế truyền tải dữ liệu nhanh mà không cần phải thiết lập kết nối trước giữa các hệ thống. Điều này làm giảm độ trễ và tiết kiệm tài nguyên, nhưng đồng thời cũng bỏ qua các kiểm tra độ tin cậy.
+   - Giao thức này không thực hiện các cơ chế như xác nhận (ACK), kiểm tra lỗi, hay truyền lại dữ liệu bị mất, nên nó thích hợp cho các ứng dụng yêu cầu truyền tải dữ liệu với tốc độ cao mà không quá quan trọng về độ tin cậy.
 
-4. **Đa hóa:**
-   - Sử dụng cổng để phân biệt các ứng dụng khác nhau trên cùng một máy, cho phép nhiều ứng dụng sử dụng UDP cùng một lúc.
+2. **Không có kết nối (Connectionless)**
+   - **UDP** là giao thức **không kết nối**. Điều này có nghĩa là không cần phải thiết lập kết nối giữa máy gửi và máy nhận trước khi truyền dữ liệu.
+   - Mỗi gói dữ liệu (datagram) được gửi một cách độc lập mà không có bất kỳ thông tin nào về các gói trước hoặc sau đó. Điều này làm cho UDP nhẹ và nhanh chóng, nhưng cũng có thể dẫn đến việc mất mát hoặc sai lệch thứ tự của các gói.
 
-**Giao thức và Ứng dụng sử dụng UDP**
+3. **Truyền tải dữ liệu trong các đơn vị gọi là datagram**
+   - Dữ liệu trong UDP được chia thành các đơn vị gọi là **datagram**, mỗi datagram chứa một **header** và **payload** (dữ liệu thực tế).
+   - Địa chỉ của datagram bao gồm địa chỉ IP của nguồn và đích, cùng với thông tin khác để xác định loại giao thức và kiểm tra lỗi.
+
+4. **Tính toán và kiểm tra lỗi (Checksum)**
+   - Mặc dù UDP không cung cấp cơ chế sửa lỗi, nó vẫn sử dụng **checksum** để kiểm tra tính toàn vẹn của dữ liệu trong mỗi datagram.
+   - **Checksum** giúp phát hiện các lỗi trong quá trình truyền tải dữ liệu (như lỗi bit do nhiễu). Tuy nhiên, UDP không có cơ chế tự động yêu cầu gửi lại dữ liệu nếu phát hiện lỗi (khác với TCP).
+
+5. **Quản lý địa chỉ và cổng (Port Management)**
+   - UDP sử dụng các **cổng** (ports) để phân biệt các ứng dụng khác nhau trên một thiết bị. Mỗi datagram UDP sẽ chứa thông tin về **cổng nguồn** và **cổng đích**.
+   - Điều này cho phép nhiều ứng dụng hoặc dịch vụ chạy đồng thời trên một thiết bị mà không bị xung đột với nhau. Ví dụ: cổng 53 cho DNS, cổng 67 cho DHCP, v.v.
+
+6. **Dữ liệu gửi một lần (Single Packet Delivery)**
+   - UDP gửi mỗi gói tin (datagram) một lần duy nhất. Nếu gói tin bị mất trong quá trình truyền tải (do lỗi mạng hoặc sự cố), nó sẽ không được tự động gửi lại. Điều này có nghĩa là không có cơ chế đảm bảo rằng mỗi datagram sẽ đến đích, và các gói tin có thể đến theo thứ tự khác nhau hoặc không đến được.
+
+7. **Tiết kiệm tài nguyên (Low Overhead)**
+   - UDP có **đầu phí thấp** vì nó không yêu cầu tạo lập kết nối, xác nhận dữ liệu, hay chia nhỏ các gói khi có lỗi. Điều này giúp tiết kiệm tài nguyên hệ thống và làm giảm độ trễ.
+   - Header của UDP rất nhỏ, chỉ 8 byte, giúp tiết kiệm băng thông khi truyền tải các gói nhỏ.
+
+8. **Thích hợp cho các ứng dụng yêu cầu tốc độ và độ trễ thấp**
+   - UDP thường được sử dụng trong các ứng dụng yêu cầu tốc độ truyền tải nhanh và độ trễ thấp, chẳng hạn như:
+     - **Streaming** (video, audio) trực tiếp: Như trong truyền hình trực tuyến hoặc các cuộc gọi VoIP.
+     - **Game trực tuyến**: Dữ liệu cần được truyền nhanh mà không cần quá nhiều xác nhận về độ tin cậy.
+     - **DNS** (Domain Name System): Câu truy vấn DNS và phản hồi của nó thường sử dụng UDP vì tốc độ quan trọng hơn độ tin cậy trong trường hợp này.
+     - **Truyền tải tệp nhỏ** trong các ứng dụng yêu cầu ít thao tác và độ trễ thấp.
+
+9. **Không đảm bảo thứ tự (Out-of-Order Delivery)**
+   - UDP không đảm bảo rằng các gói tin sẽ đến theo thứ tự mà chúng được gửi đi. Các datagram có thể đến đích không theo đúng thứ tự gửi (bởi vì mạng có thể thay đổi đường truyền).
+   - Đây là lý do tại sao UDP không phù hợp với các ứng dụng cần đảm bảo thứ tự các gói tin, như truyền tệp hoặc các giao thức yêu cầu sự chính xác tuyệt đối.
+
+10. **Tính mở rộng (Scalability)**
+   - UDP cho phép mở rộng quy mô rất tốt vì nó có ít cơ chế quản lý kết nối và kiểm tra lỗi hơn, giúp giảm tải cho các máy chủ hoặc các thiết bị mạng.
+   - Điều này làm UDP lý tưởng cho các ứng dụng cần phục vụ nhiều người dùng đồng thời, chẳng hạn như trong các dịch vụ trực tuyến hoặc giao thức truyền thông không có yêu cầu độ tin cậy cao.
+
+#### **Giao thức UDP**
 - **DNS (Domain Name System):**
    - Sử dụng UDP cho các truy vấn thông tin nhanh chóng về địa chỉ IP từ tên miền.
   
@@ -1057,26 +1209,54 @@ UDP, viết tắt của User Datagram Protocol, là một trong những giao th�
 - **VoIP (Voice over Internet Protocol) và truyền phát video:**
    - Các ứng dụng cần truyền tải dữ liệu âm thanh và video thời gian thực thường sử dụng UDP để giảm độ trễ.
 
-**Ưu và Nhược điểm của UDP**
-- **Ưu điểm:**
-   - **Tốc độ cao:** Việc không có cơ chế kiểm soát tạo điều kiện cho truyền tải dữ liệu nhanh chóng.
-   - **Đơn giản:** Cấu trúc gọn nhẹ, ít tốn tài nguyên hệ thống.
+#### **Cấu trúc của Datagram UDP**
+Một datagram UDP gồm các phần chính sau:
 
-- **Nhược điểm:**
-   - **Không đáng tin cậy:** Không có kiểm soát lỗi, không đảm bảo rằng dữ liệu gửi đi sẽ đến nơi nhận.
-   - **Thiếu kiểm soát luồng:** Dữ liệu có thể bị mất nếu phía nhận không kịp xử lý.
-  
+1. **Header (phần đầu)**:
+   - **Source Port** (Cổng nguồn): Xác định cổng của ứng dụng gửi.
+   - **Destination Port** (Cổng đích): Xác định cổng của ứng dụng nhận.
+   - **Length**: Độ dài của toàn bộ datagram UDP (header + dữ liệu).
+   - **Checksum**: Sử dụng để kiểm tra lỗi trong header và dữ liệu. Tuy nhiên, UDP không yêu cầu thiết bị nhận phải thực hiện kiểm tra lỗi hoặc yêu cầu tái gửi nếu phát hiện lỗi.
 
------------
+2. **Data (dữ liệu)**:
+   - Chứa dữ liệu mà ứng dụng gửi đi. Dữ liệu này có thể có bất kỳ kích thước nào và không cần phải được chia thành các gói nhỏ (miễn là không vượt quá kích thước tối đa của giao thức liên kết dưới lớp mạng).
 
-- Là giao thức truyền tải dữ liệu không kết nối. Hoạt động ở Transport Layer trong OSI. UDP cho phép truyền tải dữ liệu dưới dạng các gói (datagrams), không yêu cầu kết nối giữa các máy gửi và nhận. Không đảm bảo tính toàn vẹn của dữ liệu, không kiểm tra lỗi và không xác nhận việc nhận gói dữ liệu.
+#### **Cơ chế hoạt động của UDP**
+Khi một ứng dụng muốn gửi dữ liệu qua UDP, quy trình sẽ diễn ra như sau:
 
-**2. Cơ chế hoạt động của UDP:**  
-- **Không kết nối**: UDP không cần thiết lập kết nối trước khi truyền tải dữ liệu. Dữ liệu được gửi ngay lập tức dưới dạng các gói độc lập.
-- **Không đảm bảo thứ tự**: Các gói dữ liệu có thể đến theo một thứ tự khác với thứ tự ban đầu mà chúng được gửi đi.
-- **Không kiểm tra lỗi**: UDP không thực hiện kiểm tra lỗi hay xác nhận gói dữ liệu. Nếu có mất gói hoặc lỗi trong quá trình truyền tải, UDP không thực hiện các biện pháp để sửa chữa.
-- **Gửi gói độc lập**: Mỗi gói dữ liệu là một đơn vị độc lập, không có sự liên kết với các gói khác.
-- **Không đảm bảo độ tin cậy**: UDP không cung cấp bất kỳ cơ chế nào để đảm bảo gói dữ liệu được nhận đúng hoặc không bị mất trong quá trình truyền.
+1. **Tạo datagram UDP**:
+   - **Ứng dụng gửi dữ liệu** qua UDP bằng cách đóng gói dữ liệu của mình vào datagram UDP. Cổng nguồn và cổng đích được chỉ định trong header của UDP.
+   
+2. **Gửi dữ liệu đến lớp internet (Internet Layer)**:
+   - UDP không kiểm tra hay phân chia dữ liệu thành các gói nhỏ hơn nếu dữ liệu quá lớn. Dữ liệu được truyền từ lớp vận chuyển (UDP) tới lớp internet (Internet Layer), nơi nó sẽ được đóng gói vào **gói IP**.
+   - Tại lớp IP, gói dữ liệu sẽ được thêm các thông tin cần thiết (như địa chỉ IP nguồn và đích) và sẽ được gửi qua mạng.
+
+3. **Gửi qua mạng**:
+   - Gói dữ liệu sẽ được gửi qua mạng, có thể đi qua nhiều router và mạng con khác nhau. UDP không thực hiện bất kỳ kiểm tra nào để đảm bảo dữ liệu được nhận đúng thứ tự hoặc không bị mất mát.
+   
+4. **Máy nhận nhận gói UDP**:
+   - Khi gói UDP đến máy nhận, lớp internet tại máy nhận sẽ kiểm tra địa chỉ IP và xác định máy đích. Sau đó, lớp vận chuyển (UDP) sẽ nhận gói UDP và chuyển tiếp dữ liệu tới ứng dụng nhận thông qua cổng đích.
+   
+5. **Xử lý của ứng dụng**:
+   - Ứng dụng nhận sẽ đọc dữ liệu từ gói UDP và xử lý. Nếu có lỗi xảy ra trong quá trình truyền (như mất gói, dữ liệu bị hỏng), UDP không tự động yêu cầu gửi lại gói dữ liệu. Tuy nhiên, nếu ứng dụng cần độ tin cậy, nó có thể thực hiện việc kiểm tra lỗi và yêu cầu tái gửi lại dữ liệu.
+
+#### **Ưu điểm và nhược điểm của UDP**
+
+**Ưu điểm**:
+- **Tốc độ cao**: UDP không có các cơ chế kiểm tra như TCP, vì vậy có thể truyền tải dữ liệu nhanh chóng với ít độ trễ.
+- **Đơn giản**: UDP có cấu trúc header đơn giản hơn và ít overhead so với TCP.
+- **Phù hợp cho ứng dụng yêu cầu độ trễ thấp**: UDP thường được sử dụng cho các ứng dụng **real-time** (thời gian thực) như **streaming video**, **voice over IP (VoIP)**, **gaming trực tuyến**, nơi mà việc mất mát một vài gói tin có thể chấp nhận được nhưng độ trễ phải thấp.
+
+**Nhược điểm**:
+- **Không tin cậy**: UDP không đảm bảo rằng dữ liệu sẽ đến đích hoặc đến đúng thứ tự. Các lỗi như mất mát gói tin hoặc trùng lặp có thể xảy ra.
+- **Không kiểm tra lỗi toàn diện**: Mặc dù có checksum để kiểm tra lỗi cơ bản, UDP không thực hiện bất kỳ việc khôi phục hay yêu cầu tái gửi lại dữ liệu nếu phát hiện lỗi.
+- **Không phân mảnh tự động**: Nếu dữ liệu vượt quá kích thước tối đa của gói UDP, nó sẽ bị mất.
+
+
+**Ví dụ thực tế**
+
+Một ví dụ điển hình về UDP trong ứng dụng thực tế là **streaming video**. Khi xem video trực tuyến, dữ liệu video được chia thành các gói nhỏ và gửi đi qua mạng bằng UDP. Nếu một vài gói tin bị mất trong quá trình truyền, video vẫn có thể tiếp tục phát mà không bị ảnh hưởng quá nhiều. Tuy nhiên, việc có độ trễ thấp và truyền tải nhanh vẫn là yếu tố quan trọng hơn trong trường hợp này.
+
 
 **3. Khi nào dùng UDP?**  
 - **Ứng dụng yêu cầu tốc độ cao và độ trễ thấp**: UDP là lựa chọn tốt cho các ứng dụng cần truyền tải nhanh chóng mà không quan tâm đến việc kiểm tra lỗi hoặc độ tin cậy của dữ liệu.
