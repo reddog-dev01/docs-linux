@@ -348,25 +348,53 @@ Tầng Giao vận là lớp thứ tư trong mô hình OSI và có vai trò cực
 
 **Quá trình hoạt động của Transport Layer**
 
-1. Thiết lập kết nối
 
-- Khi 1 ứng dụng muốn gửi dữ liệu đến 1 ứng dụng khác, Transport layer sẽ thiết lập 1 kết nối giữa chúng (TCP). VD khi ở 1 web trình duyệt sẽ thiết lập 1 kết nối TCP với máy chủ web.
+1. **Nhận Dữ Liệu Từ Tầng Mạng**
+- **Tầng Vận Chuyển** nhận dữ liệu từ **Tầng Mạng (Network Layer)** dưới dạng các gói (packets). Tầng này không chỉ xử lý dữ liệu mà còn đảm bảo dữ liệu được gửi đến đúng ứng dụng và duy trì các tính năng quan trọng như kiểm soát lỗi, kiểm soát luồng và phân đoạn.
 
-2. Chia dữ liệu thành các segment
+2. **Phân Đoạn và Đóng Gói Dữ Liệu (Segmentation and Reassembly)**
+- Tầng Vận Chuyển chia nhỏ dữ liệu lớn từ ứng dụng thành các **đoạn (segments)** nếu cần thiết để dễ dàng truyền tải qua mạng.
+  - **Phân đoạn**: Dữ liệu từ ứng dụng được chia thành các đoạn nhỏ.
+  - **Đóng gói**: Mỗi đoạn sẽ có thông tin như **địa chỉ cổng (port address)** của ứng dụng đích, giúp dữ liệu đến đúng ứng dụng ở phía nhận.
 
-- Dữ liệu từ ứng dụng được chia thành các segment nhỏ. Mỗi segment này chứa 1 thông tin điều khiển như số thứ tự của segment, số hiệu kết nối và thông tin kiểm tra lỗi.
+3. **Định Danh Ứng Dụng Bằng Cổng (Port Addressing)**
+- Tầng Vận Chuyển sử dụng **cổng mạng** (port) để xác định ứng dụng nào trên thiết bị đích sẽ nhận dữ liệu.
+  - Ví dụ: **Cổng 80** dành cho HTTP, **Cổng 443** dành cho HTTPS.
+  - Mỗi đoạn dữ liệu sẽ được đánh dấu với số cổng nguồn và cổng đích để giúp định hướng dữ liệu đúng ứng dụng tại thiết bị đích.
 
-3. Truyền tải các segment qua mạng
+4. **Cung Cấp Kết Nối Tin Cậy (Reliable Connection)**
+- Tầng Vận Chuyển có thể sử dụng giao thức như **TCP** (Transmission Control Protocol) để tạo một kết nối đáng tin cậy giữa hai thiết bị, đảm bảo rằng dữ liệu được truyền không bị mất và đúng thứ tự.
+  - **TCP** thực hiện:
+    - **Thiết lập kết nối**: Cả hai bên sẽ "bắt tay" (handshake) để thiết lập kết nối (3-way handshake).
+    - **Kiểm tra lỗi**: Mỗi đoạn dữ liệu sẽ có một **mã kiểm tra (checksum)** để phát hiện lỗi trong quá trình truyền.
+    - **Đảm bảo truyền tải đúng thứ tự**: TCP sẽ đảm bảo rằng các đoạn dữ liệu đến đúng thứ tự, không bị mất mát.
+    - **Xác nhận và yêu cầu lại**: Người nhận sẽ gửi tín hiệu xác nhận (ACK) để thông báo việc nhận dữ liệu thành công. Nếu không nhận được xác nhận, dữ liệu sẽ được gửi lại.
 
-- Các segment được gửi qua các tầng dưới (Network, Datalink, Phisical) để đến thiết bị đích. VD segment từ trình duyệt sẽ đi qua router, switch để đến máy chủ.
+5. **Quản Lý Lưu Lượng (Flow Control)**
+- Tầng Vận Chuyển sử dụng cơ chế **kiểm soát lưu lượng** để đảm bảo rằng thiết bị nhận không bị quá tải với quá nhiều dữ liệu.
+  - **Windowing**: Ví dụ, TCP sử dụng **windowing** để giới hạn số lượng đoạn dữ liệu có thể được gửi đi trước khi nhận được xác nhận từ phía người nhận. Điều này giúp điều chỉnh tốc độ truyền để tránh tình trạng tràn băng thông.
 
-4. Tái hợp và xử lý dữ liệu ở thiết bị nhận
+6. **Điều Kiện Lỗi và Khôi Phục (Error Handling and Recovery)**
+- Nếu có lỗi trong quá trình truyền tải, Tầng Vận Chuyển sẽ đảm bảo khôi phục dữ liệu thông qua:
+  - **Phát hiện lỗi**: Sử dụng **checksum** để phát hiện lỗi trong các đoạn dữ liệu.
+  - **Tái truyền**: Nếu có lỗi, dữ liệu sẽ được yêu cầu gửi lại (nếu sử dụng TCP).
+  
+7. **Đóng Kết Nối (Connection Termination)**
+- Khi dữ liệu đã được truyền xong, Tầng Vận Chuyển sẽ thực hiện **đóng kết nối** giữa hai thiết bị.
+  - Với TCP, việc đóng kết nối diễn ra qua một quá trình gọi là **4-way handshake**, đảm bảo rằng cả hai bên đều đã nhận và xử lý hết dữ liệu.
 
-- Khi các segment đến đích Transport Layer của thiết bị nhận  sẽ tái hợp chúng thành dữ liệu đầy đủ và truyền lên tầng trên ( 5 6) để xử lý. VD: khi tải trang web, các segment TCP sẽ được tái hợp lại và trình duyệt sẽ hiển thị trang web
+8. **Truyền Dữ Liệu Đến Tầng Ứng Dụng**
+- Sau khi dữ liệu được phân đoạn, kiểm tra lỗi và đảm bảo tính toàn vẹn, Tầng Vận Chuyển sẽ chuyển các đoạn dữ liệu tới **Tầng Ứng Dụng** của thiết bị nhận.
+  - Tầng Ứng Dụng sẽ nhận và sử dụng dữ liệu này cho các mục đích như trình duyệt web, gửi email, hay các ứng dụng khác.
 
-5. Kiểm tra và sửa lỗi
+Tóm lại, quy trình hoạt động của **Tầng Vận Chuyển (Transport Layer)** bao gồm:
 
-- Nếu segment bị mất hoặc lỗi trong quá trình truyền, Transport layer sẽ yêu cầu gửi lại segment đó.
+1. Nhận dữ liệu từ Tầng Mạng và phân đoạn dữ liệu thành các đoạn nhỏ (segments).
+2. Đảm bảo truyền tải tin cậy với các cơ chế như **3-way handshake** (cho TCP), **kiểm soát lỗi** và **tái truyền** khi cần thiết.
+3. Quản lý lưu lượng để tránh quá tải và đảm bảo hiệu quả truyền tải.
+4. Đóng kết nối khi dữ liệu đã được truyền xong.
+5. Chuyển tiếp dữ liệu đã xử lý đến Tầng Ứng Dụng để sử dụng.
+
 
 **Tầng 5 - Session Layer (Tầng phiên)**
 
