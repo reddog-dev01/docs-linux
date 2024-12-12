@@ -24,7 +24,7 @@
 
 **Chức năng chính của Lớp Vật lý**
 1. **Chuyển đổi dữ liệu thành tín hiệu vật lý**:
-   - Biến dữ liệu số (bit 0 và 1) thành tín hiệu điện, ánh sáng, hoặc sóng radio để truyền qua cáp hoặc môi trường không dây.
+   - Biến tín hiệu số (bit 0 và 1) thành tín hiệu điện, ánh sáng, hoặc sóng radio để truyền qua cáp hoặc môi trường không dây.
 
 2. **Truyền tín hiệu qua phương tiện truyền dẫn**:
    - Đảm bảo tín hiệu được truyền từ nguồn đến đích qua các phương tiện truyền dẫn:
