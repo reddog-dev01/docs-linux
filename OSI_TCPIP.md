@@ -629,11 +629,11 @@ Tầng Ứng dụng là lớp thứ bảy và cũng là lớp cao nhất trong m
 
 ### **TCP/IP (Transmission Control Protocol/Internet Protocol)**
 
-**1. TCP/IP là gì** 
+#### **1. TCP/IP là gì** 
 
 - là một bộ giao thức mạng được sử dụng để truyền tải dữ liệu qua các mạng máy tính. TCP/IP là một giao thức liên kết hai tầng, bao gồm tầng TCP và tầng IP, mỗi tầng thực hiện các chức năng riêng biệt nhưng hỗ trợ lẫn nhau để đảm bảo việc truyền tải dữ liệu hiệu quả.
 
-**2. IP (Internet Protocol)**
+#### **2. IP (Internet Protocol)**
 
 **Định danh thiết bị**
 - Mỗi thiết bị trong mạng được cấp 1 địa chỉ IP để định danh thiết bị và để chúng có thể giao tiếp với nhau. Giống như mỗi nhà có 1 địa chỉ riêng để nhận thư, mỗi thiết bị trên mạng cần một địa chỉ IP để nhận và gửi dữ liệu.
@@ -646,7 +646,7 @@ Nếu một mảnh bị mất trong quá trình truyền, thiết bị đích kh
 
 - Hoạt động ở Network Layer trong mô hình OSI và ở Internet Layer của TCP/IP
 
-**3. TCP (Transmission Control Protocol)**
+#### **3. TCP (Transmission Control Protocol)**
 
 - Hoạt động ở Transport Layer trong mô hình OSI.
 
@@ -688,25 +688,100 @@ g. Đóng kết nối (Connection termination)
     3. FIN: Thiết bị B gửi gói FIN của chính nó để yêu cầu kết thúc phía của nó.
     4. ACKL Thiết bị A gửi 1 gói ACK cuối cùng, xác nhận kết nối đã được đóng.
 
-**4. Các tầng trong mô hình TCP/IP**
+#### **4. Các tầng trong mô hình TCP/IP**
 
-**Tầng 4 - Application Layer (Tầng ứng dụng)**
+#### **Tầng 4 - Application Layer (Tầng ứng dụng)**
 
-**Tầng Ứng dụng (Application Layer) trong Mô hình TCP/IP**
+##### **Tầng Ứng dụng (Application Layer) trong Mô hình TCP/IP**
 
 Trong mô hình TCP/IP, tầng Ứng dụng là tầng cao nhất và có vai trò cực kỳ quan trọng trong việc cung cấp giao diện cho các ứng dụng để truy cập vào các dịch vụ mạng. Tầng này không chỉ đảm nhận trách nhiệm cung cấp các dịch vụ cho các ứng dụng mà còn giúp đơn giản hóa quá trình trao đổi thông tin giữa người dùng và mạng.
 
-**Chức năng chính của Tầng Ứng dụng**
-1. **Truy cập tài nguyên mạng:**
-   - Cho phép người dùng và các ứng dụng truy cập vào tài nguyên mạng, như trang web, email, cơ sở dữ liệu, và file.
+##### **Chức năng chính của Tầng Ứng dụng**
+Chức năng chính của **Application Layer** trong mô hình **TCP/IP** là cung cấp các dịch vụ mạng trực tiếp cho các ứng dụng người dùng và quản lý giao tiếp giữa các ứng dụng trên các hệ thống khác nhau. Đây là lớp cao nhất trong mô hình TCP/IP và có các chức năng quan trọng sau:
 
-2. **Xử lý giao thức đặc thù ứng dụng:**
-   - Điều phối và sử dụng các giao thức cụ thể để hỗ trợ các hoạt động như truyền thư điện tử, chuyển file, và xử lý truy vấn từ xa.
+1. **Cung cấp dịch vụ mạng cho ứng dụng người dùng**
+   - Application Layer cung cấp các giao thức và API (Application Programming Interface) cho các ứng dụng để sử dụng các dịch vụ mạng. Các ứng dụng này có thể bao gồm trình duyệt web, phần mềm email, phần mềm FTP, phần mềm chat, v.v.
+   - Ví dụ:
+     - **HTTP/HTTPS** cho trình duyệt web.
+     - **FTP** cho truyền tệp.
+     - **SMTP, POP3, IMAP** cho giao tiếp qua email.
 
-3. **Cung cấp các API mạng:**
-   - Cung cấp giao diện lập trình ứng dụng (APIs) cho phép phần mềm ứng dụng tương tác trực tiếp với các lớp thấp hơn trong mô hình TCP/IP, qua đó giúp lập trình viên dễ dàng phát triển các ứng dụng mạng.
+2. **Định nghĩa giao thức ứng dụng**
+   - Lớp này xác định các giao thức mà các ứng dụng sẽ sử dụng để giao tiếp qua mạng. Mỗi giao thức có các quy tắc riêng để định dạng, truyền tải và xử lý dữ liệu.
+   - Các giao thức phổ biến trong Application Layer bao gồm:
+     - **HTTP/HTTPS**: Giao thức truyền tải siêu văn bản cho các trang web.
+     - **FTP**: Giao thức truyền tải tệp giữa các máy tính.
+     - **DNS**: Giao thức phân giải tên miền thành địa chỉ IP.
+     - **SMTP/IMAP/POP3**: Giao thức gửi và nhận email.
+     - **Telnet/SSH**: Giao thức truy cập từ xa vào các hệ thống máy tính.
 
-**Giao thức phổ biến của Tầng Ứng dụng**
+3. **Quản lý giao tiếp giữa các ứng dụng**
+   - Application Layer điều phối và quản lý giao tiếp giữa các ứng dụng trên các hệ thống mạng khác nhau. Dữ liệu được gửi từ một ứng dụng trên máy tính nguồn, được đóng gói theo giao thức ứng dụng (ví dụ HTTP hoặc FTP), và sau đó truyền đến ứng dụng tương ứng trên máy tính đích.
+
+4. **Xử lý và định dạng dữ liệu ứng dụng**
+   - Lớp ứng dụng cũng có thể xử lý và định dạng dữ liệu trước khi gửi hoặc sau khi nhận, tùy thuộc vào giao thức sử dụng. Ví dụ:
+     - **HTTP** sẽ định dạng các yêu cầu và phản hồi dưới dạng các HTTP request và response, bao gồm các header, body, và mã trạng thái.
+     - **SMTP** sẽ định dạng email theo một cấu trúc đặc biệt để có thể gửi qua mạng.
+
+5. **Cung cấp dịch vụ bảo mật và mã hóa**
+   - Một số giao thức ứng dụng trong lớp này có chức năng bảo mật, mã hóa dữ liệu để đảm bảo an toàn trong quá trình truyền tải thông tin. Ví dụ, **HTTPS** sử dụng SSL/TLS để mã hóa dữ liệu giữa trình duyệt và máy chủ.
+   
+6. **Chuyển dữ liệu giữa lớp ứng dụng và lớp Transport**
+   - Lớp ứng dụng sẽ đóng gói và chuyển dữ liệu đến lớp Transport (TCP hoặc UDP) để xử lý việc truyền tải và quản lý kết nối. Ngược lại, dữ liệu nhận từ lớp Transport sẽ được truyền lại cho lớp ứng dụng để xử lý.
+   
+7. **Quản lý kết nối và ngắt kết nối**
+   - Lớp ứng dụng tham gia vào quá trình thiết lập kết nối và ngắt kết nối giữa các hệ thống khi cần thiết. Tuy nhiên, việc duy trì kết nối và đảm bảo sự tin cậy trong việc truyền tải dữ liệu chủ yếu là công việc của lớp Transport (ví dụ TCP).
+
+8. **Cung cấp khả năng tương tác giữa các ứng dụng khác nhau**
+   - Lớp ứng dụng cho phép các ứng dụng khác nhau (dù được phát triển bằng các ngôn ngữ khác nhau hoặc trên các nền tảng khác nhau) có thể giao tiếp với nhau qua mạng mà không cần quan tâm đến chi tiết của các lớp thấp hơn trong mô hình TCP/IP.
+
+Tóm tắt các chức năng chính của **Application Layer**:
+
+1. Cung cấp giao thức mạng cho ứng dụng người dùng.
+2. Định dạng và xử lý dữ liệu ứng dụng.
+3. Quản lý giao tiếp giữa các ứng dụng trên các hệ thống khác nhau.
+4. Hỗ trợ bảo mật và mã hóa thông tin.
+5. Quản lý kết nối và ngắt kết nối.
+6. Cung cấp giao thức và API cho các dịch vụ mạng.
+
+##### **Quy trình hoạt động**
+
+1. **Khởi tạo kết nối (Connection Initiation)**
+   - Khi một ứng dụng muốn gửi dữ liệu, lớp ứng dụng sẽ yêu cầu lớp truyền tải (Transport Layer) thiết lập kết nối tới máy tính đích. Ví dụ, trong trường hợp của giao thức TCP, lớp Ứng dụng có thể yêu cầu lớp Transport để thực hiện quá trình "three-way handshake" để thiết lập kết nối TCP.
+
+2. **Đóng gói dữ liệu (Data Packaging)**
+   - Dữ liệu từ ứng dụng được đóng gói thành các đơn vị có cấu trúc theo yêu cầu của giao thức trong lớp ứng dụng, ví dụ HTTP, FTP, hoặc SMTP.
+   - Dữ liệu này sau đó được chuyển giao cho lớp Transport để đóng gói thành các segment TCP hoặc UDP. Ví dụ, nếu ứng dụng sử dụng HTTP, nó sẽ tạo ra các yêu cầu HTTP, có thể là một dòng lệnh GET hoặc POST.
+
+3. **Xử lý giao thức ứng dụng (Application Protocol Processing)**
+   - Lớp ứng dụng chịu trách nhiệm xử lý các giao thức cụ thể như HTTP, FTP, DNS, SMTP, v.v.
+   - **HTTP**: Chuyển giao các yêu cầu từ trình duyệt (client) đến máy chủ web và trả về dữ liệu dưới dạng HTML, CSS, JavaScript.
+   - **FTP**: Cung cấp các chức năng truyền tệp giữa các hệ thống.
+   - **DNS**: Chuyển đổi tên miền (domain name) thành địa chỉ IP.
+
+4. **Chuyển dữ liệu đến lớp Transport (Data Transfer to Transport Layer)**
+   - Sau khi xử lý xong dữ liệu, lớp ứng dụng sẽ chuyển tiếp dữ liệu này đến lớp Transport. Tại đây, lớp Transport sẽ xác định xem giao thức nào sẽ được sử dụng (TCP hoặc UDP), chia dữ liệu thành các segment (TCP) hoặc datagram (UDP), và cung cấp thông tin quản lý kết nối (đối với TCP).
+
+5. **Quản lý dữ liệu từ lớp Transport (Receive Data from Transport Layer)**
+   - Khi lớp Transport nhận được dữ liệu từ lớp Mạng, nó sẽ gửi dữ liệu này đến lớp Ứng dụng.
+   - Lớp ứng dụng sẽ nhận dữ liệu, giải mã nó theo giao thức thích hợp (ví dụ: giải mã HTTP response, kiểm tra mã trạng thái của HTTP, v.v.), và sau đó gửi dữ liệu cho ứng dụng sử dụng.
+
+6. **Đóng kết nối (Connection Termination)**
+   - Khi ứng dụng không còn cần kết nối nữa, lớp ứng dụng sẽ yêu cầu lớp Transport đóng kết nối, thực hiện các thao tác cần thiết để ngắt kết nối.
+
+**Tóm tắt quy trình:**
+ 
+1. **Ứng dụng yêu cầu dịch vụ**: Người dùng hoặc ứng dụng yêu cầu một dịch vụ mạng.
+2. **Đóng gói dữ liệu theo giao thức ứng dụng**: Dữ liệu từ ứng dụng được đóng gói theo đúng giao thức ứng dụng (HTTP, FTP, v.v.).
+3. **Chuyển giao cho lớp Transport**: Dữ liệu được chuyển tới lớp Transport (TCP hoặc UDP) để tiếp tục xử lý.
+4. **Kết nối và truyền tải dữ liệu**: Dữ liệu được chuyển tiếp qua các lớp thấp hơn (Lớp Mạng, Lớp Liên kết Dữ liệu, v.v.) và đến máy đích.
+5. **Nhận dữ liệu và phản hồi**: Dữ liệu nhận từ máy đích được giải mã và trả về cho ứng dụng.
+6. **Kết thúc kết nối**: Sau khi hoàn thành, kết nối sẽ được đóng lại.
+
+
+
+#####**Giao thức phổ biến của Tầng Ứng dụng**
+
 1. **HTTP (HyperText Transfer Protocol):**
    - Là giao thức nền tảng cho World Wide Web, quản lý truyền thông giữa trình duyệt web và máy chủ web.
 
@@ -750,7 +825,7 @@ c. Chuyển đổi dữ liệu giữa các ứng dụng
 
 ------------------------------
 
-**Tầng 3 - Transport Layer (Tầng vận chuyển)**
+#### **Tầng 3 - Transport Layer (Tầng vận chuyển)**
 
 **Tầng Giao vận (Transport Layer) trong Mô hình TCP/IP**
 
