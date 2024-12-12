@@ -5,7 +5,7 @@
 -  OSI không chỉ định giao thức, mà chỉ định nhiệm vụ của giao thức
 ![image](https://github.com/user-attachments/assets/509547d5-a818-4218-80f2-b9d710677832)
 
-**1.1 Các giao thức trong mô hình OSI**
+#### **1.1 Các giao thức trong mô hình OSI**
 
 **a. Giao thức hướng liên kết (Connection Oriented)**
 - Thiết lập 1 kết nối logic trong cùng 1 tầng của 2 thiết bị trước khi truyền dữ liệu.
@@ -15,9 +15,9 @@
 - Dữ liệu được gửi duới dạng packets độc lập.
 - Không có đảm bảo dữ liệu sẽ đến đích hoặc gửi theo đúng thứ tự
 
-**1.2 Vai trò và chức năng 7 tầng OSI**
+#### **1.2 Vai trò và chức năng 7 tầng OSI**
 
-**Tầng 1 - Physical layer (Tầng vật lý)**
+##### **Tầng 1 - Physical layer (Tầng vật lý)**
 
 **Lớp Vật lý (Physical Layer)** trong mô hình OSI là lớp **thấp nhất**, chịu trách nhiệm truyền tải tín hiệu vật lý qua phương tiện truyền dẫn (cáp, sóng radio, v.v.). Lớp này không xử lý dữ liệu dưới dạng gói, mà chỉ quan tâm đến cách truyền và nhận tín hiệu giữa các thiết bị.
 
@@ -46,7 +46,6 @@
 6. **Kiểm soát truy cập môi trường (Media Access Control)**:
    - Giúp các thiết bị chia sẻ một môi trường truyền dẫn vật lý mà không xung đột tín hiệu.
 
----
 
 **Ví dụ cụ thể trong Lớp Vật lý**
 - **Cáp Ethernet (RJ45):**
@@ -88,7 +87,7 @@
 ---
 
 
-**Tầng 2 - Data Link Layer ( Tầng liên kết dữ liệu)**
+##### **Tầng 2 - Data Link Layer ( Tầng liên kết dữ liệu)**
 
 **Lớp Liên kết Dữ liệu (Data Link Layer)** trong mô hình OSI là lớp thứ hai, đóng vai trò quan trọng trong việc xử lý và đóng gói dữ liệu để truyền qua phương tiện vật lý. Nó đảm bảo rằng dữ liệu có thể được truyền một cách an toàn và hiệu quả giữa các thiết bị trong một mạng cục bộ hoặc qua môi trường truyền dẫn.
 
@@ -110,6 +109,73 @@
 
 5. **Kiểm soát luồng (Flow Control)**:
    - Điều chỉnh tốc độ truyền dữ liệu giữa người gửi và người nhận để tránh quá tải.
+
+**Quy trình hoạt động**
+
+**Quy trình hoạt động của Tầng 2 - Lớp Liên kết Dữ liệu (Data Link Layer)** trong mô hình OSI chủ yếu liên quan đến việc cung cấp phương thức đáng tin cậy để truyền tải dữ liệu giữa các thiết bị trong một mạng cục bộ (LAN) hoặc giữa các thiết bị trên cùng một liên kết vật lý. Lớp liên kết dữ liệu có nhiệm vụ đảm bảo rằng dữ liệu được truyền đi không bị lỗi và có thể được nhận đúng cách, ngoài ra, nó cũng xử lý các vấn đề như **địa chỉ vật lý**, **quản lý truy cập phương tiện** và **phát hiện lỗi**.
+
+Các bước trong quy trình hoạt động của **Tầng Liên kết Dữ liệu (Data Link Layer)**:
+
+
+1. **Chia nhỏ dữ liệu từ Tầng Mạng thành các khung (Frames)**
+
+- **Tầng Liên kết Dữ liệu** nhận dữ liệu từ Tầng Mạng (Layer 3), mà thường là các gói (packets). Tầng này sẽ đóng gói các gói thành các đơn vị nhỏ hơn gọi là **khung** (frames).
+  
+  - **Khung (Frame)** là một đơn vị dữ liệu mà Tầng Liên kết Dữ liệu sử dụng để truyền tải qua mạng. Nó bao gồm các thành phần:
+    - **Địa chỉ MAC nguồn và đích** (Source MAC Address, Destination MAC Address)
+    - **Dữ liệu của gói (Payload)**: Dữ liệu gói mà nó nhận từ Tầng Mạng
+    - **Kiểm tra lỗi** (Error Checking): Thường là **CRC** (Cyclic Redundancy Check) để phát hiện lỗi trong quá trình truyền.
+
+2. **Địa chỉ MAC (Media Access Control)**
+
+- **Tầng Liên kết Dữ liệu** chịu trách nhiệm xác định **địa chỉ vật lý MAC** của thiết bị đích. Địa chỉ MAC (hay còn gọi là địa chỉ Ethernet) là một địa chỉ duy nhất được gán cho mỗi thiết bị trong mạng. Đây là thông tin quan trọng để đảm bảo rằng dữ liệu được truyền đến đúng thiết bị đích trong mạng.
+
+  - **Địa chỉ MAC nguồn** và **địa chỉ MAC đích** được thêm vào phần đầu của khung dữ liệu để định danh thiết bị nguồn và đích.
+  - Các địa chỉ này là cố định và được gán khi thiết bị được sản xuất, khác với địa chỉ IP, địa chỉ MAC không thay đổi trong quá trình hoạt động của thiết bị.
+
+3. **Kiểm tra lỗi và phát hiện lỗi**
+
+- **Tầng Liên kết Dữ liệu** thực hiện kiểm tra lỗi trong quá trình truyền tải bằng cách sử dụng **Cyclic Redundancy Check (CRC)** hoặc **Check-sum**. Đây là một giá trị được tính toán từ dữ liệu và gửi kèm theo khung để kiểm tra tính toàn vẹn của dữ liệu khi đến đích.
+
+  - Khi thiết bị nhận được khung, nó tính toán lại CRC từ dữ liệu nhận được và so sánh với giá trị CRC đã gửi. Nếu có sự khác biệt, thiết bị sẽ biết rằng dữ liệu bị lỗi và có thể yêu cầu gửi lại.
+
+4. **Quản lý truy cập phương tiện (Media Access Control)**
+
+- Tầng Liên kết Dữ liệu cũng có trách nhiệm điều phối việc **truy cập vào phương tiện truyền dẫn** khi nhiều thiết bị cùng chia sẻ một kênh truyền dẫn, ví dụ như trong mạng LAN Ethernet.
+
+  - Một số giao thức được sử dụng để quản lý truy cập phương tiện, trong đó **CSMA/CD (Carrier Sense Multiple Access with Collision Detection)** là một giao thức phổ biến trong mạng Ethernet.
+  
+  - **CSMA/CD** hoạt động như sau:
+    - **Carrier Sense**: Trước khi thiết bị bắt đầu truyền, nó lắng nghe kênh để kiểm tra xem có thiết bị nào khác đang truyền không.
+    - **Multiple Access**: Tất cả các thiết bị đều có quyền truy cập vào kênh truyền dẫn.
+    - **Collision Detection**: Nếu hai thiết bị truyền cùng lúc và xảy ra va chạm (collision), chúng sẽ dừng lại và gửi tín hiệu báo hiệu để yêu cầu truyền lại sau một khoảng thời gian ngẫu nhiên.
+
+5. **Xử lý sự cố (Error Handling)**
+
+- **Phát hiện lỗi**: Tầng Liên kết Dữ liệu phát hiện lỗi thông qua việc sử dụng các phương pháp như **CRC**, nhưng việc **sửa lỗi** không phải là trách nhiệm của lớp này. Nếu lỗi được phát hiện trong khung dữ liệu, lớp Liên kết Dữ liệu sẽ yêu cầu gửi lại dữ liệu, tuy nhiên, việc sửa lỗi thực sự được thực hiện ở các tầng cao hơn (như Tầng Giao Vận).
+
+- **Điều chỉnh dòng dữ liệu**: Để tránh quá tải và đảm bảo dữ liệu không bị mất hoặc hỏng, lớp Liên kết Dữ liệu có thể điều chỉnh dòng dữ liệu và đảm bảo sự đồng bộ giữa các thiết bị trong mạng.
+
+6. **Chuyển tiếp và truyền khung**
+
+- **Truyền và nhận khung**: Sau khi khung được đóng gói và kiểm tra, nó sẽ được truyền từ một thiết bị tới thiết bị khác trong mạng. Thiết bị nhận sẽ giải mã khung và chuyển tiếp dữ liệu lên các tầng cao hơn của mô hình OSI, bắt đầu từ **Tầng Mạng**.
+
+- Các giao thức ở Tầng Liên kết Dữ liệu (như **Ethernet**, **PPP**, **HDLC**) định nghĩa cách thức truyền tải khung và quy định các quy tắc liên quan đến việc gửi, nhận, phát hiện và xử lý lỗi.
+
+7. **Điều khiển luồng (Flow Control)**
+
+- **Điều khiển luồng** là cơ chế để kiểm soát lượng dữ liệu được truyền đi giữa các thiết bị. Trong trường hợp các thiết bị truyền tải dữ liệu quá nhanh và thiết bị nhận không thể xử lý kịp, Tầng Liên kết Dữ liệu sẽ giúp điều chỉnh tốc độ truyền để tránh mất mát dữ liệu.
+
+Tóm lại quy trình hoạt động của **Tầng Liên kết Dữ liệu (Data Link Layer)**:
+
+1. Nhận dữ liệu từ Tầng Mạng và đóng gói thành các khung.
+2. Thêm địa chỉ MAC nguồn và đích vào khung.
+3. Kiểm tra tính toàn vẹn của dữ liệu (sử dụng CRC hoặc các phương pháp khác).
+4. Quản lý việc truy cập phương tiện truyền dẫn (như CSMA/CD).
+5. Truyền khung dữ liệu qua phương tiện truyền dẫn và phát hiện lỗi.
+6. Điều khiển luồng và xử lý các sự cố về dữ liệu.
+7. Chuyển tiếp dữ liệu lên các tầng cao hơn khi khung dữ liệu được nhận.
+
 
 **Các Giao thức và Tiêu chuẩn của Lớp Liên kết Dữ liệu**
 1. **Ethernet (IEEE 802.3)**:
