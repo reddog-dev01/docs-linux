@@ -624,6 +624,8 @@ Tầng Ứng dụng là lớp thứ bảy và cũng là lớp cao nhất trong m
 
 
 ----------------------------------------------------------------------
+-------------------------------------------------------------------
+
 
 ### **TCP/IP (Transmission Control Protocol/Internet Protocol)**
 
@@ -658,7 +660,9 @@ b. Thiết lập kết nối (Three-way Handshake)
     1. SYN (Synchronize): Thiết bị A gửi 1 gói SYN đến thiết bị B, yêu cầu bắt đầu kết nối
     2. SYN-ACK (Synchronize-Acknowledgment): Thiết bị B nhận được yêu cầu và trả lời bằng một gói SYN_ACK
     3. ACK (Acknowledgment): Thiết bị A xác nhận nhận được gói SYN-ACK và gửi lại một gói ACK.
+  
     => Sau khi 3 bước này hoàn tất, kết nối giữa hai thiết bị được thiết lập và truyền dữ liệu có thể bắt đầu.
+
 c. Điều khiển lưu lượng (Flow control)
 
 - TCP sử dụng window size (cho biết số lượng byte dữ liệu mà thiết bị gửi có thể truyền đi mà không cần đợi ACK) để điều khiển lượng dữ liệu được gửi đi tại 1 thời điểm, nhằm tránh tình trạng quá tải băng thông hoặc bộ nhớ của thiết bị nhận.
