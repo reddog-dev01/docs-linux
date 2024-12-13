@@ -15,6 +15,81 @@
 - Dữ liệu được gửi duới dạng packets độc lập.
 - Không có đảm bảo dữ liệu sẽ đến đích hoặc gửi theo đúng thứ tự
 
+
+**Quá trình dữ liệu từ máy A đến máy B qua các tầng trong mô hình OSI:**
+
+1. **Máy A (Tầng 7 - Application Layer)**
+- **Ứng dụng**: Máy A (ví dụ: một trình duyệt web hoặc ứng dụng email) tạo ra dữ liệu người dùng, ví dụ như một yêu cầu HTTP hoặc một email.
+  - Ví dụ: Người dùng máy A gửi một yêu cầu HTTP để truy cập một trang web (request).
+- **Dữ liệu tại Tầng 7**: Đây là dữ liệu gốc, ví dụ: **HTTP request**.
+
+2. **Máy A (Tầng 6 - Presentation Layer)**
+- **Xử lý dữ liệu**: Tầng 6 sẽ xử lý dữ liệu nếu cần thiết. Tầng này có thể thực hiện:
+  - Chuyển đổi định dạng (ví dụ: từ ASCII sang Unicode).
+  - Mã hóa (nếu ứng dụng yêu cầu bảo mật, như mã hóa SSL).
+  - Nén dữ liệu (nếu cần tiết kiệm băng thông).
+  - Ví dụ: Nếu dữ liệu cần mã hóa hoặc nén, thì ở Tầng 6 dữ liệu sẽ được xử lý.
+
+- **Dữ liệu tại Tầng 6**: Sau khi xử lý, dữ liệu có thể đã được mã hóa hoặc nén, nhưng vẫn là một yêu cầu HTTP hoặc email.
+
+3. **Máy A (Tầng 5 - Session Layer)**
+- **Quản lý kết nối**: Tầng 5 đảm bảo rằng kết nối giữa máy A và máy B được duy trì trong suốt quá trình trao đổi dữ liệu. Tầng này quản lý các phiên làm việc giữa các ứng dụng.
+  - Ví dụ: Nếu máy A và máy B đang thực hiện giao tiếp qua HTTP, Tầng 5 sẽ duy trì kết nối trong suốt thời gian yêu cầu HTTP và phản hồi HTTP.
+
+- **Dữ liệu tại Tầng 5**: Dữ liệu không thay đổi, chỉ được gắn thêm thông tin về phiên làm việc.
+
+4. **Máy A (Tầng 4 - Transport Layer)**
+- **Chia nhỏ dữ liệu**: Tầng 4 (TCP hoặc UDP) nhận dữ liệu từ Tầng 5 và chia nó thành các **segments**.
+  - Tầng 4 thêm vào các thông tin điều khiển như cổng nguồn và cổng đích (ví dụ: cổng 80 cho HTTP).
+  - Tầng 4 sử dụng giao thức TCP để kiểm tra lỗi, kiểm soát luồng, và đảm bảo dữ liệu được truyền đúng thứ tự (đối với TCP). Nếu là UDP, việc kiểm soát lỗi và đảm bảo thứ tự không được thực hiện.
+
+- **Dữ liệu tại Tầng 4**: Sau khi chia nhỏ, dữ liệu được chuyển thành **segments** (ví dụ: TCP segment) với các thông tin như cổng và kiểm soát lỗi.
+
+5. **Máy A (Tầng 3 - Network Layer)**
+- **Định tuyến và đóng gói**: Tầng 3 nhận các **segments** từ Tầng 4 và **đóng gói** chúng thành **packets**. 
+  - Tầng 3 thêm các thông tin định tuyến vào **header** của **packet**, bao gồm địa chỉ IP nguồn và đích, TTL (Time-to-Live), và loại giao thức (TCP/UDP).
+  - Tầng 3 sử dụng địa chỉ IP để định tuyến packet qua mạng đến máy B.
+
+- **Dữ liệu tại Tầng 3**: Sau khi đóng gói, dữ liệu trở thành **packets**, có chứa địa chỉ IP của máy A và máy B, và thông tin định tuyến.
+
+6. **Máy A (Tầng 2 - Data Link Layer)**
+- **Đóng gói thành frames**: Tầng 2 nhận các **packets** từ Tầng 3 và **đóng gói** chúng thành **frames**.
+  - Tầng 2 thêm thông tin như **địa chỉ MAC** nguồn và đích, kiểm tra lỗi (CRC) vào **frame**.
+  - Dữ liệu có thể được truyền qua các mạng LAN hoặc qua các thiết bị chuyển mạch (switch).
+
+- **Dữ liệu tại Tầng 2**: Sau khi đóng gói, dữ liệu trở thành **frames**, với thông tin về địa chỉ MAC và các thông tin kiểm tra lỗi.
+
+7. **Máy A (Tầng 1 - Physical Layer)**
+- **Chuyển thành tín hiệu vật lý**: Tầng 1 chịu trách nhiệm chuyển **frames** thành các tín hiệu vật lý (bit) để truyền qua môi trường vật lý (dây cáp, sóng vô tuyến, v.v.).
+  - Ví dụ: Tầng 1 có thể biến **frames** thành tín hiệu điện (qua cáp Ethernet) hoặc sóng vô tuyến (qua Wi-Fi).
+  
+- **Dữ liệu tại Tầng 1**: Tín hiệu vật lý được truyền qua môi trường vật lý (ví dụ: cáp mạng, sóng vô tuyến, v.v.).
+
+
+**Khi dữ liệu đến Máy B**:
+
+1. **Máy B (Tầng 1 - Physical Layer)**: 
+   - Tín hiệu vật lý từ môi trường vật lý được nhận và chuyển thành **frames** tại Tầng 2.
+
+2. **Máy B (Tầng 2 - Data Link Layer)**:
+   - Tầng 2 giải mã **frames** và chuyển dữ liệu sang Tầng 3 dưới dạng **packets**.
+
+3. **Máy B (Tầng 3 - Network Layer)**:
+   - Tầng 3 nhận các **packets**, giải mã và xác định địa chỉ IP đích. Sau đó, dữ liệu được chuyển xuống Tầng 4 dưới dạng **segments**.
+
+4. **Máy B (Tầng 4 - Transport Layer)**:
+   - Tầng 4 nhận các **segments**, kiểm tra lỗi và sắp xếp chúng (nếu cần). Sau đó, dữ liệu được gửi lên Tầng 5 dưới dạng dữ liệu gốc.
+
+5. **Máy B (Tầng 5 - Session Layer)**:
+   - Tầng 5 xử lý thông tin phiên làm việc và giữ kết nối giữa các ứng dụng.
+
+6. **Máy B (Tầng 6 - Presentation Layer)**:
+   - Tầng 6 có thể chuyển đổi định dạng dữ liệu nếu cần (mã hóa/giải mã, nén/dãn nén).
+
+7. **Máy B (Tầng 7 - Application Layer)**:
+   - Dữ liệu cuối cùng được trình bày cho ứng dụng trên máy B (ví dụ: trang web được tải trong trình duyệt hoặc email được nhận trong ứng dụng email).
+
+
 #### **1.2 Vai trò và chức năng 7 tầng OSI**
 
 ##### **Tầng 1 - Physical layer (Tầng vật lý)**
