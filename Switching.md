@@ -45,35 +45,39 @@ Switch hoạt động tại **Tầng Liên kết Dữ liệu (Data Link Layer)**
 
 ### **Chi Tiết về Layer 2 Switch (Switch Tầng 2)**
 
-#### **1. Chức năng chính của Layer 2 Switch:**
-- **Chuyển tiếp khung dữ liệu (Frame Switching):**
-  - Switch tầng 2 chủ yếu hoạt động ở **Tầng Liên Kết Dữ Liệu (Data Link Layer)** của mô hình OSI. Tầng này xử lý các khung dữ liệu (frame) và địa chỉ MAC (Media Access Control) của thiết bị trong mạng.
-  - Khi một thiết bị gửi dữ liệu (khung) đến switch, switch sẽ đọc địa chỉ MAC đích trong khung và chuyển tiếp dữ liệu đó tới thiết bị đích qua cổng tương ứng.
-  
-- **Học địa chỉ MAC (MAC Address Learning):**
-  - Switch tầng 2 có khả năng "học" các địa chỉ MAC của các thiết bị kết nối và lưu trữ chúng trong bảng địa chỉ MAC (MAC address table). Khi một khung dữ liệu đến, switch so sánh địa chỉ MAC đích với bảng địa chỉ MAC để quyết định cổng nào cần phải gửi khung đến.
-  
-- **Cấu trúc Bảng địa chỉ MAC (MAC Address Table):**
-  - Mỗi switch có một bảng địa chỉ MAC, trong đó liệt kê tất cả các địa chỉ MAC của các thiết bị đã kết nối và cổng tương ứng. Nếu switch chưa biết địa chỉ MAC đích, nó sẽ phát (broadcast) khung tới tất cả các cổng (ngoại trừ cổng nhận dữ liệu), và sau đó học địa chỉ MAC của thiết bị đó.
+1. **Nhận Frame từ thiết bị đầu cuối**:
+   - Khi một thiết bị trong mạng (ví dụ: máy tính A) gửi một frame đến một thiết bị khác (ví dụ: máy tính B), frame này sẽ được gửi đến switch.
+   - **Frame** này có một **header** chứa thông tin địa chỉ **MAC nguồn** và **MAC đích**. Địa chỉ MAC nguồn là địa chỉ MAC của máy tính gửi, còn địa chỉ MAC đích là địa chỉ MAC của máy tính nhận.
+   - Frame sẽ được gửi tới **cổng của switch** mà thiết bị gửi dữ liệu (máy tính A) đang kết nối.
 
-- **Quản lý Collision Domain:**
-  - Switch giúp chia nhỏ mạng thành các **collision domain** riêng biệt. Điều này có nghĩa là mỗi cổng trên switch tạo ra một collision domain riêng, giúp giảm xung đột dữ liệu (collision) và tăng băng thông mạng.
+2. **Kiểm tra bảng địa chỉ MAC (MAC Address Table)**:
+   - Khi switch nhận frame, nó sẽ **kiểm tra bảng địa chỉ MAC** của mình để xem liệu địa chỉ MAC đích có tồn tại trong bảng hay không.
+   - **Bảng MAC (CAM table)** là nơi lưu trữ các **địa chỉ MAC** và **cổng tương ứng** mà các địa chỉ MAC này kết nối.
+   - **Nếu địa chỉ MAC đích có trong bảng**:
+     - Switch sẽ chuyển frame đến **cổng tương ứng** với địa chỉ MAC đích.
+   - **Nếu địa chỉ MAC đích không có trong bảng**:
+     - Switch sẽ **broadcast frame** đến tất cả các cổng (trừ cổng nhận frame) để tìm thiết bị đích. Sau khi tìm thấy thiết bị đích, switch sẽ ghi nhận địa chỉ MAC của thiết bị đích và cổng kết nối trong bảng MAC.
 
-- **VLAN (Virtual LAN):**
-  - Switch tầng 2 hỗ trợ VLAN (mạng ảo) để phân chia mạng vật lý thành các mạng con ảo, giúp quản lý mạng tốt hơn và tăng cường bảo mật.
+3. **Cập nhật bảng MAC**:
+   - Khi switch nhận được một frame, nó sẽ đọc địa chỉ **MAC nguồn** trong frame và **cập nhật bảng MAC** của mình:
+     - Nếu địa chỉ MAC nguồn chưa có trong bảng, switch sẽ **thêm địa chỉ MAC nguồn** và cổng mà frame này đến vào bảng.
+     - Nếu địa chỉ MAC nguồn đã có trong bảng nhưng cổng mới khác với cổng đã lưu, switch sẽ **cập nhật bảng MAC** với cổng mới.
+   - Bảng MAC sẽ giúp switch xác định được địa chỉ MAC nào đang kết nối vào cổng nào để tối ưu việc chuyển tiếp dữ liệu trong các lần tiếp theo.
 
-#### **2. Ưu điểm của Layer 2 Switch:**
-- **Tăng hiệu suất mạng:** Mỗi kết nối trên switch là một đường truyền riêng biệt, giúp giảm va chạm và tăng tốc độ truyền tải.
-- **Dễ dàng cấu hình:** Switch tầng 2 đơn giản và dễ cấu hình, phù hợp với mạng nhỏ và đơn giản.
-- **Hỗ trợ VLAN:** Giúp phân chia mạng thành các nhóm và tăng cường bảo mật bằng cách hạn chế lưu lượng chỉ trong VLAN của từng nhóm thiết bị.
+4. **Chuyển tiếp frame**:
+   - Sau khi xác định cổng đích, switch sẽ **chuyển tiếp frame** đến cổng có địa chỉ MAC đích mà nó đã lưu trữ trong bảng MAC.
+   - Nếu địa chỉ MAC đích là một thiết bị khác trong cùng mạng, frame sẽ được chuyển tiếp trực tiếp đến cổng tương ứng.
+   - Nếu địa chỉ MAC đích là một thiết bị không trong cùng mạng (ví dụ như cần phải đi qua router), thì switch sẽ chỉ chuyển tiếp frame đến router (thường thông qua một cổng mặc định).
 
-#### **3. Hạn chế của Layer 2 Switch:**
-- **Không có khả năng định tuyến:** Switch tầng 2 không thể định tuyến giữa các mạng con khác nhau. Để kết nối các mạng con, bạn cần một router hoặc switch tầng 3.
-- **Không hỗ trợ định tuyến IP:** Switch tầng 2 chỉ xử lý dữ liệu dựa trên địa chỉ MAC, không thể xử lý các gói dữ liệu dựa trên địa chỉ IP.
+5. **Broadcast, Multicast và Unicast**:
+   - **Unicast**: Nếu địa chỉ MAC đích là một thiết bị duy nhất, switch sẽ chuyển tiếp frame đến đúng cổng mà thiết bị này kết nối.
+   - **Broadcast**: Nếu địa chỉ MAC đích là **FF:FF:FF:FF:FF:FF** (địa chỉ broadcast), switch sẽ gửi frame đến tất cả các cổng.
+   - **Multicast**: Nếu địa chỉ MAC đích là địa chỉ multicast, switch sẽ gửi frame đến tất cả các cổng mà thiết bị tham gia multicast kết nối.
 
-#### **4. Ứng dụng của Layer 2 Switch:**
-- **Mạng LAN nhỏ và vừa:** Khi các thiết bị trong mạng cần kết nối nhanh chóng mà không cần phân chia mạng con (subnet) hay định tuyến.
-- **Cấu trúc mạng phẳng (flat network):** Mạng không yêu cầu phân chia mạng con hoặc định tuyến giữa các mạng con khác nhau.
+6. **Forwarding và Filtering**:
+   - **Forwarding**: Khi switch xác định được cổng đích, nó sẽ chuyển tiếp frame đến cổng này. Quá trình này giúp giảm bớt việc gửi dữ liệu tới tất cả các thiết bị trong mạng, nâng cao hiệu suất.
+   - **Filtering**: Nếu địa chỉ MAC đích là **địa chỉ MAC của thiết bị gửi** (hoặc thiết bị đang kết nối ở cùng cổng), switch sẽ không gửi frame lại cổng đó vì đó là một vòng lặp không cần thiết (tránh việc gửi dữ liệu về chính thiết bị gửi).
+
 
 
 ### **Chi Tiết về Layer 3 Switch (Switch Tầng 3)**
