@@ -94,7 +94,7 @@
 **Chức năng chính của Lớp Liên kết Dữ liệu**
 1. **Đóng khung (Framing)**:
    - Chia dữ liệu từ lớp tầng 3 thành các khung dữ liệu nhỏ hơn.
-   - Mỗi khung bao gồm trường header và trailer để định dạng và kiểm soát lỗi.
+   - Mỗi khung bao gồm trường header, data, trailer để định dạng và kiểm soát lỗi.
 
 2. **Địa chỉ vật lý (Physical Addressing)**:
    - Sử dụng địa chỉ MAC (Media Access Control) để xác định nguồn và đích của mỗi khung dữ liệu.
