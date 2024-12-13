@@ -396,7 +396,7 @@ Nếu bạn muốn chặn tất cả các kết nối đến máy chủ trừ k�
 1. **Chặn tất cả kết nối vào:**
 
 ```bash
-sudo iptables -A INPUT -j DROP
+sudo iptables -P INPUT DROP
 ```
 
 2. **Cho phép kết nối SSH vào:**
