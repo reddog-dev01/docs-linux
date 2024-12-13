@@ -221,7 +221,8 @@ Khi đó, Router A sẽ gửi gói tin đến Router B, và Router B sẽ tiếp
 -----------------
 
 **1.2 Định tuyến động (Dynamic Routing)**
-Định tuyến động là phương pháp mà các router sử dụng giao thức định tuyến để tự động trao đổi thông tin và xác định các tuyến đường tối ưu. Các giao thức định tuyến động chia sẻ thông tin giữa các router, giúp tự động cập nhật bảng định tuyến.
+
+Đây là quá trình mà các đường đi được học hoặc điều chỉnh tự động bởi các router thông qua sử dụng các giao thức định tuyến. Các giao thức này, như RIP, OSPF, EIGRP, BGP, v.v., cho phép router trao đổi thông tin và tự động cập nhật bảng định tuyến để phản ánh các thay đổi trong mạng, chẳng hạn như các đường liên kết mới hoặc các đường liên kết bị hỏng.
 
 -------------------
 
