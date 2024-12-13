@@ -263,7 +263,48 @@ Tóm lại quy trình hoạt động của **Tầng Liên kết Dữ liệu (Dat
    - Cho phép truyền thông qua đường dây điện thoại hoặc liên kết dữ liệu nối tiếp, thường được sử dụng trong kết nối internet qua điện thoại.
 
 4. **ARP (Address Resolution Protocol)**:
-   - Giúp dịch địa chỉ IP thành địa chỉ MAC, cần thiết cho việc gửi dữ liệu giữa các thiết bị trong mạng LAN.
+ -  **ARP (Address Resolution Protocol)** là một giao thức thuộc **Tầng 2 (Data Link Layer)** trong mô hình OSI, mặc dù nó liên quan đến việc ánh xạ địa chỉ **IP** (Tầng 3 - Network Layer) sang địa chỉ **MAC** (Media Access Control) ở Tầng 2.
+
+**Chức năng của ARP trong Data Link Layer:**
+- **ARP** được sử dụng để **chuyển đổi địa chỉ IP** (mà các giao thức ở Tầng 3 như IPv4 sử dụng) thành địa chỉ **MAC** (mà Tầng 2, hay Data Link Layer, sử dụng để giao tiếp trong mạng vật lý).
+- Khi một thiết bị mạng muốn gửi dữ liệu đến một thiết bị khác trong cùng một mạng cục bộ, nó cần biết địa chỉ MAC của thiết bị đích. Tuy nhiên, nếu chỉ có địa chỉ IP của thiết bị đích, thì ARP sẽ giúp xác định địa chỉ MAC tương ứng.
+
+**Quá trình hoạt động của ARP:**
+
+**Thiết bị A (có địa chỉ IP) muốn gửi gói dữ liệu đến Thiết bị B (có địa chỉ IP) trong cùng mạng LAN**:
+   - Thiết bị A có địa chỉ IP của thiết bị B nhưng không biết địa chỉ MAC của nó.
+   - Thiết bị A sẽ gửi một **ARP request** (Yêu cầu ARP) vào mạng LAN để tìm địa chỉ MAC của thiết bị B.
+
+**ARP Request**:
+   - **ARP Request** là một gói tin broadcast được gửi từ thiết bị A đến tất cả các thiết bị trong mạng LAN, yêu cầu **"Ai có địa chỉ IP này?"**.
+   - Cấu trúc của ARP Request:
+     - **Sender MAC address**: Địa chỉ MAC của thiết bị gửi (A).
+     - **Sender IP address**: Địa chỉ IP của thiết bị gửi (A).
+     - **Target MAC address**: Để trống (do chưa biết).
+     - **Target IP address**: Địa chỉ IP của thiết bị đích (B).
+
+**ARP Reply**:
+   - Thiết bị B nhận được ARP Request và **phản hồi bằng một ARP Reply**, trong đó bao gồm **địa chỉ MAC** của thiết bị B.
+   - Cấu trúc của ARP Reply:
+     - **Sender MAC address**: Địa chỉ MAC của thiết bị B.
+     - **Sender IP address**: Địa chỉ IP của thiết bị B.
+     - **Target MAC address**: Địa chỉ MAC của thiết bị A.
+     - **Target IP address**: Địa chỉ IP của thiết bị A.
+
+**Lưu trữ trong ARP Cache**:
+   - Sau khi nhận được ARP Reply, thiết bị A lưu địa chỉ MAC của thiết bị B vào **ARP cache** của nó, để lần sau không cần phải gửi yêu cầu ARP nữa khi gửi dữ liệu tới thiết bị B.
+
+**Ví dụ:**
+Giả sử:
+- **Thiết bị A** có địa chỉ IP `192.168.1.10` và **địa chỉ MAC** `00:14:22:01:23:45`.
+- **Thiết bị B** có địa chỉ IP `192.168.1.20` và **địa chỉ MAC** `00:14:22:67:89:01`.
+
+Khi **Thiết bị A** muốn gửi dữ liệu tới **Thiết bị B**:
+- Thiết bị A biết địa chỉ IP của thiết bị B là `192.168.1.20`, nhưng không biết địa chỉ MAC của thiết bị B.
+- Thiết bị A gửi một **ARP request** tới tất cả các thiết bị trong mạng LAN với yêu cầu tìm kiếm **MAC address** tương ứng với IP `192.168.1.20`.
+- **Thiết bị B** nhận được ARP request và gửi lại một **ARP reply**, cung cấp địa chỉ MAC của nó (`00:14:22:67:89:01`).
+- Thiết bị A lưu địa chỉ MAC của thiết bị B trong **ARP cache** và tiếp tục gửi dữ liệu tới thiết bị B qua địa chỉ MAC đó.
+
 
 5. **HDLC (High-Level Data Link Control)**:
    - Giao thức liên kết dữ liệu chung, cung cấp cơ chế kiểm tra lỗi và điều khiển luồng trong mạng điểm-đến-điểm và điểm-đến-đa điểm.
