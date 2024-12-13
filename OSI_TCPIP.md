@@ -208,7 +208,7 @@ Tóm lại quy trình hoạt động của **Tầng Liên kết Dữ liệu (Dat
 
 -----------------
 
-**Tầng 3 - Network Layer**
+##### **Tầng 3 - Network Layer**
 
 **Lớp Mạng (Network Layer) trong Mô hình OSI**
 
@@ -291,7 +291,7 @@ Lớp Mạng là lớp thứ ba trong mô hình OSI, có vai trò quan trọng t
 
 ---------------
 
-**Tầng 4 - Transport Layer (Tầng vận chuyển)**
+##### **Tầng 4 - Transport Layer (Tầng vận chuyển)**
 
 - Quản lý và điêu phối việc truyền tải dữ liệu giữa các thiết bị đầu cuối (end-to-end). Đảm bảo dữ liệu được truyền tải từ ứng dụng ở thiết bị nguồn đến ứng dụng ở thiết bị đích một cách chính xác, an toàn và hiệu quả.
 
@@ -396,7 +396,7 @@ Tóm lại, quy trình hoạt động của **Tầng Vận Chuyển (Transport L
 5. Chuyển tiếp dữ liệu đã xử lý đến Tầng Ứng Dụng để sử dụng.
 
 
-**Tầng 5 - Session Layer (Tầng phiên)**
+##### **Tầng 5 - Session Layer (Tầng phiên)**
 
 **Tầng Phiên (Session Layer) trong Mô hình OSI**
 
@@ -453,7 +453,7 @@ Tầng Phiên, lớp thứ năm trong mô hình OSI, đóng vai trò quan trọn
 
 ------------------------------------------------------------
 
-**Tầng 6 - Presentation Layer (Tầng trình bày)**
+##### **Tầng 6 - Presentation Layer (Tầng trình bày)**
 
 **Tầng Trình bày (Presentation Layer) trong Mô hình OSI**
 
@@ -500,7 +500,7 @@ Tầng Trình bày là lớp thứ sáu trong mô hình OSI, đóng vai trò c�
 
 ------------------------------------------
 
-**Tầng 7 - Application Layer ( Tầng ứng dụng)**
+##### **Tầng 7 - Application Layer ( Tầng ứng dụng)**
 
 **Tầng Ứng dụng (Application Layer) trong Mô hình OSI**
 
