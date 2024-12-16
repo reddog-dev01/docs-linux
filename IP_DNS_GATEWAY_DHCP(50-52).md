@@ -88,6 +88,8 @@ Phần còn lại là phần **host** của địa chỉ:
 
 #### **1.1 IP**
 
+
+
 ##### **IP private**
 
 **IP Private** là địa chỉ IP được sử dụng trong **mạng nội bộ** (LAN - Local Area Network) và không thể truy cập trực tiếp từ internet. Những địa chỉ IP này nằm trong các dải địa chỉ được đặc biệt dành cho mạng riêng, không thể được định tuyến trên internet. Thông thường, **IP Private** được sử dụng trong các mạng gia đình, công ty, hoặc các mạng nội bộ khác để phân phối địa chỉ cho các thiết bị kết nối trong mạng đó.
