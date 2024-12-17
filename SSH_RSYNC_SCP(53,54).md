@@ -569,6 +569,54 @@ ssh-add -D
 
 #### **1.6 Public key và Private key**
 
+Quy trình xác thực SSH key (dựa trên cặp khóa công khai và khóa riêng) cho phép kết nối SSH giữa một máy **client** và một máy **server** mà không cần sử dụng mật khẩu, thay vào đó là sử dụng một cặp khóa bảo mật. Dưới đây là quy trình chi tiết của việc sử dụng SSH key:
+
+Quy trình hoạt động của SSH Key:
+
+1. **Tạo cặp SSH Key (Public Key và Private Key)**:
+   - Trên máy **client**, bạn tạo một **cặp khóa** gồm một **private key** và một **public key** bằng cách sử dụng lệnh `ssh-keygen`.
+   - **Private key** sẽ được lưu trữ trên máy của bạn (client), và bạn phải giữ nó bảo mật. Không bao giờ chia sẻ private key.
+   - **Public key** sẽ được chia sẻ và lưu trữ trên máy chủ (server).
+
+2. **Sao chép Public Key lên Server**:
+   - Để sử dụng SSH key, bạn cần sao chép **public key** từ máy client lên máy chủ Ubuntu vào thư mục `~/.ssh/authorized_keys` của tài khoản người dùng mà bạn muốn đăng nhập.
+   - Bạn có thể sao chép public key bằng lệnh `ssh-copy-id`:
+     ```bash
+     ssh-copy-id username@server_ip
+     ```
+   - Sau khi public key được sao chép thành công, máy chủ sẽ chấp nhận xác thực bằng khóa công khai cho tài khoản người dùng đó.
+
+3. **Kết nối SSH (Client → Server)**:
+   - Khi bạn thực hiện kết nối SSH từ máy client đến máy chủ, quy trình xác thực sẽ bắt đầu.
+
+Các bước xác thực khi kết nối:
+   
+4. **Máy client gửi yêu cầu kết nối đến máy server**:
+   - Máy client (máy của bạn) gửi một yêu cầu kết nối SSH tới máy chủ (server).
+   - Lệnh ví dụ:
+     ```bash
+     ssh username@server_ip
+     ```
+
+5. **Máy chủ gửi challenge (thử thách)**:
+   - Máy chủ kiểm tra thư mục `~/.ssh/authorized_keys` của người dùng và tìm public key đã được sao chép từ trước.
+   - Sau đó, máy chủ tạo một "challenge" (một chuỗi ngẫu nhiên) và mã hóa nó bằng **public key** của bạn.
+   - Máy chủ gửi **challenge** này đến máy client.
+
+6. **Máy client giải mã challenge bằng private key**:
+   - Máy client sử dụng **private key** của mình để giải mã challenge (chuỗi ngẫu nhiên).
+   - Nếu private key của máy client đúng với public key mà máy server đã lưu trữ, máy client sẽ giải mã thành công challenge.
+
+7. **Máy client gửi phản hồi**:
+   - Sau khi giải mã challenge thành công, máy client sẽ gửi lại một phản hồi (thường là một giá trị đã mã hóa) để xác nhận rằng máy client có quyền truy cập và sở hữu private key hợp lệ.
+
+8. **Máy chủ xác thực và cho phép kết nối**:
+   - Máy chủ sẽ sử dụng **public key** (đã lưu trong `authorized_keys`) để kiểm tra phản hồi từ máy client.
+   - Nếu phản hồi từ máy client là hợp lệ và giải mã chính xác, máy chủ sẽ cho phép kết nối SSH và mở phiên làm việc cho người dùng.
+
+9. **Xác thực thành công**:
+   - Sau khi xác thực thành công, bạn sẽ được truy cập vào máy chủ mà không cần nhập mật khẩu.
+
 
 
 --------------------------------------------------
