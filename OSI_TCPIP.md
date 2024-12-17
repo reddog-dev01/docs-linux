@@ -1397,7 +1397,7 @@ Một ví dụ điển hình về UDP trong ứng dụng thực tế là **strea
 ---------
 
 **1. TCP là gì?**
-**TCP (Transmission Control Protocol)** là một giao thức truyền tải dữ liệu có kết nối, hoạt động tại tầng vận chuyển (Transport Layer) trong mô hình OSI. TCP đảm bảo rằng các gói dữ liệu được truyền một cách đáng tin cậy và theo thứ tự, bảo vệ tính toàn vẹn của dữ liệu. Khi một kết nối TCP được thiết lập, nó sẽ duy trì sự ổn định và bảo mật trong suốt quá trình truyền tải, sử dụng các cơ chế kiểm tra lỗi và xác nhận dữ liệu.
+**TCP (Transmission Control Protocol)** là một giao thức truyền tải dữ liệu có kết nối (tức là phải thiết lập 1 kết nối trước khi truyền và duy trì trong suốt quá trình truyền để đảm bảo dữ liệu không bị mất), hoạt động tại tầng vận chuyển (Transport Layer) trong mô hình OSI. TCP đảm bảo rằng các gói dữ liệu được truyền một cách đáng tin cậy và theo thứ tự, bảo vệ tính toàn vẹn của dữ liệu. Khi một kết nối TCP được thiết lập, nó sẽ duy trì sự ổn định và bảo mật trong suốt quá trình truyền tải, sử dụng các cơ chế kiểm tra lỗi và xác nhận dữ liệu.
 
 **2. Cơ chế hoạt động của TCP**
 **a. Kết nối đầy đủ (Three-way Handshake)**
