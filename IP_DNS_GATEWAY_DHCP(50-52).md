@@ -88,11 +88,37 @@ Phần còn lại là phần **host** của địa chỉ:
 
 #### **1.1 IP**
 
+##### **IP là gì**
 
+- IP (Internet Protocol) là một địa chỉ duy nhất xác định một thiết bị kết nối với internet hoặc mạng cục bộ. Địa chỉ này giúp xác định và phân biệt các thiết bị trong một mạng.
 
-##### **IP private**
+##### **IP dùng để làm gì?**
 
-**IP Private** là địa chỉ IP được sử dụng trong **mạng nội bộ** (LAN - Local Area Network) và không thể truy cập trực tiếp từ internet. Những địa chỉ IP này nằm trong các dải địa chỉ được đặc biệt dành cho mạng riêng, không thể được định tuyến trên internet. Thông thường, **IP Private** được sử dụng trong các mạng gia đình, công ty, hoặc các mạng nội bộ khác để phân phối địa chỉ cho các thiết bị kết nối trong mạng đó.
+- Định tuyến: Các địa chỉ IP giúp các gói dữ liệu tìm đúng đường đi trong mạng Internet.
+- Nhận diện thiết bị: Mỗi thiết bị kết nối vào mạng đều có một địa chỉ IP duy nhất, giúp các thiết bị nhận diện và giao tiếp với nhau.
+
+##### **IP hoạt động như thế nào?**
+
+- Mỗi thiết bị kết nối internet có 1 địa chỉ IP duy nhất (giống như địa chỉ nhà).
+-  Dữ liệu được chia thành các gói tin nhỏ trước khi được gửi qua mạng. Mỗi gói tin chứa hai phần chính. Phần Header chứa thông tin điều khiển, như địa chỉ IP nguồn và đích, số thứ tự của gói tin, thông tin kiểm tra lỗi. Phần Payload sẽ chứa dữ liệu thực sự được truyền.
+-  Khi một gói tin được gửi, nó sẽ được định tuyến qua các thiết bị mạng để đến đích. Các thiết bị này sẽ sử dụng bảng định tuyến để quyết định đường đi tốt nhất cho mỗi gói tin.
+- Mỗi gói tin chứa thông tin kiểm tra lỗi để đảm bảo dữ liệu không bị hỏng trong quá trình truyền. Nếu một gói tin bị lỗi, nó có thể được yêu cầu gửi lại.
+
+**Quá trình gửi và nhận**
+
+Bước 1 - chuẩn bị dữ liệu: Dữ liệu từ ứng dụng (như một email) được phân đoạn thành các gói tin.
+
+Bước 2 - Định dạng gói tin: Mỗi gói tin được gán header với địa chỉ IP nguồn và đích.
+
+Bước 3 - Gửi gói tin: Các gói tin được gửi từ thiết bị nguồn qua mạng.
+
+Bước 4 - Chuyển tiếp gói tin: Các router trên đường sẽ định tuyến các gói tin đến đích.
+
+Bước 5 - Nhận và tái cấu trúc: Thiết bị đích nhận các gói tin, kiểm tra và tái cấu trúc chúng thành dữ liệu gốc.
+
+##### **IP private (địa chỉ IP cá nhân)**
+
+**IP Private** là địa chỉ IP được sử dụng trong **mạng nội bộ** (LAN - Local Area Network) và không thể truy cập trực tiếp từ internet. Những địa chỉ IP này nằm trong các dải địa chỉ được đặc biệt dành cho mạng riêng, không thể được định tuyến trên internet. Thông thường, **IP Private** được sử dụng trong các mạng gia đình, công ty, hoặc các mạng nội bộ khác để phân phối địa chỉ cho các thiết bị kết nối trong mạng đó. Chỉ có thể kết nối mạng internet thông qua router.
 
 **Các dải địa chỉ IP Private:**
 
@@ -175,6 +201,13 @@ Nếu bạn muốn biết **IP Public** của thiết bị (như router hoặc m
 - Đây là địa chỉ không thay đổi và thường được cấp phát bởi nhà cung cấp dịch vụ Internet (ISP).
 - Địa chỉ IP công cộng rất quan trọng cho các dịch vụ yêu cầu kết nối từ Internet, ví dụ như web hosting, VPN, hoặc các máy chủ dịch vụ.
 
+##### **Static IP (IP tĩnh)**
+
+- Là địa chỉ IP được cấu hình thủ công. Không thay đổi và được gán cố định cho thiết bị. Phù hợp cho các máy chủ, các dịch vụ yêu cầu kết nối ổn định.
+
+##### **Dynamic IP (IP động)**
+
+- Địa chỉ IP động là một địa chỉ IP mà nhà cung cấp dịch vụ Internet (ISP) cấp phát cho thiết bị của bạn mỗi khi nó kết nối vào mạng. Địa chỉ IP động có thể thay đổi mỗi khi thiết bị kết nối lại vào mạng hoặc sau 1 khoảng thời gian.
 
 --------------------------------------------------------------
 
