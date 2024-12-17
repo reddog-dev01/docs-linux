@@ -417,6 +417,7 @@ IP tĩnh là một địa chỉ IP được chỉ định cố định cho một
 ### **2. DNS System**
 
 - DNS là một hệ thống phân dải giúp chuyển đổi tên miền (domain name) thành địa chỉ IP (IP address) và ngược lại.
+- Lý do cần DNS là vì giúp dễ nhớ, dễ sử dụng.
 
 #### **2.1 Các khái niệm và cơ chế hoạt động của DNS**
 
