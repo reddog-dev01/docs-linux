@@ -8,6 +8,8 @@
 
 - **Cung cấp Load Balancing:** Keepalived cũng có thể làm nhiệm vụ phân tải (load balancing) giữa nhiều máy chủ, đảm bảo rằng các yêu cầu được phân phối đồng đều và tối ưu giữa các máy chủ thực.
 
+=> Nói chung là 1 phần mềm để xây dựng hệ thống cân bằng tải hoặc dự phòng.
+
 ----------------------------------------------------
 
 ### **2. Các tính năng chính của Keepalived**
