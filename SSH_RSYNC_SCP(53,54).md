@@ -1,6 +1,11 @@
 ### **1. SSH**
 
-- SSH (Secure Shell) là một giao thức mạng an toàn cho việc điều khiển và quản lý các máy tính từ xa qua mạng. Nó được sử dụng chủ yếu trong các hệ thống máy chủ Linux/Unix và cung cấp một kênh bảo mật, giúp người dùng có thể truyền tải dữ liệu, chạy các lệnh, và quản lý hệ thống từ xa mà không cần phải ở trực tiếp tại máy chủ. SSH thay thế các giao thức không an toàn hơn như Telnet và rlogin, cung cấp các phương thức mã hóa mạnh mẽ để bảo vệ thông tin trao đổi giữa các hệ thống.
+**SSH là gì**
+- SSH (Secure Shell) là một giao thức mạng cho phép truy cập vào máy chủ từ xa thông qua mạng internet không bảo mật. 
+
+**SSH dùng để làm gì**
+- Truy cập từ xa, quản lý hệ thống, truyền tải dữ liệu.
+
 
 #### **1.1 Các thành phần cơ bản và đặc điểm nổi bật**
 
