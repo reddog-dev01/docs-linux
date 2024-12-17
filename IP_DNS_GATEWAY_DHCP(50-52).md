@@ -209,21 +209,7 @@ Nếu bạn muốn biết **IP Public** của thiết bị (như router hoặc m
 
 - Địa chỉ IP động là một địa chỉ IP mà nhà cung cấp dịch vụ Internet (ISP) cấp phát cho thiết bị của bạn mỗi khi nó kết nối vào mạng. Địa chỉ IP động có thể thay đổi mỗi khi thiết bị kết nối lại vào mạng hoặc sau 1 khoảng thời gian.
 
---------------------------------------------------------------
-
-
-**a. DHCP**
-
-- DHCP (Dynamic Host Configuration Protocol) là một giao thức mạng tự động gán thông tin cấu hình IP cho các thiết bị trên mạng. VD: mạng gia đình là router đóng vai trò như máy chủ DHCP, doanh nghiệp là DHCP chuyên dụng (Windows Server hoặc Linux)
-- hoạt động theo mô hình máy chủ - khách (Server-Client). Khi một thiết bị kết nối vào mạng, nó sẽ yêu cầu một địa chỉ IP và các thông tin cấu hình mạng từ máy chủ DHCP
-
-**b. IP động**
-
-- địa chỉ IP được gán tự động cho thiết bị bởi một máy chủ DHCP
-
-**c. IP tĩnh**
-
-địa chỉ IP được gán cố định cho một thiết bị trong mạng. Không giống như IP động, địa chỉ này không thay đổi trừ khi bạn tự thay đổi nó theo cách thủ công hoặc thông qua cấu hình của quản trị viên mạng.
+-------------------------------------------------------------
 
 #### **1.2 Cấu hình ip động**
 
