@@ -1,6 +1,7 @@
 ### **Routing**
 
-Routing (Định tuyến) là quá trình xác định và chỉ đường cho các gói dữ liệu từ nguồn đến đích qua các thiết bị và mạng trung gian. Trong mạng máy tính, quá trình này rất quan trọng vì nó giúp chuyển tiếp các gói dữ liệu qua các router (bộ định tuyến) để đảm bảo chúng đến đúng nơi.
+- Routing (Định tuyến) là quá trình định hướng cho các gói dữ liệu từ router này sang router khác.
+- Router (Bộ định tuyến) là thiết bị chuyển tiếp các gói dữ liệu giữa các mạng.
 
 **Quá trình Routing (Định tuyến)** là quá trình xác định đường đi của các gói dữ liệu từ nguồn đến đích trong mạng, thông qua các router và các thiết bị mạng trung gian khác. Quá trình này đảm bảo rằng các gói dữ liệu sẽ được chuyển qua các mạng khác nhau một cách hiệu quả và chính xác. 
 
