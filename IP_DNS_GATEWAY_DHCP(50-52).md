@@ -417,7 +417,7 @@ IP tĩnh là một địa chỉ IP được chỉ định cố định cho một
 ### **2. DNS System**
 
 - DNS là một hệ thống phân dải giúp chuyển đổi tên miền (domain name) thành địa chỉ IP (IP address) và ngược lại.
-- Lý do cần DNS là vì giúp dễ nhớ, dễ sử dụng.
+- Lý do cần DNS là vì giúp dễ nhớ, dễ sử dụng, dễ truy cập vào web.
 
 #### **2.1 Các khái niệm và cơ chế hoạt động của DNS**
 
@@ -443,10 +443,10 @@ Lưu trữ thông tin ánh xạ giữa tên miền và địa chỉ IP.
 
 Các loại máy chủ:
 
-- Recursive Resolver: Máy chủ trung gian xử lý các yêu cầu từ người dùng.
-- Root Server: Máy chủ gốc, quản lý thông tin cấp cao nhất.
+- Recursive Resolver: 1 thằng trung gian xử lý các yêu cầu từ người dùng.
+- Root Server: Máy chủ gốc, chỉ dẫn Resolver tới các TLD.
 - TLD Server: Quản lý thông tin tên miền cấp cao như `.com`, `.vn`.
-- Authoritative Server: Máy chủ ủy quyền chứa thông tin chính xác về tên miền.
+- Authoritative Server: Máy chủ ủy quyền chứa thông tin chính xác về tên miền (IP, CNAME).
 
 **d. Bản ghi DNS (DNS Records):**
 
@@ -460,39 +460,21 @@ Các loại thông tin ánh xạ trong DNS:
 
 #### **2.2 Cơ chế hoạt động của hệ thống DNS**
 
-Hệ thống DNS (Domain Name System) là một cơ chế phân giải tên miền thành địa chỉ IP để máy tính có thể giao tiếp với nhau trên Internet. Khi bạn truy cập vào một website bằng tên miền (ví dụ: `www.google.com`), DNS sẽ giúp bạn chuyển tên miền đó thành địa chỉ IP mà máy tính có thể sử dụng để kết nối tới server.
+![image](https://github.com/user-attachments/assets/96517760-7269-4db1-9233-c3637a414299)
 
 
-1. **Yêu cầu tên miền (DNS Query)**:
-   - Khi bạn gõ một tên miền (ví dụ: `www.google.com`) vào trình duyệt, trình duyệt sẽ gửi một yêu cầu DNS để tìm địa chỉ IP tương ứng với tên miền đó.
-   - Yêu cầu này có thể được gửi đến một máy chủ DNS đã được cấu hình sẵn (thường là máy chủ DNS của nhà cung cấp dịch vụ Internet hoặc máy chủ DNS công cộng như Google DNS hoặc OpenDNS).
+1. Người dùng gõ example.com vào trình duyệt. Truy vấn sẽ được gửi tới resolver (resolver do thằng DHCP cấp)
+2. Resolver hỏi thằng root (.) để tìm thông tin về example.com
+3. Root trả lời resolver địa chỉ TLD chịu trách nhiệm cho .com
+4. Resolver gửi yêu cầu đến TLD .com
+5. TLD .com trả về địa chỉ của authoritative nameserver cho example.com
+6. Resolver truy vấn đến authoritative nameserver của example.com
+7. authoritative nameserver trả lời về IP tương ứng example.com
+8. DNS gửi IP về cho trình duyệt.
 
-2. **Tiến trình phân giải DNS**:
-   - **Cache DNS**: Trước khi yêu cầu DNS được gửi đi, trình duyệt và máy tính sẽ kiểm tra xem tên miền đó đã được phân giải gần đây hay chưa, nếu có, nó sẽ sử dụng kết quả từ bộ nhớ cache để tiết kiệm thời gian và tài nguyên.
-   - Nếu không có trong cache, hệ thống DNS sẽ tiến hành phân giải tên miền qua các bước sau:
+**VD:** DNS doc.hust.vn
 
-3. **Các bước phân giải DNS**:
-   - **Step 1: Truy vấn tới Resolver (Recursive DNS Resolver)**:
-     - Resolver là máy chủ DNS đầu tiên mà yêu cầu DNS của bạn sẽ được gửi tới. Máy chủ này sẽ kiểm tra bộ nhớ cache của mình để xem liệu nó đã có địa chỉ IP cho tên miền đó chưa. Nếu có, nó trả lại kết quả ngay lập tức.
-     - Nếu không, resolver sẽ tiếp tục tìm kiếm bằng cách yêu cầu các máy chủ DNS khác.
 
-   - **Step 2: Truy vấn tới Root DNS Server**:
-     - Nếu resolver không có kết quả, nó sẽ gửi yêu cầu tới một trong các **root DNS servers**. Các root DNS server là máy chủ gốc trong hệ thống DNS, chứa thông tin về các máy chủ DNS của các miền cấp cao hơn (như `.com`, `.org`, `.net`).
-     - Các root server không chứa thông tin về tên miền cụ thể, nhưng chúng sẽ chỉ cho resolver biết máy chủ DNS nào sẽ chịu trách nhiệm phân giải tên miền cấp cao tiếp theo (ví dụ: `.com` trong trường hợp của `www.google.com`).
-
-   - **Step 3: Truy vấn tới TLD DNS Server (Top-Level Domain Server)**:
-     - Sau khi có thông tin từ root DNS, resolver sẽ gửi yêu cầu tới **TLD DNS servers** của miền cấp cao (như `.com`, `.net`, hoặc `.org`). TLD servers lưu trữ thông tin về các máy chủ DNS cho các tên miền cụ thể thuộc về cấp độ này (ví dụ, máy chủ DNS của `google.com`).
-   
-   - **Step 4: Truy vấn tới Authoritative DNS Server**:
-     - TLD server sẽ chỉ cho resolver biết địa chỉ của **authoritative DNS server** cho tên miền cụ thể (ví dụ, máy chủ DNS của `google.com`).
-     - Resolver sẽ gửi yêu cầu cuối cùng tới authoritative DNS server, nơi lưu trữ thông tin chính thức và chính xác về tên miền đó, bao gồm địa chỉ IP tương ứng.
-
-   - **Step 5: Trả về kết quả**:
-     - Sau khi nhận được thông tin từ authoritative DNS server, resolver sẽ trả lại địa chỉ IP cho người dùng, và kết quả này cũng được lưu trữ trong bộ nhớ cache của resolver và máy tính để sử dụng cho các yêu cầu sau này.
-
-4. **Cập nhật và lưu trữ (Caching)**:
-   - Một khi resolver trả về địa chỉ IP cho máy tính của bạn, địa chỉ này sẽ được lưu trong bộ nhớ cache của máy tính và trình duyệt để giảm thiểu việc truy vấn DNS lại trong tương lai.
-   - Còn lại, các máy chủ DNS cũng có bộ nhớ cache, giúp tăng tốc việc phân giải DNS cho các yêu cầu sau.
 
 ### **Các thành phần chính trong hệ thống DNS**:
 
