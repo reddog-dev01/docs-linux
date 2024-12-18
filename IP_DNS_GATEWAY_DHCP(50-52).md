@@ -841,7 +841,7 @@ Mặc dù **giao thức DHCP** và **máy chủ DHCP** có mối liên quan ch�
 
 ##### 2. **Cung Cấp Thông Tin Cấu Hình Mạng**
    Ngoài địa chỉ IP, DHCP còn cấp phát các thông tin mạng quan trọng khác như:
-   - **Subnet Mask**: Giúp thiết bị xác định phạm vi mạng con.
+   - **Subnet Mask**: Giúp thiết bị xác định phạm vi mạng con. Router quyết định gói dữ liệu sẽ đi qua mạng nào và đến thiết bị nào.
    - **Default Gateway**: Địa chỉ của router hoặc thiết bị dùng để kết nối mạng nội bộ với mạng ngoài (ví dụ: Internet).
    - **DNS Server**: Địa chỉ của máy chủ DNS để chuyển đổi tên miền thành địa chỉ IP (ví dụ: `www.google.com` thành `172.217.5.68`).
 
