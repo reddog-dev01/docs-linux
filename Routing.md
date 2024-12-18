@@ -5,6 +5,10 @@
 
 **Quá trình Routing (Định tuyến)** là quá trình xác định đường đi của các gói dữ liệu từ nguồn đến đích trong mạng, thông qua các router và các thiết bị mạng trung gian khác. Quá trình này đảm bảo rằng các gói dữ liệu sẽ được chuyển qua các mạng khác nhau một cách hiệu quả và chính xác. 
 
+**Sự khác nhau giữa Router và gateway:**
+- Router dùng để định tuyến (routing) dữ liệu từ mạng này sang mạng khác. Hoạt động ở layer 3,4
+- Gateway là chuyển đổi 1 giao thức này sang giao thức khác. Hoạt động ở layer 5,7
+
 **Các Bước trong Quá Trình Routing**
 
 Quá trình định tuyến có thể được mô tả qua các bước chính sau:
