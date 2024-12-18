@@ -118,7 +118,7 @@ Bước 5 - Nhận và tái cấu trúc: Thiết bị đích nhận các gói ti
 
 ##### **IP private (địa chỉ IP cá nhân)**
 
-**IP Private** là địa chỉ IP được sử dụng trong **mạng nội bộ** (LAN - Local Area Network) và không thể truy cập trực tiếp từ internet. Những địa chỉ IP này nằm trong các dải địa chỉ được đặc biệt dành cho mạng riêng, không thể được định tuyến trên internet. Thông thường, **IP Private** được sử dụng trong các mạng gia đình, công ty, hoặc các mạng nội bộ khác để phân phối địa chỉ cho các thiết bị kết nối trong mạng đó. Chỉ có thể kết nối mạng internet thông qua router.
+**IP Private** là địa chỉ IP được sử dụng trong **mạng nội bộ** (LAN - Local Area Network) và không thể truy cập trực tiếp từ internet. Được router cấp. Chỉ có thể kết nối mạng internet thông qua router.
 
 **Các dải địa chỉ IP Private:**
 
@@ -136,6 +136,8 @@ Dưới đây là các dải địa chỉ IP được phân bổ cho **IP Privat
    - Địa chỉ từ **192.168.0.0** đến **192.168.255.255**
    - Subnet mask: **255.255.0.0**
 
+![image](https://github.com/user-attachments/assets/e51f9001-1940-4265-b87d-2d62ac6f2357)
+
 **Tại sao sử dụng IP Private?**
 - **Tiết kiệm địa chỉ IP**: Số lượng địa chỉ IPv4 có hạn, vì vậy sử dụng **IP Private** giúp tiết kiệm tài nguyên địa chỉ.
 - **Bảo mật**: Các địa chỉ **IP Private** không thể truy cập trực tiếp từ internet, giúp bảo vệ các thiết bị trong mạng nội bộ khỏi các cuộc tấn công từ bên ngoài.
@@ -143,7 +145,7 @@ Dưới đây là các dải địa chỉ IP được phân bổ cho **IP Privat
 
 **Cách hoạt động của IP Private:**
 1. **Mạng Nội Bộ**: Trong mạng gia đình hoặc công ty, mỗi thiết bị (máy tính, điện thoại, máy in, v.v.) sẽ được cấp một **IP Private** từ router hoặc máy chủ DHCP.
-2. **Địa chỉ IP Public**: Để các thiết bị trong mạng nội bộ có thể kết nối ra ngoài internet, **router** hoặc **gateway** sẽ sử dụng **NAT** (Network Address Translation) để chuyển đổi **IP Private** thành **IP Public** khi gửi yêu cầu internet.
+2. **Địa chỉ IP Public**: Để các thiết bị trong mạng nội bộ có thể kết nối ra ngoài internet, **router** hoặc **gateway** sẽ sử dụng **NAT** (Network Address Translation) để chuyển đổi **IP Private** thành **IP Public** khi gửi yêu cầu internet. IP public chỉ cấp cho router.
 3. **Không thể truy cập từ ngoài**: Các thiết bị có **IP Private** không thể được truy cập trực tiếp từ internet. Nếu muốn truy cập một thiết bị trong mạng có **IP Private** từ bên ngoài, bạn cần sử dụng phương thức như **VPN**, **Port Forwarding**, hoặc **Reverse SSH**.
 
 **Ví dụ:**
@@ -474,6 +476,17 @@ Các loại thông tin ánh xạ trong DNS:
 
 **VD:** DNS doc.hust.vn
 
+1. Người dùng gõ "doc.hust.vn" vào trình duyệt web.
+2. Trình duyệt gửi yêu cầu giải quyết tên miền đến DNS resolver (do DHCP cấp).
+3. resolver gửi truy vấn đến root (DNS root nameserver).
+4. root trả lời resolver địa chỉ của máy chủ TLD cho .vn, nơi lưu trữ thông tin cho các miền có đuôi .vn.
+5. resolver gửi truy vấn đến TLD .vn
+6. TLD .vn trả lời resolver địa chỉ IP của máy chủ nameserver(second) cho hust.vn, nơi lưu trữ thông tin về các subdomain bên trong hust.vn.
+7. resolver truy vấn đến máy chủ nameserver hust.vn
+8. Máy chủ nameserver(second) trả lời resolver địa chỉ authoritative nameserver để lấy thông tin về doc.hust.vn.
+9. Resolver truy vấn đến authoritative nameserver của doc.hust.vn.
+10. authoritative nameserver trả lời về IP tương ứng doc.hust.vn.
+11. DNS gửi IP về cho trình duyệt.
 
 
 ### **Các thành phần chính trong hệ thống DNS**:
