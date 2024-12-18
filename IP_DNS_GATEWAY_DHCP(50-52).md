@@ -868,14 +868,14 @@ Khi một thiết bị (máy khách DHCP) muốn kết nối vào mạng, nó s�
 
 1. **DHCP Discover** (Khách hàng tìm kiếm máy chủ DHCP):
    - Khi thiết bị mới kết nối vào mạng và chưa có địa chỉ IP, nó sẽ gửi một **gói DHCP Discover** ra mạng (thường là một thông điệp quảng bá).
-   - Gói tin này được gửi đi với địa chỉ đích là **255.255.255.255** (địa chỉ broadcast) để tất cả các thiết bị trên mạng có thể nhận được, bao gồm cả máy chủ DHCP.
+   - Gói tin này được gửi đi với địa chỉ đích là **255.255.255.255** (địa chỉ broadcast) để tất cả các thiết bị trên mạng có thể nhận được, bao gồm cả máy chủ DHCP. Để xác định xem thằng nào là DHCP
 
 2. **DHCP Offer** (Máy chủ DHCP đưa ra đề nghị):
    - Máy chủ DHCP nhận được yêu cầu DHCP Discover và sẽ phản hồi bằng một **gói DHCP Offer**.
    - Trong gói DHCP Offer, máy chủ DHCP cung cấp cho thiết bị một địa chỉ IP khả dụng từ phạm vi (IP Pool) của nó, cùng với các thông tin cấu hình khác như:
-     - Subnet mask
-     - Default gateway (router)
-     - DNS server
+     - Subnet mask: cấp để xác định phạm vi và các mạng khác có cùng mạng vs nó hay không.
+     - Default gateway (router): cấp để cho phép mạng cục bộ có thể giao tiếp ra bên ngoài internet
+     - DNS server: chính là DNS resolver
      - Lease time (Thời gian thuê địa chỉ IP)
    - Gói **DHCP Offer** sẽ được gửi đến máy khách qua mạng.
 
