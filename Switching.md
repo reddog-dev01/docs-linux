@@ -325,24 +325,13 @@ Phần mềm giúp kết hợp các kết nối mạng vật lý lại với nha
    - **Bonding** cho phép kết hợp nhiều kết nối mạng vật lý lại với nhau, từ đó tăng tổng băng thông mà không cần phải nâng cấp phần cứng hoặc thay đổi cơ sở hạ tầng mạng.
    - Ví dụ: Nếu bạn có hai kết nối Ethernet với tốc độ 1 Gbps mỗi kết nối, việc bonding chúng lại có thể tạo ra một kết nối 2 Gbps.
 
-2. **Cải thiện tính sẵn sàng (High Availability)**:
-   - Một trong những lợi ích lớn nhất của bonding là khả năng dự phòng. Nếu một kết nối vật lý gặp sự cố, các kết nối còn lại sẽ tự động tiếp quản, đảm bảo mạng luôn hoạt động mà không bị gián đoạn.
-   - Điều này rất quan trọng trong các môi trường yêu cầu tính sẵn sàng cao, như trong các **data center** hoặc **hệ thống quan trọng**.
-
-3. **Cân bằng tải (Load Balancing)**:
+2. **Cân bằng tải (Load Balancing)**:
    - Bonding giúp phân phối lưu lượng dữ liệu đều trên các kết nối vật lý, tránh tình trạng một kết nối bị quá tải trong khi các kết nối khác ít sử dụng.
    - Các chế độ bonding như **Round-robin** và **Adaptive Load Balancing** giúp cân bằng tải theo cách động và tối ưu hóa băng thông.
 
-4. **Giảm độ trễ (Latency Reduction)**:
-   - Việc phân phối lưu lượng qua nhiều kết nối giúp giảm độ trễ trong mạng, nhất là khi có nhiều thiết bị hoặc máy chủ cần truy cập dữ liệu cùng lúc.
-   - Cân bằng tải và phân phối dữ liệu qua các cổng khác nhau giúp tăng tốc độ và giảm độ trễ.
+3. **Tăng cường độ tin cậy và khả năng chịu lỗi**:
+   - Bonding cho phép mạng tiếp tục hoạt động ngay cả khi một hoặc nhiều card mạng bị hỏng hoặc mất kết nối. Nếu một NIC trong nhóm bonding gặp sự cố, các NIC khác sẽ tiếp nhận công việc, giảm thiểu đứt gãy trong giao tiếp mạng.
 
-5. **Tăng cường độ tin cậy và hiệu suất**:
-   - Các hệ thống **Bonding** có thể giúp cải thiện độ tin cậy của mạng bằng cách giảm thiểu khả năng gián đoạn mạng, đồng thời tăng hiệu suất bằng cách tận dụng tất cả các kết nối vật lý có sẵn.
-
-6. **Dễ dàng mở rộng (Scalability)**:
-   - Bonding cho phép dễ dàng mở rộng mạng mà không cần thay đổi cấu trúc mạng hiện tại. Bạn chỉ cần thêm các kết nối vật lý và cấu hình bonding để tăng băng thông và hiệu suất.
-   - Điều này đặc biệt hữu ích trong các môi trường mạng lớn, nơi nhu cầu về băng thông có thể thay đổi theo thời gian.
 
 **Ứng dụng của Bonding trong Mạng**
 
