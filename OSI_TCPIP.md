@@ -331,6 +331,9 @@ Khi **Thiết bị A** muốn gửi dữ liệu tới **Thiết bị B**:
 Lớp Mạng là lớp thứ ba trong mô hình OSI, có vai trò quan trọng trong việc định tuyến gói tin qua mạng, điều phối dữ liệu giữa các mạng khác nhau, và đảm bảo rằng dữ liệu được gửi đến đúng đích. Lớp này xử lý các vấn đề liên quan đến định tuyến gói dữ liệu từ nguồn đến đích, kể cả khi các thiết bị nguồn và đích nằm trên các mạng khác nhau.
 
 **Chức năng chính của Lớp Mạng**
+
+- Nói chung là đóng gói, xử lý, định tuyến dữ liệu
+
 1. **Định tuyến (Routing):**
    - Xác định đường đi tối ưu cho gói tin từ nguồn đến đích.
    - Sử dụng các bảng định tuyến và thuật toán định tuyến để đưa ra quyết định về đường đi cho mỗi gói tin.
