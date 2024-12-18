@@ -227,9 +227,13 @@ Khi đó, Router A sẽ gửi gói tin đến Router B, và Router B sẽ tiếp
 
 -------------------
 
-### **Routing Table**
+### **Routing Table (Bảng định tuyến)**
 
-- cung cấp thông tin về cách router sẽ chuyển tiếp gói tin đến các đích mạng khác nhau. Mỗi router trong mạng đều có một bảng định tuyến riêng, chứa thông tin về các tuyến đường (routes) tới các mạng đích. Ngoài ra còn chứa các thông tin liên quan đến cách router xử lý và chuyển tiếp gói tin. 
+- Routing Table là tập hợp các quy tắc sử dụng để xác định các gói dữ liệu di chuyển qua mạng (IP) được định hướng đến đâu.
+- Routing Table của mỗi router là duy nhất và được lưu trong RAM.
+- Tất cả các thiết bị hỗ trợ IP gồm router và switch đều sử dụng routing table
+
+Để tìm đúng subnet (subnet ID) của mình, bộ định tuyến thực hiện phép AND theo bit giữa địa chỉ IP đích được đề cập trong gói dữ liệu và tất cả các subnet mask (từng cái 1). Nếu chỉ xuất hiện một kết quả trùng khớp, bộ định tuyến sẽ chuyển tiếp gói dữ liệu đến giao diện tương ứng. Nếu xuất hiện nhiều hơn một kết quả trùng khớp, bộ định tuyến sẽ chuyển tiếp gói dữ liệu đến giao diện tương ứng với mặt nạ subnet dài nhất. Nếu không có kết quả trùng khớp nào, bộ định tuyến sẽ chuyển tiếp gói dữ liệu đến giao diện tương ứng với mục nhập mặc định.
 
 **Cấu Trúc của Routing Table**
 
@@ -257,9 +261,6 @@ Bảng định tuyến bao gồm một hoặc nhiều mục (entries) chứa th�
 
 6. **Route Source (Nguồn tuyến đường)**:
    - Cho biết tuyến đường đến từ đâu. Nó có thể là một **tuyến đường tĩnh**, **tuyến đường động** (được học từ các giao thức định tuyến như RIP, OSPF, BGP), hoặc **tuyến đường kết nối trực tiếp** (directly connected).
-
-7. **TTL (Time To Live)**:
-   - Trường này giúp kiểm soát vòng đời của gói tin trong mạng. Mỗi khi gói tin đi qua một router, TTL sẽ giảm đi một đơn vị. Khi TTL đạt 0, gói tin sẽ bị loại bỏ để tránh vòng lặp vô hạn.
 
 **Các Loại Tuyến Đường trong Routing Table**
 
