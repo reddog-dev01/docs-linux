@@ -568,39 +568,15 @@ Tên miền example.com được quản lý bởi một máy chủ DNS cụ th�
 
 **1. Recursive Query (Truy vấn đệ quy):**
 
-Người dùng (client) yêu cầu máy chủ DNS cục bộ tìm kiếm và trả về kết quả cuối cùng.
-
-Cách hoạt động:
-
-Máy chủ DNS phải tự tìm kiếm thông qua các máy chủ khác (Root Server, TLD Server, Authoritative Server).
-
-Nếu không tìm thấy kết quả, máy chủ trả về lỗi.
-
-Ví dụ: Người dùng truy cập www.example.com, Recursive Resolver trả về địa chỉ IP cuối cùng hoặc lỗi.
+- DNS sẽ thực hiện tất cả các bước để giải quyết tên miền cho đến khi ra IP hoặc thông báo lỗi nếu không tìm thấy
 
 **2. Iterative Query (Truy vấn lặp):**
 
-Máy chủ DNS chỉ trả về thông tin gần đúng nhất hoặc chỉ dẫn (hướng đến máy chủ khác).
+- Khi yêu cầu DNS không biết nó sẽ gửi đến DNS khác để giải quyết. Lặp đi lặp lại cho đến khi ra
 
-Cách hoạt động:
+**3. Non-recursive Query (Truy vấn Không Đệ quy)**
 
-Máy chủ DNS không tìm kiếm toàn bộ chuỗi; thay vào đó, nó trả về địa chỉ máy chủ kế tiếp mà client cần truy vấn.
-
-Ví dụ: Recursive Resolver hỏi Root Server, Root Server chỉ dẫn đến TLD Server.
-
-**3. Reverse Query (Truy vấn ngược):**
-
-Dùng để ánh xạ địa chỉ IP thành tên miền (ngược lại với truy vấn thông thường).
-
-Cách hoạt động:
-
-Truy vấn sử dụng PTR Record trong DNS.
-
-Ví dụ:
-
-Địa chỉ IP: 192.168.1.1.
-
-Kết quả: example.com.
+- Khi nó biết thằng DNS nào có thẩm quyền trực tiếp hoặc lưu cache
 
 #### **2.4 các loại DNS bản ghi DNS thường sử dụng**
 
