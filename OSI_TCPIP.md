@@ -132,13 +132,8 @@
   - Sử dụng sóng radio để truyền tín hiệu qua không khí, thường dùng tần số 2.4 GHz hoặc 5 GHz.
 
 **Các thiết bị liên quan đến Lớp Vật lý**
-1. **Hub**:
-   - Thiết bị đơn giản truyền tín hiệu đến tất cả các thiết bị trong mạng mà không xử lý dữ liệu.
-2. **Repeater**:
-   - Khuếch đại tín hiệu để truyền xa hơn trong mạng.
-3. **Modem**:
-   - Chuyển đổi tín hiệu số từ máy tính thành tín hiệu analog để truyền qua đường dây điện thoại hoặc cáp.
-4. **Cáp mạng**:
+
+**Cáp mạng**:
    - Các loại cáp truyền dẫn như Ethernet, cáp quang, hoặc cáp đồng trục.
 
 **Đặc điểm của Lớp Vật lý**
@@ -152,12 +147,8 @@
 **Một số tiêu chuẩn và giao thức của Lớp Vật lý**
 1. **Ethernet (IEEE 802.3)**:
    - Quy định cách truyền tín hiệu qua cáp đồng hoặc cáp quang.
-2. **Wi-Fi (IEEE 802.11)**:
-   - Quy định cách truyền tín hiệu không dây qua sóng radio.
 3. **Bluetooth**:
    - Truyền tín hiệu không dây trong khoảng cách ngắn.
-4. **USB (Universal Serial Bus)**:
-   - Truyền dữ liệu giữa các thiết bị thông qua cáp vật lý.
 
 --------------------------
 
@@ -253,11 +244,7 @@ Tóm lại quy trình hoạt động của **Tầng Liên kết Dữ liệu (Dat
 
 
 **Các Giao thức và Tiêu chuẩn của Lớp Liên kết Dữ liệu**
-1. **Ethernet (IEEE 802.3)**:
-   - Là tiêu chuẩn phổ biến nhất cho mạng LAN, sử dụng địa chỉ MAC để xác định các thiết bị và điều khiển việc truy cập môi trường truyền thông.
 
-2. **Wi-Fi (IEEE 802.11)**:
-   - Cũng sử dụng địa chỉ MAC, nhưng trong môi trường không dây, cung cấp kết nối linh hoạt và dễ dàng mở rộng.
 
 3. **PPP (Point-to-Point Protocol)**:
    - Cho phép truyền thông qua đường dây điện thoại hoặc liên kết dữ liệu nối tiếp, thường được sử dụng trong kết nối internet qua điện thoại.
