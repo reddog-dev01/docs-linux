@@ -1,6 +1,6 @@
 ### **ip link**
 
-Lệnh `ip link` trong Linux là một công cụ mạnh mẽ để quản lý các giao diện mạng trên hệ thống. Dưới đây là cách sử dụng `ip link` cùng các tuỳ chọn phổ biến trong Linux:
+Lệnh `ip link` dùng để quản lý các giao diện mạng trên hệ thống. Dưới đây là cách sử dụng `ip link` cùng các tuỳ chọn phổ biến trong Linux:
 
 **Cấu trúc lệnh cơ bản:**
 ```bash
