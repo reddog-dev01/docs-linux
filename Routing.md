@@ -7,7 +7,7 @@
 
 **Sự khác nhau giữa Router và gateway:**
 - Router dùng để định tuyến (routing) dữ liệu từ mạng này sang mạng khác. Hoạt động ở layer 3,4
-- Gateway là chuyển đổi 1 giao thức này sang giao thức khác. Hoạt động ở layer 5,7
+- Gateway là chuyển đổi 1 giao thức này sang giao thức khác
 
 **Các Bước trong Quá Trình Routing**
 
@@ -70,9 +70,7 @@ Quá trình sẽ như sau:
 
 ### **1. Giao thức định tuyến (Routing Protocol)**
 
-**Giao thức định tuyến** (Routing Protocol) là một tập hợp các quy tắc, quy trình và phương pháp mà các router hoặc thiết bị mạng sử dụng để quyết định con đường tối ưu (tuyến đường) để chuyển tiếp các gói tin từ nguồn 
-đến đích trong mạng máy tính. Các giao thức này cho phép các router trao đổi thông tin về các tuyến đường khả dụng, từ đó cập nhật và duy trì bảng định tuyến của mình để đảm bảo dữ liệu được gửi đến đúng đích qua con đường tối ưu.
-
+**Giao thức định tuyến** (Routing Protocol) là một tập hợp các quy tắc mà các router sử dụng để giao tiếp với nhau.
 **Lý do cần giao thức định tuyến:**
 - **Tối ưu hóa lưu lượng mạng**: Giao thức định tuyến giúp các router chọn lựa con đường tối ưu cho việc chuyển tiếp gói tin, từ đó giảm độ trễ và tăng hiệu suất mạng.
 - **Khả năng phục hồi và chịu lỗi**: Khi một liên kết mạng bị hỏng, giao thức định tuyến có thể giúp tìm ra con đường thay thế để đảm bảo sự tiếp tục của việc truyền tải dữ liệu.
@@ -229,6 +227,9 @@ Khi đó, Router A sẽ gửi gói tin đến Router B, và Router B sẽ tiếp
 
 Đây là quá trình mà các đường đi được học hoặc điều chỉnh tự động bởi các router thông qua sử dụng các giao thức định tuyến. Các giao thức này, như RIP, OSPF, EIGRP, BGP, v.v., cho phép router trao đổi thông tin và tự động cập nhật bảng định tuyến để phản ánh các thay đổi trong mạng, chẳng hạn như các đường liên kết mới hoặc các đường liên kết bị hỏng.
 
+- RIP (Routing Information Protocol): Là một trong những giao thức định tuyến động đơn giản nhất, sử dụng thuật toán khoảng cách vectơ để xác định đường đi tốt nhất dựa trên số bước nhảy tối thiểu đến một mạng.
+
+- OSPF (Open Shortest Path First): Sử dụng thuật toán Dijkstra để tìm đường đi ngắn nhất
 -------------------
 
 ### **Routing Table (Bảng định tuyến)**
@@ -251,7 +252,7 @@ Bảng định tuyến bao gồm một hoặc nhiều mục (entries) chứa th�
    - Subnet Mask giúp router phân biệt đâu là **địa chỉ mạng** và đâu là **địa chỉ host** trong một gói tin.
    - Ví dụ, đối với `192.168.1.0/24`, mặt nạ mạng là `255.255.255.0`.
 
-3. **Next-Hop (Cổng tiếp theo)**:
+3. **Next-Hop (gateway) (Cổng tiếp theo)**:
    - Địa chỉ IP của router hoặc thiết bị tiếp theo trong chuỗi chuyển tiếp.
    - Đây là nơi gói tin được chuyển đến sau khi rời khỏi router hiện tại. Nếu không có next-hop (trường hợp mạng đích được kết nối trực tiếp), thông tin này có thể là `0.0.0.0`.
 
