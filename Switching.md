@@ -294,7 +294,7 @@ Packet Switching là một kỹ thuật mạng cho phép dữ liệu được ch
 
 ### **Bonding**
 
--  quá trình kết hợp nhiều kết nối mạng (hoặc cổng mạng) để tạo thành một kết nối duy nhất với băng thông cao hơn hoặc độ tin cậy cao hơn. Việc kết hợp này giúp tăng tốc độ truyền tải dữ liệu, cải thiện độ sẵn sàng (availability), và cung cấp khả năng dự phòng (redundancy) trong trường hợp một kết nối gặp sự cố.
+-  kết hợp nhiều card mạng để chạy song song (được đại diện bởi interface bonding) với băng thông cao hơn hoặc độ tin cậy cao hơn. Việc kết hợp này giúp tăng tốc độ truyền tải dữ liệu, cải thiện độ sẵn sàng (availability), và cung cấp khả năng dự phòng (redundancy) trong trường hợp một kết nối gặp sự cố.
 
 **Các loại Bonding trong mạng**
 
