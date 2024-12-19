@@ -625,4 +625,78 @@ Các bước xác thực khi kết nối:
 
 ### **2. rsync và scp**
 
+#### **rsync**
 
+`rsync` là một công cụ rất mạnh mẽ để đồng bộ hóa các tập tin và thư mục giữa hai máy tính hoặc trong cùng một hệ thống. Dưới đây là một số cách cơ bản để sử dụng `rsync`:
+
+1. Sao chép dữ liệu từ thư mục này sang thư mục khác
+```bash
+rsync -av /path/to/source/ /path/to/destination/
+```
+- `-a` (archive) nghĩa là sao chép dữ liệu một cách đầy đủ, giữ nguyên liên kết tượng trưng, quyền sở hữu, thời gian sửa đổi, và các thuộc tính khác.
+- `-v` (verbose) cho phép hiển thị chi tiết quá trình sao chép.
+
+2. Sao chép dữ liệu giữa hai máy chủ
+```bash
+rsync -avz /path/to/source/ user@remote_host:/path/to/destination/
+```
+- `-z` (compress) nén dữ liệu trước khi chuyển, giúp tiết kiệm băng thông.
+
+3. Đồng bộ hóa, loại bỏ các tập tin không còn ở nguồn
+```bash
+rsync -av --delete /path/to/source/ /path/to/destination/
+```
+- `--delete` sẽ xóa các tập tin ở điểm đến mà không còn ở nguồn.
+
+4. Chỉ sao chép các tập tin thay đổi
+`rsync` tự động chỉ sao chép các tập tin đã thay đổi. Tuy nhiên, để kiểm soát kỹ hơn, bạn có thể sử dụng:
+```bash
+rsync -av --ignore-existing /path/to/source/ /path/to/destination/
+```
+- `--ignore-existing` không sao chép các tập tin đã tồn tại ở điểm đến.
+
+5. Kiểm soát việc sao chép dựa trên thời gian thay đổi
+```bash
+rsync -av --update /path/to/source/ /path/to/destination/
+```
+- `--update` chỉ sao chép các tập tin mà tập tin ở nguồn mới hơn tập tin ở điểm đến.
+
+#### **scp**
+
+`scp` (secure copy) là một công cụ sử dụng trong SSH để sao chép an toàn dữ liệu giữa hai máy tính qua mạng. Đây là cách dùng `scp` cho một số tình huống cơ bản:
+
+1. Sao chép tập tin từ máy cục bộ lên máy chủ từ xa
+```bash
+scp /path/to/local/file username@remote_host:/path/to/remote/directory/
+```
+- Thay thế `/path/to/local/file` bằng đường dẫn tập tin bạn muốn sao chép.
+- `username@remote_host` là tên đăng nhập và địa chỉ máy chủ từ xa.
+- `/path/to/remote/directory/` là thư mục đích trên máy chủ từ xa.
+
+2. Sao chép tập tin từ máy chủ từ xa về máy cục bộ
+```bash
+scp username@remote_host:/path/to/remote/file /path/to/local/directory/
+```
+- Thay thế `/path/to/remote/file` và `/path/to/local/directory/` tương ứng với đường dẫn tập tin từ xa và thư mục đích trên máy cục bộ.
+
+3. Sao chép thư mục đệ quy từ máy cục bộ lên máy chủ từ xa
+```bash
+scp -r /path/to/local/directory username@remote_host:/path/to/remote/directory/
+```
+- Tùy chọn `-r` cho phép sao chép đệ quy các thư mục và tập tin bên trong.
+
+4. Sao chép thư mục đệ quy từ máy chủ từ xa về máy cục bộ
+```bash
+scp -r username@remote_host:/path/to/remote/directory /path/to/local/directory/
+```
+
+5. Sao chép tập tin sử dụng cổng SSH không phải mặc định
+Nếu máy chủ từ xa sử dụng cổng SSH không phải là cổng mặc định (22), bạn có thể chỉ định cổng bằng tùy chọn `-P`:
+```bash
+scp -P port /path/to/local/file username@remote_host:/path/to/remote/directory/
+```
+- Thay thế `port` bằng số cổng SSH mà bạn muốn sử dụng.
+
+#### **Sự khác nhau giữa rsync và scp**
+
+- rsync nếu dữ liệu đã tồn tại thì chỉ sao chép phần thay đổi. scp thì sao chép hết dẫn đến việc lặp dữ liệu.
