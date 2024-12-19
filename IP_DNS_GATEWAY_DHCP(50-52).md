@@ -753,7 +753,8 @@ curl -s https://api64.ipify.org?domain=example.com
 - Gateway (cổng mạng) là một nút mạng dùng để kết nối hai mạng khác nhau, hoặc một mạng nội bộ và mạng bên ngoài (ví dụ: Internet).
 
 **Default Gateway:**  
-- Là 1 điểm để truyền lưu lượng mạng cục bộ ra mạng internet. Thường là 1 router hoặc 1 thiết bị có thể kết nối từ LAN ra internet
+- Là 1 nút để truyền gói tin từ mạng nguồn đến mạng đích khi bảng định tuyến không chứa tuyến đường tới địa chỉ mạng đích. Ví dụ như khi máy tính muốn gửi gói tin đến mạng A (k nằm trong mạng LAN), nhưng trong bảng định tuyến không có tuyến nào dẫn đến A thì nó sẽ đi qua default gateway để định tuyến gói tin đến đích hoặc qua 1 gateway khác.
+-  Thường là 1 router hoặc 1 thiết bị có thể kết nối từ LAN ra internet. 
 
 **Chức năng của Gateway**
 
