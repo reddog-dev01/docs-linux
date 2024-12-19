@@ -1,6 +1,6 @@
 ### **ip link**
 
-Lệnh `ip link` dùng để quản lý các giao diện mạng trên hệ thống. Dưới đây là cách sử dụng `ip link` cùng các tuỳ chọn phổ biến trong Linux:
+Lệnh `ip link` dùng để quản lý các giao diện mạng (xem, bật, tắt). Dưới đây là cách sử dụng `ip link` cùng các tuỳ chọn phổ biến trong Linux:
 
 **Cấu trúc lệnh cơ bản:**
 ```bash
@@ -184,8 +184,7 @@ Ví dụ:
 
 ### **ip route**
 
-Lệnh `ip route` được sử dụng để **xem và quản lý bảng định tuyến (routing table)** trong Linux. Bảng định tuyến chứa thông tin về các tuyến đường mà hệ thống sử dụng để định hướng lưu lượng mạng tới đích. Đây là một phần quan trọng trong việc quản lý mạng trên các hệ thống Linux.
-
+Lệnh `ip route` được sử dụng để **quản lý bảng định tuyến (routing table)** trong Linux.
 **Cấu trúc cơ bản của lệnh `ip route`:**
 
 ```bash
@@ -327,7 +326,7 @@ default via 192.168.21.2 dev ens33 proto dhcp src 192.168.21.131 metric 100
 
 ### **ip address**
 
-Lệnh `ip address show` là công cụ để hiển thị thông tin về các địa chỉ IP của các giao diện mạng trên hệ thống. Khi sử dụng lệnh này, bạn sẽ nhận được một số thông tin chi tiết về các giao diện mạng và các địa chỉ IP được gán cho chúng.
+Lệnh `ip address show` là công cụ để quản lý thông tin về các địa chỉ IP của các giao diện mạng trên hệ thống. Khi sử dụng lệnh này, bạn sẽ nhận được một số thông tin chi tiết về các giao diện mạng và các địa chỉ IP được gán cho chúng.
 
 1. **Ý nghĩa các thông tin khi dùng `ip address show`**
 
@@ -493,7 +492,7 @@ f. **`primary`**
 
 ### **arp**
 
-Lệnh `arp` (Address Resolution Protocol) là một công cụ trong Linux và các hệ điều hành khác để quản lý và hiển thị bảng ARP, nơi lưu trữ ánh xạ giữa địa chỉ IP và địa chỉ MAC của các thiết bị trong mạng cục bộ.
+Lệnh `arp` (Address Resolution Protocol) dùng để quản lý bảng ARP, nơi lưu trữ ánh xạ giữa địa chỉ IP và địa chỉ MAC của các thiết bị trong mạng cục bộ.
 
 **1. Cú pháp cơ bản của lệnh `arp`:**
 ```bash
@@ -620,7 +619,7 @@ arp [options] [hostname]
 
 ### **Telnet**
 
-Lệnh `telnet` là một công cụ mạng được sử dụng để kết nối với các dịch vụ mạng từ xa qua giao thức Telnet (TCP port 23). Mặc dù Telnet không mã hóa dữ liệu truyền tải và có thể gặp rủi ro bảo mật, nhưng nó vẫn được sử dụng trong một số trường hợp, như quản lý thiết bị mạng cũ hoặc khi việc mã hóa không cần thiết.
+Lệnh `telnet` dùng để kết nối với máy chủ từ xa qua giao thức Telnet (TCP port 23). sử dụng để kiểm tra xem một cổng trên máy chủ từ xa có đang mở hay không
 
 Dưới đây là các thông tin chi tiết về lệnh `telnet` và các option của nó:
 
@@ -749,7 +748,7 @@ Mặc dù Telnet có thể hữu ích trong việc kết nối đến các thi�
 
 ### **ping**
 
-Lệnh `ping` là một công cụ mạng cơ bản và rất phổ biến dùng để kiểm tra khả năng kết nối mạng giữa hai thiết bị. `ping` hoạt động bằng cách gửi các gói ICMP (Internet Control Message Protocol) Echo Request đến một địa chỉ IP và đợi phản hồi Echo Reply. Đây là cách đơn giản để kiểm tra xem một thiết bị có thể kết nối đến một thiết bị khác trên mạng hay không.
+Lệnh `ping` dùng để kiểm tra khả năng kết nối mạng giữa hai thiết bị. `ping` hoạt động bằng cách gửi các gói ICMP (Internet Control Message Protocol) Echo Request đến một địa chỉ IP và đợi phản hồi Echo Reply. Đây là cách đơn giản để kiểm tra xem một thiết bị có thể kết nối đến một thiết bị khác trên mạng hay không.
 
 ### **Cú pháp cơ bản của lệnh `ping`**
 ```bash
@@ -901,8 +900,8 @@ Kết quả khi sử dụng `ping` sẽ hiển thị các thông tin như:
 
 ### **Công cụ `traceroute` và các Option**
 
-`traceroute` là công cụ mạnh mẽ dùng để xác định tuyến đường (path) mà gói tin đi qua từ máy tính của bạn đến một máy chủ đích trên mạng. Công cụ này sẽ gửi các gói tin ICMP hoặc UDP (tùy thuộc vào cấu hình) và cho bạn biết từng hop (bước) mà gói tin đi qua, giúp bạn chẩn đoán các vấn đề mạng.
-
+- `traceroute` Sử dụng để theo dõi đường đi của các gói tin từ máy tính của bạn đến một máy chủ đích trên Internet. Thông tin về mỗi hop mà gói tin đi qua. 
+- Tác dụng phân tích và chẩn đoán các vấn đề liên quan đến mạng, như tìm nguyên nhân của độ trễ, mất gói, hoặc các vấn đề định tuyến.
 Dưới đây là một số tùy chọn (`options`) phổ biến của `traceroute` mà bạn có thể sử dụng để điều chỉnh cách thức hoạt động của công cụ này.
 
 ---
