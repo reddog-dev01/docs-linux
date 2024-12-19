@@ -1268,7 +1268,7 @@ Tầng Liên kết, còn được gọi là Link Layer hoặc Network Interface 
 ### **UDP(User Datagram Protocol)**
 
 
-UDP, viết tắt của User Datagram Protocol, là một trong những giao thức cơ bản trong bộ giao thức TCP/IP, hoạt động ở tầng Giao vận (Transport Layer). Đây là giao thức không định hướng kết nối, nghĩa là nó không thiết lập một kết nối ổn định trước khi truyền dữ liệu, và cũng không đảm bảo rằng dữ liệu gửi đi sẽ được nhận chính xác tại điểm đích. Do tính chất nhanh và hiệu quả của nó, UDP thường được sử dụng trong các ứng dụng đòi hỏi truyền dữ liệu thời gian thực như video, âm thanh trong cuộc gọi VoIP, trò chơi trực tuyến và nhiều hệ thống phát sóng trực tiếp.
+UDP (User Datagram Protocol). Đây là giao thức không kết nối, nghĩa là nó không thiết lập một kết nối ổn định trước khi truyền dữ liệu, các gói datagram được gửi đi độc lập vì vậy có thể dẫn đến việc mất mát hoặc sai lệch thứ tự các gói. Do tính chất nhanh và hiệu quả của nó, UDP thường được sử dụng trong các ứng dụng đòi hỏi truyền dữ liệu thời gian thực như video, âm thanh trong cuộc gọi VoIP, trò chơi trực tuyến và nhiều hệ thống phát sóng trực tiếp. hoạt động ở tầng Giao vận (Transport Layer).
 
 #### **Chức năng chính của UDP**
 
