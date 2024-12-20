@@ -12,6 +12,8 @@ Giao thức mạng (Protocol) là tập hợp các quy tắc được thiết l�
 
 - Tại vì nó có khả năng quản lý hệ thống và truyền tải dữ liệu từ xa.
 
+- SỰ KHÁC NHAU GIỮA SSH VÀ telnet là: ssh gửi dữ liệu đi duới dạng mã hóa. Còn telnet gửi dữ liệu dưới dạng thuần túy.
+
 #### **1.1 Các thành phần cơ bản và đặc điểm nổi bật**
 
 Các thành phần cơ bản của SSH (Secure Shell) bao gồm các yếu tố chính sau:
