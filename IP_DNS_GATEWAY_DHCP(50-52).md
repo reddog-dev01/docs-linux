@@ -373,12 +373,14 @@ network:
 ```
 #### **1.4 Khi nào cấu hình IP động, khi nào cấu hình IP tĩnh**
 
+Tùy thuộc vào mục đích sử dụng.
+
 ##### a. **Khi nào cấu hình IP động (DHCP)?**
 IP động được cấp phát tự động bởi **DHCP server** mỗi khi thiết bị kết nối mạng. Điều này rất tiện lợi và phổ biến trong nhiều tình huống, đặc biệt là trong các mạng không yêu cầu địa chỉ IP cố định.
 
 ###### Sử dụng IP động khi:
 
-- trong môi trường mạng nhỏ, các thiết bị thay đổi thường xuyên để giảm bớt việc phải tự cấp phát IP cho mỗi thiết bị
+-  các thiết bị thay đổi thường xuyên để giảm bớt việc phải tự cấp phát IP cho mỗi thiết bị
 
 ##### b. **Khi nào cấu hình IP tĩnh?**
 IP tĩnh là một địa chỉ IP được chỉ định cố định cho một thiết bị cụ thể và không thay đổi trừ khi bạn thay đổi cấu hình. Việc cấu hình IP tĩnh thường được sử dụng cho các thiết bị cần một địa chỉ IP cố định để các thiết bị khác có thể kết nối ổn định.
