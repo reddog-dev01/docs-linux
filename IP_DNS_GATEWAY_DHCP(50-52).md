@@ -779,7 +779,7 @@ Mặc dù **giao thức DHCP** và **máy chủ DHCP** có mối liên quan ch�
    - **Vai trò**: Giao thức DHCP quy định cách thức cấp phát và quản lý địa chỉ IP động trong mạng.
 
 ##### 2. **Máy Chủ DHCP (DHCP Server)**
-   - **Định nghĩa**: Máy chủ DHCP là một **thiết bị hoặc phần mềm** chịu trách nhiệm **cung cấp và quản lý** địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị trong mạng theo yêu cầu của giao thức DHCP.
+   - **Định nghĩa**: Máy chủ DHCP là một **máy chủ** chịu trách nhiệm **cung cấp và quản lý** địa chỉ IP và các thông tin cấu hình mạng cho các thiết bị trong mạng theo yêu cầu của giao thức DHCP.
    - **Chức năng chính**:
      - Máy chủ DHCP quản lý một **dãy địa chỉ IP** (gọi là **IP Pool**) và cấp phát các địa chỉ này cho các thiết bị yêu cầu kết nối mạng.
      - Ngoài việc cấp phát địa chỉ IP, máy chủ DHCP còn cung cấp các thông tin khác như subnet mask, default gateway, DNS server, và thời gian thuê địa chỉ IP (lease time).
