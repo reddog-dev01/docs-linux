@@ -1,5 +1,7 @@
 ### **1. SSH**
 
+Giao thức mạng (Protocol) là tập hợp các quy tắc được thiết lập nhằm xác định cách định dạng, truyền nhận dữ liệu sao cho các thiết bị mạng máy tính (server, router) có thể giao tiếp được với nhau.
+
 **SSH là gì**
 - SSH (Secure Shell) là một giao thức mạng cho phép truy cập vào máy chủ từ xa thông qua mạng internet không bảo mật. 
 
