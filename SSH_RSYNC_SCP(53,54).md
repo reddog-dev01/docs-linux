@@ -8,6 +8,9 @@ Giao thức mạng (Protocol) là tập hợp các quy tắc được thiết l�
 **SSH dùng để làm gì**
 - Truy cập từ xa, quản lý hệ thống, truyền tải dữ liệu.
 
+**Tại sao phải SSH**
+
+- Tại vì nó có khả năng quản lý hệ thống và truyền tải dữ liệu từ xa.
 
 #### **1.1 Các thành phần cơ bản và đặc điểm nổi bật**
 
