@@ -562,7 +562,7 @@ Tên miền example.com được quản lý bởi một máy chủ DNS cụ th�
 
 **2. Iterative Query (Truy vấn lặp):**
 
-- Khi yêu cầu DNS không biết nó sẽ gửi đến DNS khác để giải quyết. Lặp đi lặp lại cho đến khi ra
+- Khi yêu cầu DNS không biết nó sẽ gửi đến DNS khác để giải quyết. Lặp đi lặp lại cho đến khi ra kq hoặc gặp lỗi (không có tên miền hoặc timeout)
 
 **3. Non-recursive Query (Truy vấn Không Đệ quy)**
 
