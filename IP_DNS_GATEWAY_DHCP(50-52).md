@@ -380,7 +380,7 @@ IP động được cấp phát tự động bởi **DHCP server** mỗi khi thi
 
 ###### Sử dụng IP động khi:
 
--  các thiết bị thay đổi thường xuyên để giảm bớt việc phải tự cấp phát IP cho mỗi thiết bị
+- Sử dụng khi không cần 1 địa chỉ IP cố định cho thiết bị để duy trì kết nối ổn địng. các thiết bị thay đổi thường xuyên để giảm bớt việc phải tự cấp phát IP cho mỗi thiết bị
 
 ##### b. **Khi nào cấu hình IP tĩnh?**
 IP tĩnh là một địa chỉ IP được chỉ định cố định cho một thiết bị cụ thể và không thay đổi trừ khi bạn thay đổi cấu hình. Việc cấu hình IP tĩnh thường được sử dụng cho các thiết bị cần một địa chỉ IP cố định để các thiết bị khác có thể kết nối ổn định.
