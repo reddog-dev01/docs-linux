@@ -7,13 +7,34 @@
 
 #### **1.1 Các giao thức trong mô hình OSI**
 
-**a. Giao thức hướng liên kết (Connection Oriented)**
-- Thiết lập 1 kết nối logic trong cùng 1 tầng của 2 thiết bị trước khi truyền dữ liệu.
-- Kiểm tra lỗi, phát hiện và gửi lại dữ liệu bị mất.
+Tầng Vật lý (Physical Layer):
 
-**b. Giao thức không liên kết (Connectionless Protocol)**
-- Dữ liệu được gửi duới dạng packets độc lập.
-- Không có đảm bảo dữ liệu sẽ đến đích hoặc gửi theo đúng thứ tự
+Chịu trách nhiệm truyền và nhận các tín hiệu thô qua môi trường vật lý.
+Đảm bảo kết nối vật lý giữa các thiết bị cũng như việc mã hóa dữ liệu thành tín hiệu.
+Tầng Liên kết dữ liệu (Data Link Layer):
+
+Đảm bảo truyền dữ liệu an toàn và tin cậy giữa các thiết bị trên một mạng.
+Khung dữ liệu, kiểm soát lỗi, kiểm soát truy cập môi trường.
+Tầng Mạng (Network Layer):
+
+Xác định đường đi tốt nhất cho dữ liệu thông qua mạng.
+Sử dụng địa chỉ mạng (như IP) để xác định nguồn và điểm đến của gói dữ liệu.
+Tầng Vận chuyển (Transport Layer):
+
+Đảm bảo việc truyền dữ liệu tin cậy từ điểm này tới điểm khác.
+Kiểm soát lỗi, kiểm soát luồng và đảm bảo tính toàn vẹn của gói tin.
+Tầng Phiên (Session Layer):
+
+Quản lý phiên làm việc giữa các ứng dụng trên các thiết bị kết nối mạng.
+Đặt lên và duy trì, quản lý và kết thúc các phiên.
+Tầng Trình diễn (Presentation Layer):
+
+Đảm bảo thông tin mà ứng dụng tại một hệ thống được đọc được bởi ứng dụng tại hệ thống khác.
+Xử lý dữ liệu (ví dụ: mã hóa, nén và chuyển đổi dữ liệu).
+Tầng Ứng dụng (Application Layer):
+
+Cung cấp giao diện cho các ứng dụng để tương tác với hệ thống mạng.
+Đảm bảo các ứng dụng có thể truy cập vào mạng và thực hiện các chức năng mạng
 
 
 **Quá trình dữ liệu từ máy A đến máy B qua các tầng trong mô hình OSI:**
