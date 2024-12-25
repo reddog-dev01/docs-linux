@@ -40,6 +40,12 @@ ELK stack đóng vai trò quan trọng trong việc quản lý log, tìm kiếm 
 **Mã Nguồn Mở và Cộng Đồng Lớn**
 - ELK stack là phần mềm mã nguồn mở, với một cộng đồng lớn và năng động luôn hỗ trợ và phát triển các tính năng mới, giúp người dùng dễ dàng triển khai và tùy chỉnh phù hợp với nhu cầu của họ.
 
+### **Cách hoạt động**
+
+![image](https://github.com/user-attachments/assets/dbf31c60-d962-4163-8e98-e803316e4d33)
+
+
+
 ### **1. Elasticsearch**
  
 Elasticsearch là 1 công cụ tìm kiếm (search engine) và phân tích dữ liệu phân tán mã nguồn mở theo thời gian thực, dùng để lưu trữ và tìm kiếm dữ liệu. Tức là Được xây dựng bằng Java, với giao diện HTTP có hỗ trợ JSON.
