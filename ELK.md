@@ -13,9 +13,9 @@ Là từ viết tắt của bộ công cụ bao gồm 3 dự án Elasticsearch, 
 
 Được sử dụng để tổng hợp nhật ký từ tất cả các hệ thống và ứng dụng, phân tích chúng và tạo trực quan hóa dữ liệu để giám sát, xử lý sự cố nhanh hơn, phân tích bảo mật...
 
-#### **1 Elasticsearch**
+#### **1. Elasticsearch**
  
-Elasticsearch là 1 công cụ tìm kiếm (search engine) và phân tích phân tán mã nguồn mở theo thời gian thực, dùng để lưu trữ và tìm kiếm dữ liệu. Tức là Được xây dựng bằng Java, với giao diện HTTP có hỗ trợ JSON.
+Elasticsearch là 1 công cụ tìm kiếm (search engine) và phân tích dữ liệu phân tán mã nguồn mở theo thời gian thực, dùng để lưu trữ và tìm kiếm dữ liệu. Tức là Được xây dựng bằng Java, với giao diện HTTP có hỗ trợ JSON.
 
 ##### **1.1 Các thành phần của Elasticsearch** 
 
@@ -100,3 +100,91 @@ b. Replica Shard (Shard bản sao):
 
 ![image](https://github.com/user-attachments/assets/4117df73-bb50-4a60-b809-c2e2bf724b73)
 
+
+#### **2. Logstash**
+
+##### **Khái niệm**
+- Logstash là một công cụ mã nguồn mở giúp thu thập, xử lý và chuyển tiếp dữ liệu từ nhiều nguồn khác nhau trước khi gửi đến Elasticsearch.
+
+##### **Các thành phần của Logstash**
+
+**INPUT** 
+
+- Thu thập dữ liệu từ các nguồn như file, syslog
+
+**FILTER** 
+
+- Nơi xử lý dữ liệu và chuyển tiếp.
+- Filter được sử dụng để thực hiện các biến đổi trên dữ liệu. Điều này bao gồm việc phân tích cú pháp, thêm hoặc xóa trường, thay đổi dữ liệu dựa trên điều kiện, đánh dấu dữ liệu (ví dụ, cho việc phân loại), và nhiều tác vụ khác. Một số plugin bộ lọc phổ biến bao gồm grok để phân tích cú pháp văn bản, mutate để thay đổi dữ liệu, và date để phân tích cú pháp và chuyển đổi ngày tháng.
+
+**OUTPUT**
+
+- Gửi dữ liệu đã qua xử lý tới Elasticsearch.
+
+##### **Cách hoạt động**
+
+![image](https://github.com/user-attachments/assets/c6c7bc7e-9b0c-40b7-b57d-f08e38e72a80)
+
+Logstash hoạt động dựa trên mô hình pipeline, trong đó dữ liệu đi qua ba giai đoạn chính: thu thập (input), xử lý (filter), và xuất (output)
+
+**Thu thập Dữ liệu (Input)**
+
+![image](https://github.com/user-attachments/assets/c6400af1-07c9-445b-8fd6-6ff2ee6deddc)
+
+
+- Logstash bắt đầu quy trình bằng việc thu thập dữ liệu từ các nguồn khác nhau thông qua input plugins. Các nguồn này có thể là file, log, cơ sở dữ liệu, message queues, và nhiều hơn nữa.
+- Khi dữ liệu được thu thập, nó được chuyển đến giai đoạn tiếp theo dưới dạng các "events".
+
+**Xử lý Dữ liệu (Filter)**
+
+![image](https://github.com/user-attachments/assets/93288d32-c871-474f-b478-7befea5bc818)
+
+- Các events được xử lý bằng một loạt filter plugins. Mỗi filter có thể được cấu hình để thực hiện nhiệm vụ cụ thể như phân tích cú pháp, làm giàu dữ liệu, thay đổi dữ liệu, hoặc loại bỏ thông tin không cần thiết.
+- Các bộ lọc có thể được xếp chồng lên nhau, cho phép một chuỗi các thay đổi phức tạp được áp dụng cho mỗi event.
+
+Xuất Dữ liệu (Output)
+
+![image](https://github.com/user-attachments/assets/18ac93bd-9bde-4260-bea0-5b12e4f611c4)
+
+- Dữ liệu được gửi đến một hoặc nhiều đầu ra thông qua output plugins.
+- Logstash có thể định tuyến events đến nhiều đích khác nhau tùy thuộc vào nội dung của chúng. Ví dụ, dữ liệu có thể được gửi đến Elasticsearch, một hệ thống file, một cơ sở dữ liệu, hoặc qua HTTP đến một API.
+
+Trong các giai đoạn thu thập và xuất dữ liệu, Logstash cũng có thể sử dụng codecs để mã hóa hoặc giải mã dữ liệu. Điều này giúp đơn giản hóa việc xử lý các định dạng dữ liệu phức tạp như JSON hoặc các dòng nhật ký đa dạng.
+
+#### **3. Kibana**
+
+##### **Khái niệm**
+
+Kibana là một công cụ trực quan hóa dữ liệu mã nguồn mở, hoạt động như giao diện chính cho Elasticsearch. Kibana cho phép người dùng dễ dàng tạo biểu đồ, bảng và các dashboard để phân tích dữ liệu được lưu trữ trong Elasticsearch. Thông qua Kibana, người dùng có thể thực hiện các tìm kiếm và phân tích theo thời gian thực trên dữ liệu, giúp việc giám sát, báo cáo và quản lý dữ liệu trở nên hiệu quả hơn
+
+##### **Cách hoạt động của Kibana**
+
+- Kết nối với Elasticsearch: Khi người dùng thực hiện truy vấn, Kibana gửi yêu cầu đến Elasticsearch để lấy dữ liệu cần thiết.
+- Trực quan hóa dữ liệu: Sau khi nhận được dữ liệu từ Elasticsearch, Kibana cho phép người dùng tạo ra nhiều loại biểu đồ khác nhau như biểu đồ cột, biểu đồ đường, biểu đồ tròn và bản đồ nhiệt.
+- Bảng điều khiển (Dashboard): Tạo bảng điều khiển tùy chỉnh để tổ chức các biểu đồ và báo cáo, chia sẻ với những người khác qua trình duyệt.
+- Tính năng lọc và tìm kiếm: Kibana hỗ trợ các bộ lọc mạnh mẽ, cho phép người dùng dễ dàng tìm kiếm và phân tích dữ liệu theo các tiêu chí cụ thể.
+- Hỗ trợ không gian địa lý: Với khả năng tích hợp thông tin địa lý, Kibana cho phép người dùng hiển thị dữ liệu trên bản đồ, hỗ trợ phân tích.
+
+##### **Các chức năng quan trọng của Kibana**
+
+**Discover** 
+- Cho phép người dùng tìm kiếm và lọc dữ liệu từ các chỉ mục Elasticsearch nhanh chóng và hiệu quả.
+- Người dùng có thể thực hiện tìm kiếm toàn văn trên dữ liệu, lọc kết quả bằng cách sử dụng các truy vấn KQL, xem chi tiết các trường dữ liệu.
+
+**Visualize**
+- Tận dụng sức mạnh của dữ liệu bằng cách tạo ra nhiều loại biểu đồ, bảng biểu và hình thức trực quan khác nhau.
+- Linh hoạt trong việc lựa chọn kiểu hiển thị dữ liệu. Dễ dàng lựa chọn hình thức phù hợp nhất để diễn đạt ý nghĩa của dữ liệu đang phân tích.
+- Khả năng tùy chỉnh từng yếu tố của trực quan hóa, từ màu sắc, đến kích thước và loại hình.
+
+**Dashboard** 
+- Kết hợp nhiều trực quan hóa thành một giao diện tổng quát, giúp dễ dàng theo dõi và phân tích. 
+- Cho phép người dùng có cái nhìn tổng quát, từ đó nhanh chóng phát hiện các xu hướng hoặc mẫu hình nổi bật.
+- Cung cấp khả năng tùy chỉnh cao, người dùng có thể điều chỉnh dữ liệu hiển thị, từ việc thay đổi phạm vi thời gian đến việc tùy chỉnh các bộ lọc.
+
+**Canvas**
+- Cho phép người dùng tạo ra các báo cáo và bản trình bày với thiết kế nghệ thuật
+- Người dùng có thể kéo thả các thành phần, thêm văn bản, hình ảnh và kết nối với dữ liệu để tạo ra sản phẩm có các thông tin cần thiết và đẹp mắt.
+
+**Machine Learning**
+- Hỗ trợ người dùng phát hiện ra các vấn đề tiềm ẩn nhanh chóng mà đôi khi con người khó nhận ra.
+- Định dạng và phát hiện các mẫu trưởng đột biến, xu hướng giảm giá trị, hay các trường hợp ngoại lệ.
