@@ -13,15 +13,42 @@ Là từ viết tắt của bộ công cụ bao gồm 3 dự án Elasticsearch, 
 
 Được sử dụng để tổng hợp nhật ký từ tất cả các hệ thống và ứng dụng, phân tích chúng và tạo trực quan hóa dữ liệu để giám sát, xử lý sự cố nhanh hơn, phân tích bảo mật...
 
-#### **1. Elasticsearch**
+### **Tác dụng của ELK**
+
+### **Tại sao phải dùng ELK**
+
+ELK stack đóng vai trò quan trọng trong việc quản lý log, tìm kiếm và phân tích dữ liệu. Nó cho phép các tổ chức quy mô lớn thu thập, lưu trữ, tìm kiếm và phân tích khối lượng dữ liệu log lớn. ELK stack giúp việc khắc phục sự cố, xác định các vấn đề và thu thập thông tin chi tiết về hiệu suất hệ thống. Dưới đây là một số lý do tại sao nó rất quan trọng.
+
+**Phân tích Log và Dữ liệu**
+- ELK stack giúp phân tích các dữ liệu log một cách dễ dàng, cho phép nhận diện các vấn đề, hành vi bất thường và các sự kiện quan trọng trong hệ thống.
+
+**Giám sát Thời gian Thực**
+- ELK stack cung cấp khả năng giám sát hệ thống và ứng dụng trong thời gian thực, giúp phát hiện các sự cố hoặc vấn đề tiềm ẩn ngay lập tức.
+
+**Bảo mật và Tuân thủ**
+- ELK stack có thể được sử dụng để theo dõi và phân tích các sự kiện bảo mật, giúp đảm bảo tuân thủ các quy định và bảo vệ hệ thống khỏi các mối đe dọa.
+
+**Trực quan hóa Dữ liệu**
+- ELK stack hỗ trợ việc tạo các biểu đồ và bảng điều khiển (dashboards) trực quan để hiển thị các dữ liệu log và phân tích hệ thống, giúp người dùng dễ dàng nhận diện các mẫu dữ liệu quan trọng.
+
+**Tìm kiếm Toàn văn**
+- Với khả năng tìm kiếm toàn văn, ELK stack cho phép người dùng tìm kiếm dữ liệu nhanh chóng và chính xác, ngay cả trong các tập dữ liệu log rất lớn.
+
+**Khả năng Mở Rộng và Hiệu Suất**
+- ELK stack có khả năng mở rộng linh hoạt và xử lý khối lượng lớn dữ liệu mà không ảnh hưởng đến hiệu suất, giúp các tổ chức có thể phát triển mà không lo ngại về vấn đề tài nguyên.
+
+**Mã Nguồn Mở và Cộng Đồng Lớn**
+- ELK stack là phần mềm mã nguồn mở, với một cộng đồng lớn và năng động luôn hỗ trợ và phát triển các tính năng mới, giúp người dùng dễ dàng triển khai và tùy chỉnh phù hợp với nhu cầu của họ.
+
+### **1. Elasticsearch**
  
 Elasticsearch là 1 công cụ tìm kiếm (search engine) và phân tích dữ liệu phân tán mã nguồn mở theo thời gian thực, dùng để lưu trữ và tìm kiếm dữ liệu. Tức là Được xây dựng bằng Java, với giao diện HTTP có hỗ trợ JSON.
 
-##### **1.1 Các thành phần của Elasticsearch** 
+#### **1.1 Các thành phần của Elasticsearch** 
 
 ![image](https://github.com/user-attachments/assets/f199478b-93de-4c51-9b68-29ff4d7796c8)
 
-###### **Các node được sử dụng trong Elasticsearch**
+##### **Các node được sử dụng trong Elasticsearch**
 
 1 node là 1 phiên bản của Elasticsearch chạy trên 1 máy chủ. Mỗi node có thể được cấu hình để thực hiện các vai trò cụ thể của từ cluster như lưu trữ dữ liệu, xử lý truy vấn, quản lý cluster.
 
@@ -48,7 +75,7 @@ Elasticsearch là 1 công cụ tìm kiếm (search engine) và phân tích dữ 
 - Tổng hợp kết quả từ các data node. Tức là khi truy vấn yêu cầu dữ liệu từ nhiều shard, coordinating node chịu trách nhiệm tổng hợp kết quả trước khi trả về cho client
 - Phân phối các yêu cầu từ client đến các node master hoặc data thích hợp.
 
-###### **Cluster**
+##### **Cluster**
 
 **Cluster** là tập hợp các node hoạt động cùng với nhau. 
 
@@ -66,13 +93,13 @@ b. Tính chịu lỗi (Fault Tolerance):
 c. Phân tán (Distributed):
 - Cluster phân tán dữ liệu và tác vụ tìm kiếm, giúp xử lý song song và cải thiện tốc độ.
 
-##### **Documents**
+#### **Documents**
 
 - Là dữ liệu mà Elasticsearch lưu trữ và tìm kiếm duới dạng cấu trúc JSON.
 - Mỗi document thuộc về một index và được xác định duy nhất trong index đó bằng một ID. ID có thể tạo tự động hoặc chỉ định
 - Tương tự như 1 hàng trong CSDL.
 
-##### **Index**
+#### **Index**
 
 - Tập hợp các documents có cấu trúc tương tự nhau.
 - Tương tự như 1 bảng trong CSDL.
@@ -80,7 +107,7 @@ c. Phân tán (Distributed):
 
 **Inverted Index (Chỉ mục đảo ngược)** Chỉ mục đảo ngược không lưu trữ trực tiếp các chuỗi mà chia từng tài liệu thành các cụm từ tìm kiếm riêng lẻ. Nhờ đó, người dùng có thể tìm thấy các kết quả phù hợp nhanh chóng, kể cả trong các tệp dữ liệu với khối lượng lớn.
 
-###### **Shard**
+##### **Shard**
 
 - Lưu trữ các documents của index.
 - Elasticsearch tự động chia dữ liệu của index đó thành các shard.
@@ -101,12 +128,12 @@ b. Replica Shard (Shard bản sao):
 ![image](https://github.com/user-attachments/assets/4117df73-bb50-4a60-b809-c2e2bf724b73)
 
 
-#### **2. Logstash**
+### **2. Logstash**
 
-##### **Khái niệm**
+#### **Khái niệm**
 - Logstash là một công cụ mã nguồn mở giúp thu thập, xử lý và chuyển tiếp dữ liệu từ nhiều nguồn khác nhau trước khi gửi đến Elasticsearch.
 
-##### **Các thành phần của Logstash**
+#### **Các thành phần của Logstash**
 
 **INPUT** 
 
@@ -121,7 +148,7 @@ b. Replica Shard (Shard bản sao):
 
 - Gửi dữ liệu đã qua xử lý tới Elasticsearch.
 
-##### **Cách hoạt động**
+#### **Cách hoạt động**
 
 ![image](https://github.com/user-attachments/assets/c6c7bc7e-9b0c-40b7-b57d-f08e38e72a80)
 
@@ -151,13 +178,13 @@ Xuất Dữ liệu (Output)
 
 Trong các giai đoạn thu thập và xuất dữ liệu, Logstash cũng có thể sử dụng codecs để mã hóa hoặc giải mã dữ liệu. Điều này giúp đơn giản hóa việc xử lý các định dạng dữ liệu phức tạp như JSON hoặc các dòng nhật ký đa dạng.
 
-#### **3. Kibana**
+### **3. Kibana**
 
-##### **Khái niệm**
+#### **Khái niệm**
 
 Kibana là một công cụ trực quan hóa dữ liệu mã nguồn mở, hoạt động như giao diện chính cho Elasticsearch. Kibana cho phép người dùng dễ dàng tạo biểu đồ, bảng và các dashboard để phân tích dữ liệu được lưu trữ trong Elasticsearch. Thông qua Kibana, người dùng có thể thực hiện các tìm kiếm và phân tích theo thời gian thực trên dữ liệu, giúp việc giám sát, báo cáo và quản lý dữ liệu trở nên hiệu quả hơn
 
-##### **Cách hoạt động của Kibana**
+#### **Cách hoạt động của Kibana**
 
 - Kết nối với Elasticsearch: Khi người dùng thực hiện truy vấn, Kibana gửi yêu cầu đến Elasticsearch để lấy dữ liệu cần thiết.
 - Trực quan hóa dữ liệu: Sau khi nhận được dữ liệu từ Elasticsearch, Kibana cho phép người dùng tạo ra nhiều loại biểu đồ khác nhau như biểu đồ cột, biểu đồ đường, biểu đồ tròn và bản đồ nhiệt.
@@ -165,7 +192,7 @@ Kibana là một công cụ trực quan hóa dữ liệu mã nguồn mở, hoạ
 - Tính năng lọc và tìm kiếm: Kibana hỗ trợ các bộ lọc mạnh mẽ, cho phép người dùng dễ dàng tìm kiếm và phân tích dữ liệu theo các tiêu chí cụ thể.
 - Hỗ trợ không gian địa lý: Với khả năng tích hợp thông tin địa lý, Kibana cho phép người dùng hiển thị dữ liệu trên bản đồ, hỗ trợ phân tích.
 
-##### **Các chức năng quan trọng của Kibana**
+#### **Các chức năng quan trọng của Kibana**
 
 **Discover** 
 - Cho phép người dùng tìm kiếm và lọc dữ liệu từ các chỉ mục Elasticsearch nhanh chóng và hiệu quả.
