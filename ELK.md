@@ -266,3 +266,8 @@ Lợi ích:
 - Tự động phát hiện tệp: Input sẽ tự động tìm kiếm các tệp nhật ký phù hợp với mẫu đã chỉ định.
 - Quản lý linh hoạt: Input quản lý việc tạo và dừng các harvester, đảm bảo rằng các tệp nhật ký được theo dõi một cách tối ưu.
 - Đồng thời: Nhờ sử dụng các Go routine, Filebeat có thể xử lý nhiều nguồn dữ liệu cùng lúc mà không làm giảm hiệu suất.
+
+**Tại sao lại sử dụng filebeat**
+
+- Nhẹ nhàng và hiệu quả: Filebeat là một data shipper được tối ưu hóa để thu thập log từ các tệp log trên máy chủ, sử dụng ít tài nguyên hệ thống (CPU và RAM) hơn so với Logstash.
+- Chuyên biệt hóa: Filebeat được thiết kế chỉ để thu thập và chuyển tiếp log, không thực hiện xử lý phức tạp, nên nó nhanh và hiệu quả hơn.
