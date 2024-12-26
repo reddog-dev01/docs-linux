@@ -132,6 +132,7 @@ b. Replica Shard (Shard bản sao):
 
 ![image](https://github.com/user-attachments/assets/4117df73-bb50-4a60-b809-c2e2bf724b73)
 
+#### **1.2 Cách hoạt động**
 
 ### **2. Logstash**
 
