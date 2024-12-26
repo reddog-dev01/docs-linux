@@ -232,3 +232,16 @@ Là công cụ mã nguồn mở dùng để thu thập và gửi dữ liệu tr�
 - Packetbeat: Thu thập và gửi dữ liệu mạng (network data).
 - Auditbeat: Thu thập và gửi thông tin liên quan đến bảo mật và hoạt động hệ thống (security and system activity).
 - Winlogbeat: Thu thập và gửi các sự kiện từ nhật ký của Windows (Windows event logs).
+- Heartbeat: Dùng để kiểm tra và theo dõi sự khả dụng của các dịch vụ bằng cách gửi các yêu cầu định kỳ đến các hệ thống và báo cáo về thời gian phản hồi.
+
+##### **Filebeat**
+
+![image](https://github.com/user-attachments/assets/3c972dc3-9c21-4acf-a488-feead2c1cfd1)
+
+Được cài đặt dưới dạng một agent trên các máy chủ, Filebeat theo dõi các tệp log hoặc các vị trí chỉ định, thu thập các log và chuyển tiếp chúng đến Elasticsearch hoặc Logstash.
+
+**Cách Filebeat hoạt động:**
+- Khi khởi động Filebeat, nó sẽ bắt đầu một hoặc nhiều input để tìm kiếm dữ liệu log tại các vị trí đã chỉ định.
+- Đối với mỗi tệp log mà Filebeat phát hiện, nó sẽ khởi tạo một harvester.
+- Mỗi harvester sẽ đọc một tệp log duy nhất để lấy nội dung mới và gửi dữ liệu log mới đến libbeat.
+- Libbeat sẽ tổng hợp các sự kiện và gửi dữ liệu đã tổng hợp đến output đã cấu hình cho Filebeat (ví dụ: Elasticsearch hoặc Logstash).
