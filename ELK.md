@@ -220,3 +220,15 @@ Kibana là một công cụ trực quan hóa dữ liệu mã nguồn mở, hoạ
 **Machine Learning**
 - Hỗ trợ người dùng phát hiện ra các vấn đề tiềm ẩn nhanh chóng mà đôi khi con người khó nhận ra.
 - Định dạng và phát hiện các mẫu trưởng đột biến, xu hướng giảm giá trị, hay các trường hợp ngoại lệ.
+
+### **4. Beats**
+
+#### **Beats là gì?**
+
+Là công cụ mã nguồn mở dùng để thu thập và gửi dữ liệu trực tiếp đến Elasticsearch hoặc qua Logstash.
+
+- Filebeat: Thu thập và gửi các tệp nhật ký (log files).
+- Metricbeat: Thu thập và gửi các chỉ số hệ thống (metrics), chẳng hạn như CPU, bộ nhớ, lưu lượng mạng, v.v.
+- Packetbeat: Thu thập và gửi dữ liệu mạng (network data).
+- Auditbeat: Thu thập và gửi thông tin liên quan đến bảo mật và hoạt động hệ thống (security and system activity).
+- Winlogbeat: Thu thập và gửi các sự kiện từ nhật ký của Windows (Windows event logs).
