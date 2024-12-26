@@ -245,3 +245,23 @@ Là công cụ mã nguồn mở dùng để thu thập và gửi dữ liệu tr�
 - Đối với mỗi tệp log mà Filebeat phát hiện, nó sẽ khởi tạo một harvester.
 - Mỗi harvester sẽ đọc một tệp log duy nhất để lấy nội dung mới và gửi dữ liệu log mới đến libbeat.
 - Libbeat sẽ tổng hợp các sự kiện và gửi dữ liệu đã tổng hợp đến output đã cấu hình cho Filebeat (ví dụ: Elasticsearch hoặc Logstash).
+
+**Harvester**
+
+Harvester chịu trách nhiệm đọc nội dung của một tệp duy nhất. Harvester đọc từng tệp, dòng theo dòng, và gửi nội dung đến đầu ra. Mỗi tệp sẽ được khởi tạo một harvester riêng. Harvester chịu trách nhiệm mở và đóng tệp, điều này có nghĩa là tệp sẽ được giữ mở trong suốt thời gian harvester đang chạy.
+
+Nếu một tệp bị xóa hoặc đổi tên trong khi harvester đang thu thập dữ liệu, Filebeat vẫn tiếp tục đọc tệp đó.
+
+**Input**
+
+Input trong Filebeat chịu trách nhiệm quản lý các harvester và xác định tất cả các nguồn dữ liệu để đọc
+
+Cách hoạt động:
+- Nếu loại input được đặt là log, input sẽ tìm tất cả các tệp trên ổ đĩa phù hợp với các đường dẫn được định nghĩa bằng biểu thức glob (glob paths).
+- Sau đó, một harvester sẽ được khởi chạy cho mỗi tệp được tìm thấy.
+- Mỗi input hoạt động trong một Go routine riêng biệt, giúp Filebeat xử lý nhiều nguồn dữ liệu một cách hiệu quả.
+
+Lợi ích:
+- Tự động phát hiện tệp: Input sẽ tự động tìm kiếm các tệp nhật ký phù hợp với mẫu đã chỉ định.
+- Quản lý linh hoạt: Input quản lý việc tạo và dừng các harvester, đảm bảo rằng các tệp nhật ký được theo dõi một cách tối ưu.
+- Đồng thời: Nhờ sử dụng các Go routine, Filebeat có thể xử lý nhiều nguồn dữ liệu cùng lúc mà không làm giảm hiệu suất.
