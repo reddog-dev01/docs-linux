@@ -42,8 +42,7 @@ ELK stack đóng vai trò quan trọng trong việc quản lý log, tìm kiếm 
 
 ### **Cách hoạt động**
 
-![image](https://github.com/user-attachments/assets/dbf31c60-d962-4163-8e98-e803316e4d33)
-
+![image](https://github.com/user-attachments/assets/fd3cebf8-6a09-4421-a0fd-d3c1f02ea8fa)
 
 
 ### **1. Elasticsearch**
