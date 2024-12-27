@@ -126,7 +126,7 @@ a. Primary Shard (Shard chính):
 - Mỗi index có một số lượng primary shard được xác định khi tạo index và không thể thay đổi sau đó.
 - Khi dữ liệu được ghi vào index, nó sẽ được lưu vào một primary shard.
 b. Replica Shard (Shard bản sao):
-- Là bản sao của một primary shard.
+- Là bản sao của một primary shard. Không baoh lưu Primary và Replica trên cùng 1 node
 - Replica shard không chỉ đóng vai trò dự phòng mà còn có thể xử lý các truy vấn đọc, cải thiện hiệu năng.
 - Số lượng replica shard có thể được thay đổi linh hoạt sau khi index được tạo.
 
