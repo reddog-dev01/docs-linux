@@ -15,6 +15,15 @@ Là từ viết tắt của bộ công cụ bao gồm 3 dự án Elasticsearch, 
 
 ### **Tác dụng của ELK**
 
+### **So sánh với file log bình thường**
+|---------------------------------|----------------------------------------------------------------------------------------------|
+|  File log phải thực hiện tìm kiếm log thủ công từ 1 hoặc nhiều nguồn    |   tự động để thu thập, xử lý, và phân tích log từ nhiều nguồn  |
+|  ạn chế khi log có kích thước lớn không được chia nhỏ dữ liệu khi tìm kiếm => có thể chậm  |  Dữ liệu được phân tán và phân tích thời gian thực  |
+|  Không hỗ trợ trực quan hóa; dữ liệu chỉ hiển thị ở dạng văn bản thuần túy.  |  Trực quan hóa bằng kibana  |
+|  Không thể giám sát tự động; cần kiểm tra log thường xuyên để phát hiện vấn đề. |  Cung cấp khả năng giám sát liên tục và tự động phát hiện bất thường. |
+|  |
+------------------------------------------------
+
 ### **Tại sao phải dùng ELK**
 
 ELK stack đóng vai trò quan trọng trong việc quản lý log, tìm kiếm và phân tích dữ liệu. Nó cho phép các tổ chức quy mô lớn thu thập, lưu trữ, tìm kiếm và phân tích khối lượng dữ liệu log lớn. ELK stack giúp việc khắc phục sự cố, xác định các vấn đề và thu thập thông tin chi tiết về hiệu suất hệ thống. Dưới đây là một số lý do tại sao nó rất quan trọng.
