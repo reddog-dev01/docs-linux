@@ -100,6 +100,12 @@ Elasticsearch là 1 công cụ tìm kiếm (search engine) và phân tích dữ 
 - Tổng hợp kết quả từ các data node. Tức là khi truy vấn yêu cầu dữ liệu từ nhiều shard, coordinating node chịu trách nhiệm tổng hợp kết quả trước khi trả về cho client
 - Phân phối các yêu cầu từ client đến các node master hoặc data thích hợp.
 
+**Các trạng thái node**
+
+- Green: Cluster ở trạng thái green có nghĩa là mọi thứ đang hoạt động tốt. Tất cả các shard và các bản sao của chúng (replicas) đều hoạt động bình thường và có sẵn.
+- Yellow: Cluster ở trạng thái yellow có nghĩa là tất cả các dữ liệu chính (primary shards) đều hoạt động, nhưng một hoặc nhiều replicas của shard chưa được phân phối hoặc chưa sẵn sàng. Điều này thường xảy ra khi cluster không có đủ node để phân bổ replicas theo như cấu hình.
+- Red: Cluster ở trạng thái red là dấu hiệu của sự cố nghiêm trọng. Một hoặc nhiều shard chính không có sẵn, điều này có nghĩa là bạn không thể truy cập hoàn toàn vào một phần của dữ liệu của bạn.
+
 ##### **Cluster**
 
 **Cluster** là tập hợp các node hoạt động cùng với nhau. 
