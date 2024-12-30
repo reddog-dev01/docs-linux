@@ -15,14 +15,25 @@ Là từ viết tắt của bộ công cụ bao gồm 3 dự án Elasticsearch, 
 
 ### **Tác dụng của ELK**
 
-### **So sánh với file log bình thường**
--------------------------------------------------------------------------------------------------------------------------------
-|  File log phải thực hiện tìm kiếm log thủ công từ 1 hoặc nhiều nguồn    |   tự động để thu thập, xử lý, và phân tích log từ nhiều nguồn  |
-|  ạn chế khi log có kích thước lớn không được chia nhỏ dữ liệu khi tìm kiếm => có thể chậm  |  Dữ liệu được phân tán và phân tích thời gian thực  |
-|  Không hỗ trợ trực quan hóa; dữ liệu chỉ hiển thị ở dạng văn bản thuần túy.  |  Trực quan hóa bằng kibana  |
-|  Không thể giám sát tự động; cần kiểm tra log thường xuyên để phát hiện vấn đề. |  Cung cấp khả năng giám sát liên tục và tự động phát hiện bất thường. |
-|  Không có sẵn tính năng cảnh báo. |  Kibana hỗ trợ tạo cảnh báo dựa trên quy tắc (VD: phát hiện lỗi, truy cập bất thường). |
-------------------------------------------------
+### **Bảng so sánh giữa việc đọc file log thông thường và phân tích nhật ký với ELK Stack**
+
+| **Tiêu chí**                  | **Đọc file log thông thường**                                                                                             | **Phân tích nhật ký với ELK Stack**                                                                                       |
+|-------------------------------|---------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| **Phương pháp thực hiện**      | Thủ công, sử dụng công cụ dòng lệnh (như `cat`, `grep`, `tail`) hoặc mở trực tiếp file log.                                | Tự động, thông qua các công cụ tích hợp như Logstash để thu thập và xử lý dữ liệu.                                        |
+| **Xử lý dữ liệu lớn**          | Hạn chế khi log lớn hoặc nhiều file, có thể gây chậm trễ hoặc quá tải.                                                     | Hỗ trợ lưu trữ và phân tích lượng lớn dữ liệu nhờ Elasticsearch với khả năng phân tán và mở rộng.                         |
+| **Tìm kiếm và truy vấn**       | Tìm kiếm đơn giản bằng từ khóa, khó thực hiện các truy vấn phức tạp hoặc lọc theo điều kiện cụ thể.                        | Tìm kiếm toàn văn bản, hỗ trợ các truy vấn phức tạp, lọc và sắp xếp theo nhiều tiêu chí.                                  |
+| **Trực quan hóa**              | Không có sẵn, cần xuất dữ liệu ra và dùng công cụ khác (Excel, Python, v.v.) để vẽ đồ thị.                                | Tích hợp Kibana để tạo biểu đồ, đồ thị, dashboard trực quan và tương tác.                                                |
+| **Giám sát và cảnh báo**       | Không có khả năng tự động giám sát hoặc cảnh báo khi xảy ra sự cố.                                                         | Hỗ trợ giám sát thời gian thực, thiết lập cảnh báo khi phát hiện lỗi hoặc bất thường.                                      |
+| **Xử lý log từ nhiều nguồn**   | Phải ghép thủ công từ nhiều file log khác nhau, khó đồng bộ hóa giữa các nguồn.                                            | Thu thập và xử lý log từ nhiều nguồn (ứng dụng, hệ thống, mạng) trong một pipeline duy nhất.                              |
+| **Khả năng mở rộng**           | Không linh hoạt, hiệu suất giảm khi hệ thống và lượng log tăng lên.                                                       | Mở rộng linh hoạt nhờ kiến trúc phân tán của Elasticsearch.                                                              |
+| **Tích hợp hệ thống khác**     | Khó tích hợp với các công cụ phân tích hoặc giám sát khác.                                                                | Dễ dàng tích hợp với các hệ thống khác như Prometheus, Grafana, hoặc các API tùy chỉnh.                                   |
+| **Lưu trữ lịch sử**            | File log cũ có thể bị ghi đè hoặc khó lưu trữ lâu dài, cần cấu hình bổ sung.                                               | Hỗ trợ lưu trữ lâu dài với các chỉ mục (indices) và khả năng truy cập nhanh chóng.                                        |
+| **Bảo mật**                    | Không có khả năng phát hiện và theo dõi sự cố bảo mật.                                                                     | Giám sát bảo mật, phát hiện hành vi bất thường, theo dõi truy cập trái phép.                                              |
+| **Độ phức tạp**                | Đơn giản, dễ tiếp cận, nhưng hạn chế về tính năng và khả năng xử lý.                                                      | Yêu cầu cấu hình ban đầu và làm quen với công cụ, nhưng hiệu quả và linh hoạt hơn nhiều.                                   |
+| **Chi phí**                    | Thấp hoặc miễn phí, chỉ cần công cụ cơ bản.                                                                               | Mã nguồn mở và miễn phí, nhưng có thể phát sinh chi phí cho phần cứng và dịch vụ đám mây nếu triển khai quy mô lớn.      |
+
+---
+
 
 ### **Tại sao phải dùng ELK**
 
