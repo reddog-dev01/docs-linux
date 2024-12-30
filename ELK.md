@@ -64,6 +64,9 @@ ELK stack đóng vai trò quan trọng trong việc quản lý log, tìm kiếm 
 
 ![image](https://github.com/user-attachments/assets/fd3cebf8-6a09-4421-a0fd-d3c1f02ea8fa)
 
+### **Các vấn đề cần lưu ý khi xây dựng elk**
+
+- Yêu cầu nhiều tài nguyên phần cứng: Elasticsearch sử dụng RAM để lưu trữ các cấu trúc dữ liệu cần thiết cho việc tìm kiếm nhanh và lập chỉ mục. xử lý các truy vấn phức tạp và thực hiện các tác vụ lập chỉ mục đồng thời yêu cầu CPU
 
 ### **1. Elasticsearch**
  
