@@ -90,7 +90,7 @@ Elasticsearch là 1 công cụ tìm kiếm (search engine) và phân tích dữ 
 
 **c. Ingest node**
 
-- Ingest node được sử dụng để xử lý dữ liệu documents trước khi được lập chỉ mục vào các data nodes như là chuyển đổi định dạng, xóa sửa  dữ liệu.
+- Ingest node được sử dụng để xử lý dữ liệu documents trước khi được lập chỉ mục vào các data nodes như là chuyển đổi định dạng, xóa sửa dữ liệu (thêm hoặc xóa trường).
 - Phải được định dạng phù hợp với mapping đã được thiết lập cho chỉ mục.
 - Ingest nodes có thể sửa đổi hoặc bổ sung dữ liệu để đảm bảo sự đồng nhất, giảm thiểu lỗi trong quá trình lập chỉ mục.
 
