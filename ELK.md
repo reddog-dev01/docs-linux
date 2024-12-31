@@ -62,7 +62,7 @@ ELK stack đóng vai trò quan trọng trong việc quản lý log, tìm kiếm 
 
 ### **Cách hoạt động**
 
-![image](https://github.com/user-attachments/assets/fd3cebf8-6a09-4421-a0fd-d3c1f02ea8fa)
+![image](c)
 
 ### **Các vấn đề cần lưu ý khi xây dựng elk**
 
