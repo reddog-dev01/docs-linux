@@ -183,3 +183,37 @@ Mở rộng module:
 - Module này không nhất thiết phải viết bằng Python—bạn có thể viết bằng ngôn ngữ mà mình chọn.  
 
 Chi tiết về cách phát triển module: [Phát triển module Ansible](http://docs.ansible.com/developing_modules.html).
+
+**tính idempotence**  
+
+Tính **idempotence** là một đặc điểm quan trọng của các module trong Ansible. Nó cho phép thực hiện cùng một tác vụ nhiều lần trên hệ thống nhưng luôn trả về kết quả nhất quán, không gây ra lỗi hoặc thay đổi không cần thiết.  
+
+Nguyên tắc hoạt động:
+
+Ví dụ, nếu bạn sử dụng module **apt** để cài đặt và đảm bảo Nginx luôn được cập nhật, thì các hành vi sẽ như sau:
+1. **Lần chạy đầu tiên**:
+   - Module apt sẽ so sánh trạng thái đã khai báo trong playbook với trạng thái hiện tại của gói trên hệ thống.
+   - Nếu Nginx chưa được cài đặt, Ansible sẽ tiến hành cài đặt.
+2. **Các lần chạy sau**:
+   - Ansible sẽ bỏ qua bước cài đặt nếu phát hiện Nginx đã được cài đặt và không có bản cập nhật nào mới.
+   - Nếu có phiên bản mới trong kho lưu trữ, Ansible sẽ tiến hành cập nhật.  
+
+Lợi ích của tính idempotence:
+
+- Giúp thực hiện cùng một tác vụ nhiều lần mà không gây lỗi.
+- Đảm bảo trạng thái hệ thống luôn đồng nhất với định nghĩa trong playbook.  
+
+Ngoại lệ:
+Hầu hết các module trong Ansible đều có tính idempotence. **Tuy nhiên, module `command` và `shell` không idempotent**, do đó người dùng phải tự đảm bảo chúng không gây thay đổi không cần thiết nếu được chạy nhiều lần.  
+
+Ví dụ YAML:
+```yaml
+- name: Install and update Nginx
+  apt:
+    name: nginx
+    state: latest
+```
+
+Trong ví dụ trên:  
+- Lần chạy đầu tiên: Ansible cài đặt Nginx nếu chưa có.  
+- Lần chạy tiếp theo: Không làm gì nếu Nginx đã cài đặt và cập nhật.  
