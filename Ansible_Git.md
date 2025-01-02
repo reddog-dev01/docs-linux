@@ -370,4 +370,83 @@ roles/
    - **`tests/`:**
      - Dùng để kiểm thử role, bao gồm tệp inventory và playbook kiểm thử.
 
+-----------------------------------------
+
+### **Jinja2**
+
+- Jinja2 là 1 template engine dựa trên Python. 
+
+**Hình thành Template**
+
+Templates trông rất giống với các file văn bản thông thường, ngoại trừ việc chứa các **biến** hoặc **mã lệnh** được bao quanh bởi các thẻ đặc biệt. Những thẻ này sẽ được xử lý và thay thế bằng giá trị thực tại thời điểm chạy (runtime), tạo thành một file văn bản hoàn chỉnh, sau đó được sao chép đến máy đích.
+
+
+**Hai loại thẻ trong template Jinja2**:
+
+1. **Thẻ `{{ }}`**:
+   - Dùng để **chèn biến** vào trong template và in giá trị của biến đó vào file kết quả.
+   - Đây là cách sử dụng phổ biến nhất của template.
+   - **Ví dụ**:  
+     ```jinja
+     {{ nginx_port }}
+     ```
+     Trong file kết quả, thẻ này sẽ được thay thế bằng giá trị của biến `nginx_port`.
+
+2. **Thẻ `{% %}`**:
+   - Dùng để **chèn các câu lệnh** vào trong template, như vòng lặp hoặc câu lệnh điều kiện `if-else`.
+   - Những câu lệnh này được đánh giá tại runtime nhưng **không được in ra** file kết quả.
+   - **Ví dụ**:  
+     ```jinja
+     {% if environment == 'production' %}
+     server_name production.example.com;
+     {% else %}
+     server_name staging.example.com;
+     {% endif %}
+     ```
+     Trong file kết quả, chỉ dòng `server_name` tương ứng với điều kiện sẽ xuất hiện, còn các thẻ `{% %}` sẽ không được in ra.
+
+#### **Facts và Variables**
+
+**Facts và Variables (Biến)**
+
+Sau khi đã tìm hiểu về mã lệnh trong các template Jinja2, chúng ta sẽ tìm hiểu nguồn dữ liệu được chèn vào template trong quá trình runtime. Dữ liệu này có thể xuất phát từ **facts** hoặc **variables**.
+
+
+
+**Facts và Variables là gì?**
+
+- **Facts**:  
+  - Là một loại biến, nhưng được tự động **phát hiện** và cung cấp sẵn tại thời điểm runtime.
+  - Facts chứa thông tin hệ thống của máy chủ đích, ví dụ như địa chỉ IP, tên máy chủ, thông tin về hệ điều hành, và nhiều thông tin khác.
+  - Ansible tự động thu thập các facts thông qua việc "gathering facts" khi bắt đầu thực thi một playbook.
+
+- **Variables (Biến)**:  
+  - Là dữ liệu được **định nghĩa bởi người dùng**, dùng để cung cấp thông tin cụ thể cho playbook hoặc template.
+  - Biến được khai báo trong các file, như `group_vars`, `host_vars`, playbook, hoặc thậm chí từ dòng lệnh khi chạy Ansible.
+
+
+**Sự khác biệt giữa Facts và Variables**
+
+| **Thuộc tính**     | **Facts**                                   | **Variables**                        |
+|---------------------|--------------------------------------------|---------------------------------------|
+| **Nguồn gốc**       | Tự động được Ansible phát hiện.            | Người dùng định nghĩa.               |
+| **Thời điểm tạo**   | Tại runtime (trong quá trình "gather facts"). | Trước hoặc trong khi chạy playbook.  |
+| **Ví dụ**           | `ansible_facts['os_family']`, `ansible_default_ipv4['address']` | `nginx_port`, `app_user`, `log_path` |
+
+
+**Sử dụng trong Jinja2 Template**
+
+Cả facts và variables đều có thể được sử dụng trong template Jinja2 theo cùng một cách:
+
+1. **Ví dụ sử dụng facts**:  
+   ```jinja
+   OS family: {{ ansible_facts['os_family'] }}
+   Default IP: {{ ansible_default_ipv4['address'] }}
+   ```
+
+2. **Ví dụ sử dụng variables**:  
+   ```jinja
+   Nginx Port: {{ nginx_port }}
+   Log Path: {{ log_path }}
+   ```
 
