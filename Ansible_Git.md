@@ -86,17 +86,17 @@ b. Một máy chủ có thể thuộc nhiều nhóm:
   - Các biến (variables) của máy chủ từ cả hai nhóm sẽ được gộp lại.
   - Nếu có xung đột biến, quy tắc thứ tự ưu tiên sẽ được áp dụng. (Chi tiết về biến và ưu tiên sẽ được giải thích sau).
 
-Danh sách máy chủ và chi tiết kết nối trong mỗi nhóm:
-Mỗi nhóm chứa:
-Danh sách máy chủ.
-Thông tin kết nối như:
-Người dùng SSH để kết nối.
-Cổng SSH nếu không dùng cổng mặc định.
-Thông tin xác thực SSH (mật khẩu, khóa SSH).
-Thông tin về quyền sudo, nếu cần.
-Sử dụng mẫu tên máy chủ (hostname pattern):
+c. Danh sách máy chủ và chi tiết kết nối trong mỗi nhóm:
+- Mỗi nhóm chứa:
+  - Danh sách máy chủ.
+  - Thông tin kết nối như:
+    - Người dùng SSH để kết nối.
+    - Cổng SSH nếu không dùng cổng mặc định.
+    - Thông tin xác thực SSH (mật khẩu, khóa SSH). 
+    - Thông tin về quyền sudo, nếu cần.
 
-Tên máy chủ có thể sử dụng:
-Glob pattern: Ký tự đại diện (như `*`).
-Ranges: Phạm vi số (như `host[1:10]`).
-Điều này giúp bạn dễ dàng thêm nhiều máy chủ cùng loại có chung mẫu tên.
+d. Sử dụng mẫu tên máy chủ (hostname pattern):
+- Tên máy chủ có thể sử dụng:
+  - Glob pattern: Ký tự đại diện (như `*`).
+  - Ranges: Phạm vi số (như `host[1:10]`).
+- Điều này giúp bạn dễ dàng thêm nhiều máy chủ cùng loại có chung mẫu tên.
