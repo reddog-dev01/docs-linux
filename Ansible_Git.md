@@ -129,4 +129,12 @@ d. Sử dụng mẫu tên máy chủ (hostname pattern):
 7. **Biểu thức chính quy (Regular expressions):**  
    - Ví dụ: `~(nn|zk).*\.example\.org` sẽ chọn tất cả máy chủ có tên bắt đầu bằng `nn` hoặc `zk` và kết thúc với `.example.org`.
 
+#### **2.4 Tasks**
 
+Mỗi play trong một playbook của Ansible ánh xạ một nhóm các máy chủ (được chọn bằng các mẫu) với một chuỗi các hành động, gọi là tasks. Các task này xác định các hành động cụ thể mà sẽ được thực hiện trên mỗi máy chủ trong nhóm.
+
+Các task trong một play sẽ được thực thi tuần tự trên mỗi máy chủ khớp với mẫu hosts trong play.
+
+**Cách mà Plays và Tasks hoạt động:**
+- Play ánh xạ một nhóm máy chủ tới một chuỗi các tasks.
+- Mỗi task sẽ được thực thi tuần tự trên mỗi máy chủ trong nhóm, đảm bảo rằng các hành động được thực hiện theo thứ tự.
