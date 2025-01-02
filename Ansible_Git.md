@@ -100,3 +100,33 @@ d. Sử dụng mẫu tên máy chủ (hostname pattern):
   - Glob pattern: Ký tự đại diện (như `*`).
   - Ranges: Phạm vi số (như `host[1:10]`).
 - Điều này giúp bạn dễ dàng thêm nhiều máy chủ cùng loại có chung mẫu tên.
+
+#### **2.3 Patterns**
+
+![image](https://github.com/user-attachments/assets/ae577b95-ad33-4909-b27e-13e546a0a3ac)
+
+
+**Giải thích các loại Patterns:**
+
+1. **Tên nhóm (Group name):**  
+   - Ví dụ: `namenodes` sẽ chọn tất cả các máy chủ thuộc nhóm `namenodes`.
+
+2. **Tất cả (Match all):**  
+   - Ví dụ: `all` hoặc `*` sẽ chọn tất cả các máy chủ trong inventory.
+
+3. **Phạm vi (Range):**  
+   - Ví dụ: `namenode[0:100]` sẽ chọn tất cả các máy chủ từ `namenode0` đến `namenode100`.
+
+4. **Tên máy chủ hoặc địa chỉ máy chủ (Hostnames/hostname globs):**  
+   - Ví dụ: `*.example.com` sẽ chọn tất cả các máy chủ có tên miền kết thúc bằng `.example.com`.
+
+5. **Loại trừ (Exclusions):**  
+   - Ví dụ: `namenodes:!secondarynamenodes` sẽ chọn tất cả máy chủ trong nhóm `namenodes`, ngoại trừ các máy chủ trong nhóm `secondarynamenodes`.
+
+6. **Giao nhau (Intersection):**  
+   - Ví dụ: `namenodes:&zookeeper` sẽ chọn những máy chủ nằm trong cả nhóm `namenodes` và `zookeeper`.
+
+7. **Biểu thức chính quy (Regular expressions):**  
+   - Ví dụ: `~(nn|zk).*\.example\.org` sẽ chọn tất cả máy chủ có tên bắt đầu bằng `nn` hoặc `zk` và kết thúc với `.example.org`.
+
+
