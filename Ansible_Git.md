@@ -217,3 +217,70 @@ Ví dụ YAML:
 Trong ví dụ trên:  
 - Lần chạy đầu tiên: Ansible cài đặt Nginx nếu chưa có.  
 - Lần chạy tiếp theo: Không làm gì nếu Nginx đã cài đặt và cập nhật.  
+
+
+##### **2.6 Chạy playbook**
+
+```bash
+$ ansible-playbook simple_playbook.yml -i customhosts
+```
+
+Giải thích:
+
+1. ansible-playbook
+- Là lệnh để thực thi playbook.
+- Nó nhận tên của playbook làm tham số và chạy các play được định nghĩa bên trong.
+
+2. `simple_playbook.yml`
+
+- Tên của file playbook chứa các plays đã được viết.
+- Trong ví dụ này, file `simple_playbook.yml` có hai play:
+  - Play thực hiện các tác vụ chung, ví dụ như tạo người dùng và nhóm.
+  - Play cài đặt Nginx trên các máy chủ web.
+
+3. `-i customhosts`
+- Là tham số chỉ định tệp inventory tùy chỉnh, trong đó liệt kê các máy chủ hoặc nhóm máy chủ mà các play sẽ được thực thi.
+- Trong trường hợp này, tệp customhosts chứa danh sách các máy chủ và thông tin kết nối.
+
+Kết quả:
+
+Khi chạy lệnh trên, Ansible sẽ thực hiện các bước sau:
+- Gọi các play được khai báo trong playbook theo thứ tự đã mô tả.
+- Kết nối tới các máy chủ trong tệp inventory (customhosts).
+- Thực hiện tuần tự từng tác vụ trong từng play trên các máy chủ đã chọn.
+
+![image](https://github.com/user-attachments/assets/65acdb1f-ab98-48d8-838a-834b21995bb6)
+
+**Phân tích những gì đã xảy ra khi chạy Playbook:**
+
+- **Ansible đọc playbook được chỉ định** làm tham số của lệnh `ansible-playbook` và bắt đầu thực thi các play theo thứ tự đã định.
+
+- **Play đầu tiên chạy trên tất cả các host:**  
+  - Từ khóa `all` là một mẫu đặc biệt sẽ khớp với tất cả các host (tương tự như ký tự đại diện `*`).  
+  - Do đó, các tác vụ trong play đầu tiên sẽ được thực thi trên tất cả các host có trong tệp inventory được truyền vào làm tham số.  
+
+- **Gathering Facts:**  
+  - Trước khi chạy bất kỳ tác vụ nào, Ansible thu thập thông tin về các hệ thống mà nó sẽ cấu hình. Thông tin này được gọi là **facts**.
+
+- **Tác vụ trong play đầu tiên:**  
+  - Play này bao gồm việc tạo nhóm `devops`, tạo người dùng `devops`, và cài đặt gói `htop`.  
+  - Vì có ba host trong inventory, bạn sẽ thấy một dòng thông báo trạng thái cho mỗi host.  
+    - Nếu trạng thái của thực thể không thay đổi, sẽ hiển thị `ok`.
+    - Nếu có thay đổi, sẽ hiển thị `changed`.
+
+- **Chuyển sang play tiếp theo:**  
+  - Play thứ hai chỉ thực thi trên một host vì nó được định nghĩa với `hosts:www`.  
+  - Inventory chỉ chứa một host thuộc nhóm `www`.  
+
+- **Tác vụ trong play thứ hai:**  
+  - Thêm kho lưu trữ của Nginx.  
+  - Cài đặt gói Nginx.  
+  - Khởi động dịch vụ Nginx.  
+
+- **PLAY RECAP:**  
+  - Sau khi hoàn thành tất cả các play, Ansible in ra bản tóm tắt kết quả.  
+  - Bản tóm tắt này cho biết:  
+    - Số lượng thay đổi đã thực hiện.  
+    - Các host không thể kết nối.  
+    - Các hệ thống xảy ra lỗi khi thực thi.  
+
