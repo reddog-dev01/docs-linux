@@ -138,3 +138,48 @@ Các task trong một play sẽ được thực thi tuần tự trên mỗi máy
 **Cách mà Plays và Tasks hoạt động:**
 - Play ánh xạ một nhóm máy chủ tới một chuỗi các tasks.
 - Mỗi task sẽ được thực thi tuần tự trên mỗi máy chủ trong nhóm, đảm bảo rằng các hành động được thực hiện theo thứ tự.
+
+##### **2.5 Modules** 
+
+**Modules** là các quy trình đóng gói chịu trách nhiệm quản lý các thành phần hệ thống cụ thể trên các nền tảng nhất định.
+
+Ví dụ về module:
+
+- **apt**: Dùng cho Debian để quản lý các gói hệ thống.  
+- **yum**: Dùng cho RedHat để quản lý các gói hệ thống.  
+- **user**: Thêm, xóa hoặc chỉnh sửa người dùng trên hệ thống.  
+- **service**: Khởi động/dừng các dịch vụ hệ thống.  
+
+Chức năng của module:
+
+- **Trừu tượng hóa**: Module giúp trừu tượng hóa các thao tác thực tế khỏi người dùng.  
+- **Khai báo**: Người dùng chỉ cần khai báo trạng thái mong muốn của thành phần hệ thống (ví dụ: tên, trạng thái, UID, nhóm, shell, v.v.).  
+- **Thực thi**: Các quy trình thực tế sẽ được Ansible xử lý thông qua module và chạy ở chế độ nền.  
+
+Modules tương tự như **providers** trong các phần mềm như **Chef/Puppet**, nhưng Ansible chỉ yêu cầu bạn khai báo trạng thái thay vì viết các quy trình chi tiết.  
+
+
+Module đặc biệt: `Command` và `Shell`
+
+- Không nhận các cặp key-value làm tham số.  
+- Không có tính **idempotence** (không đảm bảo trạng thái ổn định nếu lặp lại).  
+
+
+Thư viện module:
+
+- Ansible đi kèm với một thư viện module phong phú, bao gồm từ các module quản lý tài nguyên hệ thống cơ bản đến các module tích hợp cloud, gửi thông báo, v.v.  
+- Bạn có thể sử dụng module để:
+  - Khởi tạo instance EC2.
+  - Tạo cơ sở dữ liệu trên PostgreSQL từ xa.
+  - Nhận thông báo trên IRC.  
+
+Ansible giúp bạn tiết kiệm công sức tích hợp với các nhà cung cấp cloud hoặc tìm kiếm plugin bên ngoài.
+
+- Danh sách các module có sẵn: [Danh sách module Ansible](http://docs.ansible.com/list_of_all_modules.html).  
+
+
+Mở rộng module:
+- Nếu không tìm thấy module phù hợp, bạn có thể dễ dàng tạo một module mới.  
+- Module này không nhất thiết phải viết bằng Python—bạn có thể viết bằng ngôn ngữ mà mình chọn.  
+
+Chi tiết về cách phát triển module: [Phát triển module Ansible](http://docs.ansible.com/developing_modules.html).
