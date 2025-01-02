@@ -284,3 +284,90 @@ Khi chạy lệnh trên, Ansible sẽ thực hiện các bước sau:
     - Các host không thể kết nối.  
     - Các hệ thống xảy ra lỗi khi thực thi.  
 
+-----------------------------------------------
+
+### **Role**
+- Là các thư mục được sắp xếp theo cấu trúc chuẩn. Tuân thủ các quy ước về bố cục thư mục mỗi thành phần nằm trong vị trí thích hợp.
+
+```plaintext
+roles/
+└── nginx/
+    ├── tasks/
+    │   └── main.yml
+    ├── handlers/
+    │   └── main.yml
+    ├── templates/
+    │   └── nginx.conf.j2
+    ├── files/
+    │   └── static_file.txt
+    ├── vars/
+    │   └── main.yml
+    ├── defaults/
+    │   └── main.yml
+    ├── meta/
+    │   └── main.yml
+    └── tests/
+        ├── inventory
+        └── test.yml
+```
+
+**Cách tổ chức thư mục cho vai trò (Roles) trong Ansible**
+
+Roles thực chất là các thư mục được sắp xếp theo cấu trúc chuẩn. Chúng tuân thủ các quy ước về bố cục thư mục và kỳ vọng mỗi thành phần nằm trong vị trí thích hợp. Dưới đây là chi tiết cấu trúc thư mục và vai trò của từng thành phần:  
+
+---
+
+### **Ví dụ về cấu trúc thư mục của vai trò "Nginx":**
+```plaintext
+roles/
+└── nginx/
+    ├── tasks/
+    │   └── main.yml
+    ├── handlers/
+    │   └── main.yml
+    ├── templates/
+    │   └── nginx.conf.j2
+    ├── files/
+    │   └── static_file.txt
+    ├── vars/
+    │   └── main.yml
+    ├── defaults/
+    │   └── main.yml
+    ├── meta/
+    │   └── main.yml
+    └── tests/
+        ├── inventory
+        └── test.yml
+```
+
+1. **Tên thư mục role:**
+   - Mỗi role có một thư mục với tên của nó (ví dụ: `nginx`).
+   - Thư mục cha luôn là `roles/`.
+
+2. **Thư mục con thường dùng:**
+   - **`tasks/`:**
+     - Chứa logic chính, như cài đặt gói, khởi động dịch vụ, quản lý tệp.
+     - Mỗi thư mục `tasks/` thường có tệp mặc định là `main.yml`.
+     - Đây là **"nhân vật chính"** của vai trò.
+
+   - **`handlers/`:**
+     - Kích hoạt các hành động dựa trên sự thay đổi trạng thái, ví dụ: khởi động lại dịch vụ sau khi tệp cấu hình thay đổi.
+
+   - **`templates/`:**
+     - Quản lý các tệp cấu hình động.
+     - Sử dụng biến để tạo nội dung tệp cấu hình, ví dụ: `nginx.conf.j2`.
+
+   - **`files/`:**
+     - Chứa các tệp tĩnh, như trình cài đặt ứng dụng hoặc tệp văn bản cố định, để sao chép vào máy đích.
+
+   - **`vars/` và `defaults/`:**
+     - **`vars/`:** Định nghĩa biến cụ thể cho vai trò.
+     - **`defaults/`:** Định nghĩa các giá trị mặc định (có thể ghi đè).
+
+   - **`meta/`:**
+     - Chứa siêu dữ liệu của role, như các vai trò phụ thuộc.
+
+   - **`tests/`:**
+     - Dùng để kiểm thử role, bao gồm tệp inventory và playbook kiểm thử.
+
+
