@@ -286,7 +286,7 @@ Khi chạy lệnh trên, Ansible sẽ thực hiện các bước sau:
 
 -----------------------------------------------
 
-### **Role**
+### **3. Role**
 - Là các thư mục được sắp xếp theo cấu trúc chuẩn. Tuân thủ các quy ước về bố cục thư mục mỗi thành phần nằm trong vị trí thích hợp.
 
 ```plaintext
@@ -372,7 +372,7 @@ roles/
 
 -----------------------------------------
 
-### **Jinja2**
+### **4. Jinja2**
 
 - Jinja2 là 1 template engine dựa trên Python. 
 
@@ -405,7 +405,7 @@ Templates trông rất giống với các file văn bản thông thường, ngo�
      ```
      Trong file kết quả, chỉ dòng `server_name` tương ứng với điều kiện sẽ xuất hiện, còn các thẻ `{% %}` sẽ không được in ra.
 
-#### **Facts và Variables**
+#### **4.1 Facts và Variables**
 
 **Facts và Variables (Biến)**
 
@@ -450,3 +450,23 @@ Cả facts và variables đều có thể được sử dụng trong template Ji
    Log Path: {{ log_path }}
    ```
 
+##### **a. Facts**
+
+**Automatic variables – facts (biến tự động)**
+Nhiều dữ liệu trong hệ thống của chúng ta được tự động phát hiện và cung cấp cho Ansible bởi các máy chủ được quản lý trong quá trình kết nối. Dữ liệu này rất hữu ích và cung cấp cho chúng ta mọi thông tin về hệ thống, chẳng hạn như:
+- Tên máy chủ, giao diện mạng, và địa chỉ IP
+- Kiến trúc hệ thống
+- Hệ điều hành
+- Các ổ đĩa
+- Bộ xử lý và dung lượng bộ nhớ
+- Liệu hệ thống có phải là máy ảo hay không; nếu có, nó là một nhà cung cấp ảo hóa/cloud nào?
+
+Các facts được thu thập ngay từ đầu khi Ansible chạy. Bạn sẽ thấy dòng thông báo "GATHERING FACTS *******" trong kết quả khi điều này xảy ra.
+
+Có thể xem các facts về hệ thống bằng cách chạy lệnh sau cùng với một phần kết quả ngắn gọn:
+
+```bash
+$ ansible -i customhosts www -m setup | less
+```
+
+##### **b. Variables**
