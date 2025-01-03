@@ -470,3 +470,76 @@ $ ansible -i customhosts www -m setup | less
 ```
 
 ##### **b. Variables**
+
+-------------------------------------
+
+### **5. Ansible Vault**
+
+#### **5.1 Khái niệm**
+
+- **Ansible Vault** là 1 tiện ích do Ansible cung cấp, cho phép quản lý dữ liệu nhạy cảm (mật khẩu, thông tin xác thực, thông tin đặc thù...) 1 cách an toàn
+
+**Tính năng chính của Ansible Vault**
+- Cho phép **tạo một tệp mã hoá mới** thông qua giao diện trình soạn thảo.
+- Hoặc **mã hoá một tệp tin hiện có**.
+
+Trong cả hai trường hợp, **Vault sẽ yêu cầu một mật khẩu**, mật khẩu này được sử dụng để mã hoá dữ liệu bằng thuật toán **AES cipher**. Các nội dung đã được mã hoá có thể được lưu trữ trong các hệ thống quản lý mã nguồn như Git mà không sợ bị lộ thông tin.
+
+**Mã hoá và giải mã**
+- Vì **AES cipher** dựa trên cơ chế chia sẻ mật khẩu (shared secret), mật khẩu sử dụng khi mã hoá cũng sẽ được dùng để giải mã.
+- Bạn có hai cách để cung cấp mật khẩu khi sử dụng Ansible:
+  1. **Sử dụng tùy chọn `--ask-vault-pass`:**  
+     - Hệ thống sẽ hiển thị một lời nhắc để bạn nhập mật khẩu.
+  2. **Sử dụng tùy chọn `--vault-password-file`:**  
+     - Chỉ định đường dẫn đến tệp tin chứa mật khẩu.
+
+**Lợi ích của Ansible Vault**
+- Bảo vệ thông tin nhạy cảm, chẳng hạn như **khóa API**, **mật khẩu**, và **thông tin xác thực cơ sở dữ liệu**.  
+- Dễ dàng lưu trữ và chia sẻ tệp mã hoá qua các hệ thống quản lý mã nguồn mà không làm lộ nội dung.  
+- Đảm bảo sự an toàn và tuân thủ chính sách bảo mật trong môi trường làm việc nhóm.  
+
+#### **5.2 Những gì cần mã hóa bằng Ansible Vault**
+
+**Những gì có thể mã hóa**
+
+1. **Biến** (thường được mã hóa nhất):  
+   - **Tệp biến trong các vai trò**: Ví dụ, các thư mục `vars` và `defaults`.  
+   - **Biến trong inventory**: Ví dụ, các tệp trong `host_vars` hoặc `group_vars`.  
+   - **Tệp biến được bao gồm qua**:
+     - `include_vars`.
+     - `vars_files`.
+   - **Tệp biến được truyền khi chạy**: Sử dụng tùy chọn `-e`, ví dụ:  
+     ```bash
+     ansible-playbook playbook.yml -e @vars.yml
+     ```
+
+2. **Tasks và Handlers** (hiếm khi thực hiện):  
+   - Vì tasks và handlers được lưu dưới dạng cấu trúc JSON, chúng cũng có thể được mã hóa.  
+   - **Khuyến nghị**: Nên mã hóa biến và tham chiếu chúng trong tasks hoặc handlers thay vì mã hóa trực tiếp.
+
+**Những gì không thể mã hóa**
+
+1. **Một phần của tệp hoặc giá trị**:  
+   - Vault mã hóa toàn bộ tệp, không mã hóa từng phần hoặc giá trị cụ thể trong tệp.  
+   - Ví dụ: Bạn không thể chỉ mã hóa một cặp key-value trong tệp YAML, mà phải mã hóa toàn bộ tệp.
+
+2. **Tệp và Templates**:  
+   - Các tệp như mẫu cấu hình không thể mã hóa vì chúng thường không tuân theo cấu trúc JSON hoặc YAML.
+
+
+**Các trường hợp lý tưởng để mã hóa**
+
+1. **Thông tin đăng nhập**:
+   - Mật khẩu cơ sở dữ liệu.
+   - Thông tin đăng nhập ứng dụng.  
+
+2. **Khóa API**:
+   - Khóa truy cập và khóa bí mật AWS.  
+   - Khóa của các dịch vụ bên thứ ba khác.  
+
+3. **Khóa SSL**:
+   - Khóa được sử dụng để bảo mật máy chủ web.  
+
+4. **Khóa SSH riêng tư**:
+   - Khóa được sử dụng để triển khai hoặc truy cập quản trị.
+
